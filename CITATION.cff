@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+message: "If you use this database, please cite it as below, and cite the primary source of each value you use (doi column or review reference number)."
+title: "PCETbase: an open database of solution-phase PCET thermochemistry (BDFE, E°, pKa)"
+type: dataset
+authors:
+  - family-names: Streb
+    given-names: Carsten
+    affiliation: "Department Chemie, Johannes Gutenberg-Universität Mainz"
+    orcid: "https://orcid.org/0000-0002-5846-1905"
+repository-code: "https://github.com/carsten-streb/pcetbase"
+url: "https://carsten-streb.github.io/pcetbase/"
+license: CC-BY-4.0
+version: "1.2"
+date-released: "2026-11-11"
+keywords:
+  - proton-coupled electron transfer
+  - PCET
+  - bond dissociation free energy
+  - BDFE
+  - thermochemistry
+  - polyoxometalates
+references:
+  - type: article
+    title: "Free Energies of Proton-Coupled Electron Transfer Reagents and Their Applications"
+    authors:
+      - family-names: Agarwal
+        given-names: Rishi G.
+      - family-names: Mayer
+        given-names: James M.
+    journal: "Chemical Reviews"
+    year: 2022
+    volume: 122
+    start: 1
+    end: 49
+    doi: "10.1021/acs.chemrev.1c00521"

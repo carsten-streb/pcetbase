@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PCETbase — PCET Thermochemistry (BDFE, E°, pKa)</title>
+<style>
+  :root{
+    color-scheme: light;
+    --surface-1:#fcfcfb; --page:#f9f9f7;
+    --ink-1:#0b0b0b; --ink-2:#52514e; --ink-muted:#898781;
+    --grid:#e1e0d9; --axis:#c3c2b7; --border:rgba(11,11,11,0.10);
+    --c-phenol:#2a78d6; --c-aminoxyl:#eb6834; --c-imide:#1baf7a;
+    --c-ascorbate:#eda100; --c-nucleoside:#e87ba4; --c-pair:#008300;
+    --c-metal:#6250d6; --c-pom:#e34948; --c-user:#0b0b0b;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:where(:not([data-theme="light"])){
+      color-scheme: dark;
+      --surface-1:#1a1a19; --page:#0d0d0d;
+      --ink-1:#f0efec; --ink-2:#c3c2b7; --ink-muted:#898781;
+      --grid:#2c2c2a; --axis:#383835; --border:rgba(255,255,255,0.10);
+      --c-phenol:#3987e5; --c-aminoxyl:#d95926; --c-imide:#199e70;
+      --c-ascorbate:#c98500; --c-nucleoside:#d55181; --c-pair:#008300;
+      --c-metal:#9085e9; --c-pom:#e66767; --c-user:#f0efec;
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--page);color:var(--ink-1);
+    font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+    font-size:14px;line-height:1.45}
+  header{padding:20px 24px 8px}
+  h1{font-size:20px;margin:0 0 2px}
+  .sub{color:var(--ink-2);font-size:13px;max-width:76em}
+  main{display:grid;grid-template-columns:340px 1fr;gap:16px;padding:12px 24px 24px}
+  @media(max-width:950px){main{grid-template-columns:1fr}}
+  .panel{background:var(--surface-1);border:1px solid var(--border);border-radius:8px;padding:14px 16px}
+  .panel h2{font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-2);margin:0 0 10px}
+  .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;margin-bottom:12px}
+  label{display:block;font-size:11.5px;color:var(--ink-2);margin-bottom:3px}
+  select,input[type=text],input[type=number]{
+    background:var(--surface-1);color:var(--ink-1);border:1px solid var(--axis);
+    border-radius:6px;padding:5px 8px;font:inherit;font-size:13px}
+  input[type=text]{width:170px}
+  button{background:var(--surface-1);color:var(--ink-1);border:1px solid var(--axis);
+    border-radius:6px;padding:6px 12px;font:inherit;font-size:13px;cursor:pointer}
+  button:hover{border-color:var(--ink-2)}
+  button.primary{background:var(--c-phenol);border-color:var(--c-phenol);color:#fff}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--axis);
+    border-radius:999px;padding:3px 10px;font-size:12.5px;cursor:pointer;user-select:none}
+  .chip .dot{width:9px;height:9px;border-radius:50%}
+  .chip.off{opacity:.38}
+  table{border-collapse:collapse;width:100%;font-size:12.5px}
+  th,td{padding:4px 7px;text-align:left;border-bottom:1px solid var(--grid);white-space:nowrap}
+  th{color:var(--ink-2);font-weight:600;cursor:pointer;position:sticky;top:0;background:var(--surface-1);z-index:2}
+  th .arr{font-size:10px;color:var(--ink-muted)}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+  .src{color:var(--ink-muted);font-size:11px}
+  .flagmark{color:var(--ink-muted);cursor:help;border-bottom:1px dotted var(--ink-muted)}
+  .tablewrap{max-height:560px;overflow:auto;border:1px solid var(--grid);border-radius:6px}
+  #ladder{width:100%;height:auto;display:block}
+  .tip{position:fixed;pointer-events:none;background:var(--surface-1);border:1px solid var(--axis);
+    border-radius:6px;padding:6px 9px;font-size:12px;box-shadow:0 2px 8px rgba(0,0,0,.15);
+    display:none;z-index:10;max-width:280px;white-space:normal}
+  .calc .row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+  .calc input[type=number]{width:95px}
+  .result{font-size:15px;margin-top:6px}
+  .result b{font-size:18px}
+  footer{padding:8px 24px 28px;color:var(--ink-2);font-size:12px;max-width:84em}
+  footer a{color:var(--c-phenol)}
+  .warn{color:var(--ink-2);font-size:12px;margin-top:6px}
+  .count{color:var(--ink-muted);font-size:12px;margin:6px 0}
+  #tbl tbody tr{cursor:pointer}
+  #tbl tbody tr:hover td{background:rgba(128,128,128,0.06)}
+  .detail{margin-top:10px;border:1px solid var(--axis);border-radius:6px;padding:10px 14px;font-size:13px}
+  .detail h3{font-size:13px;margin:0 0 6px}
+  .detail .eq{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;background:rgba(128,128,128,0.07);
+    border-radius:4px;padding:6px 8px;margin:4px 0;overflow-x:auto;white-space:nowrap}
+  .detail table{font-size:12.5px;width:auto}
+  .detail td,.detail th{border:none;padding:2px 12px 2px 0}
+  .detail .close{float:right;cursor:pointer;color:var(--ink-muted);border:none;background:none;font-size:15px}
+  .detail details{margin:6px 0;border:1px dashed var(--axis);border-radius:5px;padding:4px 8px}
+  .detail summary{cursor:pointer;font-size:12.5px;color:var(--ink-2)}
+</style>
+</head>
+<body>
+<header>
+  <h1>PCETbase <span style="font-weight:400;color:var(--ink-2)">— open PCET thermochemistry: BDFE, E°, pK<sub>a</sub></span></h1>
+  <div class="sub">Solution X–H bond dissociation free energies on a common scale. Canonical value per entry:
+  <i>E</i>°(V&nbsp;vs&nbsp;H₂) in the stated solvent; BDFE and scale conversions are computed live.
+  Data: Agarwal&nbsp;et&nbsp;al., <i>Chem.&nbsp;Rev.</i> 2022, 122, 1–49. Entries with flags (hover ⚑) carry caveats from the source. Prototype — not yet a complete dataset.</div>
+</header>
+
+<main>
+  <section class="panel">
+    <h2>Ladder — BDFE / <i>E</i>°(V vs H₂)</h2>
+    <svg id="ladder" viewBox="0 0 340 760" role="img" aria-label="BDFE ladder of PCET reagents"></svg>
+    <div class="warn">Hover a rung for details. Dashed black marker = your couple (calculator below). Pairs (green) are <i>effective</i> BDFEs of oxidant/base and reductant/acid combinations.</div>
+  </section>
+
+  <section>
+    <div class="panel" style="margin-bottom:16px">
+      <h2>Filters &amp; display</h2>
+      <div class="controls">
+        <div><label>Search</label><input id="q" type="text" placeholder="compound or partner…"></div>
+        <div><label>Solvent</label><select id="solv"><option value="">all</option></select></div>
+        <div><label>Bond</label><select id="bond"><option value="">all</option></select></div>
+        <div><label>Energy unit</label>
+          <select id="unit">
+            <option value="kcal">kcal mol⁻¹</option>
+            <option value="kJ">kJ mol⁻¹</option>
+            <option value="eV">eV</option>
+          </select></div>
+        <div><label>Potential scale</label>
+          <select id="scale">
+            <option value="H2">V vs H₂ (per solvent)</option>
+            <option value="Fc">V vs Fc⁺/⁰ (SHE in water)</option>
+          </select></div>
+        <div style="align-self:flex-end"><button id="csv">Copy CSV of selection</button></div>
+      </div>
+      <div class="chips" id="classChips"></div>
+      <div class="count" id="count"></div>
+      <div class="tablewrap"><table id="tbl">
+        <thead><tr>
+          <th data-k="name">Compound <span class="arr"></span></th>
+          <th data-k="partner">Partner <span class="arr"></span></th>
+          <th data-k="bond">Bond <span class="arr"></span></th>
+          <th data-k="solvent">Solvent <span class="arr"></span></th>
+          <th data-k="E" class="num"><span id="eHead">E° (V vs H₂)</span> <span class="arr"></span></th>
+          <th data-k="pkab" class="num">pK<sub>a</sub>(XH) <span class="arr"></span></th>
+          <th data-k="bdfe" class="num"><span id="bHead">BDFE</span> <span class="arr"></span></th>
+          <th data-k="src">Source (DOI) <span class="arr"></span></th>
+        </tr></thead>
+        <tbody></tbody>
+      </table></div>
+      <div id="detail" class="detail" style="display:none"></div>
+    </div>
+
+    <div class="panel calc">
+      <h2>Place your couple</h2>
+      <div class="row">
+        <div><label>Name</label><input id="uName" type="text" value="my couple" style="width:130px"></div>
+        <div><label>Solvent</label><select id="uSolv"></select></div>
+        <div><label>Input</label>
+          <select id="uMode">
+            <option value="eh2">E°(V vs H₂) known</option>
+            <option value="sq">E° + pKa (square scheme)</option>
+          </select></div>
+      </div>
+      <div class="row" id="rowEh2">
+        <div><label>E°(V vs H₂)</label><input id="uEh2" type="number" step="0.001" value="0.80"></div>
+      </div>
+      <div class="row" id="rowSq" style="display:none">
+        <div><label>E° (V vs Fc⁺/⁰; vs SHE in water)</label><input id="uE" type="number" step="0.001"></div>
+        <div><label>pK<sub>a</sub>(XH)</label><input id="uPka" type="number" step="0.1"></div>
+      </div>
+      <div class="row"><button class="primary" id="uGo">Compute &amp; place on ladder</button>
+        <button id="uClear">Clear</button></div>
+      <div class="result" id="uOut"></div>
+      <div class="warn">Square scheme: BDFE = 23.06·E° + 1.37·pK<sub>a</sub> + C<sub>G,solv</sub> (eq 10);
+        from E°(V vs H₂): BDFE = 23.06·E° + ΔG°<sub>f</sub>(H•)<sub>solv</sub> (eq 18). Constants: Agarwal et al. 2022, Table 1.</div>
+    </div>
+  </section>
+</main>
+
+<div class="tip" id="tip"></div>
+
+<footer>
+  <b>Data &amp; constants.</b> Values (E°(V vs H₂), BDFE, pK<sub>a</sub>, component potentials) from
+  Agarwal, Coste, Groff, Heuer, Noh, Parada, Wise, Nichols, Warren, Mayer,
+  <i>Chem. Rev.</i> 2022, 122, 1–49, <a href="https://doi.org/10.1021/acs.chemrev.1c00521">doi:10.1021/acs.chemrev.1c00521</a>;
+  for review-derived entries the Source column links the review DOI, and [ref N] gives the original citation reference number within that review. External entries link their own primary DOI. See also the correction to the 2010 review,
+  <a href="https://doi.org/10.1021/acs.chemrev.1c00791">doi:10.1021/acs.chemrev.1c00791</a>.
+  Flags: <i>hess</i> = value in source derived by Hess's law; <i>limit</i> = inequality bound; <i>approx</i> = approximate;
+  <i>lowprec</i> = low-precision printed value; <i>dmso-unc</i> = larger uncertainty in DMSO constants;
+  <i>lowT</i> = measured at −80 °C; <i>excited</i> = excited-state potential; <i>check-src</i> = internal inconsistency in source, under review;
+  <i>recomputed</i> = BDFE recalculated here from the primary E°/pK<sub>a</sub> with corrected constants; <i>avg</i> = average over n sequential H-atom transfers. ★ marks the recommended value where several independent measurements of the same couple/solvent exist; all values are kept with their sources.
+  External entries (Src = DOI) are extracted from the primary literature; POM-cluster data include work of the Matson group (polyoxovanadate-alkoxides).
+  BDFEs of pairs are <i>effective</i> BDFEs (BDFE<sub>eff</sub>). Always consult the primary source before quantitative use.
+</footer>
+
+<script>
+"use strict";
+/* ========== embedded data (regenerate with build.py from data/*.csv) ========== */
+const CONST_CSV = `__CONST_CSV__`;
+const DATA_CSV = `__DATA_CSV__`;
+/* ============================================================================ */
+
+function parseCSV(text){
+  const rows=[];let row=[],cell="",inQ=false;
+  for(let i=0;i<text.length;i++){
+    const c=text[i];
+    if(inQ){ if(c==='"'){ if(text[i+1]==='"'){cell+='"';i++;} else inQ=false;} else cell+=c; }
+    else if(c==='"')inQ=true;
+    else if(c===','){row.push(cell);cell="";}
+    else if(c==='\n'){row.push(cell);cell="";if(row.some(x=>x!==""))rows.push(row);row=[];}
+    else if(c!=='\r')cell+=c;
+  }
+  if(cell!==""||row.length){row.push(cell);if(row.some(x=>x!==""))rows.push(row);}
+  const head=rows.shift();
+  return rows.map(r=>Object.fromEntries(head.map((h,i)=>[h,r[i]??""])));
+}
+
+const REVIEW_DOI="10.1021/acs.chemrev.1c00521";
+const DGH={},CG={},EH2_VS_FC={},REFOFF={};
+parseCSV(CONST_CSV).forEach(r=>{
+  const v=parseFloat(r.value_kcal_or_V);
+  if(r.key==="dGfH")DGH[r.solvent]=v;
+  if(r.key==="CG")CG[r.solvent]=v;
+  if(r.key==="EH2vsFc")EH2_VS_FC[r.solvent]=v;
+  /* refoff:<ELECTRODE> rows: value = E°(Fc+/0) vs that electrode in the given solvent;
+     note = uncertainty in V; source = citation. Filled only from verified sources. */
+  if(r.key.startsWith("refoff:"))REFOFF[r.key.slice(7)+"|"+r.solvent]={v,unc:r.note,src:r.source};
+});
+const DISPLAY_MAP={phenol:"arylOH",quinone:"arylOH",aminoxyl:"noxyl",imide:"noxyl",
+ ascorbate:"smallOH",smallOH:"smallOH",nucleoside:"organicNH",nitrogen:"organicNH",
+ amine:"organicNH",arylamine:"organicNH",indole:"organicNH",thiol:"otherXH",
+ CH:"otherXH",nicotinamide:"otherXH",co2:"otherXH",pair:"pair",pom:"pom"};
+const D=parseCSV(DATA_CSV).map((r,i)=>({
+  id:i,table:r.table,cls:r.class.startsWith("metal")?"metal":(DISPLAY_MAP[r.class]||r.class),
+  rawCls:r.class,
+  bond:r.bond,name:r.compound,partner:r.partner,
+  solvent:r.solvent,E:parseFloat(r.E_H2),bdfe:parseFloat(r.BDFE),
+  Ea:r.E_a===""?null:parseFloat(r.E_a),Eb:r.E_b===""?null:parseFloat(r.E_b),
+  pkaA:r.pKa_a===""?null:parseFloat(r.pKa_a),
+  pka:r.pKa_b===""?null:parseFloat(r.pKa_b),flags:r.flags,refs:r.refs,
+  Eraw:r.E_raw===""||r.E_raw===undefined?null:parseFloat(r.E_raw),ErawRef:r.E_raw_ref||"",
+  rec:r.recommended==="1"||r.recommended==="auto",recManual:r.recommended==="1",
+  nH:r.n_H||"",method:r.method||"",doi:r.doi||"",bdfePub:r.BDFE_pub||"",
+  srcDoi:r.doi||REVIEW_DOI,
+  srcRef:r.doi?"":(r.refs?` [ref ${r.refs.replace(/;/g,", ")}]`:""),
+  src:""
+}));
+/* multi-source handling: entries sharing compound+solvent are independent
+   measurements of the same couple; the starred one is the recommended value */
+const DUPKEY={};
+D.forEach(r=>{const k=(r.name+"|"+r.partner+"|"+r.solvent).toLowerCase();DUPKEY[k]=(DUPKEY[k]||0)+1;});
+D.forEach(r=>{
+  r.nDup=DUPKEY[(r.name+"|"+r.partner+"|"+r.solvent).toLowerCase()];
+  r.src=`<a href="https://doi.org/${r.srcDoi}">${r.srcDoi}</a>${r.srcRef}`;
+  r.srcText=r.srcDoi+r.srcRef;
+  /* reference-electrode conversion: raw potential vs another electrode -> Fc (SHE in water) */
+  if(r.Eraw!=null&&r.ErawRef){
+    const off=REFOFF[r.ErawRef+"|"+r.solvent];
+    if(off){
+      r.refconv={raw:r.Eraw,ref:r.ErawRef,off:off.v,unc:off.unc,src:off.src,conv:r.Eraw-off.v};
+      if(r.Ea==null)r.Ea=r.refconv.conv;
+      if(!r.flags.includes("ref-conv"))r.flags=(r.flags?r.flags+";":"")+"ref-conv";
+    }else{
+      r.flags=(r.flags?r.flags+";":"")+"ref-conv-missing";
+    }
+  }
+});
+
+const CLASSES=[
+ {k:"arylOH",label:"Phenols & quinones",color:"var(--c-phenol)"},
+ {k:"noxyl",label:"N-oxyls (TEMPO, NHPI)",color:"var(--c-aminoxyl)"},
+ {k:"smallOH",label:"O–H small molecules",color:"var(--c-imide)"},
+ {k:"organicNH",label:"N–H compounds",color:"var(--c-ascorbate)"},
+ {k:"otherXH",label:"C–H / S–H / CO₂",color:"var(--c-nucleoside)"},
+ {k:"pair",label:"Ox/base + red/acid pairs",color:"var(--c-pair)"},
+ {k:"metal",label:"TM complexes (3d–5d)",color:"var(--c-metal)"},
+ {k:"pom",label:"POM clusters",color:"var(--c-pom)"},
+];
+const clsColor=k=>{const c=CLASSES.find(c=>c.k===k);return c?c.color:"var(--ink-muted)";};
+const clsLabel=k=>{const c=CLASSES.find(c=>c.k===k);return c?c.label:k;};
+
+let active=new Set(CLASSES.map(c=>c.k));
+let sortK="bdfe", sortAsc=true;
+let userPt=null;
+
+const toUnit=(kcal,u)=>u==="kJ"?kcal*4.184:(u==="eV"?kcal/23.06:kcal);
+const unitLbl={kcal:"kcal mol⁻¹",kJ:"kJ mol⁻¹",eV:"eV"};
+function eDisplay(row,scale){
+  if(isNaN(row.E))return "–";
+  if(scale==="H2")return row.E.toFixed(3);
+  const off=EH2_VS_FC[row.solvent];
+  return off===undefined?"–":(row.E+off).toFixed(3);
+}
+
+function filtered(){
+  const q=document.getElementById("q").value.trim().toLowerCase();
+  const sv=document.getElementById("solv").value;
+  const bd=document.getElementById("bond").value;
+  return D.filter(r=>active.has(r.cls)
+    &&(!sv||r.solvent===sv)
+    &&(!bd||r.bond===bd)
+    &&(!q||r.name.toLowerCase().includes(q)||r.partner.toLowerCase().includes(q)));
+}
+
+function renderTable(){
+  const u=document.getElementById("unit").value;
+  const sc=document.getElementById("scale").value;
+  document.getElementById("bHead").textContent="BDFE ("+unitLbl[u]+")";
+  document.getElementById("eHead").textContent=sc==="H2"?"E° (V vs H₂)":"E° (V vs Fc⁺/⁰)";
+  const key={name:"name",partner:"partner",bond:"bond",solvent:"solvent",E:"E",pkab:"pka",bdfe:"bdfe",src:"srcText"}[sortK]||"bdfe";
+  const rows=filtered().slice().sort((a,b)=>{
+    let va=a[key],vb=b[key];
+    if(va==null||va!==va)return 1; if(vb==null||vb!==vb)return -1;
+    if(typeof va==="string"){va=va.toLowerCase();vb=vb.toLowerCase();}
+    return (va<vb?-1:va>vb?1:0)*(sortAsc?1:-1);
+  });
+  const tb=document.querySelector("#tbl tbody");
+  tb.innerHTML=rows.map(r=>
+   `<tr data-id="${r.id}"><td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${clsColor(r.cls)};margin-right:6px"></span>${r.name}${r.rec?` <span title="recommended value (multiple independent measurements exist)">★</span>`:""}${r.nDup>1&&!r.rec?` <span class="src" title="${r.nDup} independent values for this couple/solvent">(1 of ${r.nDup})</span>`:""}${r.flags?` <span class="flagmark" title="${r.flags}">⚑</span>`:""}</td>`+
+   `<td>${r.partner||"–"}</td><td>${r.bond}</td><td>${r.solvent}</td>`+
+   `<td class="num">${eDisplay(r,sc)}</td>`+
+   `<td class="num">${r.pka==null||r.pka!==r.pka?"–":r.pka.toFixed(1)}</td>`+
+   `<td class="num">${toUnit(r.bdfe,u).toFixed(u==="eV"?2:1)}</td>`+
+   `<td class="src">${r.src}</td></tr>`).join("");
+  document.getElementById("count").textContent=rows.length+" of "+D.length+" entries shown — click a row for the verification panel (primary values, equations, constants)";
+  tb.querySelectorAll("tr").forEach(tr=>tr.addEventListener("click",ev=>{
+    if(ev.target.closest("a"))return;
+    showDetail(+tr.dataset.id);
+  }));
+}
+
+const FLAG_GLOSS={hess:"value derived in the source by Hess's law from the other values in its row",
+ limit:"inequality bound (≥/≤) in the source",approx:"approximate value (~) in the source",
+ lowprec:"low-precision printed value (2 significant figures) in the source",
+ "dmso-unc":"larger uncertainty of the DMSO thermochemical constants (see Agarwal 2022, Table 1)",
+ lowT:"measured at −80 °C","ox-base":"effective BDFE of an oxidant + base combination",
+ "red-acid":"effective BDFE of a reductant + acid combination",excited:"excited-state redox potential",
+ "check-src":"internal inconsistency in the source detected by this database's validation; under review",
+ recomputed:"BDFE recalculated here from the primary E°/pKa with the corrected CG (see equations below)",
+ avg:"average BDFE over n sequential H-atom transfers",
+ "ref-conv":"potential converted from another reference electrode; expand the conversion item in the verification panel for details",
+ "ref-conv-missing":"published potential uses a reference electrode for which no verified conversion constant is on file yet; no BDFE computed from it"};
+
+function showDetail(id){
+  const r=D[id];
+  const box=document.getElementById("detail");
+  const refSc=r.solvent==="H2O"?"SHE":"Fc⁺/⁰";
+  const cg=CG[r.solvent], dg=DGH[r.solvent];
+  let h=`<button class="close" onclick="document.getElementById('detail').style.display='none'">✕</button>`;
+  h+=`<h3>${r.name}${r.partner?" + "+r.partner:""} — ${r.solvent} — verification${r.rec?" ★":""}</h3>`;
+  if(r.nDup>1)h+=`<div class="warn">${r.nDup} independent measurements exist for this couple/solvent${r.rec?"; this is the recommended value ("+(r.recManual?"manual":"auto, policy v1")+")":"; a ★-starred recommended value may exist — compare sources"}.</div>`;
+  h+=`<table>`;
+  if(r.Ea!=null)h+=`<tr><td>E°(X/X⁻) [E°(ox/red) for pairs]</td><td><b>${r.Ea.toFixed(3)} V vs ${refSc}</b></td></tr>`;
+  if(r.Eb!=null)h+=`<tr><td>E°(XH⁺/XH)</td><td><b>${r.Eb.toFixed(3)} V vs ${refSc}</b></td></tr>`;
+  if(r.pkaA!=null)h+=`<tr><td>pK<sub>a</sub>(XH⁺ / M<sup>n+1</sup>LH)</td><td><b>${r.pkaA.toFixed(1)}</b></td></tr>`;
+  if(r.pka!=null&&r.pka===r.pka)h+=`<tr><td>pK<sub>a</sub>(XH) [pK<sub>a</sub>(baseH⁺/acid) for pairs]</td><td><b>${r.pka.toFixed(1)}</b></td></tr>`;
+  h+=`<tr><td>E°(V vs H₂)</td><td><b>${isNaN(r.E)?"–":r.E.toFixed(3)} V</b></td></tr>`;
+  h+=`<tr><td>BDFE${r.nH&&r.nH!=="1"?" (avg over "+r.nH+" H)":""}</td><td><b>${r.bdfe.toFixed(1)} kcal mol⁻¹</b>${r.bdfePub&&parseFloat(r.bdfePub).toFixed(1)!==r.bdfe.toFixed(1)?` (published: ${r.bdfePub})`:""}</td></tr>`;
+  if(r.method)h+=`<tr><td>Method</td><td>${r.method==="sq"?"square scheme (eq 10)":r.method==="OCP"?"open-circuit potential":r.method==="equil"?"equilibration vs reference H-atom donor":r.method}</td></tr>`;
+  h+=`</table>`;
+  if(r.refconv){
+    h+=`<details><summary>Reference-electrode conversion (${r.refconv.ref} → ${refSc})</summary>
+      <div class="eq">published: ${r.refconv.raw.toFixed(3)} V vs ${r.refconv.ref} · offset E°(${refSc} vs ${r.refconv.ref}, ${r.solvent}) = ${r.refconv.off.toFixed(3)} V<br>
+      converted: ${r.refconv.raw.toFixed(3)} − (${r.refconv.off.toFixed(3)}) = <b>${r.refconv.conv.toFixed(3)} V vs ${refSc}</b></div>
+      <div class="warn">Offset source: ${r.refconv.src}${r.refconv.unc?`; uncertainty ±${r.refconv.unc} V ≈ ±${(23.06*parseFloat(r.refconv.unc)).toFixed(1)} kcal mol⁻¹ in the BDFE`:""}.
+      Conversions between reference electrodes depend on electrolyte and junction; the converted value carries this extra uncertainty.</div>
+    </details>`;
+  }
+  if(r.Ea!=null&&r.pka!=null&&r.pka===r.pka&&cg!==undefined){
+    const v=23.06*r.Ea+1.37*r.pka+cg;
+    h+=`<div class="eq">eq 10: BDFE = 23.06 × (${r.Ea.toFixed(3)}) + 1.37 × ${r.pka.toFixed(1)} + C<sub>G</sub>(${r.solvent}) ${cg.toFixed(1)} = <b>${v.toFixed(1)} kcal mol⁻¹</b> &nbsp;(stored: ${r.bdfe.toFixed(1)}, Δ = ${(v-r.bdfe).toFixed(2)})</div>`;
+  }
+  if(r.Eb!=null&&r.pkaA!=null&&cg!==undefined){
+    const v=23.06*r.Eb+1.37*r.pkaA+cg;
+    h+=`<div class="eq">eq 10 (2nd diagonal): BDFE = 23.06 × (${r.Eb.toFixed(3)}) + 1.37 × ${r.pkaA.toFixed(1)} + ${cg.toFixed(1)} = <b>${v.toFixed(1)} kcal mol⁻¹</b> &nbsp;(stored: ${r.bdfe.toFixed(1)}, Δ = ${(v-r.bdfe).toFixed(2)})</div>`;
+  }
+  if(!isNaN(r.E)&&dg!==undefined){
+    const v=23.06*r.E+dg;
+    h+=`<div class="eq">eq 18: BDFE = 23.06 × (${r.E.toFixed(3)}) + ΔG°f(H•)(${r.solvent}) ${dg.toFixed(1)} = <b>${v.toFixed(1)} kcal mol⁻¹</b> &nbsp;(stored: ${r.bdfe.toFixed(1)}, Δ = ${(v-r.bdfe).toFixed(2)})</div>`;
+  }
+  h+=`<div class="warn">Constants C<sub>G</sub> and ΔG°f(H•): Agarwal et al. 2022, Table 1 (<a href="https://doi.org/10.1021/acs.chemrev.1c00521">10.1021/acs.chemrev.1c00521</a>), consistent with the correction <a href="https://doi.org/10.1021/acs.chemrev.1c00791">10.1021/acs.chemrev.1c00791</a>. Primary source: <a href="https://doi.org/${r.srcDoi}">${r.srcDoi}</a>${r.srcRef?" — original citation"+r.srcRef+" therein":""}.</div>`;
+  if(r.flags){
+    h+=`<div class="warn">Flags: `+r.flags.split(";").map(f=>{
+      const base=f.split(":")[0];
+      return `<b>${f}</b> — ${FLAG_GLOSS[base]||base}`;
+    }).join("; ")+`</div>`;
+  }
+  box.innerHTML=h;
+  box.style.display="block";
+  box.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+
+function renderLadder(){
+  const svg=document.getElementById("ladder");
+  const u=document.getElementById("unit").value;
+  const rows=filtered();
+  const W=340,H=760,mL=58,mR=118,mT=16,mB=28;
+  let vals=rows.map(r=>r.bdfe).filter(v=>v===v);
+  if(userPt)vals.push(userPt.bdfe);
+  if(!vals.length)vals=[40,110];
+  let lo=Math.floor((Math.min(...vals)-3)/5)*5, hi=Math.ceil((Math.max(...vals)+3)/5)*5;
+  if(hi-lo<20){hi=lo+20;}
+  const y=k=>mT+(hi-k)/(hi-lo)*(H-mT-mB);
+  const step=(hi-lo)>60?10:5;
+  let s="";
+  for(let k=lo;k<=hi;k+=step){
+    s+=`<line x1="${mL}" x2="${W-mR}" y1="${y(k)}" y2="${y(k)}" stroke="var(--grid)" stroke-width="1"/>`;
+    s+=`<text x="${mL-8}" y="${y(k)+4}" text-anchor="end" font-size="10.5" fill="var(--ink-muted)" font-variant-numeric="tabular-nums">${toUnit(k,u).toFixed(u==="eV"?2:0)}</text>`;
+  }
+  s+=`<line x1="${mL}" x2="${mL}" y1="${y(hi)}" y2="${y(lo)}" stroke="var(--axis)" stroke-width="1"/>`;
+  s+=`<text x="14" y="${(y(lo)+y(hi))/2}" font-size="11" fill="var(--ink-2)" transform="rotate(-90 14 ${(y(lo)+y(hi))/2})" text-anchor="middle">BDFE (${unitLbl[u]})</text>`;
+  rows.forEach(r=>{
+    if(r.bdfe!==r.bdfe)return;
+    const yy=y(r.bdfe);
+    s+=`<line class="rung" data-id="${r.id}" x1="${mL+6}" x2="${W-mR-6}" y1="${yy}" y2="${yy}"
+        stroke="${clsColor(r.cls)}" stroke-width="2.5" stroke-linecap="round" opacity="0.8"/>`;
+    s+=`<rect class="rung" data-id="${r.id}" x="${mL}" width="${W-mR-mL}" y="${yy-4}" height="8" fill="transparent"/>`;
+  });
+  const anchors=["TEMPOH","PhOH","NHPI","AscH- (ascorbate)","thymidine","*Ir(dF(CF3)ppy)2(bpy)","*Ir(ppy)3","CpCr(CO)3H","[(bpy)2pyRuIIOH2]2+","CH4","1,4-H2Q","NADH","HS-H","C6H5CH2-H (toluene)","H2O (HO–H)"];
+  const seen=new Set();
+  rows.forEach(r=>{
+    if(anchors.includes(r.name)&&!seen.has(r.name)&&r.bdfe===r.bdfe){
+      seen.add(r.name);
+      s+=`<text x="${W-mR+2}" y="${y(r.bdfe)+3.5}" font-size="10" fill="var(--ink-2)">${r.name.split(" ")[0].slice(0,14)} <tspan fill="var(--ink-muted)">(${r.solvent})</tspan></text>`;
+    }
+  });
+  if(userPt){
+    const yy=y(userPt.bdfe);
+    s+=`<line x1="${mL+2}" x2="${W-mR-2}" y1="${yy}" y2="${yy}" stroke="var(--c-user)" stroke-width="3" stroke-dasharray="6 4" stroke-linecap="round"/>`;
+    s+=`<text x="${W-mR+2}" y="${yy+3.5}" font-size="10" font-weight="700" fill="var(--c-user)">${userPt.name}</text>`;
+  }
+  svg.innerHTML=s;
+  const tip=document.getElementById("tip");
+  svg.querySelectorAll(".rung").forEach(el=>{
+    el.addEventListener("mousemove",ev=>{
+      const r=D[+el.dataset.id];
+      tip.style.display="block";
+      tip.style.left=(ev.clientX+14)+"px"; tip.style.top=(ev.clientY-10)+"px";
+      tip.innerHTML=`<b>${r.name}</b>${r.partner?" + "+r.partner:""} (${r.solvent})<br>BDFE ${toUnit(r.bdfe,u).toFixed(1)} ${unitLbl[u]} · E° ${isNaN(r.E)?"–":r.E.toFixed(3)} V vs H₂${r.pka!=null&&r.pka===r.pka?`<br>pK<sub>a</sub>(XH) ${r.pka.toFixed(1)}`:""}${r.nH&&r.nH!=="1"?`<br>avg over ${r.nH} H`:""}${r.method?`<br>method: ${r.method}`:""}${r.bdfePub&&parseFloat(r.bdfePub).toFixed(1)!==r.bdfe.toFixed(1)?`<br>published: ${r.bdfePub}`:""}${r.flags?`<br>⚑ ${r.flags}`:""}<br><span class="src">${r.srcText}</span>`;
+    });
+    el.addEventListener("mouseleave",()=>tip.style.display="none");
+  });
+}
+
+function compute(){
+  const name=document.getElementById("uName").value||"my couple";
+  const solv=document.getElementById("uSolv").value;
+  const mode=document.getElementById("uMode").value;
+  const out=document.getElementById("uOut");
+  let bdfe=null, note="";
+  if(mode==="eh2"){
+    const e=parseFloat(document.getElementById("uEh2").value);
+    if(isNaN(e)){out.textContent="Enter E°(V vs H₂).";return;}
+    const dg=DGH[solv];
+    if(dg===undefined){out.textContent="No ΔG°f(H•) for this solvent.";return;}
+    bdfe=23.06*e+dg;
+    note=`BDFE = 23.06·${e.toFixed(3)} + ${dg.toFixed(1)}`;
+  }else{
+    const e=parseFloat(document.getElementById("uE").value);
+    const pka=parseFloat(document.getElementById("uPka").value);
+    if(isNaN(e)||isNaN(pka)){out.textContent="Enter both E° and pKa.";return;}
+    const cg=CG[solv];
+    if(cg===undefined){out.textContent="No CG constant for this solvent (available: "+Object.keys(CG).join(", ")+").";return;}
+    bdfe=23.06*e+1.37*pka+cg;
+    note=`BDFE = 23.06·${e.toFixed(3)} + 1.37·${pka.toFixed(1)} + ${cg.toFixed(1)}`;
+  }
+  const u=document.getElementById("unit").value;
+  userPt={name,bdfe,solvent:solv};
+  out.innerHTML=`${note} = <b>${toUnit(bdfe,u).toFixed(1)} ${unitLbl[u]}</b>`+
+    ` &nbsp;(= ${((bdfe-DGH[solv])/23.06).toFixed(3)} V vs H₂)`;
+  renderLadder();
+}
+
+function copyCSV(){
+  const u=document.getElementById("unit").value, sc=document.getElementById("scale").value;
+  const head=["compound","partner","class","bond","solvent","E_V_vs_H2","E_display_"+sc,"pKa_XH","BDFE_"+u,"flags","recommended","source_doi","orig_ref_in_source"];
+  const lines=[head.join(",")].concat(filtered().map(r=>
+    [`"${r.name}"`,`"${r.partner}"`,r.cls,r.bond,r.solvent,isNaN(r.E)?"":r.E,eDisplay(r,sc),r.pka==null||r.pka!==r.pka?"":r.pka,toUnit(r.bdfe,u).toFixed(2),`"${r.flags}"`,r.rec?"1":"",`"https://doi.org/${r.srcDoi}"`,`"${r.doi?"":r.refs}"`].join(",")));
+  navigator.clipboard.writeText(lines.join("\n")).then(
+    ()=>{const b=document.getElementById("csv");b.textContent="Copied ✓";setTimeout(()=>b.textContent="Copy CSV of selection",1500);},
+    ()=>alert("Clipboard unavailable — select the table and copy manually."));
+}
+
+function init(){
+  const cc=document.getElementById("classChips");
+  cc.innerHTML=CLASSES.map(c=>
+    `<span class="chip" data-k="${c.k}"><span class="dot" style="background:${c.color}"></span>${c.label}</span>`).join("");
+  cc.querySelectorAll(".chip").forEach(ch=>ch.addEventListener("click",()=>{
+    const k=ch.dataset.k;
+    if(active.has(k)&&active.size>1){active.delete(k);ch.classList.add("off");}
+    else {active.add(k);ch.classList.remove("off");}
+    renderTable();renderLadder();
+  }));
+  const solvs=[...new Set(D.map(r=>r.solvent))].sort();
+  document.getElementById("solv").innerHTML='<option value="">all</option>'+solvs.map(s=>`<option>${s}</option>`).join("");
+  const bonds=[...new Set(D.map(r=>r.bond))].sort();
+  document.getElementById("bond").innerHTML='<option value="">all</option>'+bonds.map(s=>`<option>${s}</option>`).join("");
+  document.getElementById("uSolv").innerHTML=Object.keys(DGH).filter(s=>s!=="gas").map(s=>`<option${s==="MeCN"?" selected":""}>${s}</option>`).join("");
+  ["q","solv","bond","unit","scale"].forEach(id=>document.getElementById(id).addEventListener("input",()=>{renderTable();renderLadder();}));
+  document.querySelectorAll("#tbl th").forEach(th=>th.addEventListener("click",()=>{
+    const k=th.dataset.k;
+    if(sortK===k)sortAsc=!sortAsc;else{sortK=k;sortAsc=true;}
+    document.querySelectorAll("#tbl th .arr").forEach(a=>a.textContent="");
+    th.querySelector(".arr").textContent=sortAsc?"▲":"▼";
+    renderTable();
+  }));
+  document.getElementById("uMode").addEventListener("change",e=>{
+    document.getElementById("rowEh2").style.display=e.target.value==="eh2"?"":"none";
+    document.getElementById("rowSq").style.display=e.target.value==="sq"?"":"none";
+  });
+  document.getElementById("uGo").addEventListener("click",compute);
+  document.getElementById("uClear").addEventListener("click",()=>{userPt=null;document.getElementById("uOut").textContent="";renderLadder();});
+  document.getElementById("csv").addEventListener("click",copyCSV);
+  renderTable();renderLadder();
+}
+init();
+</script>
+</body>
+</html>

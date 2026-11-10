@@ -1,0 +1,44 @@
+key,solvent,value_kcal_or_V,unit,note,source
+dGfH,gas,48.59,kcal/mol,free energy of formation of H* (eq 18),Agarwal2022 Table1
+dGfH,H2O,52.8,kcal/mol,,Agarwal2022 Table1
+dGfH,MeCN,52.0,kcal/mol,,Agarwal2022 Table1
+dGfH,C6H6,52.1,kcal/mol,,Agarwal2022 Table1
+dGfH,CCl4,51.9,kcal/mol,,Agarwal2022 Table1
+dGfH,DMSO,52.6,kcal/mol,,Agarwal2022 Table1
+dGfH,DMF,52.3,kcal/mol,,Agarwal2022 Table1
+dGfH,THF,52.0,kcal/mol,,Agarwal2022 Table1
+dGfH,hexane,51.7,kcal/mol,,Agarwal2022 Table1
+dGfH,MeOH,51.9,kcal/mol,,Agarwal2022 Table1
+dGfH,toluene,52.0,kcal/mol,,Agarwal2022 Table1
+dGfH,acetone,51.9,kcal/mol,,Agarwal2022 Table1
+CG,H2O,52.8,kcal/mol,vs SHE,Agarwal2022 Table1 / Correction cr1c00791
+CG,MeCN,52.6,kcal/mol,vs Fc+/0,Agarwal2022 Table1 / Correction cr1c00791
+CG,DMSO,68.0,kcal/mol,vs Fc+/0,Agarwal2022 Table1 / Correction cr1c00791
+CG,DMF,67.6,kcal/mol,vs Fc+/0,Agarwal2022 Table1 / Correction cr1c00791
+CG,MeOH,63.4,kcal/mol,vs Fc+/0,Agarwal2022 Table1 / Correction cr1c00791
+CG,THF,59.9,kcal/mol,vs Fc+/0,Agarwal2022 Table1
+EH2vsFc,H2O,0.000,V,SHE scale,Agarwal2022 Table1
+EH2vsFc,MeCN,-0.028,V,,Agarwal2022 Table1
+EH2vsFc,DMF,-0.662,V,,Agarwal2022 Table1
+EH2vsFc,DMSO,-0.67,V,quasi-reversible,Agarwal2022 Table1
+EH2vsFc,MeOH,-0.501,V,,Agarwal2022 Table1
+EH2vsFc,THF,-0.343,V,,Agarwal2022 Table1
+refoff:SCE,MeCN,0.380,V,0.03,"Pavlishchuk & Addison, Inorg. Chim. Acta 2000, 298, 97, Table 1 (TEAP/MeCN, 25 °C), doi:10.1016/S0020-1693(99)00407-7"
+refoff:SSCE,MeCN,0.384,V,0.03,"Pavlishchuk & Addison, Inorg. Chim. Acta 2000, 298, 97, Table 1 (TEAP/MeCN, 25 °C), doi:10.1016/S0020-1693(99)00407-7"
+refoff:NHE,MeCN,0.630,V,0.03,"Pavlishchuk & Addison, Inorg. Chim. Acta 2000, 298, 97, Table 1 (TEAP/MeCN, 25 °C), doi:10.1016/S0020-1693(99)00407-7"
+refoff:SHE,MeCN,0.624,V,0.03,"Pavlishchuk & Addison, Inorg. Chim. Acta 2000, 298, 97, Table 1 (TEAP/MeCN, 25 °C), doi:10.1016/S0020-1693(99)00407-7"
+refoff:Ag/AgNO3(0.1M),MeCN,0.037,V,0.03,"Pavlishchuk & Addison, Inorg. Chim. Acta 2000, 298, 97, Table 1 (ANE1; TEAP/MeCN, 25 °C), doi:10.1016/S0020-1693(99)00407-7"
+refoff:SCE,DMF,0.45,V,0.03,"Connelly & Geiger, Chem. Rev. 1996, 96, 877 (Fc+/0 vs SCE, DMF/[NBu4][PF6]), doi:10.1021/cr940053x"
+refoff:SCE,DMSO,0.43,V,0.03,"Connelly & Geiger, Chem. Rev. 1996, 96, 877 (Fc+/0 vs SCE, DMSO/[NBu4][PF6]), doi:10.1021/cr940053x"
+refoff:SCE,THF,0.56,V,0.03,"Connelly & Geiger, Chem. Rev. 1996, 96, 877 (Fc+/0 vs SCE, THF/[NBu4][PF6]), doi:10.1021/cr940053x"
+refoff:SCE,acetone,0.48,V,0.03,"Connelly & Geiger, Chem. Rev. 1996, 96, 877 (Fc+/0 vs SCE, acetone/[NBu4][PF6]), doi:10.1021/cr940053x"
+refoff:Fc*,DMF,0.480,V,0.02,"Aranzaes/Daniel/Astruc, Can. J. Chem. 2006, 84, 288, Table 2 (Bu4NPF6 0.1 M, 20 °C; E(Fc vs Fc*)), doi:10.1139/v05-262"
+refoff:Fc*,MeCN,0.510,V,0.02,"Aranzaes/Daniel/Astruc, Can. J. Chem. 2006, 84, 288, Table 2 (Bu4NPF6 0.1 M, 20 °C; E(Fc vs Fc*)), doi:10.1139/v05-262"
+refoff:Fc*,THF,0.440,V,0.02,"Aranzaes/Daniel/Astruc, Can. J. Chem. 2006, 84, 288, Table 2 (Bu4NPF6 0.1 M, 20 °C; E(Fc vs Fc*)), doi:10.1139/v05-262"
+refoff:Fc*,DMSO,0.470,V,0.02,"Aranzaes/Daniel/Astruc, Can. J. Chem. 2006, 84, 288, Table 2 (Bu4NPF6 0.1 M, 20 °C; E(Fc vs Fc*)), doi:10.1139/v05-262"
+refoff:Fc*,CH2Cl2,0.545,V,0.02,"Aranzaes/Daniel/Astruc, Can. J. Chem. 2006, 84, 288, Table 2 (Bu4NPF6 0.1 M, 20 °C; E(Fc vs Fc*)), doi:10.1139/v05-262"
+refoff:Fc*,DME,0.440,V,0.02,"Aranzaes/Daniel/Astruc, Can. J. Chem. 2006, 84, 288, Table 2 (Bu4NPF6 0.1 M, 20 °C; E(Fc vs Fc*)), doi:10.1139/v05-262"
+refoff:SCE,H2O,-0.2412,V,0.005,"Inzelt/Lewenstam/Scholz (eds), Handbook of Reference Electrodes, Springer 2013, Table 5.3.1 (saturated KCl, 25 °C; E(SHE vs SCE)), doi:10.1007/978-3-642-36188-3"
+refoff:Ag/AgCl-std,H2O,-0.22249,V,0.005,"Inzelt/Lewenstam/Scholz (eds), Handbook of Reference Electrodes, Springer 2013, Sect. 5.2 (standard potential a(Cl-)=1, Bates & Macaskill mean; practical sat./3M KCl fillings differ, not yet on file), doi:10.1007/978-3-642-36188-3"
+refoff:Ag/AgCl,H2O,-0.197,V,0.005,"Bard & Faulkner, Electrochemical Methods, 2nd ed., Wiley 2001, Sect. 1.1.1 (Ag/AgCl/KCl sat., 0.197 V vs NHE), ISBN 0-471-04372-9"
+dGfH,IPA,52.0,kcal/mol,"assumed from narrow solvent range","Agarwal2022 Table 7 footnote c"

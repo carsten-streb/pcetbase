@@ -1,5 +1,8 @@
 # PCETbase — open database of PCET thermochemistry
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24121910.svg)](https://doi.org/10.5281/zenodo.24121910)
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
+
 Interactive, open database of solution-phase X–H bond dissociation free energies (BDFEs)
 and proton-coupled electron transfer (PCET) square-scheme thermochemistry: E°, pKa and
 BDFE on self-consistent scales, with per-entry derivation and reference-electrode
@@ -87,8 +90,8 @@ will be asked for sources.
 
 ## License and citation
 
-Data and code: **CC BY 4.0** (see `LICENSE`). Cite via `CITATION.cff`; archived
-releases receive DOIs via Zenodo. If you use individual values, please also cite the
+Data and code: **CC BY 4.0** (see `LICENSE`). Cite via `CITATION.cff`; archived releases receive DOIs via Zenodo
+(v1.2: [doi:10.5281/zenodo.24121910](https://doi.org/10.5281/zenodo.24121910)). If you use individual values, please also cite the
 primary source given in the entry (`doi` column or the review reference number).
 
 ## Provenance statement

@@ -89,8 +89,15 @@ def main():
     data = open(os.path.join(HERE, "data", "data.csv"), encoding="utf-8").read()
     const = open(os.path.join(HERE, "data", "constants.csv"), encoding="utf-8").read()
     coup = open(os.path.join(HERE, "data", "couples.csv"), encoding="utf-8").read()
+    # deterministic staleness stamp (F8): entry count + release version + data hash
+    # (no wall-clock date - the build must stay byte-reproducible for CI's sync check)
+    import hashlib, re as _re
+    n_rows = data.count("\n") - 1
+    m = _re.search(r'version: "([^"]+)"', open(os.path.join(HERE, "CITATION.cff"), encoding="utf-8").read())
+    ver = m.group(1) if m else "?"
+    stamp = f"{n_rows} measurements, v{ver}, data {hashlib.sha256(data.encode()).hexdigest()[:8]}"
     out = (tpl.replace("__DATA_CSV__", esc(data)).replace("__CONST_CSV__", esc(const))
-              .replace("__COUPLES_CSV__", esc(coup)))
+              .replace("__COUPLES_CSV__", esc(coup)).replace("__BUILD_STAMP__", stamp))
     open(os.path.join(HERE, "index.html"), "w", encoding="utf-8").write(out)
     print(f"wrote index.html ({len(out)//1024} kB)")
 

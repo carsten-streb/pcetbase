@@ -18,7 +18,7 @@ jobs:
       - name: Rebuild and check committed artifacts are current
         run: |
           python build.py
-          git diff --exit-code data/data.csv data/couples.csv index.html || {
+          git diff --exit-code data/data.csv data/couples.csv derived/analysis.csv index.html || {
             echo "::error::data.csv or index.html is not in sync with build.py output. Run 'python build.py' and commit the result."
             exit 1
           }

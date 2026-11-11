@@ -24,3 +24,10 @@ jobs:
             echo "::error::data.csv or index.html is not in sync with build.py output. Run 'python build.py' and commit the result."
             exit 1
           }
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: App test gate (jsdom)
+        run: |
+          npm install --no-save jsdom
+          node test_app.js index.html

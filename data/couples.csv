@@ -314,8 +314,8 @@ CPL-0312,DPPH-H,,THF,N-H,arylamine,"DPPH2;2,2-diphenyl-1-picrylhydrazine;reduced
 CPL-0313,DPPH-H,,C6H6,N-H,arylamine,"DPPH2;2,2-diphenyl-1-picrylhydrazine;reduced DPPH",,0
 CPL-0314,"2,4-(NO2)2C6H3NHNPh2",,DMSO,N-H,arylamine,,,0
 CPL-0315,PhNHNPh2,,DMSO,N-H,arylamine,"1,1,2-triphenylhydrazine",,0
-CPL-0316,PhNHNHPh,,DMSO,N-H,arylamine,"hydrazobenzene;1,2-diphenylhydrazine",,0
-CPL-0317,PhNHNHPh,,MeCN,N-H,arylamine,"hydrazobenzene;1,2-diphenylhydrazine",,0
+CPL-0316,PhNHNHPh,,DMSO,N-H,arylamine,"hydrazobenzene;1,2-diphenylhydrazine;H2Azo",,0
+CPL-0317,PhNHNHPh,,MeCN,N-H,arylamine,"hydrazobenzene;1,2-diphenylhydrazine;H2Azo",,0
 CPL-0318,"DHP (5,10-dihydrophenazine)",,MeCN,N-H,arylamine,,,0
 CPL-0319,indole,,H2O,N-H,indole,,,0
 CPL-0320,tryptophan,,H2O,N-H,indole,Trp,,0
@@ -403,18 +403,18 @@ CPL-0402,"[V6O5Cl(OH2)(OEt)12]1- (aquo, avg 2 O-H)",,THF,O-H,pom,,,0
 CPL-0403,"[V6O5(SCN)(OH2)(OEt)12]1- (aquo, avg 2 O-H)",,THF,O-H,pom,,,0
 CPL-0404,[PVW11O40] W-sites 1st 2e-/2H+ event (avg 2 O-H),,MeCN,O-H,pom,,,0
 CPL-0405,[PVW11O40] W-sites 2nd 2e-/2H+ event (avg 2 O-H),,MeCN,O-H,pom,,,0
-CPL-0406,TiV5O5(OH2)(OCH3)12 (aquo avg 2 O-H),,THF,O-H,pom,,,0
-CPL-0407,[V6O6(OH2)(OCH3)12]0 (aquo avg 2 O-H),,THF,O-H,pom,,,0
-CPL-0408,[V6O5(OH2)(OCH3)12]0 (O-deficient aquo avg 2 O-H),,THF,O-H,pom,,,0
-CPL-0409,[HPV2W10O40]5- (1st H on PVIVVVW10),,H2O,O-H,pom,,,0
-CPL-0410,[PW12O38(OH)2]3- (avg 2 O-H; 1st 2e-/2H+ event),,MeCN,O-H,pom,,,0
-CPL-0411,[PW12O36(OH)4]3- (avg 2 O-H; 2nd 2e-/2H+ event),,MeCN,O-H,pom,,,0
-CPL-0412,[PMo12O38(OH)2]3- (avg 2 O-H),,MeCN,O-H,pom,,,0
-CPL-0413,[SiVW11O39(OH)]5- (1st H on SiVIVW11),,MeCN,O-H,pom,,,0
-CPL-0414,[SVW11O39(OH)]3- (1st H on SVIVW11),,MeCN,O-H,pom,,,0
-CPL-0415,[VW12O40]3- (VinW12),4-MeOPyr,MeCN,O-H,pom,,,0
-CPL-0416,[VW12O40]3- (VinW12),TMG,MeCN,O-H,pom,,,0
-CPL-0417,[VW12O40]4- (1e-red VinW12),4-MeOPyrH+,MeCN,O-H,pom,,,0
+CPL-0406,TiV5O5(OH2)(OCH3)12 (aquo avg 2 O-H),,THF,O-H,pom,titanium-substituted hexavanadate;TiV5 alkoxide;Matson TiV5,,0
+CPL-0407,[V6O6(OH2)(OCH3)12]0 (aquo avg 2 O-H),,THF,O-H,pom,Matson V6 aquo methoxide (neutral),,0
+CPL-0408,[V6O5(OH2)(OCH3)12]0 (O-deficient aquo avg 2 O-H),,THF,O-H,pom,oxygen-deficient hexavanadate;Matson V6 defect cluster,,0
+CPL-0409,[HPV2W10O40]5- (1st H on PVIVVVW10),,H2O,O-H,pom,Keggin PV2W10;divanado-decatungstophosphate,,0
+CPL-0410,[PW12O38(OH)2]3- (avg 2 O-H; 1st 2e-/2H+ event),,MeCN,O-H,pom,Keggin phosphotungstate;PW12;reduced phosphotungstic acid,,0
+CPL-0411,[PW12O36(OH)4]3- (avg 2 O-H; 2nd 2e-/2H+ event),,MeCN,O-H,pom,Keggin phosphotungstate;PW12;reduced phosphotungstic acid,,0
+CPL-0412,[PMo12O38(OH)2]3- (avg 2 O-H),,MeCN,O-H,pom,Keggin phosphomolybdate;PMo12;reduced phosphomolybdic acid,,0
+CPL-0413,[SiVW11O39(OH)]5- (1st H on SiVIVW11),,MeCN,O-H,pom,Keggin SiVW11;vanadotungstosilicate,,0
+CPL-0414,[SVW11O39(OH)]3- (1st H on SVIVW11),,MeCN,O-H,pom,Keggin SVW11,,0
+CPL-0415,[VW12O40]3- (VinW12),4-MeOPyr,MeCN,O-H,pom,Keggin vanadotungstate;VW12,,0
+CPL-0416,[VW12O40]3- (VinW12),TMG,MeCN,O-H,pom,Keggin vanadotungstate;VW12,,0
+CPL-0417,[VW12O40]4- (1e-red VinW12),4-MeOPyrH+,MeCN,O-H,pom,Keggin vanadotungstate;VW12 (reduced),,0
 CPL-0418,{TiOH} Keggin POT (event 1 per Fig. 5c),,MeCN,O-H,pom,,,0
 CPL-0419,{TiOH} Keggin POT (event 2 per Fig. 5c),,MeCN,O-H,pom,,,0
 CPL-0420,{TiOH} Keggin POT (event 3 per Fig. 5c),,MeCN,O-H,pom,,,0

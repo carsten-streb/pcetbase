@@ -403,3 +403,20 @@ CPL-0402,"[V6O5Cl(OH2)(OEt)12]1- (aquo, avg 2 O-H)",,THF,O-H,pom,,,0
 CPL-0403,"[V6O5(SCN)(OH2)(OEt)12]1- (aquo, avg 2 O-H)",,THF,O-H,pom,,,0
 CPL-0404,[PVW11O40] W-sites 1st 2e-/2H+ event (avg 2 O-H),,MeCN,O-H,pom,,,0
 CPL-0405,[PVW11O40] W-sites 2nd 2e-/2H+ event (avg 2 O-H),,MeCN,O-H,pom,,,0
+CPL-0406,TiV5O5(OH2)(OCH3)12 (aquo avg 2 O-H),,THF,O-H,pom,,,0
+CPL-0407,[V6O6(OH2)(OCH3)12]0 (aquo avg 2 O-H),,THF,O-H,pom,,,0
+CPL-0408,[V6O5(OH2)(OCH3)12]0 (O-deficient aquo avg 2 O-H),,THF,O-H,pom,,,0
+CPL-0409,[HPV2W10O40]5- (1st H on PVIVVVW10),,H2O,O-H,pom,,,0
+CPL-0410,[PW12O38(OH)2]3- (avg 2 O-H; 1st 2e-/2H+ event),,MeCN,O-H,pom,,,0
+CPL-0411,[PW12O36(OH)4]3- (avg 2 O-H; 2nd 2e-/2H+ event),,MeCN,O-H,pom,,,0
+CPL-0412,[PMo12O38(OH)2]3- (avg 2 O-H),,MeCN,O-H,pom,,,0
+CPL-0413,[SiVW11O39(OH)]5- (1st H on SiVIVW11),,MeCN,O-H,pom,,,0
+CPL-0414,[SVW11O39(OH)]3- (1st H on SVIVW11),,MeCN,O-H,pom,,,0
+CPL-0415,[VW12O40]3- (VinW12),4-MeOPyr,MeCN,O-H,pom,,,0
+CPL-0416,[VW12O40]3- (VinW12),TMG,MeCN,O-H,pom,,,0
+CPL-0417,[VW12O40]4- (1e-red VinW12),4-MeOPyrH+,MeCN,O-H,pom,,,0
+CPL-0418,{TiOH} Keggin POT (event 1 per Fig. 5c),,MeCN,O-H,pom,,,0
+CPL-0419,{TiOH} Keggin POT (event 2 per Fig. 5c),,MeCN,O-H,pom,,,0
+CPL-0420,{TiOH} Keggin POT (event 3 per Fig. 5c),,MeCN,O-H,pom,,,0
+CPL-0421,{TiOBn} Keggin POT (event 1 per Fig. 5c),,MeCN,O-H,pom,,,0
+CPL-0422,{TiOBn} Keggin POT (event 2 per Fig. 5c),,MeCN,O-H,pom,,,0

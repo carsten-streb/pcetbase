@@ -8,9 +8,38 @@ missing or unknown couple_id (FK), duplicate or malformed couple_id, bad
 bond/discordant values, manual star without recommended_reason on the couple,
 multiple stars in one couple.
 """
-import csv, os, re, sys
+import csv, hashlib, os, re, sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 BONDS = {"O-H", "N-H", "S-H", "C-H", "M-H", "X-H"}
+
+def constants_version():
+    """Short content hash of constants.csv: a constants update changes every
+    row of derived/analysis.csv visibly."""
+    with open(os.path.join(HERE, "data", "constants.csv"), "rb") as f:
+        return hashlib.sha256(f.read()).hexdigest()[:12]
+
+def write_derived(rows, resid18, resid10):
+    """Canonical derived table (CR-2026-11-11-derived-analysis-table):
+    one row per data.csv entry; eq 18/eq 10 residuals (calc - stored,
+    kcal/mol) as used by the manuscript's consistency analyses."""
+    os.makedirs(os.path.join(HERE, "derived"), exist_ok=True)
+    cver = constants_version()
+    path = os.path.join(HERE, "derived", "analysis.csv")
+    with open(path, "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["entry_id", "compound", "couple_id", "class", "solvent",
+                    "method", "flags", "recommended",
+                    "eq18_residual_kcal", "eq10_residual_kcal",
+                    "constants_version"])
+        for r in rows:
+            e18 = resid18.get(r["entry_id"], "")
+            e10 = resid10.get(r["entry_id"], "")
+            w.writerow([r["entry_id"], r["compound"], r.get("couple_id", ""),
+                        r["class"], r["solvent"], r["method"], r["flags"],
+                        r.get("recommended", ""),
+                        f"{e18:.3f}" if e18 != "" else "",
+                        f"{e10:.3f}" if e10 != "" else "", cver])
+    return path
 
 def load_constants():
     dgh, cg = {}, {}
@@ -65,6 +94,7 @@ def main():
     rows = list(csv.DictReader(open(os.path.join(HERE, "data", "data.csv"))))
     n_eq18 = n_eq10 = 0
     flags18, flags10 = [], []
+    resid18, resid10 = {}, {}
     for r in rows:
         name = f'{r["compound"]}{"/"+r["partner"] if r["partner"] else ""} ({r["solvent"]}, {r["table"]})'
         soft = any(k in r["flags"] for k in ("limit", "approx", "lowprec", "check-src", "dmso-unc"))
@@ -73,6 +103,7 @@ def main():
             n_eq18 += 1
             calc = 23.06*float(r["E_H2"]) + dgh[r["solvent"]]
             d = calc - float(r["BDFE"])
+            resid18[r["entry_id"]] = d
             if abs(d) > 0.3:
                 flags18.append((name, float(r["BDFE"]), round(calc,2), round(d,2), "soft" if soft else "CHECK"))
         # eq 10 cross-check, both square-scheme diagonals; a row passes if either closes
@@ -85,9 +116,11 @@ def main():
             if devs:
                 n_eq10 += 1
                 d = min(devs, key=abs)
+                resid10[r["entry_id"]] = d
                 if abs(d) > 0.5:
                     flags10.append((name, float(r["BDFE"]), round(float(r["BDFE"])+d,2), round(d,2), "soft" if soft else "CHECK"))
-    print(f"rows: {len(rows)} | eq18 checks: {n_eq18} | eq10 cross-checks: {n_eq10}")
+    dpath = write_derived(rows, resid18, resid10)
+    print(f"rows: {len(rows)} | eq18 checks: {n_eq18} | eq10 cross-checks: {n_eq10} | derived table: {dpath}")
     print(f"\neq18 deviations > 0.3 kcal/mol: {len(flags18)}")
     for f in flags18: print("  ", f)
     print(f"\neq10 deviations > 0.5 kcal/mol: {len(flags10)}")

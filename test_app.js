@@ -177,6 +177,27 @@ if (chips.length) {
   $("uB").value="";
 }
 
+// ---------- 9b. K1 pair / HAT feasibility ----------
+{
+  const D2=dom.window.eval("D");
+  const tempoh=D2.find(r=>r.name==="TEMPOH"&&r.solvent==="MeCN");
+  const ch=D2.find(r=>r.bond==="C-H"&&r.solvent==="MeCN"&&Number.isFinite(r.bdfe)&&r.nDup===1);
+  const h2o=D2.find(r=>r.solvent==="H2O"&&Number.isFinite(r.bdfe)&&r.nDup===1);
+  const key=r=>`${r.name}${r.partner?" + "+r.partner:""} [${r.solvent}]`;
+  $("unit").value="kcal"; fire($("unit"),"input");
+  // same solvent: dG = BDFE(sub) - BDFE(cat), hand-computed
+  $("pDon").value=key(ch); $("pAcc").value=key(tempoh); $("pGo").click();
+  const out1=$("pOut").textContent;
+  const expect=(ch.bdfe-tempoh.bdfe).toFixed(1);
+  T("K1 pair: dG equals hand-computed BDFE difference ("+expect+")",
+    out1.includes(expect)&&/downhill|uphill|thermoneutral/.test(out1), out1.slice(0,90));
+  T("K1 pair: entry_ids shown", /BDFE-\d{4,}/.test(out1));
+  // cross-solvent hard block: message, no number
+  $("pDon").value=key(h2o); $("pAcc").value=key(tempoh); $("pGo").click();
+  const out2=$("pOut").textContent;
+  T("K1 cross-solvent hard block", /not supported/i.test(out2)&&!/ΔG°\(HAT\) =/.test(out2), out2.slice(0,80));
+}
+
 // ---------- 10. theme toggle ----------
 {
   const before = d.documentElement.getAttribute("data-theme") || "auto";

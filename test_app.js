@@ -152,6 +152,29 @@ if (chips.length) {
     } catch (err) { crash++; T("calc no-crash E='" + e + "'", false, err.message); }
   }
   T("calculator never throws", crash === 0);
+  /* K4: solve for the missing leg */
+  const setCalc=(e,p,b)=>{$("uMode").value="sq";fire($("uMode"),"change");
+    $("uE").value=e;$("uPka").value=p;$("uB").value=b;$("uGo").click();return $("uOut").textContent;};
+  // forward case unchanged: E=0.000 vs Fc, pKa=20, MeCN, kJ unit -> 334.7 kJ/mol
+  $("unit").value="kJ";fire($("unit"),"input");$("uSolv").value="MeCN";
+  const fwd=setCalc("0.000","20","");
+  T("K4 forward: E=0, pKa=20, MeCN = 334.7 kJ/mol", /334\.7/.test(fwd), fwd.slice(0,70));
+  $("unit").value="kcal";fire($("unit"),"input");
+  // solve-for-pKa: TEMPOH/MeCN (stored pKa 41.0, BDFE 66.0; E not measured -
+  // compute the eq-10-consistent E in the test, then the solver must return the stored pKa)
+  const tempoh=dom.window.eval("D").find(r=>r.name==="TEMPOH"&&r.solvent==="MeCN");
+  if(tempoh&&tempoh.pka!=null&&Number.isFinite(tempoh.bdfe)){
+    const cg=dom.window.eval("CG")["MeCN"];
+    const eCons=((tempoh.bdfe-1.37*tempoh.pka-cg)/23.06).toFixed(4);
+    const outP=setCalc(eCons,"",String(tempoh.bdfe));
+    T("K4 solve-for-pKa labeled as derived", /derived from eq 10/.test(outP), outP.slice(0,80));
+    const num=(outP.match(/= ([-\d.]+)/g)||[]).map(x=>parseFloat(x.slice(2))).pop();
+    T("K4 pKa recovered = stored ("+tempoh.pka+")", Math.abs(num-tempoh.pka)<=0.1, "got "+num);
+  } else { T("TEMPOH/MeCN row with pKa+BDFE found", false); }
+  // underdetermined input rejected
+  const bad=setCalc("0.5","","");
+  T("K4 rejects one-value input", /exactly two/i.test(bad), bad.slice(0,60));
+  $("uB").value="";
 }
 
 // ---------- 10. theme toggle ----------

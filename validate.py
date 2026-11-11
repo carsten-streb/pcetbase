@@ -52,6 +52,25 @@ def load_constants():
 def validate_couples(rows):
     """Hard structural checks; returns list of error strings."""
     errors = []
+    # F1: entry_id unique (datapackage primaryKey; migrate aborts on it, but
+    # migrate does not run on data-only PRs - enforce here for CI)
+    seen_eid = {}
+    for i, r in enumerate(rows):
+        eid = r.get("entry_id", "")
+        if not eid:
+            errors.append(f"data.csv row {i+2}: empty entry_id")
+        elif eid in seen_eid:
+            errors.append(f"data.csv: duplicate entry_id '{eid}' (rows {seen_eid[eid]+2} and {i+2})")
+        else:
+            seen_eid[eid] = i
+    # F7: BDFE required and numeric unless the row is flagged ref-conv-missing
+    for r in rows:
+        if "ref-conv-missing" in r.get("flags", ""):
+            continue
+        try:
+            float(r["BDFE"])
+        except (ValueError, KeyError):
+            errors.append(f"data.csv {r.get('entry_id','?')}: BDFE empty or non-numeric ('{r.get('BDFE','')}') and not flagged ref-conv-missing")
     cpath = os.path.join(HERE, "data", "couples.csv")
     if not os.path.exists(cpath):
         return ["data/couples.csv missing — run 'python migrate_couples.py'"]
@@ -68,6 +87,15 @@ def validate_couples(rows):
             errors.append(f"couples.csv {cid}: bond '{c['bond']}' not in {sorted(BONDS)}")
         if c["discordant"] not in ("0", "1"):
             errors.append(f"couples.csv {cid}: discordant must be 0 or 1, got '{c['discordant']}'")
+    # F2: (compound, partner, solvent) unique across couples - a duplicate key
+    # silently splits one couple into two (the PR-#3 class of error)
+    seen_key = {}
+    for c in couples:
+        k = (c["compound"], c["partner"], c["solvent"])
+        if k in seen_key:
+            errors.append(f"couples.csv: duplicate couple key {k} under '{seen_key[k]}' and '{c['couple_id']}'")
+        else:
+            seen_key[k] = c["couple_id"]
     cmap = {c["couple_id"]: c for c in couples}
     by_couple = {}
     for r in rows:

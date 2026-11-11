@@ -420,8 +420,8 @@ BDFE-0418,[SVW11O39(OH)]3- (1st H on SVIVW11),CPL-0414,pom,MeCN,sq,,,-0.003,-0.0
 BDFE-0419,[VW12O40]3- (VinW12),CPL-0415,pom,MeCN,sq,ox-base,,0.010,,4a9a697cb0f5
 BDFE-0420,[VW12O40]3- (VinW12),CPL-0416,pom,MeCN,sq,ox-base;approx,,0.001,,4a9a697cb0f5
 BDFE-0421,[VW12O40]4- (1e-red VinW12),CPL-0417,pom,MeCN,sq,red-acid;approx,,0.010,,4a9a697cb0f5
-BDFE-0422,{TiOH} Keggin POT (event 1 per Fig. 5c),CPL-0418,pom,MeCN,sq,recomputed,,-0.000,-0.013,4a9a697cb0f5
-BDFE-0423,{TiOH} Keggin POT (event 2 per Fig. 5c),CPL-0419,pom,MeCN,sq,recomputed,,0.012,0.012,4a9a697cb0f5
-BDFE-0424,{TiOH} Keggin POT (event 3 per Fig. 5c),CPL-0420,pom,MeCN,sq,,,0.003,0.032,4a9a697cb0f5
-BDFE-0425,{TiOBn} Keggin POT (event 1 per Fig. 5c),CPL-0421,pom,MeCN,sq,,,-0.001,0.008,4a9a697cb0f5
-BDFE-0426,{TiOBn} Keggin POT (event 2 per Fig. 5c),CPL-0422,pom,MeCN,sq,,,0.007,-0.015,4a9a697cb0f5
+BDFE-0422,"{TiOH} Keggin POT, shell O-H (1st 1e-/1H+ event)",CPL-0418,pom,MeCN,sq,recomputed,,-0.000,-0.013,4a9a697cb0f5
+BDFE-0423,"{TiOH} Keggin POT, shell O-H (2nd 1e-/1H+ event)",CPL-0419,pom,MeCN,sq,recomputed,,0.012,0.012,4a9a697cb0f5
+BDFE-0424,"{TiOH} Keggin POT, shell O-H (3rd 1e-/1H+ event)",CPL-0420,pom,MeCN,sq,,,0.003,0.032,4a9a697cb0f5
+BDFE-0425,"{TiOBn} Keggin POT, shell O-H (1st 1e-/1H+ event)",CPL-0421,pom,MeCN,sq,,,-0.001,0.008,4a9a697cb0f5
+BDFE-0426,"{TiOBn} Keggin POT, shell O-H (2nd 1e-/1H+ event)",CPL-0422,pom,MeCN,sq,,,0.007,-0.015,4a9a697cb0f5

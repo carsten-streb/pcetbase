@@ -51,6 +51,10 @@
     border-radius:999px;padding:3px 10px;font-size:12.5px;cursor:pointer;user-select:none}
   .chip .dot{width:9px;height:9px;border-radius:50%}
   .chip.off{opacity:.38}
+  .badge{border:1px solid var(--axis);border-radius:999px;background:none;color:var(--ink-2);
+    font-size:10.5px;padding:0 7px;margin-left:5px;cursor:pointer;line-height:1.5}
+  .badge:hover{border-color:var(--ink-2)}
+  tr.sub td{background:rgba(128,128,128,0.045);color:var(--ink-2)}
   table{border-collapse:collapse;width:100%;font-size:12.5px}
   th,td{padding:4px 7px;text-align:left;border-bottom:1px solid var(--grid);white-space:nowrap}
   th{color:var(--ink-2);font-weight:600;cursor:pointer;position:sticky;top:0;background:var(--surface-1);z-index:2}
@@ -237,7 +241,8 @@ const D=parseCSV(DATA_CSV).map((r,i)=>({
   Eraw:r.E_raw===""||r.E_raw===undefined?null:parseFloat(r.E_raw),ErawRef:r.E_raw_ref||"",
   rec:r.recommended==="1"||r.recommended==="auto",recManual:r.recommended==="1",
   nH:r.n_H||"",method:r.method||"",doi:r.doi||"",bdfePub:r.BDFE_pub||"",
-  cid:r.couple_id||"",
+  cid:r.couple_id||"",sigma:r.sigma_BDFE||"",tK:r.T_K||"",cond:r.conditions||"",
+  year:r.year||"",
   srcDoi:r.doi||REVIEW_DOI,
   srcRef:r.doi?"":(r.refs?` [ref ${r.refs.replace(/;/g,", ")}]`:""),
   src:""
@@ -304,29 +309,66 @@ function filtered(){
     &&(!q||r.name.toLowerCase().includes(q)||r.partner.toLowerCase().includes(q)||r.aliases.includes(q)));
 }
 
+/* couple view (UI P2): one representative measurement per couple — the starred
+   one; else best by method hierarchy (equil > sq > OCP > hess > computed),
+   then newest year. Other members expand below it on badge click. */
+function methodRank(r){
+  if(r.method==="equil")return 5;
+  if(r.method==="sq")return 4;
+  if(r.method==="OCP")return 3;
+  if(r.flags.includes("hess"))return 2;
+  return 1;
+}
+function coupleView(rows){
+  const g=new Map();
+  rows.forEach(r=>{
+    const k=r.cid||(r.name+"|"+r.partner+"|"+r.solvent).toLowerCase();
+    if(!g.has(k))g.set(k,[]);
+    g.get(k).push(r);
+  });
+  return [...g.values()].map(ms=>{
+    const sorted=ms.slice().sort((a,b)=>
+      (methodRank(b)-methodRank(a))||((+b.year||0)-(+a.year||0))||(a.id-b.id));
+    const rep=ms.find(r=>r.rec)||sorted[0];
+    return {rep,members:sorted};
+  });
+}
+let expanded=new Set();
 function renderTable(){
   const u=document.getElementById("unit").value;
   const sc=document.getElementById("scale").value;
   document.getElementById("bHead").textContent="BDFE ("+unitLbl[u]+")";
   document.getElementById("eHead").textContent=sc==="H2"?"E° (V vs H₂)":"E° (V vs Fc⁺/⁰)";
   const key={name:"name",partner:"partner",bond:"bond",solvent:"solvent",E:"E",pkab:"pka",bdfe:"bdfe",src:"srcText"}[sortK]||"bdfe";
-  const rows=filtered().slice().sort((a,b)=>{
+  const cmp=(a,b)=>{
     let va=a[key],vb=b[key];
     if(va==null||va!==va)return 1; if(vb==null||vb!==vb)return -1;
     if(typeof va==="string"){va=va.toLowerCase();vb=vb.toLowerCase();}
     return (va<vb?-1:va>vb?1:0)*(sortAsc?1:-1);
-  });
-  const tb=document.querySelector("#tbl tbody");
-  tb.innerHTML=rows.map(r=>
-   `<tr data-id="${r.id}"><td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${clsColor(r.cls)};margin-right:6px"></span>${r.name}${r.rec?` <span title="recommended value (multiple independent measurements exist)">★</span>`:""}${r.nDup>1&&!r.rec?` <span class="src" title="${r.nDup} independent values for this couple/solvent">(1 of ${r.nDup})</span>`:""}${r.flags?` <span class="flagmark" title="${r.flags}">⚑</span>`:""}</td>`+
+  };
+  const flt=filtered();
+  const couples=coupleView(flt).sort((a,b)=>cmp(a.rep,b.rep));
+  const rowHtml=(r,sub)=>
+   `<tr data-id="${r.id}"${sub?' class="sub"':''}><td>${sub?'<span class="src" style="margin-left:18px">↳</span> ':`<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${clsColor(r.cls)};margin-right:6px"></span>`}${r.name}${r.rec?` <span title="recommended value${r.recManual?" (manual, see reason in the verification panel)":" (auto, policy rules 1-2)"}">★</span>`:""}${r.flags?` <span class="flagmark" title="${r.flags}">⚑</span>`:""}${!sub&&r.nDup>1?` <button class="badge" data-cid="${r.cid}" title="independent measurements of this couple — click to ${expanded.has(r.cid)?"collapse":"expand"}">${r.nDup} values ${expanded.has(r.cid)?"▾":"▸"}</button>`:""}${sub?` <span class="src">${r.method||"tabulated"}${r.sigma?`, σ ${r.sigma}`:""}, ${r.year}</span>`:""}</td>`+
    `<td>${r.partner||"–"}</td><td>${r.bond}</td><td>${r.solvent}</td>`+
    `<td class="num">${eDisplay(r,sc)}</td>`+
    `<td class="num">${r.pka==null||r.pka!==r.pka?"–":r.pka.toFixed(1)}</td>`+
    `<td class="num">${toUnit(r.bdfe,u).toFixed(u==="eV"?2:1)}</td>`+
-   `<td class="src">${r.src}</td></tr>`).join("");
-  document.getElementById("count").textContent=rows.length+" of "+D.length+" entries shown — click a row for the verification panel (primary values, equations, constants)";
+   `<td class="src">${r.src}</td></tr>`;
+  const tb=document.querySelector("#tbl tbody");
+  tb.innerHTML=couples.map(c=>
+    rowHtml(c.rep,false)+
+    (expanded.has(c.rep.cid)?c.members.filter(m=>m.id!==c.rep.id).map(m=>rowHtml(m,true)).join(""):"")
+  ).join("");
+  document.getElementById("count").textContent=couples.length+" couples ("+flt.length+" measurements) of "+D.length+" entries shown — click a row for the verification panel; click an "+'"n values"'+" badge to expand all measurements of that couple";
+  tb.querySelectorAll(".badge").forEach(b=>b.addEventListener("click",ev=>{
+    ev.stopPropagation();
+    const cid=b.dataset.cid;
+    expanded.has(cid)?expanded.delete(cid):expanded.add(cid);
+    renderTable();
+  }));
   tb.querySelectorAll("tr").forEach(tr=>tr.addEventListener("click",ev=>{
-    if(ev.target.closest("a"))return;
+    if(ev.target.closest("a")||ev.target.closest(".badge"))return;
     showDetail(+tr.dataset.id);
   }));
 }
@@ -362,6 +404,9 @@ function showDetail(id){
   h+=`<tr><td>E°(V vs H₂)</td><td><b>${isNaN(r.E)?"–":r.E.toFixed(3)} V</b></td></tr>`;
   h+=`<tr><td>BDFE${r.nH&&r.nH!=="1"?" (avg over "+r.nH+" H)":""}</td><td><b>${r.bdfe.toFixed(1)} kcal mol⁻¹</b>${r.bdfePub&&parseFloat(r.bdfePub).toFixed(1)!==r.bdfe.toFixed(1)?` (published: ${r.bdfePub})`:""}</td></tr>`;
   if(r.method)h+=`<tr><td>Method</td><td>${r.method==="sq"?"square scheme (eq 10)":r.method==="OCP"?"open-circuit potential":r.method==="equil"?"equilibration vs reference H-atom donor":r.method}</td></tr>`;
+  if(r.sigma)h+=`<tr><td>σ(BDFE), published</td><td><b>±${r.sigma} kcal mol⁻¹</b></td></tr>`;
+  if(r.tK)h+=`<tr><td>T</td><td>${r.tK} K</td></tr>`;
+  if(r.cond)h+=`<tr><td>Conditions</td><td>${r.cond}</td></tr>`;
   h+=`</table>`;
   if(r.refconv){
     h+=`<details><summary>Reference-electrode conversion (${r.refconv.ref} → ${refSc})</summary>
@@ -400,7 +445,7 @@ function renderLadder(){
   const u=document.getElementById("unit").value;
   const sc0=document.getElementById("scale").value;
   document.getElementById("ladderHead").innerHTML="Ladder — BDFE ("+unitLbl[u]+") / <i>E</i>°("+(sc0==="H2"?"V vs H₂":"V vs Fc⁺/⁰")+")";
-  const rows=filtered();
+  const rows=coupleView(filtered()).map(c=>c.rep);
   const W=340,H=760,mL=58,mR=118,mT=16,mB=28;
   let vals=rows.map(r=>r.bdfe).filter(v=>v===v);
   if(userPt)vals.push(userPt.bdfe);

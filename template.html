@@ -720,7 +720,7 @@ function init(){
   const fillDesc=()=>{
     const q=KUTT[document.getElementById("kSolv").value][+kFam.value||0];
     document.getElementById("kDesc").innerHTML=(q&&q.terms.length)?q.terms.map(([dk])=>
-      `<div><label title="${KDESC[dk]}">${KLBL[dk]||dk} <span class="src" style="cursor:help">(?)</span></label><input id="kd_${dk}" type="number" step="${dk==="MW"?"0.01":"1"}" value="0" style="width:80px" title="${KDESC[dk]}"></div>`).join(""):"";
+      `<div><label title="${KDESC[dk]}">${KLBL[dk]||dk} <span class="src" style="cursor:help">(?)</span></label><input id="kd_${dk}" type="number" min="0" step="${dk==="MW"?"0.01":"1"}" value="0" style="width:80px" title="${KDESC[dk]}"></div>`).join(""):"";
   };
   const fillFam=()=>{kFam.innerHTML=KUTT[document.getElementById("kSolv").value].map((q,i)=>`<option value="${i}">${q.fam}</option>`).join("");fillDesc();};
   fillFam();

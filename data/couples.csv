@@ -415,8 +415,8 @@ CPL-0414,[SVW11O39(OH)]3- (1st H on SVIVW11),,MeCN,O-H,pom,Keggin SVW11,,0
 CPL-0415,[VW12O40]3- (VinW12),4-MeOPyr,MeCN,O-H,pom,Keggin vanadotungstate;VW12,,0
 CPL-0416,[VW12O40]3- (VinW12),TMG,MeCN,O-H,pom,Keggin vanadotungstate;VW12,,0
 CPL-0417,[VW12O40]4- (1e-red VinW12),4-MeOPyrH+,MeCN,O-H,pom,Keggin vanadotungstate;VW12 (reduced),,0
-CPL-0418,{TiOH} Keggin POT (event 1 per Fig. 5c),,MeCN,O-H,pom,,,0
-CPL-0419,{TiOH} Keggin POT (event 2 per Fig. 5c),,MeCN,O-H,pom,,,0
-CPL-0420,{TiOH} Keggin POT (event 3 per Fig. 5c),,MeCN,O-H,pom,,,0
-CPL-0421,{TiOBn} Keggin POT (event 1 per Fig. 5c),,MeCN,O-H,pom,,,0
-CPL-0422,{TiOBn} Keggin POT (event 2 per Fig. 5c),,MeCN,O-H,pom,,,0
+CPL-0418,"{TiOH} Keggin POT, shell O-H (1st 1e-/1H+ event)",,MeCN,O-H,pom,,,0
+CPL-0419,"{TiOH} Keggin POT, shell O-H (2nd 1e-/1H+ event)",,MeCN,O-H,pom,,,0
+CPL-0420,"{TiOH} Keggin POT, shell O-H (3rd 1e-/1H+ event)",,MeCN,O-H,pom,,,0
+CPL-0421,"{TiOBn} Keggin POT, shell O-H (1st 1e-/1H+ event)",,MeCN,O-H,pom,,,0
+CPL-0422,"{TiOBn} Keggin POT, shell O-H (2nd 1e-/1H+ event)",,MeCN,O-H,pom,,,0

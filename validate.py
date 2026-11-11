@@ -1,7 +1,16 @@
 #!/usr/bin/env python3
-"""Arithmetic validation of data.csv against eq 18 and eq 10 (Agarwal et al. 2022)."""
-import csv, sys, os
+"""Validation of data.csv and couples.csv.
+
+Soft (informational, reviewed by eye): arithmetic closure of eq 18 and eq 10
+(Agarwal et al. 2022) beyond thresholds.
+Hard (exit 1, fails CI and aborts build.py): schema/structure errors —
+missing or unknown couple_id (FK), duplicate or malformed couple_id, bad
+bond/discordant values, manual star without recommended_reason on the couple,
+multiple stars in one couple.
+"""
+import csv, os, re, sys
 HERE = os.path.dirname(os.path.abspath(__file__))
+BONDS = {"O-H", "N-H", "S-H", "C-H", "M-H", "X-H"}
 
 def load_constants():
     dgh, cg = {}, {}
@@ -10,6 +19,46 @@ def load_constants():
             if r["key"] == "dGfH": dgh[r["solvent"]] = float(r["value_kcal_or_V"])
             if r["key"] == "CG":   cg[r["solvent"]]  = float(r["value_kcal_or_V"])
     return dgh, cg
+
+def validate_couples(rows):
+    """Hard structural checks; returns list of error strings."""
+    errors = []
+    cpath = os.path.join(HERE, "data", "couples.csv")
+    if not os.path.exists(cpath):
+        return ["data/couples.csv missing — run 'python migrate_couples.py'"]
+    couples = list(csv.DictReader(open(cpath, newline="", encoding="utf-8")))
+    seen = set()
+    for c in couples:
+        cid = c["couple_id"]
+        if not re.fullmatch(r"CPL-[0-9]{4}", cid):
+            errors.append(f"couples.csv: malformed couple_id '{cid}'")
+        if cid in seen:
+            errors.append(f"couples.csv: duplicate couple_id '{cid}'")
+        seen.add(cid)
+        if c["bond"] and c["bond"] not in BONDS:
+            errors.append(f"couples.csv {cid}: bond '{c['bond']}' not in {sorted(BONDS)}")
+        if c["discordant"] not in ("0", "1"):
+            errors.append(f"couples.csv {cid}: discordant must be 0 or 1, got '{c['discordant']}'")
+    cmap = {c["couple_id"]: c for c in couples}
+    by_couple = {}
+    for r in rows:
+        cid = r.get("couple_id", "")
+        if not cid:
+            errors.append(f"data.csv {r['entry_id']}: empty couple_id — run 'python migrate_couples.py'")
+            continue
+        if cid not in cmap:
+            errors.append(f"data.csv {r['entry_id']}: unknown couple_id '{cid}'")
+            continue
+        by_couple.setdefault(cid, []).append(r)
+    for cid, rs in by_couple.items():
+        stars = [r for r in rs if r.get("recommended") in ("1", "auto")]
+        manual = [r for r in rs if r.get("recommended") in ("1", "0")]
+        if len(stars) > 1:
+            errors.append(f"{cid}: MULTIPLE STARS ({', '.join(r['entry_id'] for r in stars)}) — fix")
+        if manual and not cmap[cid]["recommended_reason"].strip():
+            errors.append(f"{cid}: manual recommended=1/0 set but couples.csv recommended_reason is empty")
+    print(f"couples.csv: {len(couples)} couples | data rows linked: {sum(len(v) for v in by_couple.values())}")
+    return errors
 
 def main():
     dgh, cg = load_constants()
@@ -43,15 +92,17 @@ def main():
     for f in flags18: print("  ", f)
     print(f"\neq10 deviations > 0.5 kcal/mol: {len(flags10)}")
     for f in flags10: print("  ", f)
-    # multi-source groups: same compound+solvent more than once
-    from collections import Counter
-    key = Counter((r["compound"].lower(), r["partner"].lower(), r["solvent"]) for r in rows)
-    dups = {k: n for k, n in key.items() if n > 1}
+    # multi-source couples, grouped by couple_id
+    from collections import defaultdict
+    grp = defaultdict(list)
+    for r in rows:
+        grp[r.get("couple_id") or (r["compound"].lower(), r["partner"].lower(), r["solvent"])].append(r)
+    dups = {k: v for k, v in grp.items() if len(v) > 1}
     if dups:
-        print(f"\nmulti-source couples (same compound+solvent): {len(dups)}")
-        for (c, p, s), n in sorted(dups.items()):
-            recs = [r for r in rows if r["compound"].lower() == c and r["partner"].lower() == p and r["solvent"] == s and r.get("recommended") in ("1", "auto")]
-            suppressed = [r for r in rows if r["compound"].lower() == c and r["partner"].lower() == p and r["solvent"] == s and r.get("recommended") == "0"]
+        print(f"\nmulti-source couples: {len(dups)}")
+        for k, rs in sorted(dups.items(), key=lambda kv: str(kv[0])):
+            recs = [r for r in rs if r.get("recommended") in ("1", "auto")]
+            suppressed = [r for r in rs if r.get("recommended") == "0"]
             if len(recs) == 1:
                 mark = "ok (" + ("manual" if recs[0]["recommended"] == "1" else "auto") + ")"
             elif suppressed and not recs:
@@ -60,7 +111,14 @@ def main():
                 mark = "NO STAR - conflict >0.5 kcal/mol or policy gap, resolve manually"
             else:
                 mark = "MULTIPLE STARS - fix"
-            print(f"   {c} / {s}: {n} entries — {mark}")
+            print(f"   {rs[0]['compound']} / {rs[0]['solvent']}: {len(rs)} entries — {mark}")
+    print("\n--- structural checks (hard) ---")
+    errors = validate_couples(rows)
+    if errors:
+        print(f"HARD ERRORS: {len(errors)}")
+        for e in errors: print("  ", e)
+        return 1
+    print("structural checks OK")
     return 0
 
 if __name__ == "__main__":

@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Build index.html from template.html by embedding data/data.csv and data/constants.csv.
 Run after any edit to the CSVs:  python build.py
-It first runs validate.py and refuses to build on hard validation errors? No —
-it prints the validation report and always builds; review the report yourself.
+It first runs validate.py: soft arithmetic deviations are printed for review,
+hard structural errors (schema/FK/star integrity) abort the build. CI runs the
+same validate.py as the PR gate.
 """
 import os, subprocess, sys
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -10,17 +11,34 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 def esc(t):  # escape for JS template literal
     return t.replace("\\", "\\\\").replace("`", "\\`").replace("${", "\\${")
 
-def autorecommend():
-    """Auto-recommendation per policy (status doc, decided 2026-11-11):
-    groups = same compound+partner+solvent with >1 entries.
-    Manual override: recommended '1' (star) or '0' (suppress) on any row -> group untouched.
-    Tier 1: primary entries (method set or 'recomputed' flag) beat tabulated.
-    Within the winning tier: BDFE spread > 0.5 kcal/mol -> no star (resolve manually,
-    reported by validate.py); else newest year wins; tie -> most complete square scheme,
-    then first occurrence. Winner gets recommended='auto'. Idempotent: all 'auto' cleared first."""
+# Method hierarchy for auto-recommendation (CONTRIBUTING selection rule 1):
+# direct equilibration > square scheme > open-circuit potentiometry >
+# Hess-cycle construction > computed/derived/tabulated values.
+def method_rank(method, flags):
+    if method == "equil": return 5
+    if method == "sq":    return 4
+    if method == "OCP":   return 3
+    if "hess" in flags:   return 2
+    return 1
+
+def autorecommend(data_path=None):
+    """Auto-recommendation (deterministic rules only; CONTRIBUTING rules 1-2).
+    Groups = rows sharing couple_id (fallback: compound+partner+solvent, lowercased)
+    with >1 entries. Manual override (recommended '1' star / '0' suppress) on any
+    row freezes the group. Selection within a group:
+      a) a concordance-mean row (flag 'avg' AND refs citing BDFE- entry_ids of
+         its constituents) gets the star;
+      b) else: candidates = rows of the highest method rank present
+         (equil > sq > OCP > hess > computed/tabulated);
+         BDFE spread among candidates > 0.5 kcal/mol -> no star (conflict,
+         reported by validate.py, resolve manually);
+         else newest year wins (tie -> most complete square scheme, then first).
+    Winner gets recommended='auto'. Idempotent: all 'auto' cleared first.
+    Supersession and discord stay manual (recommended=1/0 + recommended_reason
+    in couples.csv); never auto-assigned."""
     import csv as _csv
     from collections import defaultdict
-    path = os.path.join(HERE, "data", "data.csv")
+    path = data_path or os.path.join(HERE, "data", "data.csv")
     with open(path, newline="", encoding="utf-8") as f:
         rd = _csv.reader(f); head = next(rd); rows = [r for r in rd]
     col = {h: i for i, h in enumerate(head)}
@@ -29,16 +47,25 @@ def autorecommend():
         if r[iRec] == "auto": r[iRec] = ""
     groups = defaultdict(list)
     for idx, r in enumerate(rows):
-        k = (r[col["compound"]].lower(), r[col["partner"]].lower(), r[col["solvent"]])
+        cid = r[col["couple_id"]] if "couple_id" in col else ""
+        k = cid or (r[col["compound"]].lower(), r[col["partner"]].lower(), r[col["solvent"]])
         groups[k].append(idx)
     n_auto = n_conflict = n_manual = 0
     for k, idxs in groups.items():
         if len(idxs) < 2: continue
         if any(rows[i][iRec] in ("1", "0") for i in idxs):
             n_manual += 1; continue
-        def is_primary(i):
-            return rows[i][col["method"]] != "" or "recomputed" in rows[i][col["flags"]]
-        cand = [i for i in idxs if is_primary(i)] or idxs
+        # a) concordance-mean row: flag 'avg' and refs citing constituent entry_ids
+        conc = [i for i in idxs
+                if "avg" in rows[i][col["flags"]] and "BDFE-" in rows[i][col["refs"]]]
+        if len(conc) == 1:
+            rows[conc[0]][iRec] = "auto"; n_auto += 1; continue
+        if len(conc) > 1:
+            n_conflict += 1; continue  # two mean rows in one couple: fix manually
+        # b) method hierarchy
+        best = max(method_rank(rows[i][col["method"]], rows[i][col["flags"]]) for i in idxs)
+        cand = [i for i in idxs
+                if method_rank(rows[i][col["method"]], rows[i][col["flags"]]) == best]
         vals = [float(rows[i][col["BDFE"]]) for i in cand if rows[i][col["BDFE"]] != ""]
         if vals and max(vals) - min(vals) > 0.5:
             n_conflict += 1; continue
@@ -54,7 +81,9 @@ def main():
     print("--- auto-recommendation ---")
     autorecommend()
     print("--- validation ---")
-    subprocess.run([sys.executable, os.path.join(HERE, "validate.py")])
+    rc = subprocess.run([sys.executable, os.path.join(HERE, "validate.py")]).returncode
+    if rc != 0:
+        sys.exit("build aborted: hard validation errors (see report above)")
     print("--- build ---")
     tpl = open(os.path.join(HERE, "template.html"), encoding="utf-8").read()
     data = open(os.path.join(HERE, "data", "data.csv"), encoding="utf-8").read()

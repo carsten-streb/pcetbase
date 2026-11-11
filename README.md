@@ -94,6 +94,12 @@ Data and code: **CC BY 4.0** (see `LICENSE`). Cite via `CITATION.cff`; archived 
 (this release v1.3: [doi:10.5281/zenodo.24137124](https://doi.org/10.5281/zenodo.24137124); all versions: [doi:10.5281/zenodo.24121910](https://doi.org/10.5281/zenodo.24121910)). If you use individual values, please also cite the
 primary source given in the entry (`doi` column or the review reference number).
 
+## Funding
+
+This database is developed as part of the Collaborative Research Center
+[SFB 1633 "PCET"](https://uni-goettingen.de/de/683468.html), funded by
+Deutsche Forschungsgemeinschaft DFG (grant no: 536858973).
+
 ## Provenance statement
 
 This database was compiled with AI assistance (Anthropic Claude) under human direction

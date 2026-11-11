@@ -198,6 +198,24 @@ if (chips.length) {
   T("K1 cross-solvent hard block", /not supported/i.test(out2)&&!/ΔG°\(HAT\) =/.test(out2), out2.slice(0,80));
 }
 
+// ---------- 9c. K3 estimator (Kütt 2021, descriptor-free) ----------
+{
+  // acceptance: eq 3.2, pKa(MeCN)=20 -> pKa(DMF)=9.5 +/- 0.2
+  $("kSolv").value="DMF"; fire($("kSolv"),"input");
+  $("kFam").value="1"; $("kIn").value="20"; $("kGo").click();
+  const o1=$("kOut").textContent;
+  T("K3 eq 3.2: pKa(MeCN)=20 -> DMF 9.5 ± 0.2", /9\.5 ± 0\.2/.test(o1), o1.slice(0,80));
+  // out-of-range warning (eq 3.2 range 11.0-29.2, input 5)
+  $("kIn").value="5"; $("kGo").click();
+  T("K3 out-of-range warning", /Outside calibration range/.test($("kOut").textContent));
+  // family list contains no POM/metal option
+  const fams=[...d.querySelectorAll("#kFam option")].map(o=>o.textContent.toLowerCase()).join("|");
+  T("K3 no POM/metal-complex family", !/pom|metal/.test(fams), fams);
+  // never stored: estimate does not change CSV row count
+  $("csvScope").value="all";
+  T("K3 estimate never stored (CSV still 426 rows)", w.csvText().trim().split("\n").length-1===426);
+}
+
 // ---------- 10. theme toggle ----------
 {
   const before = d.documentElement.getAttribute("data-theme") || "auto";

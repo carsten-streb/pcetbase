@@ -196,6 +196,17 @@
       <div class="warn">Convention: for abstraction Cat• + H–Sub → Cat–H + Sub•, ΔG°(HAT) = BDFE(Sub–H) − BDFE(Cat–H); negative = downhill.
         Values are the recommended (★) measurement of each couple. ΔG° of H-atom transfer only — says nothing about kinetics or mechanism (ET-PT vs HAT).</div>
     </div>
+    <div class="panel calc" style="margin-top:16px">
+      <h2>pK<sub>a</sub> solvent estimate (empirical)</h2>
+      <div class="warn" style="margin-bottom:8px"><b>Empirical estimate</b> (Kütt et al. 2021, Table 2, <a href="https://doi.org/10.1002/ejoc.202001649">doi:10.1002/ejoc.202001649</a>) — never stored in the database; valid for organic acids of the stated family only, <b>not for POMs or metal complexes</b>.</div>
+      <div class="row">
+        <div><label>pK<sub>a</sub>(MeCN)</label><input id="kIn" type="number" step="0.1" style="width:95px"></div>
+        <div><label>Target solvent</label><select id="kSolv"><option value="DMF">DMF</option><option value="DCE">DCE</option></select></div>
+        <div><label>Acid family</label><select id="kFam"></select></div>
+        <div style="align-self:flex-end"><button class="primary" id="kGo">Estimate</button></div>
+      </div>
+      <div class="result" id="kOut"></div>
+    </div>
   </section>
 </main>
 
@@ -1558,6 +1569,33 @@ function init(){
   document.getElementById("uClear").addEventListener("click",()=>{userPt=null;document.getElementById("uOut").textContent="";renderLadder();});
   document.getElementById("csv").addEventListener("click",copyCSV);
   document.getElementById("csvDl").addEventListener("click",downloadCSV);
+  /* K3 stage 1: cross-solvent pKa estimator (Kütt 2021, Table 2; descriptor-free equations only).
+     Coefficients verified against the archived PDF, p. 1416 (2026-11-11). Results are never stored. */
+  const KUTT={
+    DMF:[
+      {eq:"3.1",fam:"all acids",a:0.91,b:-7.6,u:0.9,lo:10.2,hi:32.6},
+      {eq:"3.2",fam:"phenols",a:0.95,b:-9.5,u:0.2,lo:11.0,hi:29.2},
+      {eq:"3.3",fam:"aromatic sulfonamides",a:0.77,b:-3.5,u:0.06,lo:24.6,hi:27.0},
+    ],
+    DCE:[
+      {eq:"4.1",fam:"all acids",a:1.10,b:32.6,u:1.2,lo:2.8,hi:23.5},
+      {eq:"4.2",fam:"CH acids (excl. TCNPD acids)",a:1.05,b:33.5,u:0.3,lo:3.6,hi:23.5},
+      {eq:"4.3",fam:"aromatic sulfonimides",a:1.03,b:32.8,u:0.2,lo:3.3,hi:10.0},
+    ],
+  };
+  const kFam=document.getElementById("kFam");
+  const fillFam=()=>{kFam.innerHTML=KUTT[document.getElementById("kSolv").value].map((q,i)=>`<option value="${i}">${q.fam}</option>`).join("");};
+  fillFam();
+  document.getElementById("kSolv").addEventListener("input",fillFam);
+  document.getElementById("kGo").addEventListener("click",()=>{
+    const out=document.getElementById("kOut");
+    const x=parseFloat(document.getElementById("kIn").value);
+    if(!Number.isFinite(x)){out.textContent="Enter a finite pKa(MeCN).";return;}
+    const q=KUTT[document.getElementById("kSolv").value][+kFam.value];
+    const y=q.a*x+q.b;
+    const warn=(x<q.lo||x>q.hi)?`<div class="warn"><b>Outside calibration range</b> (eq ${q.eq} calibrated for pKa(MeCN) ${q.lo}–${q.hi}) — the estimate may be unreliable.</div>`:"";
+    out.innerHTML=`pK<sub>a</sub>(${document.getElementById("kSolv").value}) ≈ ${q.a.toFixed(2)}·${x.toFixed(1)} ${q.b<0?"−":"+"} ${Math.abs(q.b).toFixed(1)} = <b>${y.toFixed(1)} ± ${q.u}</b> <span class="src">(eq ${q.eq}, ${q.fam}; u = leave-one-out RMSE)</span>${warn}`;
+  });
   /* K1 pair mode: one entry per couple (the rep/starred measurement), alias-aware via datalist labels */
   const PAIRS={};
   coupleView(D).forEach(c=>{

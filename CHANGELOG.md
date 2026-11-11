@@ -2,7 +2,19 @@
 
 All star (recommendation) moves and releases are recorded here, newest first.
 
-## Unreleased
+## v1.3 — 2026-11-11
+
+Dataset: 426 measurements, 421 couples (v1.2: 376 entries). Two-layer
+measurement/couple model (couple_id, data/couples.csv, FK-gated),
+sigma_BDFE/T_K/conditions columns, 50 new POM measurements (batches 1-3,
+campaign complete), aliases for search, CONTRIBUTING governance
+(selection rules 1-4, star curation), derived/analysis.csv residual
+table on every build, autorecommend by method hierarchy, UI: couple-
+collapsed table/ladder, alias search, entry permalinks (#BDFE-NNNN),
+CSV download (all vs recommended), theme toggle. PR-only workflow with
+server-side branch protection. PRs #1-#17.
+
+Star moves in this release:
 
 - 2026-11-11 (rule 4, curator: C. Streb): ★ [HPVW11O40]4- (1st H) / MeCN assigned manually to BDFE-0406 (68.1, direct-pKa square scheme, Lü 2025) over BDFE-0377 (62.5, CV-simulation-fitted pKa, Nambu 2010, same E°) and BDFE-0407 (70.2, same-paper OCP); discordant = 1 (sq/OCP gap 2.1 kcal/mol unresolved).
 

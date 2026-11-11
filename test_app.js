@@ -98,6 +98,10 @@ if (chips.length) {
     T("csv all = 426 rows", nAll === 426, "" + nAll);
     T("csv recommended = 421 rows (one per couple)", nRec === 421, "" + nRec);
     T("csv has couple_id column", /couple_id/.test(csvAll.split("\n")[0]));
+    T("csv has entry_id + metadata columns (F4)",
+      ["entry_id","sigma_BDFE","method","T_K","conditions","year"].every(c => csvAll.split("\n")[0].includes(c)));
+    const eids = csvAll.trim().split("\n").slice(1).map(l => l.split(",")[1]);
+    T("csv rows uniquely keyed by entry_id", new Set(eids).size === eids.length && eids.every(e => /^BDFE-\d{4,}$/.test(e)));
     T("csv recommended keeps the starred VW5O18 value (63.0 not 63.3)",
       csvRec.split("\n").filter(l => l.includes("VW5O18(OH)")).length === 1 &&
       csvRec.split("\n").find(l => l.includes("VW5O18(OH)")).includes("63.0"));

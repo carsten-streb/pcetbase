@@ -1443,9 +1443,9 @@ function csvText(){
   const scope=document.getElementById("csvScope").value;
   let rows=filtered();
   if(scope==="rec")rows=rows.filter(r=>r.rec||r.nDup===1);
-  const head=["couple_id","compound","partner","class","bond","solvent","E_V_vs_H2","E_display_"+sc,"pKa_XH","BDFE_"+u,"flags","recommended","source_doi","orig_ref_in_source"];
+  const head=["couple_id","entry_id","compound","partner","class","bond","solvent","E_V_vs_H2","E_display_"+sc,"pKa_XH","BDFE_"+u,"sigma_BDFE","method","T_K","conditions","year","flags","recommended","source_doi","orig_ref_in_source"];
   return [head.join(",")].concat(rows.map(r=>
-    [r.cid,`"${r.name}"`,`"${r.partner}"`,r.cls,r.bond,r.solvent,isNaN(r.E)?"":r.E,eDisplay(r,sc),r.pka==null||r.pka!==r.pka?"":r.pka,toUnit(r.bdfe,u).toFixed(2),`"${r.flags}"`,r.rec?"1":"",`"https://doi.org/${r.srcDoi}"`,`"${r.doi?"":r.refs}"`].join(","))).join("\n");
+    [r.cid,r.entryId,`"${r.name}"`,`"${r.partner}"`,r.cls,r.bond,r.solvent,isNaN(r.E)?"":r.E,eDisplay(r,sc),r.pka==null||r.pka!==r.pka?"":r.pka,toUnit(r.bdfe,u).toFixed(2),r.sigma,r.method,r.tK,`"${r.cond}"`,r.year,`"${r.flags}"`,r.rec?"1":"",`"https://doi.org/${r.srcDoi}"`,`"${r.doi?"":r.refs}"`].join(","))).join("\n");
 }
 function copyCSV(){
   navigator.clipboard.writeText(csvText()).then(

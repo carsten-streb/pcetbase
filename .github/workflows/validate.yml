@@ -13,10 +13,12 @@ jobs:
           python-version: "3.12"
       - name: Run thermochemical validation
         run: python validate.py
+      - name: Unit tests (autorecommend policy)
+        run: python test_autorecommend.py
       - name: Rebuild and check committed artifacts are current
         run: |
           python build.py
-          git diff --exit-code data/data.csv index.html || {
+          git diff --exit-code data/data.csv data/couples.csv index.html || {
             echo "::error::data.csv or index.html is not in sync with build.py output. Run 'python build.py' and commit the result."
             exit 1
           }

@@ -100,3 +100,6 @@ This database was compiled with AI assistance (Anthropic Claude) under human dir
 and review; every value was validated against its thermochemical cycle, and source
 inconsistencies found during compilation are flagged `check-src` rather than silently
 corrected.
+
+
+Cross-solvent pKa comparison: empirical estimator per Kütt et al., EJOC 2021, doi:10.1002/ejoc.202001649 (organic acids only; estimates never stored).

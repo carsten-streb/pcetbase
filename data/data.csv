@@ -420,8 +420,8 @@ EXT,pom,O-H,[SVW11O39(OH)]3- (1st H on SVIVW11),,MeCN,0.16,,,7.3,0.620,66.3,,,1,
 EXT,pom,O-H,[VW12O40]3- (VinW12),4-MeOPyr,MeCN,,,,,0.781,70,ox-base,,1,sq,10.1021/jacs.5c18764,70,,,,2026,BDFE-0419,CPL-0415,,,
 EXT,pom,O-H,[VW12O40]3- (VinW12),TMG,MeCN,,,,,1.301,82,ox-base;approx,,1,sq,10.1021/jacs.5c18764,82,,,,2026,BDFE-0420,CPL-0416,,,
 EXT,pom,O-H,[VW12O40]4- (1e-red VinW12),4-MeOPyrH+,MeCN,,,,,0.781,70,red-acid;approx,,1,sq,10.1021/jacs.5c18764,70,,,,2026,BDFE-0421,CPL-0417,,,
-EXT,pom,O-H,{TiOH} Keggin POT (event 1 per Fig. 5c),,MeCN,,,,,0.017,52.4,check-src,,1,sq,10.1039/d6sc04575h,52.4,,,,2026,BDFE-0422,CPL-0418,,,
-EXT,pom,O-H,{TiOH} Keggin POT (event 2 per Fig. 5c),,MeCN,,,,,-0.221,46.9,check-src,,1,sq,10.1039/d6sc04575h,46.9,,,,2026,BDFE-0423,CPL-0419,,,
-EXT,pom,O-H,{TiOH} Keggin POT (event 3 per Fig. 5c),,MeCN,,,,,-0.195,47.5,check-src,,1,sq,10.1039/d6sc04575h,47.5,,,,2026,BDFE-0424,CPL-0420,,,
-EXT,pom,O-H,{TiOBn} Keggin POT (event 1 per Fig. 5c),,MeCN,,,,,-0.386,43.1,check-src,,1,sq,10.1039/d6sc04575h,43.1,,,,2026,BDFE-0425,CPL-0421,,,
-EXT,pom,O-H,{TiOBn} Keggin POT (event 2 per Fig. 5c),,MeCN,,,,,-0.416,42.4,check-src,,1,sq,10.1039/d6sc04575h,42.4,,,,2026,BDFE-0426,CPL-0422,,,
+EXT,pom,O-H,{TiOH} Keggin POT (event 1 per Fig. 5c),,MeCN,-1.38,,,23.0,0.013,52.3,recomputed,,1,sq,10.1039/d6sc04575h,52.4,,,,2026,BDFE-0422,CPL-0418,10.4,,0.1 M nBu4NPF6
+EXT,pom,O-H,{TiOH} Keggin POT (event 2 per Fig. 5c),,MeCN,-1.76,,,25.4,-0.225,46.8,recomputed,,1,sq,10.1039/d6sc04575h,46.9,,,,2026,BDFE-0423,CPL-0419,5.2,,0.1 M nBu4NPF6
+EXT,pom,O-H,{TiOH} Keggin POT (event 3 per Fig. 5c),,MeCN,-2.21,,,33.5,-0.195,47.5,,,1,sq,10.1039/d6sc04575h,47.5,,,,2026,BDFE-0424,CPL-0420,5.5,,0.1 M nBu4NPF6
+EXT,pom,O-H,{TiOBn} Keggin POT (event 1 per Fig. 5c),,MeCN,-1.38,,,16.3,-0.386,43.1,,,1,sq,10.1039/d6sc04575h,43.1,,,,2026,BDFE-0425,CPL-0421,8.8,,0.1 M nBu4NPF6
+EXT,pom,O-H,{TiOBn} Keggin POT (event 2 per Fig. 5c),,MeCN,-1.75,,,22.0,-0.416,42.4,,,1,sq,10.1039/d6sc04575h,42.4,,,,2026,BDFE-0426,CPL-0422,8.6,,0.1 M nBu4NPF6

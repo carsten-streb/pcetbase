@@ -375,7 +375,7 @@ T21,co2,X-H,CO2/CH4 (CO2+4H2→CH4+2H2O),,gas,,,,,0.145,51.9,avg,42,8,,,,,,,2022
 T21,co2,X-H,CO2/CH4 (CO2+4H2→CH4+2H2O),,H2O,,,,,0.169,56.7,avg,67,8,,,,,,,2022,BDFE-0374,CPL-0374,,,
 T21,co2,X-H,CO2/CH4 (CO2+4H2→CH4+2H2O),,MeCN,,,,,0.178,56.5,avg;check-src,67,8,,,,,,,2022,BDFE-0375,CPL-0375,,,
 T21,co2,X-H,CO2/CH4 (CO2+4H2→CH4+2H2O),,DMF,,,,,0.182,56.1,avg;check-src,67,8,,,,,,,2022,BDFE-0376,CPL-0376,,,
-EXT,pom,O-H,[HPVW11O40]4- (1st H on PVIVW11),,MeCN,-0.300,,,12.28,0.456,62.5,derived,,1,sq,10.1039/c003248d,,,,,2010,BDFE-0377,CPL-0377,,,"MeCN, 0.1 M nBu4NPF6, CF3SO3H titrant, digital CV simulation (DigiSim); specific O site not assigned in source"
+EXT,pom,O-H,[HPVW11O40]4- (1st H on PVIVW11),,MeCN,-0.300,,,12.28,0.456,62.5,derived;sim-pKa,,1,sq,10.1039/c003248d,,,,,2010,BDFE-0377,CPL-0377,,,"MeCN, 0.1 M nBu4NPF6, CF3SO3H titrant, digital CV simulation (DigiSim); specific O site not assigned in source"
 EXT,pom,O-H,[H2PVW11O40]3- (2nd H on PVIVW11),,MeCN,0.100,,,6.90,0.536,64.4,derived,,1,sq,10.1039/c003248d,,,,,2010,BDFE-0378,CPL-0378,,,"MeCN, 0.1 M nBu4NPF6, CF3SO3H titrant, digital CV simulation (DigiSim); specific O site not assigned in source"
 EXT,pom,O-H,[HPVMo11O40]4- (1st H on PVIVMo11),,MeCN,-0.400,,,13.38,0.421,61.7,derived,,1,sq,10.1039/c003248d,,,,,2010,BDFE-0379,CPL-0379,,,"MeCN, 0.1 M nBu4NPF6, CF3SO3H titrant, digital CV simulation (DigiSim); specific O site not assigned in source"
 EXT,pom,O-H,[H2PVMo11O40]3- (2nd H on PVIVMo11),,MeCN,0.070,,,6.60,0.488,63.3,derived,,1,sq,10.1039/c003248d,,,,,2010,BDFE-0380,CPL-0380,,,"MeCN, 0.1 M nBu4NPF6, CF3SO3H titrant, digital CV simulation (DigiSim); specific O site not assigned in source"

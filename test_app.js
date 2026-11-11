@@ -198,6 +198,18 @@ if (chips.length) {
   T("K1 cross-solvent hard block", /not supported/i.test(out2)&&!/ΔG°\(HAT\) =/.test(out2), out2.slice(0,80));
 }
 
+// ---------- 9b2. R2-1: pair panel marks effective pairs / excited couples ----------
+{
+  const D2=dom.window.eval("D");
+  const pair=D2.find(r=>r.flags.includes("ox-base")&&r.flags.includes("excited")&&r.solvent==="MeCN"&&Number.isFinite(r.bdfe))||D2.find(r=>r.flags.includes("ox-base")&&r.solvent==="MeCN"&&Number.isFinite(r.bdfe));
+  const sub=D2.find(r=>r.bond==="C-H"&&r.solvent==="MeCN"&&Number.isFinite(r.bdfe)&&r.nDup===1);
+  const key=r=>`${r.name}${r.partner?" + "+r.partner:""} [${r.solvent}]`;
+  $("pDon").value=key(sub); $("pAcc").value=key(pair); $("pGo").click();
+  const o=$("pOut").textContent;
+  T("R2-1: effective-pair marker shown", /reagent pair, not a single/.test(o), o.slice(0,120));
+  if(pair.flags.includes("excited"))T("R2-1: excited-state marker shown", /excited-state couple/.test(o));
+}
+
 // ---------- 9c. K3 estimator (Kütt 2021, descriptor-free) ----------
 {
   // acceptance: eq 3.2, pKa(MeCN)=20 -> pKa(DMF)=9.5 +/- 0.2
@@ -207,7 +219,9 @@ if (chips.length) {
   T("K3 eq 3.2: pKa(MeCN)=20 -> DMF 9.5 ± 0.2", /9\.5 ± 0\.2/.test(o1), o1.slice(0,80));
   // out-of-range warning (eq 3.2 range 11.0-29.2, input 5)
   $("kIn").value="5"; $("kGo").click();
-  T("K3 out-of-range warning", /Outside calibration range/.test($("kOut").textContent));
+  const oorTxt=$("kOut").textContent;
+  T("K3 out-of-range warning", /Outside calibration range/.test(oorTxt));
+  T("R2-2: warning precedes the value", oorTxt.indexOf("Outside calibration range")<oorTxt.indexOf("≈"), oorTxt.slice(0,80));
   // family list contains no POM/metal option
   const fams=[...d.querySelectorAll("#kFam option")].map(o=>o.textContent.toLowerCase()).join("|");
   T("K3 no POM/metal-complex family", !/pom|metal/.test(fams), fams);

@@ -222,10 +222,10 @@
   Flags: <i>hess</i> = value in source derived by Hess's law; <i>limit</i> = inequality bound; <i>approx</i> = approximate;
   <i>lowprec</i> = low-precision printed value; <i>dmso-unc</i> = larger uncertainty in DMSO constants;
   <i>lowT</i> = measured at −80 °C; <i>excited</i> = excited-state potential; <i>check-src</i> = internal inconsistency in source, under review;
-  <i>recomputed</i> = BDFE recalculated here from the primary E°/pK<sub>a</sub> with corrected constants; <i>avg</i> = average over n sequential H-atom transfers. ★ marks the recommended value where several independent measurements of the same couple/solvent exist; all values are kept with their sources.
+  <i>recomputed</i> = BDFE recalculated here from the primary E°/pK<sub>a</sub> with corrected constants; <i>sim-pKa</i> = pK<sub>a</sub> from CV digital-simulation fitting, not direct measurement; <i>avg</i> = average over n sequential H-atom transfers. ★ marks the recommended value where several independent measurements of the same couple/solvent exist; all values are kept with their sources.
   External entries (Src = DOI) are extracted from the primary literature; POM-cluster data include work of the Matson group (polyoxovanadate-alkoxides).
   BDFEs of pairs are <i>effective</i> BDFEs (BDFE<sub>eff</sub>). Always consult the primary source before quantitative use.<br>
-  <span class="src">Data version: 426 measurements, v1.3, data 99d5998a — if these numbers look outdated, hard-reload (Ctrl+F5).</span><br>
+  <span class="src">Data version: 426 measurements, v1.3, data a571fe68 — if these numbers look outdated, hard-reload (Ctrl+F5).</span><br>
   <b>Cite PCETbase:</b> C. Streb, PCETbase: an open database of solution-phase PCET thermochemistry, <a href="https://doi.org/10.5281/zenodo.24121910">doi:10.5281/zenodo.24121910</a> (all versions; this release v1.3: <a href="https://doi.org/10.5281/zenodo.24137124">doi:10.5281/zenodo.24137124</a>) · code &amp; data: <a href="https://github.com/carsten-streb/pcetbase">github.com/carsten-streb/pcetbase</a> (CC BY 4.0)
 </footer>
 
@@ -654,7 +654,7 @@ T21,co2,X-H,CO2/CH4 (CO2+4H2→CH4+2H2O),,gas,,,,,0.145,51.9,avg,42,8,,,,,,,2022
 T21,co2,X-H,CO2/CH4 (CO2+4H2→CH4+2H2O),,H2O,,,,,0.169,56.7,avg,67,8,,,,,,,2022,BDFE-0374,CPL-0374,,,
 T21,co2,X-H,CO2/CH4 (CO2+4H2→CH4+2H2O),,MeCN,,,,,0.178,56.5,avg;check-src,67,8,,,,,,,2022,BDFE-0375,CPL-0375,,,
 T21,co2,X-H,CO2/CH4 (CO2+4H2→CH4+2H2O),,DMF,,,,,0.182,56.1,avg;check-src,67,8,,,,,,,2022,BDFE-0376,CPL-0376,,,
-EXT,pom,O-H,[HPVW11O40]4- (1st H on PVIVW11),,MeCN,-0.300,,,12.28,0.456,62.5,derived,,1,sq,10.1039/c003248d,,,,,2010,BDFE-0377,CPL-0377,,,"MeCN, 0.1 M nBu4NPF6, CF3SO3H titrant, digital CV simulation (DigiSim); specific O site not assigned in source"
+EXT,pom,O-H,[HPVW11O40]4- (1st H on PVIVW11),,MeCN,-0.300,,,12.28,0.456,62.5,derived;sim-pKa,,1,sq,10.1039/c003248d,,,,,2010,BDFE-0377,CPL-0377,,,"MeCN, 0.1 M nBu4NPF6, CF3SO3H titrant, digital CV simulation (DigiSim); specific O site not assigned in source"
 EXT,pom,O-H,[H2PVW11O40]3- (2nd H on PVIVW11),,MeCN,0.100,,,6.90,0.536,64.4,derived,,1,sq,10.1039/c003248d,,,,,2010,BDFE-0378,CPL-0378,,,"MeCN, 0.1 M nBu4NPF6, CF3SO3H titrant, digital CV simulation (DigiSim); specific O site not assigned in source"
 EXT,pom,O-H,[HPVMo11O40]4- (1st H on PVIVMo11),,MeCN,-0.400,,,13.38,0.421,61.7,derived,,1,sq,10.1039/c003248d,,,,,2010,BDFE-0379,CPL-0379,,,"MeCN, 0.1 M nBu4NPF6, CF3SO3H titrant, digital CV simulation (DigiSim); specific O site not assigned in source"
 EXT,pom,O-H,[H2PVMo11O40]3- (2nd H on PVIVMo11),,MeCN,0.070,,,6.60,0.488,63.3,derived,,1,sq,10.1039/c003248d,,,,,2010,BDFE-0380,CPL-0380,,,"MeCN, 0.1 M nBu4NPF6, CF3SO3H titrant, digital CV simulation (DigiSim); specific O site not assigned in source"
@@ -1313,7 +1313,8 @@ const FLAG_GLOSS={hess:"value derived in the source by Hess's law from the other
  recomputed:"BDFE recalculated here from the primary E°/pKa with the corrected CG (see equations below)",
  avg:"average BDFE over n sequential H-atom transfers",
  "ref-conv":"potential converted from another reference electrode; expand the conversion item in the verification panel for details",
- "ref-conv-missing":"published potential uses a reference electrode for which no verified conversion constant is on file yet; no BDFE computed from it"};
+ "ref-conv-missing":"published potential uses a reference electrode for which no verified conversion constant is on file yet; no BDFE computed from it",
+ "sim-pKa":"pKa obtained by fitting a digital CV simulation, not by direct measurement - a methodologically weaker tier than directly measured square-scheme legs"};
 
 function showDetail(id){
   const r=D[id];
@@ -1633,8 +1634,9 @@ function init(){
       parts+=` ${c<0?"−":"+"} ${Math.abs(c)}·${KLBL[dk]||dk}(${v})`;
     }
     parts+=` ${q.b<0?"−":"+"} ${Math.abs(q.b).toFixed(1)}`;
-    const warn=(x<q.lo||x>q.hi)?`<div class="warn"><b>Outside calibration range</b> (eq ${q.eq} calibrated for pKa(MeCN) ${q.lo}–${q.hi}) — the estimate may be unreliable.</div>`:"";
-    out.innerHTML=`pK<sub>a</sub>(${document.getElementById("kSolv").value}) ≈ ${parts} = <b>${y.toFixed(1)} ± ${q.u}</b> <span class="src">(eq ${q.eq}, ${q.fam}; u = leave-one-out RMSE; descriptors per Kütt 2021, footnote [a])</span>${warn}`;
+    const oor=(x<q.lo||x>q.hi);
+    const warn=oor?`<div class="warn"><b>Outside calibration range</b> (eq ${q.eq} calibrated for pKa(MeCN) ${q.lo}–${q.hi}) — the estimate below may be unreliable.</div>`:"";
+    out.innerHTML=warn+`<span${oor?' style="opacity:.55"':""}>pK<sub>a</sub>(${document.getElementById("kSolv").value}) ≈ ${parts} = <b>${y.toFixed(1)} ± ${q.u}</b> <span class="src">(eq ${q.eq}, ${q.fam}; u = leave-one-out RMSE; descriptors per Kütt 2021, footnote [a])</span></span>`;
   });
   /* K1 pair mode: one entry per couple (the rep/starred measurement), alias-aware via datalist labels */
   const PAIRS={};
@@ -1660,8 +1662,15 @@ function init(){
     const sD=parseFloat(don.sigma), sA=parseFloat(acc.sigma);
     const sComb=(Number.isFinite(sD)&&Number.isFinite(sA))?Math.sqrt(sD*sD+sA*sA):null;
     const verdict=dG<0?`<b>downhill by ${toUnit(-dG,u).toFixed(1)} ${unitLbl[u]}</b>`:dG>0?`<b>uphill by ${toUnit(dG,u).toFixed(1)} ${unitLbl[u]}</b>`:"<b>thermoneutral</b>";
+    const nature=r=>{
+      const m=[];
+      if(r.flags.includes("ox-base"))m.push("⚠ effective BDFE of an oxidant + base reagent pair, not a single X–H bond");
+      if(r.flags.includes("red-acid"))m.push("⚠ effective BDFE of a reductant + acid reagent pair, not a single X–H bond");
+      if(r.flags.includes("excited"))m.push("⚠ excited-state couple — lifetime-limited");
+      return m.length?` <b>${m.join("; ")}</b>`:"";
+    };
     out.innerHTML=`ΔG°(HAT) = ${toUnit(don.bdfe,u).toFixed(1)} − ${toUnit(acc.bdfe,u).toFixed(1)} = <b>${toUnit(dG,u).toFixed(1)} ${unitLbl[u]}</b> — ${verdict}`+
-      `<div class="warn">Donor: ${don.name} (${don.entryId}${don.sigma?", σ ±"+don.sigma:""}) · Acceptor: ${acc.name} (${acc.entryId}${acc.sigma?", σ ±"+acc.sigma:""})`+
+      `<div class="warn">Donor: ${don.name} (${don.entryId}${don.sigma?", σ ±"+don.sigma:""})${nature(don)} · Acceptor: ${acc.name} (${acc.entryId}${acc.sigma?", σ ±"+acc.sigma:""})${nature(acc)}`+
       `${sComb!=null?` · combined σ ±${toUnit(sComb,u).toFixed(1)} ${unitLbl[u]} (root-sum-square)`:""}</div>`;
   });
   renderTable();renderLadder();

@@ -216,6 +216,29 @@ if (chips.length) {
   T("K3 estimate never stored (CSV still 426 rows)", w.csvText().trim().split("\n").length-1===426);
 }
 
+// ---------- 9d. K3 stage 2: descriptor-based H2O/DMSO ----------
+{
+  const setK=(solv,fam)=>{$("kSolv").value=solv;fire($("kSolv"),"input");$("kFam").value=String(fam);fire($("kFam"),"input");};
+  // eq 1.2 worked example: x=20, XCO=0, nC=6, MW=94.11 -> 0.55*20+0.13*6+0.0017*94.11-6.5 = 5.4
+  setK("H2O",1);
+  $("kd_XCO").value="0"; $("kd_nC").value="6"; $("kd_MW").value="94.11";
+  $("kIn").value="20"; $("kGo").click();
+  T("K3s2 eq 1.2: phenol example -> 5.4 ± 0.3", /5\.4 ± 0\.3/.test($("kOut").textContent), $("kOut").textContent.slice(0,100));
+  // eq 2.4 worked example: x=20, nNO2=1, nCF3=0 -> 0.87*20-1.0-8.0 = 8.4
+  setK("DMSO",3);
+  $("kd_nNO2").value="1"; $("kd_nCF3").value="0";
+  $("kIn").value="20"; $("kGo").click();
+  T("K3s2 eq 2.4: nitrophenol example -> 8.4 ± 0.6", /8\.4 ± 0\.6/.test($("kOut").textContent), $("kOut").textContent.slice(0,100));
+  // descriptor fields appear/disappear with the equation
+  T("K3s2 eq 2.4 shows exactly its 2 descriptor fields", d.querySelectorAll("#kDesc input").length===2);
+  setK("DMF",0);
+  T("K3s2 DMF shows no descriptor fields", d.querySelectorAll("#kDesc input").length===0);
+  // negative descriptor rejected
+  setK("DMSO",0);
+  $("kd_nHBD").value="-1"; $("kIn").value="20"; $("kGo").click();
+  T("K3s2 rejects negative descriptor", /non-negative/.test($("kOut").textContent));
+}
+
 // ---------- 10. theme toggle ----------
 {
   const before = d.documentElement.getAttribute("data-theme") || "auto";

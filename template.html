@@ -94,7 +94,7 @@
 
 <main>
   <section class="panel">
-    <h2>Ladder — BDFE / <i>E</i>°(V vs H₂)</h2>
+    <h2 id="ladderHead">Ladder — BDFE / <i>E</i>°(V vs H₂)</h2>
     <svg id="ladder" viewBox="0 0 340 760" role="img" aria-label="BDFE ladder of PCET reagents"></svg>
     <div class="warn">Hover a rung for details. Dashed black marker = your couple (calculator below). Pairs (green) are <i>effective</i> BDFEs of oxidant/base and reductant/acid combinations.</div>
   </section>
@@ -117,9 +117,16 @@
             <option value="H2">V vs H₂ (per solvent)</option>
             <option value="Fc">V vs Fc⁺/⁰ (SHE in water)</option>
           </select></div>
-        <div style="align-self:flex-end"><button id="csv">Copy CSV of selection</button></div>
+        <div><label>CSV export</label>
+          <select id="csvScope">
+            <option value="all">all measurements (filtered)</option>
+            <option value="rec">recommended only (one per couple)</option>
+          </select></div>
+        <div style="align-self:flex-end"><button id="csv">Copy CSV</button>
+          <button id="csvDl">Download CSV</button></div>
       </div>
-      <div class="chips" id="classChips"></div>
+      <div><label>Classes — color legend; click a chip to show only that class, click again to restore all</label>
+      <div class="chips" id="classChips"></div></div>
       <div class="count" id="count"></div>
       <div class="tablewrap"><table id="tbl">
         <thead><tr>
@@ -186,6 +193,7 @@
 /* ========== embedded data (regenerate with build.py from data/*.csv) ========== */
 const CONST_CSV = `__CONST_CSV__`;
 const DATA_CSV = `__DATA_CSV__`;
+const COUPLES_CSV = `__COUPLES_CSV__`;
 /* ============================================================================ */
 
 function parseCSV(text){
@@ -229,16 +237,22 @@ const D=parseCSV(DATA_CSV).map((r,i)=>({
   Eraw:r.E_raw===""||r.E_raw===undefined?null:parseFloat(r.E_raw),ErawRef:r.E_raw_ref||"",
   rec:r.recommended==="1"||r.recommended==="auto",recManual:r.recommended==="1",
   nH:r.n_H||"",method:r.method||"",doi:r.doi||"",bdfePub:r.BDFE_pub||"",
+  cid:r.couple_id||"",
   srcDoi:r.doi||REVIEW_DOI,
   srcRef:r.doi?"":(r.refs?` [ref ${r.refs.replace(/;/g,", ")}]`:""),
   src:""
 }));
-/* multi-source handling: entries sharing compound+solvent are independent
+/* couples layer: aliases for search, recommended_reason, discordant */
+const COUPLES={};
+parseCSV(COUPLES_CSV).forEach(c=>{COUPLES[c.couple_id]=c;});
+/* multi-source handling: entries sharing a couple_id are independent
    measurements of the same couple; the starred one is the recommended value */
 const DUPKEY={};
-D.forEach(r=>{const k=(r.name+"|"+r.partner+"|"+r.solvent).toLowerCase();DUPKEY[k]=(DUPKEY[k]||0)+1;});
+D.forEach(r=>{const k=r.cid||(r.name+"|"+r.partner+"|"+r.solvent).toLowerCase();DUPKEY[k]=(DUPKEY[k]||0)+1;});
 D.forEach(r=>{
-  r.nDup=DUPKEY[(r.name+"|"+r.partner+"|"+r.solvent).toLowerCase()];
+  r.nDup=DUPKEY[r.cid||(r.name+"|"+r.partner+"|"+r.solvent).toLowerCase()];
+  const cpl=COUPLES[r.cid];
+  r.aliases=cpl&&cpl.aliases?cpl.aliases.toLowerCase():"";
   r.src=`<a href="https://doi.org/${r.srcDoi}">${r.srcDoi}</a>${r.srcRef}`;
   r.srcText=r.srcDoi+r.srcRef;
   /* reference-electrode conversion: raw potential vs another electrode -> Fc (SHE in water) */
@@ -287,7 +301,7 @@ function filtered(){
   return D.filter(r=>active.has(r.cls)
     &&(!sv||r.solvent===sv)
     &&(!bd||r.bond===bd)
-    &&(!q||r.name.toLowerCase().includes(q)||r.partner.toLowerCase().includes(q)));
+    &&(!q||r.name.toLowerCase().includes(q)||r.partner.toLowerCase().includes(q)||r.aliases.includes(q)));
 }
 
 function renderTable(){
@@ -336,7 +350,10 @@ function showDetail(id){
   const cg=CG[r.solvent], dg=DGH[r.solvent];
   let h=`<button class="close" onclick="document.getElementById('detail').style.display='none'">✕</button>`;
   h+=`<h3>${r.name}${r.partner?" + "+r.partner:""} — ${r.solvent} — verification${r.rec?" ★":""}</h3>`;
-  if(r.nDup>1)h+=`<div class="warn">${r.nDup} independent measurements exist for this couple/solvent${r.rec?"; this is the recommended value ("+(r.recManual?"manual":"auto, policy v1")+")":"; a ★-starred recommended value may exist — compare sources"}.</div>`;
+  if(r.nDup>1){
+    const cpl=COUPLES[r.cid]||{};
+    h+=`<div class="warn">${r.nDup} independent measurements exist for this couple/solvent${r.rec?"; this is the recommended value ("+(r.recManual?"manual":"auto, policy v1")+")":"; a ★-starred recommended value may exist — compare sources"}.${cpl.discordant==="1"?" <b>Discordant couple:</b> the independent values disagree beyond their combined uncertainty.":""}${r.rec&&cpl.recommended_reason?" Reason: "+cpl.recommended_reason:""}</div>`;
+  }
   h+=`<table>`;
   if(r.Ea!=null)h+=`<tr><td>E°(X/X⁻) [E°(ox/red) for pairs]</td><td><b>${r.Ea.toFixed(3)} V vs ${refSc}</b></td></tr>`;
   if(r.Eb!=null)h+=`<tr><td>E°(XH⁺/XH)</td><td><b>${r.Eb.toFixed(3)} V vs ${refSc}</b></td></tr>`;
@@ -375,12 +392,14 @@ function showDetail(id){
   }
   box.innerHTML=h;
   box.style.display="block";
-  box.scrollIntoView({behavior:"smooth",block:"nearest"});
+  if(box.scrollIntoView)box.scrollIntoView({behavior:"smooth",block:"nearest"});
 }
 
 function renderLadder(){
   const svg=document.getElementById("ladder");
   const u=document.getElementById("unit").value;
+  const sc0=document.getElementById("scale").value;
+  document.getElementById("ladderHead").innerHTML="Ladder — BDFE ("+unitLbl[u]+") / <i>E</i>°("+(sc0==="H2"?"V vs H₂":"V vs Fc⁺/⁰")+")";
   const rows=filtered();
   const W=340,H=760,mL=58,mR=118,mT=16,mB=28;
   let vals=rows.map(r=>r.bdfe).filter(v=>v===v);
@@ -389,11 +408,19 @@ function renderLadder(){
   let lo=Math.floor((Math.min(...vals)-3)/5)*5, hi=Math.ceil((Math.max(...vals)+3)/5)*5;
   if(hi-lo<20){hi=lo+20;}
   const y=k=>mT+(hi-k)/(hi-lo)*(H-mT-mB);
-  const step=(hi-lo)>60?10:5;
   let s="";
-  for(let k=lo;k<=hi;k+=step){
+  /* ticks: round values in the DISPLAY unit (kJ axis shows 250/275/300, not converted kcal ticks) */
+  const fromUnit=(v,uu)=>uu==="kJ"?v/4.184:(uu==="eV"?v*23.06:v);
+  const dLo=toUnit(lo,u), dHi=toUnit(hi,u);
+  const targetN=(hi-lo)>60?((hi-lo)/10):((hi-lo)/5);
+  const rawStep=(dHi-dLo)/targetN;
+  const mag=Math.pow(10,Math.floor(Math.log10(rawStep)));
+  const dStep=[1,2,2.5,5,10].map(m=>m*mag).find(st=>st>=rawStep)||10*mag;
+  const dec=u==="eV"?2:(dStep<1?1:0);
+  for(let dv=Math.ceil(dLo/dStep)*dStep;dv<=dHi+1e-9;dv+=dStep){
+    const k=fromUnit(dv,u);
     s+=`<line x1="${mL}" x2="${W-mR}" y1="${y(k)}" y2="${y(k)}" stroke="var(--grid)" stroke-width="1"/>`;
-    s+=`<text x="${mL-8}" y="${y(k)+4}" text-anchor="end" font-size="10.5" fill="var(--ink-muted)" font-variant-numeric="tabular-nums">${toUnit(k,u).toFixed(u==="eV"?2:0)}</text>`;
+    s+=`<text x="${mL-8}" y="${y(k)+4}" text-anchor="end" font-size="10.5" fill="var(--ink-muted)" font-variant-numeric="tabular-nums">${dv.toFixed(dec)}</text>`;
   }
   s+=`<line x1="${mL}" x2="${mL}" y1="${y(hi)}" y2="${y(lo)}" stroke="var(--axis)" stroke-width="1"/>`;
   s+=`<text x="14" y="${(y(lo)+y(hi))/2}" font-size="11" fill="var(--ink-2)" transform="rotate(-90 14 ${(y(lo)+y(hi))/2})" text-anchor="middle">BDFE (${unitLbl[u]})</text>`;
@@ -459,14 +486,27 @@ function compute(){
   renderLadder();
 }
 
-function copyCSV(){
+function csvText(){
   const u=document.getElementById("unit").value, sc=document.getElementById("scale").value;
-  const head=["compound","partner","class","bond","solvent","E_V_vs_H2","E_display_"+sc,"pKa_XH","BDFE_"+u,"flags","recommended","source_doi","orig_ref_in_source"];
-  const lines=[head.join(",")].concat(filtered().map(r=>
-    [`"${r.name}"`,`"${r.partner}"`,r.cls,r.bond,r.solvent,isNaN(r.E)?"":r.E,eDisplay(r,sc),r.pka==null||r.pka!==r.pka?"":r.pka,toUnit(r.bdfe,u).toFixed(2),`"${r.flags}"`,r.rec?"1":"",`"https://doi.org/${r.srcDoi}"`,`"${r.doi?"":r.refs}"`].join(",")));
-  navigator.clipboard.writeText(lines.join("\n")).then(
-    ()=>{const b=document.getElementById("csv");b.textContent="Copied ✓";setTimeout(()=>b.textContent="Copy CSV of selection",1500);},
-    ()=>alert("Clipboard unavailable — select the table and copy manually."));
+  const scope=document.getElementById("csvScope").value;
+  let rows=filtered();
+  if(scope==="rec")rows=rows.filter(r=>r.rec||r.nDup===1);
+  const head=["couple_id","compound","partner","class","bond","solvent","E_V_vs_H2","E_display_"+sc,"pKa_XH","BDFE_"+u,"flags","recommended","source_doi","orig_ref_in_source"];
+  return [head.join(",")].concat(rows.map(r=>
+    [r.cid,`"${r.name}"`,`"${r.partner}"`,r.cls,r.bond,r.solvent,isNaN(r.E)?"":r.E,eDisplay(r,sc),r.pka==null||r.pka!==r.pka?"":r.pka,toUnit(r.bdfe,u).toFixed(2),`"${r.flags}"`,r.rec?"1":"",`"https://doi.org/${r.srcDoi}"`,`"${r.doi?"":r.refs}"`].join(","))).join("\n");
+}
+function copyCSV(){
+  navigator.clipboard.writeText(csvText()).then(
+    ()=>{const b=document.getElementById("csv");b.textContent="Copied ✓";setTimeout(()=>b.textContent="Copy CSV",1500);},
+    ()=>alert("Clipboard unavailable — use Download CSV instead."));
+}
+function downloadCSV(){
+  const blob=new Blob([csvText()],{type:"text/csv;charset=utf-8"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="pcetbase_export.csv";
+  document.body.appendChild(a);a.click();
+  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},500);
 }
 
 function init(){
@@ -475,8 +515,12 @@ function init(){
     `<span class="chip" data-k="${c.k}"><span class="dot" style="background:${c.color}"></span>${c.label}</span>`).join("");
   cc.querySelectorAll(".chip").forEach(ch=>ch.addEventListener("click",()=>{
     const k=ch.dataset.k;
-    if(active.has(k)&&active.size>1){active.delete(k);ch.classList.add("off");}
-    else {active.add(k);ch.classList.remove("off");}
+    if(active.size===1&&active.has(k)){ /* second click on the solo chip: restore all */
+      active=new Set(CLASSES.map(c=>c.k));
+    }else{ /* solo: show only this class */
+      active=new Set([k]);
+    }
+    cc.querySelectorAll(".chip").forEach(c2=>c2.classList.toggle("off",!active.has(c2.dataset.k)));
     renderTable();renderLadder();
   }));
   const solvs=[...new Set(D.map(r=>r.solvent))].sort();
@@ -496,9 +540,11 @@ function init(){
     document.getElementById("rowEh2").style.display=e.target.value==="eh2"?"":"none";
     document.getElementById("rowSq").style.display=e.target.value==="sq"?"":"none";
   });
+  const th0=document.querySelector('#tbl th[data-k="bdfe"] .arr'); if(th0)th0.textContent="▲";
   document.getElementById("uGo").addEventListener("click",compute);
   document.getElementById("uClear").addEventListener("click",()=>{userPt=null;document.getElementById("uOut").textContent="";renderLadder();});
   document.getElementById("csv").addEventListener("click",copyCSV);
+  document.getElementById("csvDl").addEventListener("click",downloadCSV);
   renderTable();renderLadder();
 }
 init();

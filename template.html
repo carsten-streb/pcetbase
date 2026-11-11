@@ -28,64 +28,64 @@
   *{box-sizing:border-box}
   body{margin:0;background:var(--page);color:var(--ink-1);
     font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
-    font-size:14px;line-height:1.45}
+    font-size:15px;line-height:1.45}
   header{padding:20px 24px 8px}
   h1{font-size:20px;margin:0 0 2px}
-  .sub{color:var(--ink-2);font-size:13px;max-width:76em}
+  .sub{color:var(--ink-2);font-size:14px;max-width:76em}
   main{display:grid;grid-template-columns:340px 1fr;gap:16px;padding:12px 24px 24px}
   @media(max-width:950px){main{grid-template-columns:1fr}}
   .panel{background:var(--surface-1);border:1px solid var(--border);border-radius:8px;padding:14px 16px}
-  .panel h2{font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-2);margin:0 0 10px}
+  .panel h2{font-size:14px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-2);margin:0 0 10px}
   .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;margin-bottom:12px}
-  label{display:block;font-size:11.5px;color:var(--ink-2);margin-bottom:3px}
+  label{display:block;font-size:12.5px;color:var(--ink-2);margin-bottom:3px}
   select,input[type=text],input[type=number]{
     background:var(--surface-1);color:var(--ink-1);border:1px solid var(--axis);
-    border-radius:6px;padding:5px 8px;font:inherit;font-size:13px}
+    border-radius:6px;padding:5px 8px;font:inherit;font-size:14px}
   input[type=text]{width:170px}
   button{background:var(--surface-1);color:var(--ink-1);border:1px solid var(--axis);
-    border-radius:6px;padding:6px 12px;font:inherit;font-size:13px;cursor:pointer}
+    border-radius:6px;padding:6px 12px;font:inherit;font-size:14px;cursor:pointer}
   button:hover{border-color:var(--ink-2)}
   button.primary{background:var(--c-phenol);border-color:var(--c-phenol);color:#fff}
   .chips{display:flex;flex-wrap:wrap;gap:6px}
   .chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--axis);
-    border-radius:999px;padding:3px 10px;font-size:12.5px;cursor:pointer;user-select:none}
+    border-radius:999px;padding:3px 10px;font-size:13.5px;cursor:pointer;user-select:none}
   .chip .dot{width:9px;height:9px;border-radius:50%}
   .chip.off{opacity:.38}
   .badge{border:1px solid var(--axis);border-radius:999px;background:none;color:var(--ink-2);
-    font-size:10.5px;padding:0 7px;margin-left:5px;cursor:pointer;line-height:1.5}
+    font-size:11.5px;padding:0 7px;margin-left:5px;cursor:pointer;line-height:1.5}
   .badge:hover{border-color:var(--ink-2)}
   tr.sub td{background:rgba(128,128,128,0.045);color:var(--ink-2)}
-  table{border-collapse:collapse;width:100%;font-size:12.5px}
+  table{border-collapse:collapse;width:100%;font-size:13.5px}
   th,td{padding:4px 7px;text-align:left;border-bottom:1px solid var(--grid);white-space:nowrap}
   th{color:var(--ink-2);font-weight:600;cursor:pointer;position:sticky;top:0;background:var(--surface-1);z-index:2}
-  th .arr{font-size:10px;color:var(--ink-muted)}
+  th .arr{font-size:11px;color:var(--ink-muted)}
   td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
-  .src{color:var(--ink-muted);font-size:11px}
+  .src{color:var(--ink-muted);font-size:12px}
   .flagmark{color:var(--ink-muted);cursor:help;border-bottom:1px dotted var(--ink-muted)}
   .tablewrap{max-height:560px;overflow:auto;border:1px solid var(--grid);border-radius:6px}
   #ladder{width:100%;height:auto;display:block}
   .tip{position:fixed;pointer-events:none;background:var(--surface-1);border:1px solid var(--axis);
-    border-radius:6px;padding:6px 9px;font-size:12px;box-shadow:0 2px 8px rgba(0,0,0,.15);
+    border-radius:6px;padding:6px 9px;font-size:13px;box-shadow:0 2px 8px rgba(0,0,0,.15);
     display:none;z-index:10;max-width:280px;white-space:normal}
   .calc .row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
   .calc input[type=number]{width:95px}
-  .result{font-size:15px;margin-top:6px}
+  .result{font-size:16px;margin-top:6px}
   .result b{font-size:18px}
-  footer{padding:8px 24px 28px;color:var(--ink-2);font-size:12px;max-width:84em}
+  footer{padding:8px 24px 28px;color:var(--ink-2);font-size:13px;max-width:84em}
   footer a{color:var(--c-phenol)}
-  .warn{color:var(--ink-2);font-size:12px;margin-top:6px}
-  .count{color:var(--ink-muted);font-size:12px;margin:6px 0}
+  .warn{color:var(--ink-2);font-size:13px;margin-top:6px}
+  .count{color:var(--ink-muted);font-size:13px;margin:6px 0}
   #tbl tbody tr{cursor:pointer}
   #tbl tbody tr:hover td{background:rgba(128,128,128,0.06)}
-  .detail{margin-top:10px;border:1px solid var(--axis);border-radius:6px;padding:10px 14px;font-size:13px}
-  .detail h3{font-size:13px;margin:0 0 6px}
-  .detail .eq{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;background:rgba(128,128,128,0.07);
+  .detail{margin-top:10px;border:1px solid var(--axis);border-radius:6px;padding:10px 14px;font-size:14px}
+  .detail h3{font-size:14px;margin:0 0 6px}
+  .detail .eq{font-family:ui-monospace,Consolas,monospace;font-size:13.5px;background:rgba(128,128,128,0.07);
     border-radius:4px;padding:6px 8px;margin:4px 0;overflow-x:auto;white-space:nowrap}
-  .detail table{font-size:12.5px;width:auto}
+  .detail table{font-size:13.5px;width:auto}
   .detail td,.detail th{border:none;padding:2px 12px 2px 0}
   .detail .close{float:right;cursor:pointer;color:var(--ink-muted);border:none;background:none;font-size:15px}
   .detail details{margin:6px 0;border:1px dashed var(--axis);border-radius:5px;padding:4px 8px}
-  .detail summary{cursor:pointer;font-size:12.5px;color:var(--ink-2)}
+  .detail summary{cursor:pointer;font-size:13.5px;color:var(--ink-2)}
 </style>
 </head>
 <body>
@@ -466,10 +466,10 @@ function renderLadder(){
   for(let dv=Math.ceil(dLo/dStep)*dStep;dv<=dHi+1e-9;dv+=dStep){
     const k=fromUnit(dv,u);
     s+=`<line x1="${mL}" x2="${W-mR}" y1="${y(k)}" y2="${y(k)}" stroke="var(--grid)" stroke-width="1"/>`;
-    s+=`<text x="${mL-8}" y="${y(k)+4}" text-anchor="end" font-size="10.5" fill="var(--ink-muted)" font-variant-numeric="tabular-nums">${dv.toFixed(dec)}</text>`;
+    s+=`<text x="${mL-8}" y="${y(k)+4}" text-anchor="end" font-size="11.5" fill="var(--ink-muted)" font-variant-numeric="tabular-nums">${dv.toFixed(dec)}</text>`;
   }
   s+=`<line x1="${mL}" x2="${mL}" y1="${y(hi)}" y2="${y(lo)}" stroke="var(--axis)" stroke-width="1"/>`;
-  s+=`<text x="14" y="${(y(lo)+y(hi))/2}" font-size="11" fill="var(--ink-2)" transform="rotate(-90 14 ${(y(lo)+y(hi))/2})" text-anchor="middle">BDFE (${unitLbl[u]})</text>`;
+  s+=`<text x="14" y="${(y(lo)+y(hi))/2}" font-size="12" fill="var(--ink-2)" transform="rotate(-90 14 ${(y(lo)+y(hi))/2})" text-anchor="middle">BDFE (${unitLbl[u]})</text>`;
   rows.forEach(r=>{
     if(r.bdfe!==r.bdfe)return;
     const yy=y(r.bdfe);
@@ -482,13 +482,13 @@ function renderLadder(){
   rows.forEach(r=>{
     if(anchors.includes(r.name)&&!seen.has(r.name)&&r.bdfe===r.bdfe){
       seen.add(r.name);
-      s+=`<text x="${W-mR+2}" y="${y(r.bdfe)+3.5}" font-size="10" fill="var(--ink-2)">${r.name.split(" ")[0].slice(0,14)} <tspan fill="var(--ink-muted)">(${r.solvent})</tspan></text>`;
+      s+=`<text x="${W-mR+2}" y="${y(r.bdfe)+3.5}" font-size="11" fill="var(--ink-2)">${r.name.split(" ")[0].slice(0,14)} <tspan fill="var(--ink-muted)">(${r.solvent})</tspan></text>`;
     }
   });
   if(userPt){
     const yy=y(userPt.bdfe);
     s+=`<line x1="${mL+2}" x2="${W-mR-2}" y1="${yy}" y2="${yy}" stroke="var(--c-user)" stroke-width="3" stroke-dasharray="6 4" stroke-linecap="round"/>`;
-    s+=`<text x="${W-mR+2}" y="${yy+3.5}" font-size="10" font-weight="700" fill="var(--c-user)">${userPt.name}</text>`;
+    s+=`<text x="${W-mR+2}" y="${yy+3.5}" font-size="11" font-weight="700" fill="var(--c-user)">${userPt.name}</text>`;
   }
   svg.innerHTML=s;
   const tip=document.getElementById("tip");

@@ -1,0 +1,34 @@
+{
+  "title": "PCETbase: an open database of solution-phase PCET thermochemistry (BDFE, E°, pKa)",
+  "upload_type": "dataset",
+  "creators": [
+    {
+      "name": "Streb, Carsten",
+      "affiliation": "Department Chemie, Johannes Gutenberg-Universität Mainz",
+      "orcid": "0000-0002-5846-1905"
+    }
+  ],
+  "description": "Open community database of solution-phase proton-coupled electron transfer (PCET) thermochemistry: bond dissociation free energies (BDFE), standard potentials (E°) and pKa values on self-consistent scales, with per-entry provenance, reference-electrode conversions and a recomputable recommendation policy. Interactive explorer: https://carsten-streb.github.io/pcetbase/. Core data extracted from Agarwal et al., Chem. Rev. 2022, 122, 1-49 (doi:10.1021/acs.chemrev.1c00521), extended with primary-literature polyoxometalate entries. Please also cite the primary source of each value you use.",
+  "license": "cc-by-4.0",
+  "keywords": [
+    "proton-coupled electron transfer",
+    "PCET",
+    "bond dissociation free energy",
+    "BDFE",
+    "thermochemistry",
+    "polyoxometalates"
+  ],
+  "notes": "Funding: This database is developed as part of the Collaborative Research Center SFB 1633 \"PCET\" (https://uni-goettingen.de/de/683468.html), funded by Deutsche Forschungsgemeinschaft DFG (grant no: 536858973).",
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/carsten-streb/pcetbase",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://carsten-streb.github.io/pcetbase/",
+      "relation": "isDescribedBy",
+      "scheme": "url"
+    }
+  ]
+}

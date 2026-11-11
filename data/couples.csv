@@ -375,7 +375,7 @@ CPL-0373,CO2/CH4 (CO2+4H2→CH4+2H2O),,gas,X-H,co2,,,0
 CPL-0374,CO2/CH4 (CO2+4H2→CH4+2H2O),,H2O,X-H,co2,,,0
 CPL-0375,CO2/CH4 (CO2+4H2→CH4+2H2O),,MeCN,X-H,co2,,,0
 CPL-0376,CO2/CH4 (CO2+4H2→CH4+2H2O),,DMF,X-H,co2,,,0
-CPL-0377,[HPVW11O40]4- (1st H on PVIVW11),,MeCN,O-H,pom,Keggin PVW11;vanadotungstophosphate,,0
+CPL-0377,[HPVW11O40]4- (1st H on PVIVW11),,MeCN,O-H,pom,Keggin PVW11;vanadotungstophosphate,"Rule 4 (Carsten, 2026-11-11): direct-pKa square scheme (Lu 2025) over CV-simulation-fitted pKa (Nambu 2010, same E deg) and over same-paper OCP (sq > OCP; 2.1 kcal/mol internal gap unresolved)",1
 CPL-0378,[H2PVW11O40]3- (2nd H on PVIVW11),,MeCN,O-H,pom,Keggin PVW11,,0
 CPL-0379,[HPVMo11O40]4- (1st H on PVIVMo11),,MeCN,O-H,pom,Keggin PVMo11;vanadomolybdophosphate,,0
 CPL-0380,[H2PVMo11O40]3- (2nd H on PVIVMo11),,MeCN,O-H,pom,Keggin PVMo11,,0

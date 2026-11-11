@@ -14,6 +14,15 @@
     --c-ascorbate:#eda100; --c-nucleoside:#e87ba4; --c-pair:#008300;
     --c-metal:#6250d6; --c-pom:#e34948; --c-user:#0b0b0b;
   }
+  :root[data-theme="dark"]{
+      color-scheme: dark;
+      --surface-1:#1a1a19; --page:#0d0d0d;
+      --ink-1:#f0efec; --ink-2:#c3c2b7; --ink-muted:#898781;
+      --grid:#2c2c2a; --axis:#383835; --border:rgba(255,255,255,0.10);
+      --c-phenol:#3987e5; --c-aminoxyl:#d95926; --c-imide:#199e70;
+      --c-ascorbate:#c98500; --c-nucleoside:#d55181; --c-pair:#008300;
+      --c-metal:#9085e9; --c-pom:#e66767; --c-user:#f0efec;
+  }
   @media (prefers-color-scheme: dark){
     :root:where(:not([data-theme="light"])){
       color-scheme: dark;
@@ -127,7 +136,8 @@
             <option value="rec">recommended only (one per couple)</option>
           </select></div>
         <div style="align-self:flex-end"><button id="csv">Copy CSV</button>
-          <button id="csvDl">Download CSV</button></div>
+          <button id="csvDl">Download CSV</button>
+          <button id="themeBtn" title="theme: follow system / light / dark">◐ auto</button></div>
       </div>
       <div><label>Classes — color legend; click a chip to show only that class, click again to restore all</label>
       <div class="chips" id="classChips"></div></div>
@@ -241,7 +251,7 @@ const D=parseCSV(DATA_CSV).map((r,i)=>({
   Eraw:r.E_raw===""||r.E_raw===undefined?null:parseFloat(r.E_raw),ErawRef:r.E_raw_ref||"",
   rec:r.recommended==="1"||r.recommended==="auto",recManual:r.recommended==="1",
   nH:r.n_H||"",method:r.method||"",doi:r.doi||"",bdfePub:r.BDFE_pub||"",
-  cid:r.couple_id||"",sigma:r.sigma_BDFE||"",tK:r.T_K||"",cond:r.conditions||"",
+  cid:r.couple_id||"",sigma:r.sigma_BDFE||"",tK:r.T_K||"",cond:r.conditions||"",entryId:r.entry_id||"",
   year:r.year||"",
   srcDoi:r.doi||REVIEW_DOI,
   srcRef:r.doi?"":(r.refs?` [ref ${r.refs.replace(/;/g,", ")}]`:""),
@@ -349,7 +359,7 @@ function renderTable(){
   const flt=filtered();
   const couples=coupleView(flt).sort((a,b)=>cmp(a.rep,b.rep));
   const rowHtml=(r,sub)=>
-   `<tr data-id="${r.id}"${sub?' class="sub"':''}><td>${sub?'<span class="src" style="margin-left:18px">↳</span> ':`<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${clsColor(r.cls)};margin-right:6px"></span>`}${r.name}${r.rec?` <span title="recommended value${r.recManual?" (manual, see reason in the verification panel)":" (auto, policy rules 1-2)"}">★</span>`:""}${r.flags?` <span class="flagmark" title="${r.flags}">⚑</span>`:""}${!sub&&r.nDup>1?` <button class="badge" data-cid="${r.cid}" title="independent measurements of this couple — click to ${expanded.has(r.cid)?"collapse":"expand"}">${r.nDup} values ${expanded.has(r.cid)?"▾":"▸"}</button>`:""}${sub?` <span class="src">${r.method||"tabulated"}${r.sigma?`, σ ${r.sigma}`:""}, ${r.year}</span>`:""}</td>`+
+   `<tr data-id="${r.id}"${sub?' class="sub"':''}><td>${sub?'<span class="src" style="margin-left:18px">↳</span> ':`<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${clsColor(r.cls)};margin-right:6px"></span>`}${r.name}${r.rec?` <span title="recommended value${r.recManual?" (manual, see reason in the verification panel)":" (auto, policy rules 1-2)"}">★</span>`:""}${COUPLES[r.cid]&&COUPLES[r.cid].discordant==="1"?` <span title="discordant couple: independent measurements disagree beyond combined uncertainty — see verification panel">⚠</span>`:""}${r.flags?` <span class="flagmark" title="${r.flags}">⚑</span>`:""}${!sub&&r.nDup>1?` <button class="badge" data-cid="${r.cid}" title="independent measurements of this couple — click to ${expanded.has(r.cid)?"collapse":"expand"}">${r.nDup} values ${expanded.has(r.cid)?"▾":"▸"}</button>`:""}${sub?` <span class="src">${r.method||"tabulated"}${r.sigma?`, σ ${r.sigma}`:""}, ${r.year}</span>`:""}</td>`+
    `<td>${r.partner||"–"}</td><td>${r.bond}</td><td>${r.solvent}</td>`+
    `<td class="num">${eDisplay(r,sc)}</td>`+
    `<td class="num">${r.pka==null||r.pka!==r.pka?"–":r.pka.toFixed(1)}</td>`+
@@ -392,7 +402,7 @@ function showDetail(id){
   const cg=CG[r.solvent], dg=DGH[r.solvent];
   let h=`<button class="close" onclick="document.getElementById('detail').style.display='none'">✕</button>`;
   h+=`<h3>${r.name}${r.partner?" + "+r.partner:""} — ${r.solvent} — verification${r.rec?" ★":""}</h3>`;
-  h+=`<div class="src" style="margin:-2px 0 8px">Source: <a href="https://doi.org/${r.srcDoi}">doi:${r.srcDoi}</a>${r.srcRef?" — original citation"+r.srcRef+" therein":""}${r.year?" ("+r.year+")":""}</div>`;
+  h+=`<div class="src" style="margin:-2px 0 8px">Source: <a href="https://doi.org/${r.srcDoi}">doi:${r.srcDoi}</a>${r.srcRef?" — original citation"+r.srcRef+" therein":""}${r.year?" ("+r.year+")":""} · ${r.entryId}${r.cid?" · "+r.cid:""} · <a href="#${r.entryId}" title="permalink to this entry">#</a></div>`;
   if(r.nDup>1){
     const cpl=COUPLES[r.cid]||{};
     h+=`<div class="warn">${r.nDup} independent measurements exist for this couple/solvent${r.rec?"; this is the recommended value ("+(r.recManual?"manual":"auto, policy v1")+")":"; a ★-starred recommended value may exist — compare sources"}.${cpl.discordant==="1"?" <b>Discordant couple:</b> the independent values disagree beyond their combined uncertainty.":""}${r.rec&&cpl.recommended_reason?" Reason: "+cpl.recommended_reason:""}</div>`;
@@ -438,6 +448,7 @@ function showDetail(id){
   }
   box.innerHTML=h;
   box.style.display="block";
+  if(r.entryId&&history.replaceState)history.replaceState(null,"","#"+r.entryId);
   if(box.scrollIntoView)box.scrollIntoView({behavior:"smooth",block:"nearest"});
 }
 
@@ -500,6 +511,8 @@ function renderLadder(){
       tip.innerHTML=`<b>${r.name}</b>${r.partner?" + "+r.partner:""} (${r.solvent})<br>BDFE ${toUnit(r.bdfe,u).toFixed(1)} ${unitLbl[u]} · E° ${isNaN(r.E)?"–":r.E.toFixed(3)} V vs H₂${r.pka!=null&&r.pka===r.pka?`<br>pK<sub>a</sub>(XH) ${r.pka.toFixed(1)}`:""}${r.nH&&r.nH!=="1"?`<br>avg over ${r.nH} H`:""}${r.method?`<br>method: ${r.method}`:""}${r.bdfePub&&parseFloat(r.bdfePub).toFixed(1)!==r.bdfe.toFixed(1)?`<br>published: ${r.bdfePub}`:""}${r.flags?`<br>⚑ ${r.flags}`:""}<br><span class="src">${r.srcText}</span>`;
     });
     el.addEventListener("mouseleave",()=>tip.style.display="none");
+    el.addEventListener("click",()=>{tip.style.display="none";showDetail(+el.dataset.id);});
+    el.style.cursor="pointer";
   });
 }
 
@@ -596,11 +609,36 @@ function init(){
     document.getElementById("rowSq").style.display=e.target.value==="sq"?"":"none";
   });
   const th0=document.querySelector('#tbl th[data-k="bdfe"] .arr'); if(th0)th0.textContent="▲";
+  /* theme toggle: auto (system) -> light -> dark; persisted when storage works */
+  const THEMES=["auto","light","dark"], tLbl={auto:"◐ auto",light:"☀ light",dark:"● dark"};
+  let theme="auto";
+  try{theme=localStorage.getItem("pcetbase-theme")||"auto";}catch(e){}
+  const applyTheme=()=>{
+    if(theme==="auto")document.documentElement.removeAttribute("data-theme");
+    else document.documentElement.setAttribute("data-theme",theme);
+    document.getElementById("themeBtn").textContent=tLbl[theme];
+  };
+  applyTheme();
+  document.getElementById("themeBtn").addEventListener("click",()=>{
+    theme=THEMES[(THEMES.indexOf(theme)+1)%THEMES.length];
+    try{localStorage.setItem("pcetbase-theme",theme);}catch(e){}
+    applyTheme();
+  });
   document.getElementById("uGo").addEventListener("click",compute);
   document.getElementById("uClear").addEventListener("click",()=>{userPt=null;document.getElementById("uOut").textContent="";renderLadder();});
   document.getElementById("csv").addEventListener("click",copyCSV);
   document.getElementById("csvDl").addEventListener("click",downloadCSV);
   renderTable();renderLadder();
+  /* permalink: #BDFE-NNNN opens that entry's verification panel */
+  const hash=decodeURIComponent(location.hash.slice(1));
+  if(/^BDFE-[0-9]{4}$/.test(hash)){
+    const hit=D.find(r=>r.entryId===hash);
+    if(hit){
+      if(hit.cid)expanded.add(hit.cid);
+      renderTable();
+      showDetail(hit.id);
+    }
+  }
 }
 init();
 </script>

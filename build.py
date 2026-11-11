@@ -88,7 +88,9 @@ def main():
     tpl = open(os.path.join(HERE, "template.html"), encoding="utf-8").read()
     data = open(os.path.join(HERE, "data", "data.csv"), encoding="utf-8").read()
     const = open(os.path.join(HERE, "data", "constants.csv"), encoding="utf-8").read()
-    out = tpl.replace("__DATA_CSV__", esc(data)).replace("__CONST_CSV__", esc(const))
+    coup = open(os.path.join(HERE, "data", "couples.csv"), encoding="utf-8").read()
+    out = (tpl.replace("__DATA_CSV__", esc(data)).replace("__CONST_CSV__", esc(const))
+              .replace("__COUPLES_CSV__", esc(coup)))
     open(os.path.join(HERE, "index.html"), "w", encoding="utf-8").write(out)
     print(f"wrote index.html ({len(out)//1024} kB)")
 

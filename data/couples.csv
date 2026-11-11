@@ -1,73 +1,73 @@
 couple_id,compound,partner,solvent,bond,class,aliases,recommended_reason,discordant
-CPL-0001,PhOH,,gas,O-H,phenol,,,0
-CPL-0002,PhOH,,H2O,O-H,phenol,,,0
-CPL-0003,PhOH,,C6H6,O-H,phenol,,,0
-CPL-0004,4-Me-PhOH,,H2O,O-H,phenol,,,0
-CPL-0005,4-Me-PhOH,,C6H6,O-H,phenol,,,0
-CPL-0006,4-MeO-PhOH,,H2O,O-H,phenol,,,0
-CPL-0007,4-MeO-PhOH,,C6H6,O-H,phenol,,,0
-CPL-0008,4-NO2-PhOH,,H2O,O-H,phenol,,,0
-CPL-0009,4-F-PhOH,,H2O,O-H,phenol,,,0
-CPL-0010,4-Cl-PhOH,,H2O,O-H,phenol,,,0
-CPL-0011,4-Br-PhOH,,H2O,O-H,phenol,,,0
-CPL-0012,4-I-PhOH,,H2O,O-H,phenol,,,0
-CPL-0013,4-CO2--PhOH,,H2O,O-H,phenol,,,0
-CPL-0014,4-Ac-PhOH,,H2O,O-H,phenol,,,0
-CPL-0015,4-CN-PhOH,,H2O,O-H,phenol,,,0
-CPL-0016,4-NH2-PhOH,,H2O,O-H,phenol,,,0
-CPL-0017,4-NH2-PhOH,,DMSO,O-H,phenol,,,0
-CPL-0018,4-NMe2-PhOH,,H2O,O-H,phenol,,,0
-CPL-0019,1-naphthol,,H2O,O-H,phenol,,,0
-CPL-0020,2-naphthol,,H2O,O-H,phenol,,,0
-CPL-0021,tyrosine,,H2O,O-H,phenol,,,0
-CPL-0022,Trolox C,,H2O,O-H,phenol,,,0
-CPL-0023,alpha-tocopherol,,C6H6,O-H,phenol,,,0
-CPL-0024,"2,4,6-tBu3-PhOH",,H2O,O-H,phenol,,,0
-CPL-0025,"2,4,6-tBu3-PhOH",,MeCN,O-H,phenol,,,0
-CPL-0026,"2,4,6-tBu3-PhOH",,DMSO,O-H,phenol,,,0
-CPL-0027,"2,4,6-tBu3-PhOH",,C6H6,O-H,phenol,,,0
-CPL-0028,"2,4,6-tBu3-PhOH",,CCl4,O-H,phenol,,,0
-CPL-0029,"2,4,6-tBu3-PhOH",,THF,O-H,phenol,,,0
-CPL-0030,"2,6-tBu2-PhOH",,C6H6,O-H,phenol,,,0
-CPL-0031,"4-Me-2,6-tBu2-PhOH",,C6H6,O-H,phenol,,,0
-CPL-0032,"4-MeO-2,6-tBu2-PhOH",,C6H6,O-H,phenol,,,0
-CPL-0033,"4-MeO-2,6-tBu2-PhOH",,MeCN,O-H,phenol,,,0
-CPL-0034,"4-MeO-2,6-tBu2-PhOH",,THF,O-H,phenol,,,0
-CPL-0035,H2NOH,,H2O,O-H,aminoxyl,,,0
-CPL-0036,TEMPOH,,MeCN,O-H,aminoxyl,,,0
-CPL-0037,TEMPOH,,THF,O-H,aminoxyl,,,0
-CPL-0038,TEMPOH,,C6H6,O-H,aminoxyl,,,0
-CPL-0039,TEMPOH,,hexane,O-H,aminoxyl,,,0
-CPL-0040,4-oxo-TEMPOH,,hexane,O-H,aminoxyl,,,0
-CPL-0041,4-oxo-TEMPOH,,CCl4,O-H,aminoxyl,,,0
-CPL-0042,4-oxo-TEMPOH,,MeCN,O-H,aminoxyl,,,0
-CPL-0043,4-MeO-TEMPOH,,MeCN,O-H,aminoxyl,,,0
-CPL-0044,4-OH-TEMPOH,,hexane,O-H,aminoxyl,,,0
-CPL-0045,4-NH2-TEMPOH,,hexane,O-H,aminoxyl,,,0
-CPL-0046,4-Cl-TEMPOH,,hexane,O-H,aminoxyl,,,0
-CPL-0047,tBu2NOH,,MeCN,O-H,aminoxyl,,,0
-CPL-0048,NHPI,,H2O,O-H,imide,,,0
-CPL-0049,NHPI,,MeCN,O-H,imide,,,0
-CPL-0050,AscH- (ascorbate),,H2O,O-H,ascorbate,,,0
-CPL-0051,iAscH-,,MeCN,O-H,ascorbate,,,0
-CPL-0052,AscH2 (ascorbic acid),,H2O,O-H,ascorbate,,,0
-CPL-0053,iAscH2,,MeCN,O-H,ascorbate,,,0
-CPL-0054,Asc.-,,H2O,O-H,ascorbate,,,0
+CPL-0001,PhOH,,gas,O-H,phenol,phenol,,0
+CPL-0002,PhOH,,H2O,O-H,phenol,phenol,,0
+CPL-0003,PhOH,,C6H6,O-H,phenol,phenol,,0
+CPL-0004,4-Me-PhOH,,H2O,O-H,phenol,p-cresol;4-methylphenol,,0
+CPL-0005,4-Me-PhOH,,C6H6,O-H,phenol,p-cresol;4-methylphenol,,0
+CPL-0006,4-MeO-PhOH,,H2O,O-H,phenol,4-methoxyphenol;mequinol,,0
+CPL-0007,4-MeO-PhOH,,C6H6,O-H,phenol,4-methoxyphenol;mequinol,,0
+CPL-0008,4-NO2-PhOH,,H2O,O-H,phenol,4-nitrophenol;p-nitrophenol,,0
+CPL-0009,4-F-PhOH,,H2O,O-H,phenol,4-fluorophenol,,0
+CPL-0010,4-Cl-PhOH,,H2O,O-H,phenol,4-chlorophenol;p-chlorophenol,,0
+CPL-0011,4-Br-PhOH,,H2O,O-H,phenol,4-bromophenol,,0
+CPL-0012,4-I-PhOH,,H2O,O-H,phenol,4-iodophenol,,0
+CPL-0013,4-CO2--PhOH,,H2O,O-H,phenol,4-hydroxybenzoate,,0
+CPL-0014,4-Ac-PhOH,,H2O,O-H,phenol,4-hydroxyacetophenone,,0
+CPL-0015,4-CN-PhOH,,H2O,O-H,phenol,4-cyanophenol,,0
+CPL-0016,4-NH2-PhOH,,H2O,O-H,phenol,4-aminophenol;p-aminophenol,,0
+CPL-0017,4-NH2-PhOH,,DMSO,O-H,phenol,4-aminophenol;p-aminophenol,,0
+CPL-0018,4-NMe2-PhOH,,H2O,O-H,phenol,4-(dimethylamino)phenol,,0
+CPL-0019,1-naphthol,,H2O,O-H,phenol,alpha-naphthol;naphthalen-1-ol,,0
+CPL-0020,2-naphthol,,H2O,O-H,phenol,beta-naphthol;naphthalen-2-ol,,0
+CPL-0021,tyrosine,,H2O,O-H,phenol,Tyr;4-hydroxyphenylalanine,,0
+CPL-0022,Trolox C,,H2O,O-H,phenol,trolox;water-soluble vitamin E analog,,0
+CPL-0023,alpha-tocopherol,,C6H6,O-H,phenol,vitamin E;tocopherol,,0
+CPL-0024,"2,4,6-tBu3-PhOH",,H2O,O-H,phenol,"2,4,6-tri-tert-butylphenol;TTBP",,0
+CPL-0025,"2,4,6-tBu3-PhOH",,MeCN,O-H,phenol,"2,4,6-tri-tert-butylphenol;TTBP",,0
+CPL-0026,"2,4,6-tBu3-PhOH",,DMSO,O-H,phenol,"2,4,6-tri-tert-butylphenol;TTBP",,0
+CPL-0027,"2,4,6-tBu3-PhOH",,C6H6,O-H,phenol,"2,4,6-tri-tert-butylphenol;TTBP",,0
+CPL-0028,"2,4,6-tBu3-PhOH",,CCl4,O-H,phenol,"2,4,6-tri-tert-butylphenol;TTBP",,0
+CPL-0029,"2,4,6-tBu3-PhOH",,THF,O-H,phenol,"2,4,6-tri-tert-butylphenol;TTBP",,0
+CPL-0030,"2,6-tBu2-PhOH",,C6H6,O-H,phenol,"2,6-di-tert-butylphenol",,0
+CPL-0031,"4-Me-2,6-tBu2-PhOH",,C6H6,O-H,phenol,"BHT;butylated hydroxytoluene;2,6-di-tert-butyl-4-methylphenol",,0
+CPL-0032,"4-MeO-2,6-tBu2-PhOH",,C6H6,O-H,phenol,"2,6-di-tert-butyl-4-methoxyphenol",,0
+CPL-0033,"4-MeO-2,6-tBu2-PhOH",,MeCN,O-H,phenol,"2,6-di-tert-butyl-4-methoxyphenol",,0
+CPL-0034,"4-MeO-2,6-tBu2-PhOH",,THF,O-H,phenol,"2,6-di-tert-butyl-4-methoxyphenol",,0
+CPL-0035,H2NOH,,H2O,O-H,aminoxyl,hydroxylamine,,0
+CPL-0036,TEMPOH,,MeCN,O-H,aminoxyl,"TEMPO-H;1-hydroxy-2,2,6,6-tetramethylpiperidine;TEMPO hydroxylamine",,0
+CPL-0037,TEMPOH,,THF,O-H,aminoxyl,"TEMPO-H;1-hydroxy-2,2,6,6-tetramethylpiperidine;TEMPO hydroxylamine",,0
+CPL-0038,TEMPOH,,C6H6,O-H,aminoxyl,"TEMPO-H;1-hydroxy-2,2,6,6-tetramethylpiperidine;TEMPO hydroxylamine",,0
+CPL-0039,TEMPOH,,hexane,O-H,aminoxyl,"TEMPO-H;1-hydroxy-2,2,6,6-tetramethylpiperidine;TEMPO hydroxylamine",,0
+CPL-0040,4-oxo-TEMPOH,,hexane,O-H,aminoxyl,TEMPONE-H;4-oxo-TEMPO-H;ketoTEMPO-H,,0
+CPL-0041,4-oxo-TEMPOH,,CCl4,O-H,aminoxyl,TEMPONE-H;4-oxo-TEMPO-H;ketoTEMPO-H,,0
+CPL-0042,4-oxo-TEMPOH,,MeCN,O-H,aminoxyl,TEMPONE-H;4-oxo-TEMPO-H;ketoTEMPO-H,,0
+CPL-0043,4-MeO-TEMPOH,,MeCN,O-H,aminoxyl,4-methoxy-TEMPO-H,,0
+CPL-0044,4-OH-TEMPOH,,hexane,O-H,aminoxyl,TEMPOL-H;4-hydroxy-TEMPO-H,,0
+CPL-0045,4-NH2-TEMPOH,,hexane,O-H,aminoxyl,4-amino-TEMPO-H,,0
+CPL-0046,4-Cl-TEMPOH,,hexane,O-H,aminoxyl,4-chloro-TEMPO-H,,0
+CPL-0047,tBu2NOH,,MeCN,O-H,aminoxyl,di-tert-butylhydroxylamine,,0
+CPL-0048,NHPI,,H2O,O-H,imide,N-hydroxyphthalimide,,0
+CPL-0049,NHPI,,MeCN,O-H,imide,N-hydroxyphthalimide,,0
+CPL-0050,AscH- (ascorbate),,H2O,O-H,ascorbate,ascorbate;vitamin C,,0
+CPL-0051,iAscH-,,MeCN,O-H,ascorbate,"5,6-isopropylidene-ascorbate",,0
+CPL-0052,AscH2 (ascorbic acid),,H2O,O-H,ascorbate,ascorbic acid;vitamin C,,0
+CPL-0053,iAscH2,,MeCN,O-H,ascorbate,"5,6-isopropylidene-ascorbic acid",,0
+CPL-0054,Asc.-,,H2O,O-H,ascorbate,ascorbyl radical;ascorbate radical,,0
 CPL-0055,guanosine,,H2O,N-H,nucleoside,,,0
 CPL-0056,adenosine,,H2O,N-H,nucleoside,,,0
 CPL-0057,cytidine,,H2O,N-H,nucleoside,,,0
 CPL-0058,thymidine,,H2O,N-H,nucleoside,,,0
-CPL-0059,N(4-MeO-C6H4)3.+,pyridine,MeCN,X-H,pair,,,0
-CPL-0060,N(4-MeO-C6H4)3.+,"2,6-Me2-pyridine",MeCN,X-H,pair,,,0
-CPL-0061,N(4-MeO-C6H4)3.+,4-NH2-pyridine,MeCN,X-H,pair,,,0
-CPL-0062,N(4-MeO-C6H4)3.+,acetate,MeCN,X-H,pair,,,0
-CPL-0063,N(4-Me-C6H4)3.+,pyridine,MeCN,X-H,pair,,,0
-CPL-0064,N(4-Me-C6H4)3.+,"2,6-Me2-pyridine",MeCN,X-H,pair,,,0
-CPL-0065,N(4-Br-C6H4)3.+,pyridine,MeCN,X-H,pair,,,0
-CPL-0066,N(4-Br-C6H4)3.+,"2,6-Me2-pyridine",MeCN,X-H,pair,,,0
-CPL-0067,"N(2,4-Br2-C6H4)3.+",pyridine,MeCN,X-H,pair,,,0
-CPL-0068,Cp2Fe+,pyridine,MeCN,X-H,pair,,,0
-CPL-0069,Cp2Fe+,"2,6-Me2-pyridine",MeCN,X-H,pair,,,0
+CPL-0059,N(4-MeO-C6H4)3.+,pyridine,MeCN,X-H,pair,tris(4-methoxyphenyl)aminium;tris(p-anisyl)aminium,,0
+CPL-0060,N(4-MeO-C6H4)3.+,"2,6-Me2-pyridine",MeCN,X-H,pair,tris(4-methoxyphenyl)aminium;tris(p-anisyl)aminium,,0
+CPL-0061,N(4-MeO-C6H4)3.+,4-NH2-pyridine,MeCN,X-H,pair,tris(4-methoxyphenyl)aminium;tris(p-anisyl)aminium,,0
+CPL-0062,N(4-MeO-C6H4)3.+,acetate,MeCN,X-H,pair,tris(4-methoxyphenyl)aminium;tris(p-anisyl)aminium,,0
+CPL-0063,N(4-Me-C6H4)3.+,pyridine,MeCN,X-H,pair,tri-p-tolylaminium;tris(4-methylphenyl)aminium,,0
+CPL-0064,N(4-Me-C6H4)3.+,"2,6-Me2-pyridine",MeCN,X-H,pair,tri-p-tolylaminium;tris(4-methylphenyl)aminium,,0
+CPL-0065,N(4-Br-C6H4)3.+,pyridine,MeCN,X-H,pair,magic blue;tris(4-bromophenyl)aminium,,0
+CPL-0066,N(4-Br-C6H4)3.+,"2,6-Me2-pyridine",MeCN,X-H,pair,magic blue;tris(4-bromophenyl)aminium,,0
+CPL-0067,"N(2,4-Br2-C6H4)3.+",pyridine,MeCN,X-H,pair,"tris(2,4-dibromophenyl)aminium",,0
+CPL-0068,Cp2Fe+,pyridine,MeCN,X-H,pair,ferrocenium;Fc+,,0
+CPL-0069,Cp2Fe+,"2,6-Me2-pyridine",MeCN,X-H,pair,ferrocenium;Fc+,,0
 CPL-0070,[Fe(bpy)3]3+,pyridine,MeCN,X-H,pair,,,0
 CPL-0071,[Fe(bpy)3]3+,"2,6-Me2-pyridine",MeCN,X-H,pair,,,0
 CPL-0072,*Ir(dF(CF3)ppy)2(dtbbpy),4-NMe2-pyridine,MeCN,X-H,pair,,,0
@@ -85,9 +85,9 @@ CPL-0083,[Ru(bpy)3]+,benzoic acid,MeCN,X-H,pair,,,0
 CPL-0084,[Ru(bpy)3]+,acetic acid,MeCN,X-H,pair,,,0
 CPL-0085,Ir(ppy)2(dtbbpy),"2,6-Me2-pyridinium",MeCN,X-H,pair,,,0
 CPL-0086,Ir(ppy)2(dtbbpy),NMe3H+,MeCN,X-H,pair,,,0
-CPL-0087,(C5Me5)2Fe,pyridinium,MeCN,X-H,pair,,,0
-CPL-0088,Cp2Fe,pyridinium,MeCN,X-H,pair,,,0
-CPL-0089,Cp2Fe,acetic acid,MeCN,X-H,pair,,,0
+CPL-0087,(C5Me5)2Fe,pyridinium,MeCN,X-H,pair,decamethylferrocene;Fc*,,0
+CPL-0088,Cp2Fe,pyridinium,MeCN,X-H,pair,ferrocene;Fc,,0
+CPL-0089,Cp2Fe,acetic acid,MeCN,X-H,pair,ferrocene;Fc,,0
 CPL-0090,FeII(H2O)6^2+,,H2O,O-H,metal-3d,,,0
 CPL-0091,[(TPA)CuOH2]+,,H2O,O-H,metal-3d,,,0
 CPL-0092,MnO3(OH)-,,H2O,O-H,metal-3d,,,0
@@ -158,29 +158,29 @@ CPL-0156,TpW(CO)3H,,MeCN,M-H,metal-4d5d,,,0
 CPL-0157,(Phtpy)(PPh2Me)2MoNH3,,THF,N-H,metal-4d5d,,,0
 CPL-0158,(Phtpy)(PPh2Me)2MoCH2CH3,,THF,C-H,metal-4d5d,,,0
 CPL-0159,(teriPrP2)Mo2PH,,THF,M-H,metal-4d5d,,,0
-CPL-0160,[V6O6(OH)(OCH3)12]1-,,MeCN,O-H,pom,,,0
-CPL-0161,[V6O6(OH)(OCH3)12]0,,MeCN,O-H,pom,,,0
-CPL-0162,[V6O6(OH)(OCH3)12]1+,,MeCN,O-H,pom,,,0
+CPL-0160,[V6O6(OH)(OCH3)12]1-,,MeCN,O-H,pom,Matson V6 methoxide;hexavanadate alkoxide,,0
+CPL-0161,[V6O6(OH)(OCH3)12]0,,MeCN,O-H,pom,Matson V6 methoxide;hexavanadate alkoxide,,0
+CPL-0162,[V6O6(OH)(OCH3)12]1+,,MeCN,O-H,pom,Matson V6 methoxide;hexavanadate alkoxide,,0
 CPL-0163,[V6O11(OH)2(TRIOLNO2)2]2-,,MeCN,O-H,pom,,,0
-CPL-0164,"V6O7(OH)2- (mu2-OH, Lindqvist)",,MeCN,O-H,pom,,,0
-CPL-0165,"1,2-H2Q",,H2O,O-H,quinone,,,0
-CPL-0166,"tetrachloro-1,2-H2Q",,H2O,O-H,quinone,,,0
-CPL-0167,"4-tBu-1,2-H2Q",,H2O,O-H,quinone,,,0
-CPL-0168,"3,5-tBu2-1,2-H2Q",,H2O,O-H,quinone,,,0
-CPL-0169,"1,4-H2Q",,H2O,O-H,quinone,,,0
-CPL-0170,"1,4-H2Q",,MeCN,O-H,quinone,,,0
-CPL-0171,"1,4-H2Q",,THF,O-H,quinone,,,0
-CPL-0172,"tetrafluoro-1,4-H2Q",,H2O,O-H,quinone,,,0
-CPL-0173,"2-chloro-1,4-H2Q",,H2O,O-H,quinone,,,0
+CPL-0164,"V6O7(OH)2- (mu2-OH, Lindqvist)",,MeCN,O-H,pom,Lindqvist hexavanadate;V6 Lindqvist,,0
+CPL-0165,"1,2-H2Q",,H2O,O-H,quinone,"catechol;benzene-1,2-diol;pyrocatechol",,0
+CPL-0166,"tetrachloro-1,2-H2Q",,H2O,O-H,quinone,tetrachlorocatechol,,0
+CPL-0167,"4-tBu-1,2-H2Q",,H2O,O-H,quinone,4-tert-butylcatechol;TBC,,0
+CPL-0168,"3,5-tBu2-1,2-H2Q",,H2O,O-H,quinone,"3,5-di-tert-butylcatechol;DTBC",,0
+CPL-0169,"1,4-H2Q",,H2O,O-H,quinone,"hydroquinone;benzene-1,4-diol;quinol;QH2",,0
+CPL-0170,"1,4-H2Q",,MeCN,O-H,quinone,"hydroquinone;benzene-1,4-diol;quinol;QH2",,0
+CPL-0171,"1,4-H2Q",,THF,O-H,quinone,"hydroquinone;benzene-1,4-diol;quinol;QH2",,0
+CPL-0172,"tetrafluoro-1,4-H2Q",,H2O,O-H,quinone,tetrafluorohydroquinone;reduced fluoranil,,0
+CPL-0173,"2-chloro-1,4-H2Q",,H2O,O-H,quinone,chlorohydroquinone,,0
 CPL-0174,"2,6-dichloro-1,4-H2Q",,H2O,O-H,quinone,,,0
 CPL-0175,"2,5-dichloro-1,4-H2Q",,H2O,O-H,quinone,,,0
 CPL-0176,"2,3-dichloro-1,4-H2Q",,H2O,O-H,quinone,,,0
-CPL-0177,"tetrachloro-1,4-H2Q",,H2O,O-H,quinone,,,0
-CPL-0178,"DDQH2 (2,3-dichloro-5,6-dicyano-1,4-H2Q)",,H2O,O-H,quinone,,,0
-CPL-0179,"bromo-1,4-H2Q",,H2O,O-H,quinone,,,0
+CPL-0177,"tetrachloro-1,4-H2Q",,H2O,O-H,quinone,tetrachlorohydroquinone;reduced chloranil;TCHQ,,0
+CPL-0178,"DDQH2 (2,3-dichloro-5,6-dicyano-1,4-H2Q)",,H2O,O-H,quinone,reduced DDQ;DDQH2,,0
+CPL-0179,"bromo-1,4-H2Q",,H2O,O-H,quinone,bromohydroquinone,,0
 CPL-0180,"2-bromo-5-methyl-1,4-H2Q",,H2O,O-H,quinone,,,0
 CPL-0181,"2-chloro-5-methyl-1,4-H2Q",,H2O,O-H,quinone,,,0
-CPL-0182,"2-methyl-1,4-H2Q",,H2O,O-H,quinone,,,0
+CPL-0182,"2-methyl-1,4-H2Q",,H2O,O-H,quinone,methylhydroquinone;toluhydroquinone,,0
 CPL-0183,"2,3-dimethyl-1,4-H2Q",,H2O,O-H,quinone,,,0
 CPL-0184,"2,5-dimethyl-1,4-H2Q",,H2O,O-H,quinone,,,0
 CPL-0185,"2,6-dimethyl-1,4-H2Q",,H2O,O-H,quinone,,,0
@@ -189,61 +189,61 @@ CPL-0187,"2,6-dimethyl-1,4-H2Q",,THF,O-H,quinone,,,0
 CPL-0188,"2,6-dimethyl-1,4-H2Q",,DMF,O-H,quinone,,,0
 CPL-0189,"2,6-dimethyl-1,4-H2Q",,IPA,O-H,quinone,,,0
 CPL-0190,"2,3,5-trimethyl-1,4-H2Q",,H2O,O-H,quinone,,,0
-CPL-0191,"tetramethyl-1,4-H2Q",,H2O,O-H,quinone,,,0
-CPL-0192,"2-methyl-5-isopropyl-1,4-H2Q",,H2O,O-H,quinone,,,0
+CPL-0191,"tetramethyl-1,4-H2Q",,H2O,O-H,quinone,duroquinol;durohydroquinone;tetramethylhydroquinone,,0
+CPL-0192,"2-methyl-5-isopropyl-1,4-H2Q",,H2O,O-H,quinone,thymohydroquinone;reduced thymoquinone,,0
 CPL-0193,"2,5-dimethyl-3-chloro-1,4-H2Q",,H2O,O-H,quinone,,,0
-CPL-0194,"2-tBu-1,4-H2Q",,H2O,O-H,quinone,,,0
-CPL-0195,"2,6-tBu2-1,4-H2Q",,MeCN,O-H,quinone,,,0
-CPL-0196,"2-phenyl-1,4-H2Q",,H2O,O-H,quinone,,,0
-CPL-0197,"2-methoxy-1,4-H2Q",,H2O,O-H,quinone,,,0
+CPL-0194,"2-tBu-1,4-H2Q",,H2O,O-H,quinone,tert-butylhydroquinone;TBHQ,,0
+CPL-0195,"2,6-tBu2-1,4-H2Q",,MeCN,O-H,quinone,"2,6-di-tert-butylhydroquinone",,0
+CPL-0196,"2-phenyl-1,4-H2Q",,H2O,O-H,quinone,phenylhydroquinone,,0
+CPL-0197,"2-methoxy-1,4-H2Q",,H2O,O-H,quinone,methoxyhydroquinone,,0
 CPL-0198,"2,5-dimethoxy-1,4-H2Q",,H2O,O-H,quinone,,,0
 CPL-0199,"2,6-dimethoxy-1,4-H2Q",,H2O,O-H,quinone,,,0
 CPL-0200,"2,6-dimethoxy-1,4-H2Q",,MeCN,O-H,quinone,,,0
-CPL-0201,"1,2-H2NQ",,H2O,O-H,quinone,,,0
-CPL-0202,"1,4-H2NQ",,H2O,O-H,quinone,,,0
-CPL-0203,"1,4-H2NQ",,THF,O-H,quinone,,,0
-CPL-0204,"2-methyl-1,4-H2NQ",,H2O,O-H,quinone,,,0
-CPL-0205,"2,3-dimethyl-1,4-H2NQ",,H2O,O-H,quinone,,,0
+CPL-0201,"1,2-H2NQ",,H2O,O-H,quinone,"naphthalene-1,2-diol;1,2-dihydroxynaphthalene",,0
+CPL-0202,"1,4-H2NQ",,H2O,O-H,quinone,"naphthalene-1,4-diol;1,4-dihydroxynaphthalene;naphthohydroquinone",,0
+CPL-0203,"1,4-H2NQ",,THF,O-H,quinone,"naphthalene-1,4-diol;1,4-dihydroxynaphthalene;naphthohydroquinone",,0
+CPL-0204,"2-methyl-1,4-H2NQ",,H2O,O-H,quinone,"menadiol;reduced menadione;vitamin K3 hydroquinone;2-methylnaphthalene-1,4-diol",,0
+CPL-0205,"2,3-dimethyl-1,4-H2NQ",,H2O,O-H,quinone,"2,3-dimethylnaphthalene-1,4-diol",,0
 CPL-0206,"2,3-dichloro-1,4-H2NQ",,H2O,O-H,quinone,,,0
 CPL-0207,"2,7-tBu2-1,4-H2NQ",,THF,O-H,quinone,,,0
-CPL-0208,"9,10-H2AQ",,H2O,O-H,quinone,,,0
-CPL-0209,"1,8-dichloro-9,10-H2AQ",,H2O,O-H,quinone,,,0
-CPL-0210,"1,8-dichloro-9,10-H2AQ",,THF,O-H,quinone,,,0
-CPL-0211,"9,10-dihydroxyphenanthrene (phenanthrenequinone)",,H2O,O-H,quinone,,,0
-CPL-0212,"1,10-phenanthroline-5,6-diol",,H2O,O-H,quinone,,,0
-CPL-0213,"1,2-H2Q (H2Q→HQ•)",,H2O,O-H,quinone,,,0
-CPL-0214,"1,4-H2Q (H2Q→HQ•)",,H2O,O-H,quinone,,,0
-CPL-0215,"2-methyl-1,4-H2Q (H2Q→HQ•)",,H2O,O-H,quinone,,,0
+CPL-0208,"9,10-H2AQ",,H2O,O-H,quinone,"anthrahydroquinone;9,10-dihydroxyanthracene;oxanthrol",,0
+CPL-0209,"1,8-dichloro-9,10-H2AQ",,H2O,O-H,quinone,"1,8-dichloroanthrahydroquinone",,0
+CPL-0210,"1,8-dichloro-9,10-H2AQ",,THF,O-H,quinone,"1,8-dichloroanthrahydroquinone",,0
+CPL-0211,"9,10-dihydroxyphenanthrene (phenanthrenequinone)",,H2O,O-H,quinone,"phenanthrene-9,10-diol;reduced phenanthrenequinone",,0
+CPL-0212,"1,10-phenanthroline-5,6-diol",,H2O,O-H,quinone,phendiol,,0
+CPL-0213,"1,2-H2Q (H2Q→HQ•)",,H2O,O-H,quinone,"catechol;benzene-1,2-diol",,0
+CPL-0214,"1,4-H2Q (H2Q→HQ•)",,H2O,O-H,quinone,"hydroquinone;benzene-1,4-diol",,0
+CPL-0215,"2-methyl-1,4-H2Q (H2Q→HQ•)",,H2O,O-H,quinone,methylhydroquinone,,0
 CPL-0216,"2,3-dimethyl-1,4-H2Q (H2Q→HQ•)",,H2O,O-H,quinone,,,0
 CPL-0217,"2,5-dimethyl-1,4-H2Q (H2Q→HQ•)",,H2O,O-H,quinone,,,0
 CPL-0218,"2,3,5-trimethyl-1,4-H2Q (H2Q→HQ•)",,H2O,O-H,quinone,,,0
-CPL-0219,"tetramethyl-1,4-H2Q (H2Q→HQ•)",,H2O,O-H,quinone,,,0
-CPL-0220,"2-methyl-1,4-H2NQ (H2Q→HQ•)",,H2O,O-H,quinone,,,0
-CPL-0221,"2,3-dimethyl-1,4-H2NQ (H2Q→HQ•)",,H2O,O-H,quinone,,,0
-CPL-0222,"1,2-HQ• (HQ•→Q)",,H2O,O-H,quinone,,,0
-CPL-0223,"1,4-HQ• (HQ•→Q)",,H2O,O-H,quinone,,,0
-CPL-0224,"2-methyl-1,4-HQ• (HQ•→Q)",,H2O,O-H,quinone,,,0
+CPL-0219,"tetramethyl-1,4-H2Q (H2Q→HQ•)",,H2O,O-H,quinone,duroquinol;durohydroquinone,,0
+CPL-0220,"2-methyl-1,4-H2NQ (H2Q→HQ•)",,H2O,O-H,quinone,menadiol;reduced menadione,,0
+CPL-0221,"2,3-dimethyl-1,4-H2NQ (H2Q→HQ•)",,H2O,O-H,quinone,"2,3-dimethylnaphthalene-1,4-diol",,0
+CPL-0222,"1,2-HQ• (HQ•→Q)",,H2O,O-H,quinone,o-semiquinone radical;catechol radical,,0
+CPL-0223,"1,4-HQ• (HQ•→Q)",,H2O,O-H,quinone,p-semiquinone radical;hydroquinone radical,,0
+CPL-0224,"2-methyl-1,4-HQ• (HQ•→Q)",,H2O,O-H,quinone,methylsemiquinone radical,,0
 CPL-0225,"2,3-dimethyl-1,4-HQ• (HQ•→Q)",,H2O,O-H,quinone,,,0
 CPL-0226,"2,5-dimethyl-1,4-HQ• (HQ•→Q)",,H2O,O-H,quinone,,,0
 CPL-0227,"2,3,5-trimethyl-1,4-HQ• (HQ•→Q)",,H2O,O-H,quinone,,,0
-CPL-0228,"tetramethyl-1,4-HQ• (HQ•→Q)",,H2O,O-H,quinone,,,0
-CPL-0229,"2-methyl-1,4-HNQ• (HQ•→Q)",,H2O,O-H,quinone,,,0
+CPL-0228,"tetramethyl-1,4-HQ• (HQ•→Q)",,H2O,O-H,quinone,durosemiquinone radical,,0
+CPL-0229,"2-methyl-1,4-HNQ• (HQ•→Q)",,H2O,O-H,quinone,menadione semiquinone radical,,0
 CPL-0230,"2,3-dimethyl-1,4-HNQ• (HQ•→Q)",,H2O,O-H,quinone,,,0
-CPL-0231,H2O (HO–H),,gas,O-H,smallOH,,,0
-CPL-0232,H2O (HO–H),,H2O,O-H,smallOH,,,0
-CPL-0233,HO• (•O–H),,gas,O-H,smallOH,,,0
-CPL-0234,HO• (•O–H),,H2O,O-H,smallOH,,,0
-CPL-0235,OH− (−O–H),,gas,O-H,smallOH,,,0
-CPL-0236,OH− (−O–H),,H2O,O-H,smallOH,,,0
-CPL-0237,MeOH,,gas,O-H,smallOH,,,0
-CPL-0238,EtOH,,gas,O-H,smallOH,,,0
-CPL-0239,iPrOH,,gas,O-H,smallOH,,,0
-CPL-0240,tBuOH,,gas,O-H,smallOH,,,0
-CPL-0241,H2O2 (HOO–H),,gas,O-H,smallOH,,,0
-CPL-0242,H2O2 (HOO–H),,H2O,O-H,smallOH,,,0
-CPL-0243,HO2• (•OO–H),,gas,O-H,smallOH,,,0
-CPL-0244,HO2• (•OO–H),,H2O,O-H,smallOH,,,0
-CPL-0245,HO2− (−OO–H),,H2O,O-H,smallOH,,,0
+CPL-0231,H2O (HO–H),,gas,O-H,smallOH,water,,0
+CPL-0232,H2O (HO–H),,H2O,O-H,smallOH,water,,0
+CPL-0233,HO• (•O–H),,gas,O-H,smallOH,hydroxyl radical,,0
+CPL-0234,HO• (•O–H),,H2O,O-H,smallOH,hydroxyl radical,,0
+CPL-0235,OH− (−O–H),,gas,O-H,smallOH,hydroxide,,0
+CPL-0236,OH− (−O–H),,H2O,O-H,smallOH,hydroxide,,0
+CPL-0237,MeOH,,gas,O-H,smallOH,methanol,,0
+CPL-0238,EtOH,,gas,O-H,smallOH,ethanol,,0
+CPL-0239,iPrOH,,gas,O-H,smallOH,2-propanol;isopropanol,,0
+CPL-0240,tBuOH,,gas,O-H,smallOH,tert-butanol;tert-butyl alcohol,,0
+CPL-0241,H2O2 (HOO–H),,gas,O-H,smallOH,hydrogen peroxide,,0
+CPL-0242,H2O2 (HOO–H),,H2O,O-H,smallOH,hydrogen peroxide,,0
+CPL-0243,HO2• (•OO–H),,gas,O-H,smallOH,hydroperoxyl radical;superoxide conjugate acid,,0
+CPL-0244,HO2• (•OO–H),,H2O,O-H,smallOH,hydroperoxyl radical;superoxide conjugate acid,,0
+CPL-0245,HO2− (−OO–H),,H2O,O-H,smallOH,hydroperoxide anion,,0
 CPL-0246,O2/H2O (O2+2H2→2H2O),,gas,O-H,smallOH,,,0
 CPL-0247,O2/H2O (O2+2H2→2H2O),,MeCN,O-H,smallOH,,,0
 CPL-0248,O2/H2O (O2+2H2→2H2O),,DMF,O-H,smallOH,,,0
@@ -252,102 +252,102 @@ CPL-0250,O2/H2O2 (O2+H2→H2O2),,gas,O-H,smallOH,,,0
 CPL-0251,O2/H2O2 (O2+H2→H2O2),,H2O,O-H,smallOH,,,0
 CPL-0252,H2O2/H2O (H2O2+H2→2H2O),,gas,O-H,smallOH,,,0
 CPL-0253,H2O2/H2O (H2O2+H2→2H2O),,H2O,O-H,smallOH,,,0
-CPL-0254,MeOOH,,gas,O-H,smallOH,,,0
-CPL-0255,MeOOH,,H2O,O-H,smallOH,,,0
-CPL-0256,EtOOH,,gas,O-H,smallOH,,,0
-CPL-0257,EtOOH,,H2O,O-H,smallOH,,,0
-CPL-0258,iPrOOH,,H2O,O-H,smallOH,,,0
-CPL-0259,tBuOOH,,gas,O-H,smallOH,,,0
-CPL-0260,tBuOOH,,H2O,O-H,smallOH,,,0
-CPL-0261,trans-HC(O)OOH,,gas,O-H,smallOH,,,0
-CPL-0262,cis-HC(O)OOH,,gas,O-H,smallOH,,,0
-CPL-0263,CH3C(O)OOH,,gas,O-H,smallOH,,,0
-CPL-0264,CH3C(O)OOH,,H2O,O-H,smallOH,,,0
+CPL-0254,MeOOH,,gas,O-H,smallOH,methyl hydroperoxide,,0
+CPL-0255,MeOOH,,H2O,O-H,smallOH,methyl hydroperoxide,,0
+CPL-0256,EtOOH,,gas,O-H,smallOH,ethyl hydroperoxide,,0
+CPL-0257,EtOOH,,H2O,O-H,smallOH,ethyl hydroperoxide,,0
+CPL-0258,iPrOOH,,H2O,O-H,smallOH,isopropyl hydroperoxide,,0
+CPL-0259,tBuOOH,,gas,O-H,smallOH,tert-butyl hydroperoxide;TBHP,,0
+CPL-0260,tBuOOH,,H2O,O-H,smallOH,tert-butyl hydroperoxide;TBHP,,0
+CPL-0261,trans-HC(O)OOH,,gas,O-H,smallOH,performic acid (trans);peroxyformic acid,,0
+CPL-0262,cis-HC(O)OOH,,gas,O-H,smallOH,performic acid (cis);peroxyformic acid,,0
+CPL-0263,CH3C(O)OOH,,gas,O-H,smallOH,peracetic acid;peroxyacetic acid;PAA,,0
+CPL-0264,CH3C(O)OOH,,H2O,O-H,smallOH,peracetic acid;peroxyacetic acid;PAA,,0
 CPL-0265,MeOH/MeOOH (ROOH+H2→ROH+H2O),,H2O,O-H,smallOH,,,0
 CPL-0266,tBuOH/tBuOOH (ROOH+H2→ROH+H2O),,H2O,O-H,smallOH,,,0
 CPL-0267,HC(O)OH/HC(O)OOH (ROOH+H2→ROH+H2O),,H2O,O-H,smallOH,,,0
 CPL-0268,CH3C(O)OH/CH3C(O)OOH (ROOH+H2→ROH+H2O),,H2O,O-H,smallOH,,,0
-CPL-0269,HNN-H,,gas,N-H,nitrogen,,,0
-CPL-0270,HN•NH-H,,gas,N-H,nitrogen,,,0
-CPL-0271,H2NNH-H,,gas,N-H,nitrogen,,,0
-CPL-0272,H2NNH-H,,H2O,N-H,nitrogen,,,0
+CPL-0269,HNN-H,,gas,N-H,nitrogen,diazene;diimide;N2H2,,0
+CPL-0270,HN•NH-H,,gas,N-H,nitrogen,hydrazyl radical;N2H3 radical,,0
+CPL-0271,H2NNH-H,,gas,N-H,nitrogen,hydrazine;N2H4,,0
+CPL-0272,H2NNH-H,,H2O,N-H,nitrogen,hydrazine;N2H4,,0
 CPL-0273,N2/NH3 (N2+3H2→2NH3),,gas,N-H,nitrogen,,,0
 CPL-0274,N2/NH3 (N2+3H2→2NH3),,H2O,N-H,nitrogen,,,0
 CPL-0275,N2/NH3 (N2+3H2→2NH3),,MeCN,N-H,nitrogen,,,0
 CPL-0276,N2/N2H4 (N2+2H2→N2H4),,gas,N-H,nitrogen,,,0
 CPL-0277,N2/N2H2 (N2+H2→N2H2),,gas,N-H,nitrogen,,,0
-CPL-0278,NH3,,gas,N-H,amine,,,0
-CPL-0279,•NH2,,gas,N-H,amine,,,0
+CPL-0278,NH3,,gas,N-H,amine,ammonia,,0
+CPL-0279,•NH2,,gas,N-H,amine,aminyl radical;amino radical,,0
 CPL-0280,NH,,gas,N-H,amine,,,0
-CPL-0281,MeNH2,,gas,N-H,amine,,,0
-CPL-0282,PrNH2,,MeCN,N-H,amine,,,0
-CPL-0283,PrNH2,,C6H6,N-H,amine,,,0
-CPL-0284,pentylNH2,,MeCN,N-H,amine,,,0
-CPL-0285,pentylNH2,,C6H6,N-H,amine,,,0
-CPL-0286,Me2NH,,gas,N-H,amine,,,0
-CPL-0287,Me2NH,,H2O,N-H,amine,,,0
-CPL-0288,Et2NH,,H2O,N-H,amine,,,0
-CPL-0289,Et2NH,,MeCN,N-H,amine,,,0
-CPL-0290,Et2NH,,C6H6,N-H,amine,,,0
+CPL-0281,MeNH2,,gas,N-H,amine,methylamine,,0
+CPL-0282,PrNH2,,MeCN,N-H,amine,n-propylamine;propylamine,,0
+CPL-0283,PrNH2,,C6H6,N-H,amine,n-propylamine;propylamine,,0
+CPL-0284,pentylNH2,,MeCN,N-H,amine,n-pentylamine;amylamine,,0
+CPL-0285,pentylNH2,,C6H6,N-H,amine,n-pentylamine;amylamine,,0
+CPL-0286,Me2NH,,gas,N-H,amine,dimethylamine,,0
+CPL-0287,Me2NH,,H2O,N-H,amine,dimethylamine,,0
+CPL-0288,Et2NH,,H2O,N-H,amine,diethylamine,,0
+CPL-0289,Et2NH,,MeCN,N-H,amine,diethylamine,,0
+CPL-0290,Et2NH,,C6H6,N-H,amine,diethylamine,,0
 CPL-0291,pyrrolidine,,H2O,N-H,amine,,,0
 CPL-0292,piperidine,,H2O,N-H,amine,,,0
-CPL-0293,nBu2NH,,C6H6,N-H,amine,,,0
-CPL-0294,nBu2NH,,MeCN,N-H,amine,,,0
-CPL-0295,tBuNH2,,C6H6,N-H,amine,,,0
-CPL-0296,tBuNH2,,MeCN,N-H,amine,,,0
-CPL-0297,PhNH2,,gas,N-H,arylamine,,,0
-CPL-0298,PhNH2,,H2O,N-H,arylamine,,,0
-CPL-0299,PhNH2,,C6H6,N-H,arylamine,,,0
-CPL-0300,4-MePhNH2,,gas,N-H,arylamine,,,0
-CPL-0301,4-MePhNH2,,H2O,N-H,arylamine,,,0
-CPL-0302,4-MePhNH2,,C6H6,N-H,arylamine,,,0
-CPL-0303,4-MeOPhNH2,,H2O,N-H,arylamine,,,0
-CPL-0304,4-CNPhNH2,,H2O,N-H,arylamine,,,0
-CPL-0305,4-CF3PhNH2,,gas,N-H,arylamine,,,0
-CPL-0306,4-CF3PhNH2,,H2O,N-H,arylamine,,,0
-CPL-0307,Ph2NH,,gas,N-H,arylamine,,,0
-CPL-0308,Ph2NH,,H2O,N-H,arylamine,,,0
-CPL-0309,Ph2NH,,C6H6,N-H,arylamine,,,0
-CPL-0310,(4-MePh)2NH,,gas,N-H,arylamine,,,0
-CPL-0311,DPPH-H,,MeCN,N-H,arylamine,,,0
-CPL-0312,DPPH-H,,THF,N-H,arylamine,,,0
-CPL-0313,DPPH-H,,C6H6,N-H,arylamine,,,0
+CPL-0293,nBu2NH,,C6H6,N-H,amine,di-n-butylamine;dibutylamine,,0
+CPL-0294,nBu2NH,,MeCN,N-H,amine,di-n-butylamine;dibutylamine,,0
+CPL-0295,tBuNH2,,C6H6,N-H,amine,tert-butylamine,,0
+CPL-0296,tBuNH2,,MeCN,N-H,amine,tert-butylamine,,0
+CPL-0297,PhNH2,,gas,N-H,arylamine,aniline,,0
+CPL-0298,PhNH2,,H2O,N-H,arylamine,aniline,,0
+CPL-0299,PhNH2,,C6H6,N-H,arylamine,aniline,,0
+CPL-0300,4-MePhNH2,,gas,N-H,arylamine,p-toluidine;4-methylaniline,,0
+CPL-0301,4-MePhNH2,,H2O,N-H,arylamine,p-toluidine;4-methylaniline,,0
+CPL-0302,4-MePhNH2,,C6H6,N-H,arylamine,p-toluidine;4-methylaniline,,0
+CPL-0303,4-MeOPhNH2,,H2O,N-H,arylamine,p-anisidine;4-methoxyaniline,,0
+CPL-0304,4-CNPhNH2,,H2O,N-H,arylamine,4-cyanoaniline;4-aminobenzonitrile,,0
+CPL-0305,4-CF3PhNH2,,gas,N-H,arylamine,4-(trifluoromethyl)aniline,,0
+CPL-0306,4-CF3PhNH2,,H2O,N-H,arylamine,4-(trifluoromethyl)aniline,,0
+CPL-0307,Ph2NH,,gas,N-H,arylamine,diphenylamine,,0
+CPL-0308,Ph2NH,,H2O,N-H,arylamine,diphenylamine,,0
+CPL-0309,Ph2NH,,C6H6,N-H,arylamine,diphenylamine,,0
+CPL-0310,(4-MePh)2NH,,gas,N-H,arylamine,"di-p-tolylamine;4,4'-dimethyldiphenylamine",,0
+CPL-0311,DPPH-H,,MeCN,N-H,arylamine,"DPPH2;2,2-diphenyl-1-picrylhydrazine;reduced DPPH",,0
+CPL-0312,DPPH-H,,THF,N-H,arylamine,"DPPH2;2,2-diphenyl-1-picrylhydrazine;reduced DPPH",,0
+CPL-0313,DPPH-H,,C6H6,N-H,arylamine,"DPPH2;2,2-diphenyl-1-picrylhydrazine;reduced DPPH",,0
 CPL-0314,"2,4-(NO2)2C6H3NHNPh2",,DMSO,N-H,arylamine,,,0
-CPL-0315,PhNHNPh2,,DMSO,N-H,arylamine,,,0
-CPL-0316,PhNHNHPh,,DMSO,N-H,arylamine,,,0
-CPL-0317,PhNHNHPh,,MeCN,N-H,arylamine,,,0
+CPL-0315,PhNHNPh2,,DMSO,N-H,arylamine,"1,1,2-triphenylhydrazine",,0
+CPL-0316,PhNHNHPh,,DMSO,N-H,arylamine,"hydrazobenzene;1,2-diphenylhydrazine",,0
+CPL-0317,PhNHNHPh,,MeCN,N-H,arylamine,"hydrazobenzene;1,2-diphenylhydrazine",,0
 CPL-0318,"DHP (5,10-dihydrophenazine)",,MeCN,N-H,arylamine,,,0
 CPL-0319,indole,,H2O,N-H,indole,,,0
-CPL-0320,tryptophan,,H2O,N-H,indole,,,0
-CPL-0321,2-CH3-indole,,H2O,N-H,indole,,,0
-CPL-0322,3-CH3-indole,,H2O,N-H,indole,,,0
-CPL-0323,"2,3-(CH3)2-indole",,H2O,N-H,indole,,,0
-CPL-0324,HS-H,,gas,S-H,thiol,,,0
-CPL-0325,HS-H,,H2O,S-H,thiol,,,0
-CPL-0326,MeS-H,,gas,S-H,thiol,,,0
-CPL-0327,MeS-H,,H2O,S-H,thiol,,,0
-CPL-0328,EtS-H,,gas,S-H,thiol,,,0
-CPL-0329,EtS-H,,H2O,S-H,thiol,,,0
-CPL-0330,tBuS-H,,gas,S-H,thiol,,,0
-CPL-0331,HOCH2CH2S-H,,H2O,S-H,thiol,,,0
-CPL-0332,cysteine,,H2O,S-H,thiol,,,0
-CPL-0333,glutathione,,H2O,S-H,thiol,,,0
-CPL-0334,PhS-H,,gas,S-H,thiol,,,0
-CPL-0335,PhS-H,,H2O,S-H,thiol,,,0
-CPL-0336,PhS-H,,C6H6,S-H,thiol,,,0
-CPL-0337,4-MePhS-H,,H2O,S-H,thiol,,,0
-CPL-0338,4-MeOPhS-H,,H2O,S-H,thiol,,,0
-CPL-0339,4-BrPhS-H,,H2O,S-H,thiol,,,0
-CPL-0340,CH4,,gas,C-H,CH,,,0
+CPL-0320,tryptophan,,H2O,N-H,indole,Trp,,0
+CPL-0321,2-CH3-indole,,H2O,N-H,indole,2-methylindole,,0
+CPL-0322,3-CH3-indole,,H2O,N-H,indole,skatole;3-methylindole,,0
+CPL-0323,"2,3-(CH3)2-indole",,H2O,N-H,indole,"2,3-dimethylindole",,0
+CPL-0324,HS-H,,gas,S-H,thiol,hydrogen sulfide;H2S,,0
+CPL-0325,HS-H,,H2O,S-H,thiol,hydrogen sulfide;H2S,,0
+CPL-0326,MeS-H,,gas,S-H,thiol,methanethiol,,0
+CPL-0327,MeS-H,,H2O,S-H,thiol,methanethiol,,0
+CPL-0328,EtS-H,,gas,S-H,thiol,ethanethiol,,0
+CPL-0329,EtS-H,,H2O,S-H,thiol,ethanethiol,,0
+CPL-0330,tBuS-H,,gas,S-H,thiol,tert-butylthiol;2-methyl-2-propanethiol,,0
+CPL-0331,HOCH2CH2S-H,,H2O,S-H,thiol,2-mercaptoethanol;beta-mercaptoethanol;BME,,0
+CPL-0332,cysteine,,H2O,S-H,thiol,Cys,,0
+CPL-0333,glutathione,,H2O,S-H,thiol,GSH,,0
+CPL-0334,PhS-H,,gas,S-H,thiol,thiophenol;benzenethiol,,0
+CPL-0335,PhS-H,,H2O,S-H,thiol,thiophenol;benzenethiol,,0
+CPL-0336,PhS-H,,C6H6,S-H,thiol,thiophenol;benzenethiol,,0
+CPL-0337,4-MePhS-H,,H2O,S-H,thiol,p-thiocresol;4-methylbenzenethiol,,0
+CPL-0338,4-MeOPhS-H,,H2O,S-H,thiol,4-methoxythiophenol;4-methoxybenzenethiol,,0
+CPL-0339,4-BrPhS-H,,H2O,S-H,thiol,4-bromothiophenol;4-bromobenzenethiol,,0
+CPL-0340,CH4,,gas,C-H,CH,methane,,0
 CPL-0341,CH3CH2-H (ethane),,gas,C-H,CH,,,0
 CPL-0342,•CH2CH2-H (ethyl radical),,gas,C-H,CH,,,0
 CPL-0343,(CH3)2CH-H (propane),,gas,C-H,CH,,,0
 CPL-0344,(CH3)3C-H (isobutane),,gas,C-H,CH,,,0
 CPL-0345,CH2=CH-H (ethylene),,gas,C-H,CH,,,0
 CPL-0346,HC≡C-H (acetylene),,gas,C-H,CH,,,0
-CPL-0347,"1,3-cyclopentadiene",,gas,C-H,CH,,,0
-CPL-0348,"1,3-cyclopentadiene",,DMSO,C-H,CH,,,0
-CPL-0349,"1,4-cyclohexadiene",,gas,C-H,CH,,,0
+CPL-0347,"1,3-cyclopentadiene",,gas,C-H,CH,cyclopentadiene;CpH,,0
+CPL-0348,"1,3-cyclopentadiene",,DMSO,C-H,CH,cyclopentadiene;CpH,,0
+CPL-0349,"1,4-cyclohexadiene",,gas,C-H,CH,"1,4-CHD;cyclohexa-1,4-diene",,0
 CPL-0350,cyclohexadienyl (•C6H7),,gas,C-H,CH,,,0
 CPL-0351,C6H5-H (benzene),,gas,C-H,CH,,,0
 CPL-0352,C6H5CH2-H (toluene),,gas,C-H,CH,,,0
@@ -359,13 +359,13 @@ CPL-0357,indene,,DMSO,C-H,CH,,,0
 CPL-0358,fluorene,,DMSO,C-H,CH,,,0
 CPL-0359,"DHA (9,10-dihydroanthracene)",,DMSO,C-H,CH,,,0
 CPL-0360,xanthene,,DMSO,C-H,CH,,,0
-CPL-0361,Ph3CH,,DMSO,C-H,CH,,,0
-CPL-0362,Ph2CH2,,DMSO,C-H,CH,,,0
-CPL-0363,"AcrH2 (10-Me-9,10-dihydroacridine)",,MeCN,C-H,nicotinamide,,,0
+CPL-0361,Ph3CH,,DMSO,C-H,CH,triphenylmethane,,0
+CPL-0362,Ph2CH2,,DMSO,C-H,CH,diphenylmethane,,0
+CPL-0363,"AcrH2 (10-Me-9,10-dihydroacridine)",,MeCN,C-H,nicotinamide,N-methylacridane;10-methylacridan;Me-AcrH2,,0
 CPL-0364,AcrH2•+,,MeCN,C-H,nicotinamide,,,0
 CPL-0365,"BNAH (1-benzyl-1,4-dihydronicotinamide)",,MeCN,C-H,nicotinamide,,,0
 CPL-0366,BNAH•+,,MeCN,C-H,nicotinamide,,,0
-CPL-0367,NADH,,H2O,C-H,nicotinamide,,,0
+CPL-0367,NADH,,H2O,C-H,nicotinamide,nicotinamide adenine dinucleotide (reduced);dihydronicotinamide cofactor,,0
 CPL-0368,NADH•+,,H2O,C-H,nicotinamide,,,0
 CPL-0369,CO2/CO (CO2+H2→CO+H2O),,gas,X-H,co2,,,0
 CPL-0370,CO2/CO (CO2+H2→CO+H2O),,H2O,X-H,co2,,,0
@@ -375,16 +375,16 @@ CPL-0373,CO2/CH4 (CO2+4H2→CH4+2H2O),,gas,X-H,co2,,,0
 CPL-0374,CO2/CH4 (CO2+4H2→CH4+2H2O),,H2O,X-H,co2,,,0
 CPL-0375,CO2/CH4 (CO2+4H2→CH4+2H2O),,MeCN,X-H,co2,,,0
 CPL-0376,CO2/CH4 (CO2+4H2→CH4+2H2O),,DMF,X-H,co2,,,0
-CPL-0377,[HPVW11O40]4- (1st H on PVIVW11),,MeCN,O-H,pom,,,0
-CPL-0378,[H2PVW11O40]3- (2nd H on PVIVW11),,MeCN,O-H,pom,,,0
-CPL-0379,[HPVMo11O40]4- (1st H on PVIVMo11),,MeCN,O-H,pom,,,0
-CPL-0380,[H2PVMo11O40]3- (2nd H on PVIVMo11),,MeCN,O-H,pom,,,0
-CPL-0381,[H3PVMo11O40]2- (3rd H on PVIVMo11),,MeCN,O-H,pom,,,0
-CPL-0382,[HAsVW11O40]4- (1st H on AsVIVW11),,MeCN,O-H,pom,,,0
-CPL-0383,[H2AsVW11O40]3- (2nd H on AsVIVW11),,MeCN,O-H,pom,,,0
-CPL-0384,[HAsVMo11O40]4- (1st H on AsVIVMo11),,MeCN,O-H,pom,,,0
-CPL-0385,[H2AsVMo11O40]3- (2nd H on AsVIVMo11),,MeCN,O-H,pom,,,0
-CPL-0386,[H3AsVMo11O40]2- (3rd H on AsVIVMo11),,MeCN,O-H,pom,,,0
+CPL-0377,[HPVW11O40]4- (1st H on PVIVW11),,MeCN,O-H,pom,Keggin PVW11;vanadotungstophosphate,,0
+CPL-0378,[H2PVW11O40]3- (2nd H on PVIVW11),,MeCN,O-H,pom,Keggin PVW11,,0
+CPL-0379,[HPVMo11O40]4- (1st H on PVIVMo11),,MeCN,O-H,pom,Keggin PVMo11;vanadomolybdophosphate,,0
+CPL-0380,[H2PVMo11O40]3- (2nd H on PVIVMo11),,MeCN,O-H,pom,Keggin PVMo11,,0
+CPL-0381,[H3PVMo11O40]2- (3rd H on PVIVMo11),,MeCN,O-H,pom,Keggin PVMo11,,0
+CPL-0382,[HAsVW11O40]4- (1st H on AsVIVW11),,MeCN,O-H,pom,Keggin AsVW11,,0
+CPL-0383,[H2AsVW11O40]3- (2nd H on AsVIVW11),,MeCN,O-H,pom,Keggin AsVW11,,0
+CPL-0384,[HAsVMo11O40]4- (1st H on AsVIVMo11),,MeCN,O-H,pom,Keggin AsVMo11,,0
+CPL-0385,[H2AsVMo11O40]3- (2nd H on AsVIVMo11),,MeCN,O-H,pom,Keggin AsVMo11,,0
+CPL-0386,[H3AsVMo11O40]2- (3rd H on AsVIVMo11),,MeCN,O-H,pom,Keggin AsVMo11,,0
 CPL-0388,"(calix)V6O5(OH2)(OMe)8 (aquo, avg 2 O-H)",,THF,O-H,pom,,,0
 CPL-0389,[V6O9(OH)4(TRIOLNO2)2]2-,,MeCN,O-H,pom,,,0
 CPL-0390,[V6O7(OH)6(TRIOLNO2)2]2-,,MeCN,O-H,pom,,,0
@@ -393,12 +393,12 @@ CPL-0392,[V6O9(OH)4(TRIOLMe)2]2-,,MeCN,O-H,pom,,,0
 CPL-0393,[V6O7(OH)6(TRIOLMe)2]2-,,MeCN,O-H,pom,,,0
 CPL-0394,[V6O9(OMe)2(OH)2(TRIOLNO2)2]2-,,MeCN,O-H,pom,,,0
 CPL-0395,[V6O7(OMe)2(OH)4(TRIOLNO2)2]2-,,MeCN,O-H,pom,,,0
-CPL-0396,[VW5O18(OH)]3-,,MeCN,O-H,pom,,,0
+CPL-0396,[VW5O18(OH)]3-,,MeCN,O-H,pom,Lindqvist vanadotungstate;VW5,,0
 CPL-0397,"NbV5O6(OH2)(OCH3)12 (aquo, avg 2 O-H)",,THF,O-H,pom,,,0
-CPL-0398,"[V6O6(OH2)(OMe)12]1- (aquo, avg 2 O-H)",,THF,O-H,pom,,,0
-CPL-0399,"[V6O6(OH2)(OEt)12]1- (aquo, avg 2 O-H)",,THF,O-H,pom,,,0
-CPL-0400,"[V6O6(OH2)(OPr)12]1- (aquo, avg 2 O-H)",,THF,O-H,pom,,,0
-CPL-0401,"[V6O6(OH2)(OBu)12]1- (aquo, avg 2 O-H)",,THF,O-H,pom,,,0
+CPL-0398,"[V6O6(OH2)(OMe)12]1- (aquo, avg 2 O-H)",,THF,O-H,pom,Matson V6 aquo methoxide,,0
+CPL-0399,"[V6O6(OH2)(OEt)12]1- (aquo, avg 2 O-H)",,THF,O-H,pom,Matson V6 aquo ethoxide,,0
+CPL-0400,"[V6O6(OH2)(OPr)12]1- (aquo, avg 2 O-H)",,THF,O-H,pom,Matson V6 aquo propoxide,,0
+CPL-0401,"[V6O6(OH2)(OBu)12]1- (aquo, avg 2 O-H)",,THF,O-H,pom,Matson V6 aquo butoxide,,0
 CPL-0402,"[V6O5Cl(OH2)(OEt)12]1- (aquo, avg 2 O-H)",,THF,O-H,pom,,,0
 CPL-0403,"[V6O5(SCN)(OH2)(OEt)12]1- (aquo, avg 2 O-H)",,THF,O-H,pom,,,0
 CPL-0404,[PVW11O40] W-sites 1st 2e-/2H+ event (avg 2 O-H),,MeCN,O-H,pom,,,0

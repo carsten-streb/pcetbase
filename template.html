@@ -183,6 +183,19 @@
       <div class="warn">Square scheme (fill any two, the third is solved): BDFE = 23.06·E° + 1.37·pK<sub>a</sub> + C<sub>G,solv</sub> (eq 10);
         from E°(V vs H₂): BDFE = 23.06·E° + ΔG°<sub>f</sub>(H•)<sub>solv</sub> (eq 18). Constants: Agarwal et al. 2022, Table 1.</div>
     </div>
+
+    <div class="panel calc" style="margin-top:16px">
+      <h2>Pair — HAT feasibility</h2>
+      <div class="row">
+        <div><label>H-atom donor (substrate X–H)</label><input id="pDon" list="coupleList" type="text" placeholder="search name or alias…" style="width:250px"></div>
+        <div><label>H-atom acceptor (bond formed, catalyst X–H)</label><input id="pAcc" list="coupleList" type="text" placeholder="search name or alias…" style="width:250px"></div>
+        <div style="align-self:flex-end"><button class="primary" id="pGo">Evaluate ΔG°(HAT)</button></div>
+      </div>
+      <datalist id="coupleList"></datalist>
+      <div class="result" id="pOut"></div>
+      <div class="warn">Convention: for abstraction Cat• + H–Sub → Cat–H + Sub•, ΔG°(HAT) = BDFE(Sub–H) − BDFE(Cat–H); negative = downhill.
+        Values are the recommended (★) measurement of each couple. ΔG° of H-atom transfer only — says nothing about kinetics or mechanism (ET-PT vs HAT).</div>
+    </div>
   </section>
 </main>
 
@@ -652,6 +665,34 @@ function init(){
   document.getElementById("uClear").addEventListener("click",()=>{userPt=null;document.getElementById("uOut").textContent="";renderLadder();});
   document.getElementById("csv").addEventListener("click",copyCSV);
   document.getElementById("csvDl").addEventListener("click",downloadCSV);
+  /* K1 pair mode: one entry per couple (the rep/starred measurement), alias-aware via datalist labels */
+  const PAIRS={};
+  coupleView(D).forEach(c=>{
+    const r=c.rep;
+    if(!Number.isFinite(r.bdfe))return;
+    const key=`${r.name}${r.partner?" + "+r.partner:""} [${r.solvent}]`;
+    PAIRS[key]=r;
+  });
+  document.getElementById("coupleList").innerHTML=Object.entries(PAIRS).map(([k,r])=>
+    `<option value="${k.replace(/"/g,"&quot;")}" label="${(r.aliases||"").replace(/"/g,"&quot;")}"></option>`).join("");
+  document.getElementById("pGo").addEventListener("click",()=>{
+    const out=document.getElementById("pOut");
+    const don=PAIRS[document.getElementById("pDon").value.trim()];
+    const acc=PAIRS[document.getElementById("pAcc").value.trim()];
+    if(!don||!acc){out.textContent="Pick both couples from the suggestion list (type a name or alias, then select).";return;}
+    if(don.solvent!==acc.solvent){
+      out.innerHTML=`<b>Cross-solvent comparison not supported</b> — BDFE scales are solvent-specific (donor: ${don.solvent}, acceptor: ${acc.solvent}). Choose two couples in the same solvent.`;
+      return;
+    }
+    const u=document.getElementById("unit").value;
+    const dG=don.bdfe-acc.bdfe;
+    const sD=parseFloat(don.sigma), sA=parseFloat(acc.sigma);
+    const sComb=(Number.isFinite(sD)&&Number.isFinite(sA))?Math.sqrt(sD*sD+sA*sA):null;
+    const verdict=dG<0?`<b>downhill by ${toUnit(-dG,u).toFixed(1)} ${unitLbl[u]}</b>`:dG>0?`<b>uphill by ${toUnit(dG,u).toFixed(1)} ${unitLbl[u]}</b>`:"<b>thermoneutral</b>";
+    out.innerHTML=`ΔG°(HAT) = ${toUnit(don.bdfe,u).toFixed(1)} − ${toUnit(acc.bdfe,u).toFixed(1)} = <b>${toUnit(dG,u).toFixed(1)} ${unitLbl[u]}</b> — ${verdict}`+
+      `<div class="warn">Donor: ${don.name} (${don.entryId}${don.sigma?", σ ±"+don.sigma:""}) · Acceptor: ${acc.name} (${acc.entryId}${acc.sigma?", σ ±"+acc.sigma:""})`+
+      `${sComb!=null?` · combined σ ±${toUnit(sComb,u).toFixed(1)} ${unitLbl[u]} (root-sum-square)`:""}</div>`;
+  });
   renderTable();renderLadder();
   /* permalink: #BDFE-NNNN opens that entry's verification panel */
   const hash=decodeURIComponent(location.hash.slice(1));

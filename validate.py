@@ -78,7 +78,7 @@ def validate_couples(rows):
     seen = set()
     for c in couples:
         cid = c["couple_id"]
-        if not re.fullmatch(r"CPL-[0-9]{4}", cid):
+        if not re.fullmatch(r"CPL-[0-9]{4,}", cid):
             errors.append(f"couples.csv: malformed couple_id '{cid}'")
         if cid in seen:
             errors.append(f"couples.csv: duplicate couple_id '{cid}'")

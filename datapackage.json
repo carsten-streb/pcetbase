@@ -186,7 +186,7 @@
       "type": "string",
       "constraints": {
        "unique": true,
-       "pattern": "BDFE-[0-9]{4}"
+       "pattern": "BDFE-[0-9]{4,}"
       },
       "description": "Stable entry identifier, never reused"
      },
@@ -194,7 +194,7 @@
       "name": "couple_id",
       "type": "string",
       "constraints": {
-       "pattern": "CPL-[0-9]{4}"
+       "pattern": "CPL-[0-9]{4,}"
       },
       "description": "Foreign key to couples.csv; groups independent measurements of the same compound/partner/solvent couple"
      },
@@ -278,7 +278,7 @@
       "type": "string",
       "constraints": {
        "unique": true,
-       "pattern": "CPL-[0-9]{4}"
+       "pattern": "CPL-[0-9]{4,}"
       },
       "description": "Stable couple identifier, never reused"
      },

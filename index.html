@@ -1285,6 +1285,7 @@ function showDetail(id){
   const cg=CG[r.solvent], dg=DGH[r.solvent];
   let h=`<button class="close" onclick="document.getElementById('detail').style.display='none'">✕</button>`;
   h+=`<h3>${r.name}${r.partner?" + "+r.partner:""} — ${r.solvent} — verification${r.rec?" ★":""}</h3>`;
+  h+=`<div class="src" style="margin:-2px 0 8px">Source: <a href="https://doi.org/${r.srcDoi}">doi:${r.srcDoi}</a>${r.srcRef?" — original citation"+r.srcRef+" therein":""}${r.year?" ("+r.year+")":""}</div>`;
   if(r.nDup>1){
     const cpl=COUPLES[r.cid]||{};
     h+=`<div class="warn">${r.nDup} independent measurements exist for this couple/solvent${r.rec?"; this is the recommended value ("+(r.recManual?"manual":"auto, policy v1")+")":"; a ★-starred recommended value may exist — compare sources"}.${cpl.discordant==="1"?" <b>Discordant couple:</b> the independent values disagree beyond their combined uncertainty.":""}${r.rec&&cpl.recommended_reason?" Reason: "+cpl.recommended_reason:""}</div>`;

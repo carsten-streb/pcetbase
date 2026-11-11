@@ -4,6 +4,8 @@ All star (recommendation) moves and releases are recorded here, newest first.
 
 ## v1.3 — 2026-11-11
 
+DOI: 10.5281/zenodo.24137124 (all versions: 10.5281/zenodo.24121910)
+
 Dataset: 426 measurements, 421 couples (v1.2: 376 entries). Two-layer
 measurement/couple model (couple_id, data/couples.csv, FK-gated),
 sigma_BDFE/T_K/conditions columns, 50 new POM measurements (batches 1-3,

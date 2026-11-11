@@ -1417,7 +1417,7 @@ function compute(){
   let bdfe=null, note="";
   if(mode==="eh2"){
     const e=parseFloat(document.getElementById("uEh2").value);
-    if(isNaN(e)){out.textContent="Enter E°(V vs H₂).";return;}
+    if(!Number.isFinite(e)){out.textContent="Enter a finite E°(V vs H₂).";return;}
     const dg=DGH[solv];
     if(dg===undefined){out.textContent="No ΔG°f(H•) for this solvent.";return;}
     bdfe=23.06*e+dg;
@@ -1425,7 +1425,7 @@ function compute(){
   }else{
     const e=parseFloat(document.getElementById("uE").value);
     const pka=parseFloat(document.getElementById("uPka").value);
-    if(isNaN(e)||isNaN(pka)){out.textContent="Enter both E° and pKa.";return;}
+    if(!Number.isFinite(e)||!Number.isFinite(pka)){out.textContent="Enter finite values for both E° and pKa.";return;}
     const cg=CG[solv];
     if(cg===undefined){out.textContent="No CG constant for this solvent (available: "+Object.keys(CG).join(", ")+").";return;}
     bdfe=23.06*e+1.37*pka+cg;

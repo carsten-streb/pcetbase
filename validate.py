@@ -158,9 +158,16 @@ def main():
         # 1.364; 1.37 would add a +0.006*pKa convention artifact (Q2 decision).
         # Bordwell/eq 10 stays at 1.37 (Agarwal convention). Active only where
         # hydricity_kcal is populated AND the solvent's CHyd constant exists.
-        if r.get("hydricity_kcal") and r["solvent"] in ch and r["E_a"] and r.get("E_c") and r["pKa_b"]:
+        # form 1: X-H -> X- -> X* -> X+ (E_a + pKa_b); form 2 (oxidized-hydride
+        # route, Ciancanelli eq 13; CR-2026-11-12-tmh-morris B3): MH -> MH*+ ->
+        # X* -> X+ (E_b + pKa_a).
+        hyd_ok = r.get("hydricity_kcal") and r["solvent"] in ch and r.get("E_c")
+        if hyd_ok and ((r["E_a"] and r["pKa_b"]) or (r["E_b"] and r["pKa_a"])):
             n_hyd += 1
-            calc = 1.364*float(r["pKa_b"]) + 23.06*(float(r["E_a"]) + float(r["E_c"])) + ch[r["solvent"]]
+            if r["E_a"] and r["pKa_b"]:
+                calc = 1.364*float(r["pKa_b"]) + 23.06*(float(r["E_a"]) + float(r["E_c"])) + ch[r["solvent"]]
+            else:
+                calc = 1.364*float(r["pKa_a"]) + 23.06*(float(r["E_b"]) + float(r["E_c"])) + ch[r["solvent"]]
             d = calc - float(r["hydricity_kcal"])
             residhyd[r["entry_id"]] = d
             if abs(d) > 0.5:

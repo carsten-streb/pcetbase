@@ -457,14 +457,16 @@ CPL-0456,[Pt(depp)2H]+,,MeCN,M-H,tmh,,,0
 CPL-0457,[Pt(dppe)2H]+,,MeCN,M-H,tmh,,,0
 CPL-0458,[Pd(PNP)2H]+,,MeCN,M-H,tmh,,,0
 CPL-0459,[Pt(dmpp)2H]+,,MeCN,M-H,tmh,,,0
-CPL-0460,[Ni(dmpe)2H]+,,MeCN,M-H,tmh,,,0
+CPL-0460,[Ni(dmpe)2H]+,,MeCN,M-H,tmh,,"sq (measured pKa, Berning 1999) and hyd (H2-heterolysis) closures disagree by 1.1 kcal/mol (53.8 vs 54.9); star to sq by rule 1 (auto); discord recorded per convention (CR-2026-11-12-tmh-primaries-p1, H34 builder decision)",1
 CPL-0461,[Co(P4N2)H]+,,MeCN,M-H,tmh,,,0
 CPL-0462,[Pt(depe)2H]+,,MeCN,M-H,tmh,,,0
 CPL-0463,[Pd(depe)2H]+,,MeCN,M-H,tmh,,,0
-CPL-0464,[Pt(dmpe)2H]+,,MeCN,M-H,tmh,,,0
+CPL-0464,[Pt(dmpe)2H]+,,MeCN,M-H,tmh,,"sq (re-anchored measured pKa, Curtis 2002) and hyd (H2-heterolysis) closures disagree by 1.0 kcal/mol (55.3 vs 54.3); star to sq by rule 1 (auto); discord recorded per convention (CR-2026-11-12-tmh-primaries-p1, H34 builder decision)",1
 CPL-0465,Rh(dppb)2H,,MeCN,M-H,tmh,,,0
 CPL-0466,"Rh(PR2NR'2)2H ; R = Cy, R' = Ph",,MeCN,M-H,tmh,,,0
 CPL-0467,"Rh(PR2NR'2)2H ; R = Ph, R' = C6H4-OMe",,MeCN,M-H,tmh,,,0
 CPL-0468,"Rh(PR2NR'2)2H ; R = Cy, R' = C6H4-OMe",,MeCN,M-H,tmh,,,0
 CPL-0469,"Rh(PR2NR'2)2H ; R = Ph, R' = Bn",,MeCN,M-H,tmh,,,0
 CPL-0470,Rh(Cp*)(ppy)H,,MeCN,M-H,tmh,,"independent sq and hyd closures disagree by 1.2 kcal/mol (BDFE 51.5 vs 50.3); star to the sq row by rule 1 (method hierarchy, auto); discord recorded per HPVW11 precedent (H22 builder decision 2026-11-12)",1
+CPL-0471,[HPt(EtXantphos)2]2+,,MeCN,M-H,tmh,,,0
+CPL-0472,[(H)2Pt(EtXantphos)2]2+,,MeCN,M-H,tmh,,,0

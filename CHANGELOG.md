@@ -4,6 +4,21 @@ All star (recommendation) moves and releases are recorded here, newest first.
 
 ## Unreleased (toward v1.4)
 
+- 2026-11-12: TMH primaries batch P1 (CR-2026-11-12-tmh-primaries-p1):
+  8 new rows BDFE-0476..0483 (6 measured-pKa sq second determinations
+  on existing couples - Berning 1999 / Curtis 2002 primaries, independent
+  of the H2-heterolysis hydricities - plus the Pt(EtXantphos) Pt(III)-H
+  and dihydride species, couples CPL-0471/0472). Star moves (rule 1,
+  auto, routine curation): six couples' stars move hyd -> sq
+  (dmpp/depe/dmpe Ni; dmpp/dmpe Pt; depp Ni). discordant = 1 set on
+  CPL-0460 (delta 1.1) and CPL-0464 (delta 1.0); CPL-0430 (0.9) below
+  the ~1 kcal/mol line. Value correction BDFE-0427 [Pt(EtXantphos)2H]+
+  to the Miedaner 2004 primary: pKa 27.3, BDFE 69.0 -> 67.6, hydricity
+  75.8, sigma 2 (Wiedner's 28.3 used a derived anchor). All four Morris
+  check-src flags resolved (case-13 candidates = primary arithmetic
+  errors copied by Morris); PhCN caveats corrected per the primaries.
+
+
 - 2026-11-12: Morris cross-check (CR-2026-11-12-tmh-morris): Co(III)-acid
   relabel of BDFE-0443/0465 (pKa and 1e couple moved to pKa_a/E_b, their
   square-scheme meaning; values unchanged; primary-verified vs Ciancanelli

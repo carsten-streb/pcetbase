@@ -100,6 +100,17 @@ if (chips.length) {
     T("csv has couple_id column", /couple_id/.test(csvAll.split("\n")[0]));
     T("csv has entry_id + metadata columns (F4)",
       ["entry_id","sigma_BDFE","method","T_K","conditions","year"].every(c => csvAll.split("\n")[0].includes(c)));
+    T("csv has square-scheme leg columns incl. E_c (stress F5)",
+      ["pKa_a","E_a_V","E_b_V","E_c_V","hydricity_kcal"].every(c => csvAll.split("\n")[0].includes(c)));
+    { // stress F5 acceptance: a hyd row's exported legs re-close its hydricity (form 1)
+      const hd = csvAll.split("\n")[0].split(",");
+      const ix = n => hd.indexOf(n);
+      const row = csvAll.split("\n").find(l => l.includes("BDFE-0453"));
+      const cells = row.split(/,(?=(?:[^"]*"[^"]*")*[^"]*$)/);
+      const calc = 1.364*parseFloat(cells[ix("pKa_XH")]) + 23.06*(parseFloat(cells[ix("E_a_V")]) + parseFloat(cells[ix("E_c_V")])) + 79.6;
+      const stored = parseFloat(cells[ix("hydricity_kcal")]);
+      T("exported legs re-close hydricity on a hyd row (stress F5)", Math.abs(calc - stored) < 0.05, calc.toFixed(3) + " vs " + stored);
+    }
     const eids = csvAll.trim().split("\n").slice(1).map(l => l.split(",")[1]);
     T("csv rows uniquely keyed by entry_id", new Set(eids).size === eids.length && eids.every(e => /^BDFE-\d{4,}$/.test(e)));
     T("csv recommended keeps the starred VW5O18 value (63.0 not 63.3)",

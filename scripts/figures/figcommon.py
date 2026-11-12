@@ -46,11 +46,16 @@ def display_class(raw):
     return "metal" if raw.startswith("metal") else DISPLAY_MAP.get(raw, raw)
 
 def git_ref():
+    """Release version from CITATION.cff (stress CR F2): the watermark names the
+    release the figures ship with, independent of when the tag is placed."""
     try:
-        return subprocess.check_output(["git", "describe", "--tags", "--always"],
-                                       cwd=ROOT, text=True).strip()
+        with open(os.path.join(ROOT, "CITATION.cff"), encoding="utf-8") as f:
+            for line in f:
+                if line.startswith("version:"):
+                    return "v" + line.split(":", 1)[1].strip().strip('"')
     except Exception:
-        return "unknown"
+        pass
+    return "unknown"
 
 def load_rows():
     with open(os.path.join(ROOT, "data", "data.csv"), newline="", encoding="utf-8") as f:

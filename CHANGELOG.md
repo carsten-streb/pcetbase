@@ -4,6 +4,21 @@ All star (recommendation) moves and releases are recorded here, newest first.
 
 ## v1.4 — 2026-11-12
 
+### Pre-publication stress-test fixes (CR-2026-11-12-stress-v1.4 F1–F6, PR #46)
+- .zenodo.json + CITATION.cff: scope sentence and keywords extended to the TMH/
+  hydricity content; "version": "1.4" added; the two files are field-identical (F1).
+- Figure watermark now reads the release version from CITATION.cff instead of
+  git describe; set re-rendered as "PCETbase v1.4" (F2).
+- App header: prototype disclaimer dropped; data line names Wiedner/Morris 2016
+  and the primary literature (F3). Footer and README: neutral "this release: v1.4,
+  version DOI minted on Zenodo after archiving" until the DOI-reference PR (F4).
+- CSV export: pKa_a, E_a_V, E_b_V, E_c_V columns added, so exported hyd rows
+  re-close their hydricity; jsdom gate extended to 73 assertions (F5).
+- CONTRIBUTING rule 4 + build.py docstring: cross-closure discord convention
+  (~1 kcal/mol, auto star, recorded reason) made explicit (F6).
+- Queued: F7 validator hardening + F8 analysis.csv line endings (v1.4.x);
+  F9 10k latency + F10 flag question (v1.5).
+
 **Scope:** all transition-metal hydrides from the Wiedner 2016 and Morris 2016
 review tables that close a BDFE, primary-verified where the review value was
 doubtful or deferred (batch-1 deferral list closed). 498 measurements / 485

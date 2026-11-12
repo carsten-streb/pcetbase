@@ -18,12 +18,14 @@ identifiers:
 version: "1.4"
 date-released: "2026-11-12"
 keywords:
-  - proton-coupled electron transfer
-  - PCET
-  - bond dissociation free energy
-  - BDFE
-  - thermochemistry
-  - polyoxometalates
+  - "proton-coupled electron transfer"
+  - "PCET"
+  - "bond dissociation free energy"
+  - "BDFE"
+  - "thermochemistry"
+  - "polyoxometalates"
+  - "transition metal hydrides"
+  - "hydricity"
 references:
   - type: article
     title: "Free Energies of Proton-Coupled Electron Transfer Reagents and Their Applications"

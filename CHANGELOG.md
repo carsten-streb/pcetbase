@@ -4,6 +4,16 @@ All star (recommendation) moves and releases are recorded here, newest first.
 
 ## Unreleased (toward v1.4)
 
+- 2026-11-12: manuscript figure scripts (CR-2026-11-12-figure-scripts):
+  scripts/figures/{figcommon,fig2,fig3,fig4,fig6,render_all}.py render the
+  data-derived figure set (SVG + 600 dpi PNG into figures/) from the current
+  checkout; release workflow runs render_all.py at the tag so output is
+  pinned. First-render verification: derived/analysis.csv residuals at
+  v1.3 vs 27e97c7 identical on all 426 rows (only compound labels differ,
+  PR #26 relabels) - the 5.1 rerun numbers hold for v1.3. Font: Arial with
+  Liberation Sans fallback (CI/Linux).
+
+
 - 2026-11-12: Rh(Cp*)(ppy)H sq + hyd pair BDFE-0474/0475, couple CPL-0470
   (H20 Option B, Carsten; CR-2026-11-12-tmh-wiedner Addendum A). Star to the
   sq row (rule 1, auto); discordant = 1 set by the builder (independent

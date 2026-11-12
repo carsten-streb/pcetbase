@@ -2,6 +2,18 @@
 
 All star (recommendation) moves and releases are recorded here, newest first.
 
+## Unreleased (toward v1.4)
+
+- 2026-11-12: schema for the TMH (transition-metal hydride) class
+  (CR-2026-11-11-tmh-schema): new data column `hydricity_kcal`
+  (dG(H-), as published), hydricity closure check in validate.py
+  (dG(H-) = 1.37 pKa + 23.06 (E1+E2) + CHyd(solvent); active per
+  solvent once the CHyd constants from Wiedner Chem. Rev. 2016
+  Table 2 land in constants.csv), `hyd_residual_kcal` in
+  derived/analysis.csv, class `tmh` in the app legend. One row per
+  determination/closure; couples group multiple closures of the
+  same M-H bond. No values or stars changed.
+
 ## v1.3 — 2026-11-11
 
 DOI: 10.5281/zenodo.24137124 (all versions: 10.5281/zenodo.24121910)

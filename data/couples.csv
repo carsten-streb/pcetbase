@@ -470,3 +470,8 @@ CPL-0469,"Rh(PR2NR'2)2H ; R = Ph, R' = Bn",,MeCN,M-H,tmh,,,0
 CPL-0470,Rh(Cp*)(ppy)H,,MeCN,M-H,tmh,,"independent sq and hyd closures disagree by 1.2 kcal/mol (BDFE 51.5 vs 50.3); star to the sq row by rule 1 (method hierarchy, auto); discord recorded per HPVW11 precedent (H22 builder decision 2026-11-12)",1
 CPL-0471,[HPt(EtXantphos)2]2+,,MeCN,M-H,tmh,,,0
 CPL-0472,[(H)2Pt(EtXantphos)2]2+,,MeCN,M-H,tmh,,,0
+CPL-0473,cis-[H2Co(dppe)2]+,,MeCN,M-H,tmh,,,0
+CPL-0474,[HCo(dppe)2(MeCN)]2+,,MeCN,M-H,tmh,,,0
+CPL-0475,[HCo(P4N2)(MeCN)]2+,,MeCN,M-H,tmh,,,0
+CPL-0476,Co(P4N2)H,,MeCN,M-H,tmh,,,0
+CPL-0477,"Co(CpC5F4N)(PR2NR'2)H ; R = tBu, R' = Ph",,MeCN,M-H,tmh,,,0

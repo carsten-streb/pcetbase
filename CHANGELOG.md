@@ -4,6 +4,17 @@ All star (recommendation) moves and releases are recorded here, newest first.
 
 ## Unreleased (toward v1.4)
 
+- 2026-11-12: Morris cross-check (CR-2026-11-12-tmh-morris): Co(III)-acid
+  relabel of BDFE-0443/0465 (pKa and 1e couple moved to pKa_a/E_b, their
+  square-scheme meaning; values unchanged; primary-verified vs Ciancanelli
+  2002 and Wiedner 2013). BDFE-0443: check-src and approx resolved,
+  BDFE_pub 53.7 -> 49.9 (Wiedner cell F29 used the wrong couple -
+  source-inconsistency case 11 CONFIRMED). validate.py hydricity diagonal
+  gains form 2 (oxidized-hydride route, E_b + pKa_a). Morris notes on 15
+  further rows; new check-src on 0427, 0431, 0459, 0462 (primary checks
+  pending, H31). No value or star changes.
+
+
 - 2026-11-12: manuscript figure scripts (CR-2026-11-12-figure-scripts):
   scripts/figures/{figcommon,fig2,fig3,fig4,fig6,render_all}.py render the
   data-derived figure set (SVG + 600 dpi PNG into figures/) from the current

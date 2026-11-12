@@ -467,3 +467,4 @@ CPL-0466,"Rh(PR2NR'2)2H ; R = Cy, R' = Ph",,MeCN,M-H,tmh,,,0
 CPL-0467,"Rh(PR2NR'2)2H ; R = Ph, R' = C6H4-OMe",,MeCN,M-H,tmh,,,0
 CPL-0468,"Rh(PR2NR'2)2H ; R = Cy, R' = C6H4-OMe",,MeCN,M-H,tmh,,,0
 CPL-0469,"Rh(PR2NR'2)2H ; R = Ph, R' = Bn",,MeCN,M-H,tmh,,,0
+CPL-0470,Rh(Cp*)(ppy)H,,MeCN,M-H,tmh,,"independent sq and hyd closures disagree by 1.2 kcal/mol (BDFE 51.5 vs 50.3); star to the sq row by rule 1 (method hierarchy, auto); discord recorded per HPVW11 precedent (H22 builder decision 2026-11-12)",1

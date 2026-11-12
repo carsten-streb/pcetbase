@@ -4,6 +4,13 @@ All star (recommendation) moves and releases are recorded here, newest first.
 
 ## Unreleased (toward v1.4)
 
+- 2026-11-12: Rh(Cp*)(ppy)H sq + hyd pair BDFE-0474/0475, couple CPL-0470
+  (H20 Option B, Carsten; CR-2026-11-12-tmh-wiedner Addendum A). Star to the
+  sq row (rule 1, auto); discordant = 1 set by the builder (independent
+  closures differ by 1.2 kcal/mol, HPVW11 precedent). The batch-1 check-src
+  on this hydride is superseded by the pair. constants.csv CHyd(MeCN) note
+  updated to Q1 = a (decided).
+
 - 2026-11-12: TMH batch 1 (CR-2026-11-12-tmh-wiedner): 47 transition-metal
   hydride rows BDFE-0427..0473 (Wiedner Chem. Rev. 2016 SI xlsx, MeCN;
   23 sq + 24 hyd), CHyd constants (MeCN 79.6 as published, H2O 34.2),

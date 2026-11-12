@@ -2,7 +2,13 @@
 
 All star (recommendation) moves and releases are recorded here, newest first.
 
-## Unreleased (toward v1.4)
+## v1.4 — 2026-11-12
+
+**Scope:** all transition-metal hydrides from the Wiedner 2016 and Morris 2016
+review tables that close a BDFE, primary-verified where the review value was
+doubtful or deferred (batch-1 deferral list closed). 498 measurements / 485
+couples. Figure set (figures/, Figs 2, 3, 4, 6) rendered from this state by
+scripts/figures/render_all.py. Version DOI added after Zenodo archiving.
 
 ### TMH primary-literature pass P2c (PR #44) - closes the batch-1 deferral list
 - 6 new rows (BDFE-0493..0498, CPL-0481..0486): cis-[Rh(depx)2(H)2]+ sq,

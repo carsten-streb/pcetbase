@@ -4,6 +4,20 @@ All star (recommendation) moves and releases are recorded here, newest first.
 
 ## Unreleased (toward v1.4)
 
+### TMH primary-literature pass P2b (PR #43)
+- 3 new Ru rows from Matsubara et al. JACS 2012 (BDFE-0490..0492, CPL-0478..0480):
+  [Ru(tpy)(bpy)H]+ `hyd` (hydricity 39+/-3, sigma 3), [Ru(tpy)(bpy)H]0 and
+  [Ru(tpy)(bpy)H]2+ as the first `hess`-method rows (derived from the + hydride's
+  measured hydricity plus potentials; both `check-src`: the paper's Scheme 5B BDFEs
+  56 and 14 do not close with its own potentials, excess matches its 4.7 kcal/mol
+  DFT five-coordinate correction). BDFE values referenced to the solvento product.
+- BDFE-0458 [Ru(C6Me6)(bpy)H]+: BDFE_pub 56.0 (lower limit, flag `limit`),
+  flags derived -> recomputed, primary-check note. No value change.
+- Method `hess` now ranked explicitly (rank 2) in build.py and the app; the method
+  filter lists it automatically with label "hess (Hess cycle)".
+- [Ru(tpy)(bpy)H]- deferred (no E_a reported; no square-scheme pair).
+- Counts: 492 measurements / 479 couples; no new deviations.
+
 ### TMH primary-literature pass P2a (PR #42)
 - 6 new Co hydride rows from Wiedner-review primaries (BDFE-0484..0489, CPL-0473..0477):
   cis-[H2Co(dppe)2]+ sq/hyd pair (Ciancanelli 2002; spread 0.1 kcal/mol),

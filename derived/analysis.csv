@@ -452,7 +452,7 @@ BDFE-0450,"[Ni(PR2NR'2)2H]+ ; R = 2-phenylethyl, R' = Ph",CPL-0446,tmh,MeCN,hyd,
 BDFE-0451,"[Ni(PR2NR'2)2H]+ ; R = 2,4,4-trimethylpentyl, R' = Ph",CPL-0447,tmh,MeCN,hyd,derived;hess:pKa_b,,0.001,0.139,0.003,71f79d4ef4b1
 BDFE-0452,"[Ni(PR2NR'2)2H]+ ; R = Ph, R' = Bn",CPL-0448,tmh,MeCN,hyd,derived;hess:pKa_b,,0.008,0.097,0.003,71f79d4ef4b1
 BDFE-0453,"[Ni(PR2NR'2)2H]+ ; R = nBu, R' = Ph",CPL-0449,tmh,MeCN,hyd,derived;hess:pKa_b,,-0.007,0.164,-0.002,71f79d4ef4b1
-BDFE-0454,W(Cp)(CO)2(IMes)H,CPL-0450,tmh,MeCN,sq,derived,,-0.005,-0.046,0.029,71f79d4ef4b1
+BDFE-0454,W(Cp)(CO)2(IMes)H,CPL-0450,tmh,MeCN,sq,recomputed,,-0.005,-0.046,0.029,71f79d4ef4b1
 BDFE-0455,[Ni(depe)2H]+,CPL-0451,tmh,MeCN,hyd,recomputed;hess:pKa_b,,-0.002,0.185,-0.007,71f79d4ef4b1
 BDFE-0456,[Pd(depp)2H]+,CPL-0452,tmh,MeCN,sq,recomputed;approx,,0.005,0.040,-0.031,71f79d4ef4b1
 BDFE-0457,[Pt(PNP)2H]+,CPL-0453,tmh,MeCN,hyd,derived;hess:pKa_b;approx,,0.010,0.131,0.005,71f79d4ef4b1
@@ -491,3 +491,9 @@ BDFE-0489,"Co(CpC5F4N)(PR2NR'2)H ; R = tBu, R' = Ph",CPL-0477,tmh,MeCN,sq,recomp
 BDFE-0490,[Ru(tpy)(bpy)H]+,CPL-0478,tmh,MeCN,hyd,recomputed;hess:pKa_b,,0.008,0.233,-0.001,71f79d4ef4b1
 BDFE-0491,[Ru(tpy)(bpy)H]0,CPL-0479,tmh,MeCN,hess,recomputed;hess:pKa_b;check-src,,0.001,0.186,-0.002,71f79d4ef4b1
 BDFE-0492,[Ru(tpy)(bpy)H]2+,CPL-0480,tmh,MeCN,hess,recomputed;hess:pKa_b;approx;check-src,,0.001,-0.002,0.006,71f79d4ef4b1
+BDFE-0493,cis-[Rh(depx)2(H)2]+,CPL-0481,tmh,MeCN,sq,recomputed;approx,,-0.010,-0.034,,71f79d4ef4b1
+BDFE-0494,Rh(depx)2H,CPL-0482,tmh,MeCN,hyd,recomputed;hess:pKa_b,,0.002,0.272,-0.005,71f79d4ef4b1
+BDFE-0495,[Rh(depx)2H]+,CPL-0483,tmh,MeCN,hess,recomputed;hess:pKa_b;approx,,-0.005,0.005,,71f79d4ef4b1
+BDFE-0496,[W(Cp)(CO)2(IMes)H]+,CPL-0484,tmh,MeCN,hess,recomputed;hess:pKa_b;approx,,-0.009,-0.002,0.200,71f79d4ef4b1
+BDFE-0497,[W(Cp)(CO)2(IMes)(H)2]+,CPL-0485,tmh,MeCN,hess,recomputed;hess:pKa_b;approx,,0.003,0.033,,71f79d4ef4b1
+BDFE-0498,Co(dppe)2H,CPL-0486,tmh,MeCN,hyd,recomputed;hess:pKa_b,,-0.005,0.209,0.001,71f79d4ef4b1

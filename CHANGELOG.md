@@ -4,6 +4,19 @@ All star (recommendation) moves and releases are recorded here, newest first.
 
 ## Unreleased (toward v1.4)
 
+### TMH primary-literature pass P2c (PR #44) - closes the batch-1 deferral list
+- 6 new rows (BDFE-0493..0498, CPL-0481..0486): cis-[Rh(depx)2(H)2]+ sq,
+  Rh(depx)2H hyd, [Rh(depx)2H]+ hess (Raebiger 2005); [W(Cp)(CO)2(IMes)H]+ and
+  [W(Cp)(CO)2(IMes)(H)2]+ hess (Roberts 2011); Co(dppe)2H hyd (Ciancanelli 2002 SI).
+- BDFE-0454 W(Cp)(CO)2(IMes)H: BDFE_pub 59.3, derived -> recomputed, primary-check
+  note (E_c -1.22 V identified as the effective MeCN-binding-corrected potential).
+- Method `hess` scope settled (builder decision on CR open q.2): a row whose
+  defining pKa or BDFE is Hess-composed from other measured legs, not only
+  Hess-derived hydricities.
+- Co(dppe)2 potentials resolved against the primary SI (Results values -0.70/-1.56/
+  -2.03 V used in all cycles); P2a rows unaffected.
+- Counts: 498 measurements / 485 couples; no new deviations. Last data batch in v1.4.
+
 ### TMH primary-literature pass P2b (PR #43)
 - 3 new Ru rows from Matsubara et al. JACS 2012 (BDFE-0490..0492, CPL-0478..0480):
   [Ru(tpy)(bpy)H]+ `hyd` (hydricity 39+/-3, sigma 3), [Ru(tpy)(bpy)H]0 and

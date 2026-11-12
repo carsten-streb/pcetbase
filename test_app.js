@@ -1,7 +1,7 @@
 // PCETbase jsdom app test gate (CR-2026-11-11-jsdom-gate; producer spec, builder-committed)
 // Runs against the built index.html. Node 18+, jsdom.
 // Usage: node test_app.js path/to/index.html
-// NOTE: baseline counts (492 measurements / 479 couples / 12 multi-source
+// NOTE: baseline counts (498 measurements / 485 couples / 12 multi-source
 // badges) are asserted literally BY DESIGN - bump them in every data PR;
 // this doubles as a tripwire against accidental row loss.
 const { JSDOM } = require("jsdom");
@@ -33,7 +33,7 @@ const fire = (el, type) => el.dispatchEvent(new w.Event(type, { bubbles: true })
 T("app boots: table rendered", d.querySelectorAll("#tbl tbody tr").length > 0);
 const countText = () => $("count").textContent;
 T("baseline: couple-collapsed count mentions couples",
-  /479 couples \(492 measurements\)/.test(countText()), countText());
+  /485 couples \(498 measurements\)/.test(countText()), countText());
 
 // ---------- 2. couple collapse + badge ----------
 const bodyRows = () => [...d.querySelectorAll("#tbl tbody tr")];
@@ -95,8 +95,8 @@ if (chips.length) {
     $("csvScope").value = "rec"; const csvRec = w.csvText();
     const nAll = csvAll.trim().split("\n").length - 1;
     const nRec = csvRec.trim().split("\n").length - 1;
-    T("csv all = 492 rows", nAll === 492, "" + nAll);
-    T("csv recommended = 479 rows (one per couple)", nRec === 479, "" + nRec);
+    T("csv all = 498 rows", nAll === 498, "" + nAll);
+    T("csv recommended = 485 rows (one per couple)", nRec === 485, "" + nRec);
     T("csv has couple_id column", /couple_id/.test(csvAll.split("\n")[0]));
     T("csv has entry_id + metadata columns (F4)",
       ["entry_id","sigma_BDFE","method","T_K","conditions","year"].every(c => csvAll.split("\n")[0].includes(c)));
@@ -227,7 +227,7 @@ if (chips.length) {
   T("K3 no POM/metal-complex family", !/pom|metal/.test(fams), fams);
   // never stored: estimate does not change CSV row count
   $("csvScope").value="all";
-  T("K3 estimate never stored (CSV still 492 rows)", w.csvText().trim().split("\n").length-1===492);
+  T("K3 estimate never stored (CSV still 498 rows)", w.csvText().trim().split("\n").length-1===498);
 }
 
 // ---------- 9d. K3 stage 2: descriptor-based H2O/DMSO ----------
@@ -281,18 +281,18 @@ if (chips.length) {
     const before = w.filtered().length;
     hydBox.checked = false; hydBox.dispatchEvent(new w.Event("change"));
     const after = w.filtered().length;
-    T("unticking hyd hides the 29 hyd rows", before - after === 29, before + "->" + after);
+    T("unticking hyd hides the 31 hyd rows", before - after === 31, before + "->" + after);
     hydBox.checked = true; hydBox.dispatchEvent(new w.Event("change"));
     const rec = d.getElementById("recOnly");
     T("recommended-only toggle default ON", rec.checked === true);
     const rowsCollapsed = d.querySelectorAll("#tbl tbody tr").length;
     rec.checked = false; rec.dispatchEvent(new w.Event("change"));
     const rowsFlat = d.querySelectorAll("#tbl tbody tr").length;
-    T("toggle off shows every determination", rowsFlat === 492 && rowsCollapsed < rowsFlat, rowsCollapsed + "/" + rowsFlat);
+    T("toggle off shows every determination", rowsFlat === 498 && rowsCollapsed < rowsFlat, rowsCollapsed + "/" + rowsFlat);
     rec.checked = true; rec.dispatchEvent(new w.Event("change"));
   }
 
-  T("search recovers to full view", /479 couples/.test(countText()), countText());
+  T("search recovers to full view", /485 couples/.test(countText()), countText());
 }
 
 console.log(`\n${pass} passed, ${fail} failed`);

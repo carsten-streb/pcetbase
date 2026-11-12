@@ -22,6 +22,7 @@ def method_rank(method, flags):
     if method == "sq":    return 5
     if method == "hyd":   return 4
     if method == "OCP":   return 3
+    if method == "hess":  return 2
     if "hess" in flags:   return 2
     return 1
 

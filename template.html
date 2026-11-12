@@ -361,6 +361,7 @@ function methodRank(r){
   if(r.method==="sq")return 5;
   if(r.method==="hyd")return 4;
   if(r.method==="OCP")return 3;
+  if(r.method==="hess")return 2;
   if(r.flags.includes("hess"))return 2;
   return 1;
 }
@@ -663,7 +664,7 @@ function init(){
   document.getElementById("bond").innerHTML='<option value="">all</option>'+bonds.map(s=>`<option>${s}</option>`).join("");
   const methods=[...new Set(D.map(r=>r.method))].sort((a,b)=>a.localeCompare(b));
   document.getElementById("mBoxes").innerHTML=methods.map(m=>
-    `<label style="display:flex;align-items:center;gap:5px;cursor:pointer;font-size:.92em"><input type="checkbox" class="mBox" data-m="${m}" checked style="width:auto"> ${m===""?"tabulated":m==="sq"?"sq (square scheme)":m==="hyd"?"hyd (hydricity closure)":m==="equil"?"equil (equilibration)":m==="OCP"?"OCP (open-circuit)":m}</label>`).join("");
+    `<label style="display:flex;align-items:center;gap:5px;cursor:pointer;font-size:.92em"><input type="checkbox" class="mBox" data-m="${m}" checked style="width:auto"> ${m===""?"tabulated":m==="sq"?"sq (square scheme)":m==="hyd"?"hyd (hydricity closure)":m==="equil"?"equil (equilibration)":m==="OCP"?"OCP (open-circuit)":m==="hess"?"hess (Hess cycle)":m}</label>`).join("");
   document.querySelectorAll(".mBox").forEach(b=>b.addEventListener("change",()=>{
     b.checked?mActive.add(b.dataset.m):mActive.delete(b.dataset.m);
     renderTable();renderLadder();

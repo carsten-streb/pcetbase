@@ -1,343 +1,348 @@
 {
- "name": "pcetbase",
- "title": "PCETbase: solution-phase PCET thermochemistry (BDFE, E°, pKa)",
- "profile": "data-package",
- "licenses": [
-  {
-   "name": "CC-BY-4.0",
-   "path": "https://creativecommons.org/licenses/by/4.0/",
-   "title": "Creative Commons Attribution 4.0"
-  }
- ],
- "homepage": "https://github.com/carsten-streb/pcetbase",
- "contributors": [
-  {
-   "title": "Carsten Streb",
-   "role": "author",
-   "organization": "Johannes Gutenberg-Universität Mainz"
-  }
- ],
- "resources": [
-  {
-   "name": "data",
-   "path": "data/data.csv",
-   "profile": "tabular-data-resource",
-   "format": "csv",
-   "encoding": "utf-8",
-   "schema": {
-    "fields": [
-     {
-      "name": "table",
-      "type": "string",
-      "description": "Source table in Agarwal et al. Chem. Rev. 2022 (T5-T24) or EXT for primary-literature entries"
-     },
-     {
-      "name": "class",
-      "type": "string",
-      "constraints": {
-       "enum": [
-        "phenol",
-        "quinone",
-        "aminoxyl",
-        "imide",
-        "ascorbate",
-        "smallOH",
-        "nucleoside",
-        "nitrogen",
-        "amine",
-        "arylamine",
-        "indole",
-        "thiol",
-        "CH",
-        "nicotinamide",
-        "co2",
-        "pair",
-        "metal-3d",
-        "metal-4d5d",
-        "pom"
-       ]
-      }
-     },
-     {
-      "name": "bond",
-      "type": "string",
-      "constraints": {
-       "enum": [
-        "O-H",
-        "N-H",
-        "S-H",
-        "C-H",
-        "M-H",
-        "X-H"
-       ]
-      }
-     },
-     {
-      "name": "compound",
-      "type": "string"
-     },
-     {
-      "name": "partner",
-      "type": "string",
-      "description": "Base or acid partner for oxidant/base and reductant/acid pairs"
-     },
-     {
-      "name": "solvent",
-      "type": "string",
-      "description": "Controlled vocabulary; see constants.csv for solvents with thermochemical constants"
-     },
-     {
-      "name": "E_a",
-      "type": "number",
-      "description": "E°(X/X-) in V, vs Fc+/0 in organic solvents, vs SHE in water"
-     },
-     {
-      "name": "E_b",
-      "type": "number",
-      "description": "E°(XH+/XH) in V, same scale as E_a"
-     },
-     {
-      "name": "pKa_a",
-      "type": "number",
-      "description": "pKa(XH+)"
-     },
-     {
-      "name": "pKa_b",
-      "type": "number",
-      "description": "pKa(XH)"
-     },
-     {
-      "name": "E_H2",
-      "type": "number",
-      "description": "Canonical potential of hydrogenation, V vs H2 in the stated solvent"
-     },
-     {
-      "name": "BDFE",
-      "type": "number",
-      "description": "Bond dissociation free energy, kcal/mol; effective BDFE for pairs; average over n_H where flagged avg"
-     },
-     {
-      "name": "flags",
-      "type": "string",
-      "description": "Semicolon-separated caveat flags; see README"
-     },
-     {
-      "name": "refs",
-      "type": "string",
-      "description": "Original citation numbers inside the source compilation"
-     },
-     {
-      "name": "n_H",
-      "type": "integer",
-      "description": "Number of H atoms transferred"
-     },
-     {
-      "name": "method",
-      "type": "string",
-      "constraints": {
-       "enum": [
-        "",
-        "sq",
-        "OCP",
-        "equil"
-       ]
-      }
-     },
-     {
-      "name": "doi",
-      "type": "string",
-      "description": "Primary-source DOI for EXT entries"
-     },
-     {
-      "name": "BDFE_pub",
-      "type": "number",
-      "description": "Published BDFE where it differs from the recomputed value"
-     },
-     {
-      "name": "E_raw",
-      "type": "number",
-      "description": "Potential exactly as published, V"
-     },
-     {
-      "name": "E_raw_ref",
-      "type": "string",
-      "description": "Reference electrode of E_raw; converted via refoff constants"
-     },
-     {
-      "name": "recommended",
-      "type": "string",
-      "constraints": {
-       "enum": [
-        "",
-        "1",
-        "0",
-        "auto"
-       ]
-      },
-      "description": "1 manual star, 0 manual suppress, auto = assigned by documented policy in build.py"
-     },
-     {
-      "name": "year",
-      "type": "integer",
-      "description": "Publication year; compilation year for review-tabulated rows"
-     },
-     {
-      "name": "entry_id",
-      "type": "string",
-      "constraints": {
-       "unique": true,
-       "pattern": "BDFE-[0-9]{4,}"
-      },
-      "description": "Stable entry identifier, never reused"
-     },
-     {
-      "name": "couple_id",
-      "type": "string",
-      "constraints": {
-       "pattern": "CPL-[0-9]{4,}"
-      },
-      "description": "Foreign key to couples.csv; groups independent measurements of the same compound/partner/solvent couple"
-     },
-     {
-      "name": "sigma_BDFE",
-      "type": "number",
-      "description": "Uncertainty of BDFE in kcal/mol: published value where given, otherwise adopted per method class (see CONTRIBUTING)"
-     },
-     {
-      "name": "T_K",
-      "type": "number",
-      "description": "Temperature in K; empty = not stated in source (do not assume 298)"
-     },
-     {
-      "name": "conditions",
-      "type": "string",
-      "description": "Medium details: electrolyte and concentration, ionic strength, pH convention for aqueous entries (standard vs pH 7 effective)"
-     }
-    ],
-    "primaryKey": "entry_id"
-   },
-   "foreignKeys": [
+  "name": "pcetbase",
+  "title": "PCETbase: solution-phase PCET thermochemistry (BDFE, E°, pKa)",
+  "profile": "data-package",
+  "licenses": [
     {
-     "fields": "couple_id",
-     "reference": {
-      "resource": "couples",
-      "fields": "couple_id"
-     }
+      "name": "CC-BY-4.0",
+      "path": "https://creativecommons.org/licenses/by/4.0/",
+      "title": "Creative Commons Attribution 4.0"
     }
-   ]
-  },
-  {
-   "name": "constants",
-   "path": "data/constants.csv",
-   "profile": "tabular-data-resource",
-   "format": "csv",
-   "encoding": "utf-8",
-   "schema": {
-    "fields": [
-     {
-      "name": "key",
-      "type": "string",
-      "description": "dGfH | CG | EH2vsFc | refoff:<ELECTRODE>"
-     },
-     {
-      "name": "solvent",
-      "type": "string"
-     },
-     {
-      "name": "value_kcal_or_V",
-      "type": "number",
-      "description": "kcal/mol for dGfH and CG; V for potentials and offsets"
-     },
-     {
-      "name": "unit",
-      "type": "string"
-     },
-     {
-      "name": "note",
-      "type": "string",
-      "description": "For refoff rows: adopted uncertainty in V"
-     },
-     {
-      "name": "source",
-      "type": "string",
-      "description": "Page-verified literature citation with DOI"
-     }
-    ]
-   }
-  },
-  {
-   "name": "couples",
-   "path": "data/couples.csv",
-   "profile": "tabular-data-resource",
-   "format": "csv",
-   "encoding": "utf-8",
-   "schema": {
-    "fields": [
-     {
-      "name": "couple_id",
-      "type": "string",
-      "constraints": {
-       "unique": true,
-       "pattern": "CPL-[0-9]{4,}"
+  ],
+  "homepage": "https://github.com/carsten-streb/pcetbase",
+  "contributors": [
+    {
+      "title": "Carsten Streb",
+      "role": "author",
+      "organization": "Johannes Gutenberg-Universität Mainz"
+    }
+  ],
+  "resources": [
+    {
+      "name": "data",
+      "path": "data/data.csv",
+      "profile": "tabular-data-resource",
+      "format": "csv",
+      "encoding": "utf-8",
+      "schema": {
+        "fields": [
+          {
+            "name": "table",
+            "type": "string",
+            "description": "Source table in Agarwal et al. Chem. Rev. 2022 (T5-T24) or EXT for primary-literature entries"
+          },
+          {
+            "name": "class",
+            "type": "string",
+            "constraints": {
+              "enum": [
+                "phenol",
+                "quinone",
+                "aminoxyl",
+                "imide",
+                "ascorbate",
+                "smallOH",
+                "nucleoside",
+                "nitrogen",
+                "amine",
+                "arylamine",
+                "indole",
+                "thiol",
+                "CH",
+                "nicotinamide",
+                "co2",
+                "pair",
+                "metal-3d",
+                "metal-4d5d",
+                "pom"
+              ]
+            }
+          },
+          {
+            "name": "bond",
+            "type": "string",
+            "constraints": {
+              "enum": [
+                "O-H",
+                "N-H",
+                "S-H",
+                "C-H",
+                "M-H",
+                "X-H"
+              ]
+            }
+          },
+          {
+            "name": "compound",
+            "type": "string"
+          },
+          {
+            "name": "partner",
+            "type": "string",
+            "description": "Base or acid partner for oxidant/base and reductant/acid pairs"
+          },
+          {
+            "name": "solvent",
+            "type": "string",
+            "description": "Controlled vocabulary; see constants.csv for solvents with thermochemical constants"
+          },
+          {
+            "name": "E_a",
+            "type": "number",
+            "description": "E°(X/X-) in V, vs Fc+/0 in organic solvents, vs SHE in water"
+          },
+          {
+            "name": "E_b",
+            "type": "number",
+            "description": "E°(XH+/XH) in V, same scale as E_a"
+          },
+          {
+            "name": "pKa_a",
+            "type": "number",
+            "description": "pKa(XH+)"
+          },
+          {
+            "name": "pKa_b",
+            "type": "number",
+            "description": "pKa(XH)"
+          },
+          {
+            "name": "E_H2",
+            "type": "number",
+            "description": "Canonical potential of hydrogenation, V vs H2 in the stated solvent"
+          },
+          {
+            "name": "BDFE",
+            "type": "number",
+            "description": "Bond dissociation free energy, kcal/mol; effective BDFE for pairs; average over n_H where flagged avg"
+          },
+          {
+            "name": "flags",
+            "type": "string",
+            "description": "Semicolon-separated caveat flags; see README"
+          },
+          {
+            "name": "refs",
+            "type": "string",
+            "description": "Original citation numbers inside the source compilation"
+          },
+          {
+            "name": "n_H",
+            "type": "integer",
+            "description": "Number of H atoms transferred"
+          },
+          {
+            "name": "method",
+            "type": "string",
+            "constraints": {
+              "enum": [
+                "",
+                "sq",
+                "OCP",
+                "equil"
+              ]
+            }
+          },
+          {
+            "name": "doi",
+            "type": "string",
+            "description": "Primary-source DOI for EXT entries"
+          },
+          {
+            "name": "BDFE_pub",
+            "type": "number",
+            "description": "Published BDFE where it differs from the recomputed value"
+          },
+          {
+            "name": "E_raw",
+            "type": "number",
+            "description": "Potential exactly as published, V"
+          },
+          {
+            "name": "E_raw_ref",
+            "type": "string",
+            "description": "Reference electrode of E_raw; converted via refoff constants"
+          },
+          {
+            "name": "recommended",
+            "type": "string",
+            "constraints": {
+              "enum": [
+                "",
+                "1",
+                "0",
+                "auto"
+              ]
+            },
+            "description": "1 manual star, 0 manual suppress, auto = assigned by documented policy in build.py"
+          },
+          {
+            "name": "year",
+            "type": "integer",
+            "description": "Publication year; compilation year for review-tabulated rows"
+          },
+          {
+            "name": "entry_id",
+            "type": "string",
+            "constraints": {
+              "unique": true,
+              "pattern": "BDFE-[0-9]{4,}"
+            },
+            "description": "Stable entry identifier, never reused"
+          },
+          {
+            "name": "couple_id",
+            "type": "string",
+            "constraints": {
+              "pattern": "CPL-[0-9]{4,}"
+            },
+            "description": "Foreign key to couples.csv; groups independent measurements of the same compound/partner/solvent couple"
+          },
+          {
+            "name": "sigma_BDFE",
+            "type": "number",
+            "description": "Uncertainty of BDFE in kcal/mol: published value where given, otherwise adopted per method class (see CONTRIBUTING)"
+          },
+          {
+            "name": "T_K",
+            "type": "number",
+            "description": "Temperature in K; empty = not stated in source (do not assume 298)"
+          },
+          {
+            "name": "conditions",
+            "type": "string",
+            "description": "Medium details: electrolyte and concentration, ionic strength, pH convention for aqueous entries (standard vs pH 7 effective)"
+          },
+          {
+            "name": "hydricity_kcal",
+            "type": "number",
+            "description": "Hydricity dG(H-) in kcal/mol in the stated solvent, as published (TM hydrides; CR-2026-11-11-tmh-schema). Interconverts with BDFE via pKa, the two 1e potentials and the solvent H- scale constant (CHyd in constants.csv, from Wiedner Chem. Rev. 2016 Table 2)."
+          }
+        ],
+        "primaryKey": "entry_id"
       },
-      "description": "Stable couple identifier, never reused"
-     },
-     {
-      "name": "compound",
-      "type": "string"
-     },
-     {
-      "name": "partner",
-      "type": "string",
-      "description": "Empty except for oxidant/base and reductant/acid pairs"
-     },
-     {
-      "name": "solvent",
-      "type": "string"
-     },
-     {
-      "name": "bond",
-      "type": "string",
-      "constraints": {
-       "enum": [
-        "O-H",
-        "N-H",
-        "S-H",
-        "C-H",
-        "M-H",
-        "X-H"
-       ]
+      "foreignKeys": [
+        {
+          "fields": "couple_id",
+          "reference": {
+            "resource": "couples",
+            "fields": "couple_id"
+          }
+        }
+      ]
+    },
+    {
+      "name": "constants",
+      "path": "data/constants.csv",
+      "profile": "tabular-data-resource",
+      "format": "csv",
+      "encoding": "utf-8",
+      "schema": {
+        "fields": [
+          {
+            "name": "key",
+            "type": "string",
+            "description": "dGfH | CG | EH2vsFc | refoff:<ELECTRODE>"
+          },
+          {
+            "name": "solvent",
+            "type": "string"
+          },
+          {
+            "name": "value_kcal_or_V",
+            "type": "number",
+            "description": "kcal/mol for dGfH and CG; V for potentials and offsets"
+          },
+          {
+            "name": "unit",
+            "type": "string"
+          },
+          {
+            "name": "note",
+            "type": "string",
+            "description": "For refoff rows: adopted uncertainty in V"
+          },
+          {
+            "name": "source",
+            "type": "string",
+            "description": "Page-verified literature citation with DOI"
+          }
+        ]
       }
-     },
-     {
-      "name": "class",
-      "type": "string",
-      "description": "Same vocabulary as data.csv class"
-     },
-     {
-      "name": "aliases",
-      "type": "string",
-      "description": "Semicolon-separated alternative names for search (trivial names, abbreviations, InChIKey); e.g. 'hydroquinone;benzene-1,4-diol' for 1,4-H2Q"
-     },
-     {
-      "name": "recommended_reason",
-      "type": "string",
-      "description": "One-line justification of the current star, reconstructable from the selection rules in CONTRIBUTING; required whenever any row of this couple has recommended=1 or 0"
-     },
-     {
-      "name": "discordant",
-      "type": "integer",
-      "constraints": {
-       "enum": [
-        0,
-        1
-       ]
-      },
-      "description": "1 = independent measurements of this couple disagree beyond combined uncertainty; spread shown in UI"
-     }
-    ],
-    "primaryKey": "couple_id"
-   }
-  }
- ]
+    },
+    {
+      "name": "couples",
+      "path": "data/couples.csv",
+      "profile": "tabular-data-resource",
+      "format": "csv",
+      "encoding": "utf-8",
+      "schema": {
+        "fields": [
+          {
+            "name": "couple_id",
+            "type": "string",
+            "constraints": {
+              "unique": true,
+              "pattern": "CPL-[0-9]{4,}"
+            },
+            "description": "Stable couple identifier, never reused"
+          },
+          {
+            "name": "compound",
+            "type": "string"
+          },
+          {
+            "name": "partner",
+            "type": "string",
+            "description": "Empty except for oxidant/base and reductant/acid pairs"
+          },
+          {
+            "name": "solvent",
+            "type": "string"
+          },
+          {
+            "name": "bond",
+            "type": "string",
+            "constraints": {
+              "enum": [
+                "O-H",
+                "N-H",
+                "S-H",
+                "C-H",
+                "M-H",
+                "X-H"
+              ]
+            }
+          },
+          {
+            "name": "class",
+            "type": "string",
+            "description": "Same vocabulary as data.csv class"
+          },
+          {
+            "name": "aliases",
+            "type": "string",
+            "description": "Semicolon-separated alternative names for search (trivial names, abbreviations, InChIKey); e.g. 'hydroquinone;benzene-1,4-diol' for 1,4-H2Q"
+          },
+          {
+            "name": "recommended_reason",
+            "type": "string",
+            "description": "One-line justification of the current star, reconstructable from the selection rules in CONTRIBUTING; required whenever any row of this couple has recommended=1 or 0"
+          },
+          {
+            "name": "discordant",
+            "type": "integer",
+            "constraints": {
+              "enum": [
+                0,
+                1
+              ]
+            },
+            "description": "1 = independent measurements of this couple disagree beyond combined uncertainty; spread shown in UI"
+          }
+        ],
+        "primaryKey": "couple_id"
+      }
+    }
+  ]
 }

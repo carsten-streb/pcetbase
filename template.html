@@ -12,7 +12,7 @@
     --grid:#e1e0d9; --axis:#c3c2b7; --border:rgba(11,11,11,0.10);
     --c-phenol:#2a78d6; --c-aminoxyl:#eb6834; --c-imide:#1baf7a;
     --c-ascorbate:#eda100; --c-nucleoside:#e87ba4; --c-pair:#008300;
-    --c-metal:#6250d6; --c-pom:#e34948; --c-user:#0b0b0b;
+    --c-metal:#6250d6; --c-pom:#e34948; --c-tmh:#0d8a86; --c-user:#0b0b0b;
   }
   :root[data-theme="dark"]{
       color-scheme: dark;
@@ -21,7 +21,7 @@
       --grid:#2c2c2a; --axis:#383835; --border:rgba(255,255,255,0.10);
       --c-phenol:#3987e5; --c-aminoxyl:#d95926; --c-imide:#199e70;
       --c-ascorbate:#c98500; --c-nucleoside:#d55181; --c-pair:#008300;
-      --c-metal:#9085e9; --c-pom:#e66767; --c-user:#f0efec;
+      --c-metal:#9085e9; --c-pom:#e66767; --c-tmh:#35b8b2; --c-user:#f0efec;
   }
   @media (prefers-color-scheme: dark){
     :root:where(:not([data-theme="light"])){
@@ -31,7 +31,7 @@
       --grid:#2c2c2a; --axis:#383835; --border:rgba(255,255,255,0.10);
       --c-phenol:#3987e5; --c-aminoxyl:#d95926; --c-imide:#199e70;
       --c-ascorbate:#c98500; --c-nucleoside:#d55181; --c-pair:#008300;
-      --c-metal:#9085e9; --c-pom:#e66767; --c-user:#f0efec;
+      --c-metal:#9085e9; --c-pom:#e66767; --c-tmh:#35b8b2; --c-user:#f0efec;
     }
   }
   *{box-sizing:border-box}
@@ -279,7 +279,8 @@ const D=parseCSV(DATA_CSV).map((r,i)=>({
   Eraw:r.E_raw===""||r.E_raw===undefined?null:parseFloat(r.E_raw),ErawRef:r.E_raw_ref||"",
   rec:r.recommended==="1"||r.recommended==="auto",recManual:r.recommended==="1",
   nH:r.n_H||"",method:r.method||"",doi:r.doi||"",bdfePub:r.BDFE_pub||"",
-  cid:r.couple_id||"",sigma:r.sigma_BDFE||"",tK:r.T_K||"",cond:r.conditions||"",entryId:r.entry_id||"",
+  cid:r.couple_id||"",sigma:r.sigma_BDFE||"",
+  hyd:r.hydricity_kcal===""||r.hydricity_kcal===undefined?null:parseFloat(r.hydricity_kcal),tK:r.T_K||"",cond:r.conditions||"",entryId:r.entry_id||"",
   year:r.year||"",
   srcDoi:r.doi||REVIEW_DOI,
   srcRef:r.doi?"":(r.refs?` [ref ${r.refs.replace(/;/g,", ")}]`:""),
@@ -319,6 +320,7 @@ const CLASSES=[
  {k:"otherXH",label:"C–H / S–H / CO₂",color:"var(--c-nucleoside)"},
  {k:"pair",label:"Ox/base + red/acid pairs",color:"var(--c-pair)"},
  {k:"metal",label:"TM complexes (3d–5d)",color:"var(--c-metal)"},
+ {k:"tmh",label:"TM hydrides (M–H)",color:"var(--c-tmh)"},
  {k:"pom",label:"POM clusters",color:"var(--c-pom)"},
 ];
 const clsColor=k=>{const c=CLASSES.find(c=>c.k===k);return c?c.color:"var(--ink-muted)";};
@@ -443,6 +445,7 @@ function showDetail(id){
   if(r.pka!=null&&r.pka===r.pka)h+=`<tr><td>pK<sub>a</sub>(XH) [pK<sub>a</sub>(baseH⁺/acid) for pairs]</td><td><b>${r.pka.toFixed(1)}</b></td></tr>`;
   h+=`<tr><td>E°(V vs H₂)</td><td><b>${isNaN(r.E)?"–":r.E.toFixed(3)} V</b></td></tr>`;
   h+=`<tr><td>BDFE${r.nH&&r.nH!=="1"?" (avg over "+r.nH+" H)":""}</td><td><b>${r.bdfe.toFixed(1)} kcal mol⁻¹</b>${r.bdfePub&&parseFloat(r.bdfePub).toFixed(1)!==r.bdfe.toFixed(1)?` (published: ${r.bdfePub})`:""}</td></tr>`;
+  if(r.hyd!=null)h+=`<tr><td>Hydricity ΔG°(H⁻)</td><td><b>${r.hyd.toFixed(1)} kcal mol⁻¹</b> (as published; see CHyd in constants.csv)</td></tr>`;
   if(r.method)h+=`<tr><td>Method</td><td>${r.method==="sq"?"square scheme (eq 10)":r.method==="OCP"?"open-circuit potential":r.method==="equil"?"equilibration vs reference H-atom donor":r.method}</td></tr>`;
   if(r.sigma)h+=`<tr><td>σ(BDFE), published</td><td><b>±${r.sigma} kcal mol⁻¹</b></td></tr>`;
   if(r.tK)h+=`<tr><td>T</td><td>${r.tK} K</td></tr>`;
@@ -601,9 +604,9 @@ function csvText(){
   const scope=document.getElementById("csvScope").value;
   let rows=filtered();
   if(scope==="rec")rows=rows.filter(r=>r.rec||r.nDup===1);
-  const head=["couple_id","entry_id","compound","partner","class","bond","solvent","E_V_vs_H2","E_display_"+sc,"pKa_XH","BDFE_"+u,"sigma_BDFE","method","T_K","conditions","year","flags","recommended","source_doi","orig_ref_in_source"];
+  const head=["couple_id","entry_id","compound","partner","class","bond","solvent","E_V_vs_H2","E_display_"+sc,"pKa_XH","BDFE_"+u,"hydricity_kcal","sigma_BDFE","method","T_K","conditions","year","flags","recommended","source_doi","orig_ref_in_source"];
   return [head.join(",")].concat(rows.map(r=>
-    [r.cid,r.entryId,`"${r.name}"`,`"${r.partner}"`,r.cls,r.bond,r.solvent,isNaN(r.E)?"":r.E,eDisplay(r,sc),r.pka==null||r.pka!==r.pka?"":r.pka,toUnit(r.bdfe,u).toFixed(2),r.sigma,r.method,r.tK,`"${r.cond}"`,r.year,`"${r.flags}"`,r.rec?"1":"",`"https://doi.org/${r.srcDoi}"`,`"${r.doi?"":r.refs}"`].join(","))).join("\n");
+    [r.cid,r.entryId,`"${r.name}"`,`"${r.partner}"`,r.cls,r.bond,r.solvent,isNaN(r.E)?"":r.E,eDisplay(r,sc),r.pka==null||r.pka!==r.pka?"":r.pka,toUnit(r.bdfe,u).toFixed(2),r.hyd==null?"":r.hyd,r.sigma,r.method,r.tK,`"${r.cond}"`,r.year,`"${r.flags}"`,r.rec?"1":"",`"https://doi.org/${r.srcDoi}"`,`"${r.doi?"":r.refs}"`].join(","))).join("\n");
 }
 function copyCSV(){
   navigator.clipboard.writeText(csvText()).then(

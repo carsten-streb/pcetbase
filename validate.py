@@ -18,7 +18,7 @@ def constants_version():
     with open(os.path.join(HERE, "data", "constants.csv"), "rb") as f:
         return hashlib.sha256(f.read()).hexdigest()[:12]
 
-def write_derived(rows, resid18, resid10):
+def write_derived(rows, resid18, resid10, residhyd=None):
     """Canonical derived table (CR-2026-11-11-derived-analysis-table):
     one row per data.csv entry; eq 18/eq 10 residuals (calc - stored,
     kcal/mol) as used by the manuscript's consistency analyses."""
@@ -30,24 +30,28 @@ def write_derived(rows, resid18, resid10):
         w.writerow(["entry_id", "compound", "couple_id", "class", "solvent",
                     "method", "flags", "recommended",
                     "eq18_residual_kcal", "eq10_residual_kcal",
-                    "constants_version"])
+                    "hyd_residual_kcal", "constants_version"])
         for r in rows:
             e18 = resid18.get(r["entry_id"], "")
             e10 = resid10.get(r["entry_id"], "")
+            ehy = (residhyd or {}).get(r["entry_id"], "")
             w.writerow([r["entry_id"], r["compound"], r.get("couple_id", ""),
                         r["class"], r["solvent"], r["method"], r["flags"],
                         r.get("recommended", ""),
                         f"{e18:.3f}" if e18 != "" else "",
-                        f"{e10:.3f}" if e10 != "" else "", cver])
+                        f"{e10:.3f}" if e10 != "" else "",
+                        f"{ehy:.3f}" if ehy != "" else "", cver])
     return path
 
 def load_constants():
     dgh, cg = {}, {}
+    ch = {}
     with open(os.path.join(HERE, "data", "constants.csv")) as f:
         for r in csv.DictReader(f):
             if r["key"] == "dGfH": dgh[r["solvent"]] = float(r["value_kcal_or_V"])
             if r["key"] == "CG":   cg[r["solvent"]]  = float(r["value_kcal_or_V"])
-    return dgh, cg
+            if r["key"] == "CHyd": ch[r["solvent"]]  = float(r["value_kcal_or_V"])
+    return dgh, cg, ch
 
 def validate_couples(rows):
     """Hard structural checks; returns list of error strings."""
@@ -118,11 +122,11 @@ def validate_couples(rows):
     return errors
 
 def main():
-    dgh, cg = load_constants()
+    dgh, cg, ch = load_constants()
     rows = list(csv.DictReader(open(os.path.join(HERE, "data", "data.csv"))))
-    n_eq18 = n_eq10 = 0
-    flags18, flags10 = [], []
-    resid18, resid10 = {}, {}
+    n_eq18 = n_eq10 = n_hyd = 0
+    flags18, flags10, flagshyd = [], [], []
+    resid18, resid10, residhyd = {}, {}, {}
     for r in rows:
         name = f'{r["compound"]}{"/"+r["partner"] if r["partner"] else ""} ({r["solvent"]}, {r["table"]})'
         soft = any(k in r["flags"] for k in ("limit", "approx", "lowprec", "check-src", "dmso-unc"))
@@ -147,12 +151,26 @@ def main():
                 resid10[r["entry_id"]] = d
                 if abs(d) > 0.5:
                     flags10.append((name, float(r["BDFE"]), round(float(r["BDFE"])+d,2), round(d,2), "soft" if soft else "CHECK"))
-    dpath = write_derived(rows, resid18, resid10)
-    print(f"rows: {len(rows)} | eq18 checks: {n_eq18} | eq10 cross-checks: {n_eq10} | derived table: {dpath}")
+        # hydricity diagonal (CR-2026-11-11-tmh-schema): dG(H-) = 1.37*pKa(MH)
+        # + 23.06*(E1 + E2) + CHyd(solvent), the two 1e couples stored in
+        # E_a/E_b. Active only where hydricity_kcal is populated AND the
+        # solvent's CHyd constant exists (delivered from Wiedner Chem. Rev.
+        # 2016 Table 2 with the first TMH row batch); inert until then.
+        if r.get("hydricity_kcal") and r["solvent"] in ch and r["E_a"] and r["E_b"] and r["pKa_b"]:
+            n_hyd += 1
+            calc = 1.37*float(r["pKa_b"]) + 23.06*(float(r["E_a"]) + float(r["E_b"])) + ch[r["solvent"]]
+            d = calc - float(r["hydricity_kcal"])
+            residhyd[r["entry_id"]] = d
+            if abs(d) > 0.5:
+                flagshyd.append((name, float(r["hydricity_kcal"]), round(calc,2), round(d,2), "soft" if soft else "CHECK"))
+    dpath = write_derived(rows, resid18, resid10, residhyd)
+    print(f"rows: {len(rows)} | eq18 checks: {n_eq18} | eq10 cross-checks: {n_eq10} | hydricity checks: {n_hyd} | derived table: {dpath}")
     print(f"\neq18 deviations > 0.3 kcal/mol: {len(flags18)}")
     for f in flags18: print("  ", f)
     print(f"\neq10 deviations > 0.5 kcal/mol: {len(flags10)}")
     for f in flags10: print("  ", f)
+    print(f"\nhydricity deviations > 0.5 kcal/mol: {len(flagshyd)}")
+    for f in flagshyd: print("  ", f)
     # multi-source couples, grouped by couple_id
     from collections import defaultdict
     grp = defaultdict(list)

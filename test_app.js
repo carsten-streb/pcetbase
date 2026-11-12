@@ -57,7 +57,7 @@ $("q").value = ""; fire($("q"), "input");
 
 // ---------- 4. chip solo logic ----------
 const chips = [...d.querySelectorAll("#classChips .chip")];
-T("8 class chips", chips.length === 8, "found " + chips.length);
+T("9 class chips", chips.length === 9, "found " + chips.length);
 if (chips.length) {
   const all = bodyRows().length;
   chips[0].click();

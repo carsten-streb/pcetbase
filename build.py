@@ -12,11 +12,15 @@ def esc(t):  # escape for JS template literal
     return t.replace("\\", "\\\\").replace("`", "\\`").replace("${", "\\${")
 
 # Method hierarchy for auto-recommendation (CONTRIBUTING selection rule 1):
-# direct equilibration > square scheme > open-circuit potentiometry >
-# Hess-cycle construction > computed/derived/tabulated values.
+# direct equilibration > square scheme > hydricity closure > open-circuit
+# potentiometry > Hess-cycle construction > computed/derived/tabulated values.
+# hyd sits below sq (one extra potential + the CHyd constant accumulate
+# uncertainty) and is tested before the hess-flag demotion, so hess:pKa_b
+# on a hyd row marks the derived leg without demoting the complete cycle.
 def method_rank(method, flags):
-    if method == "equil": return 5
-    if method == "sq":    return 4
+    if method == "equil": return 6
+    if method == "sq":    return 5
+    if method == "hyd":   return 4
     if method == "OCP":   return 3
     if "hess" in flags:   return 2
     return 1

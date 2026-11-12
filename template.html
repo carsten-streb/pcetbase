@@ -120,6 +120,8 @@
         <div><label>Search</label><input id="q" type="text" placeholder="compound or partner…"></div>
         <div><label>Solvent</label><select id="solv"><option value="">all</option></select></div>
         <div><label>Bond</label><select id="bond"><option value="">all</option></select></div>
+        <div style="grid-column:1/-1"><label>Methods <span class="src">(one box per method value in the data)</span></label><div id="mBoxes" style="display:flex;gap:14px;flex-wrap:wrap;padding-top:4px"></div></div>
+        <div style="grid-column:1/-1"><label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox" id="recOnly" checked style="width:auto"> Recommended only <span class="src">(one ★/best value per couple; untick to list every determination)</span></label></div>
         <div><label>Energy unit</label>
           <select id="unit">
             <option value="kcal">kcal mol⁻¹</option>
@@ -280,7 +282,8 @@ const D=parseCSV(DATA_CSV).map((r,i)=>({
   rec:r.recommended==="1"||r.recommended==="auto",recManual:r.recommended==="1",
   nH:r.n_H||"",method:r.method||"",doi:r.doi||"",bdfePub:r.BDFE_pub||"",
   cid:r.couple_id||"",sigma:r.sigma_BDFE||"",
-  hyd:r.hydricity_kcal===""||r.hydricity_kcal===undefined?null:parseFloat(r.hydricity_kcal),tK:r.T_K||"",cond:r.conditions||"",entryId:r.entry_id||"",
+  hyd:r.hydricity_kcal===""||r.hydricity_kcal===undefined?null:parseFloat(r.hydricity_kcal),
+  Ec:r.E_c===""||r.E_c===undefined?null:parseFloat(r.E_c),tK:r.T_K||"",cond:r.conditions||"",entryId:r.entry_id||"",
   year:r.year||"",
   srcDoi:r.doi||REVIEW_DOI,
   srcRef:r.doi?"":(r.refs?` [ref ${r.refs.replace(/;/g,", ")}]`:""),
@@ -344,6 +347,7 @@ function filtered(){
   const sv=document.getElementById("solv").value;
   const bd=document.getElementById("bond").value;
   return D.filter(r=>active.has(r.cls)
+    &&mActive.has(r.method)
     &&(!sv||r.solvent===sv)
     &&(!bd||r.bond===bd)
     &&(!q||r.name.toLowerCase().includes(q)||r.partner.toLowerCase().includes(q)||r.aliases.includes(q)));
@@ -353,8 +357,9 @@ function filtered(){
    one; else best by method hierarchy (equil > sq > OCP > hess > computed),
    then newest year. Other members expand below it on badge click. */
 function methodRank(r){
-  if(r.method==="equil")return 5;
-  if(r.method==="sq")return 4;
+  if(r.method==="equil")return 6;
+  if(r.method==="sq")return 5;
+  if(r.method==="hyd")return 4;
   if(r.method==="OCP")return 3;
   if(r.flags.includes("hess"))return 2;
   return 1;
@@ -374,6 +379,12 @@ function coupleView(rows){
   });
 }
 let expanded=new Set();
+/* method filter + recommended-only master toggle (CR-2026-11-12-method-filter-ui):
+   mActive holds the raw method values ("" = tabulated) currently ticked, derived
+   from the data at load; recOnly ON (default) = couple-collapsed view with the
+   starred/best representative on top; OFF = every determination shown. */
+let mActive=new Set(D.map(r=>r.method));
+let recOnly=true;
 function renderTable(){
   const u=document.getElementById("unit").value;
   const sc=document.getElementById("scale").value;
@@ -398,9 +409,9 @@ function renderTable(){
   const tb=document.querySelector("#tbl tbody");
   tb.innerHTML=couples.map(c=>
     rowHtml(c.rep,false)+
-    (expanded.has(c.rep.cid)?c.members.filter(m=>m.id!==c.rep.id).map(m=>rowHtml(m,true)).join(""):"")
+    (recOnly&&!expanded.has(c.rep.cid)?"":c.members.filter(m=>m.id!==c.rep.id).map(m=>rowHtml(m,true)).join(""))
   ).join("");
-  document.getElementById("count").textContent=couples.length+" couples ("+flt.length+" measurements) of "+D.length+" entries shown — click a row for the verification panel; click an "+'"n values"'+" badge to expand all measurements of that couple";
+  document.getElementById("count").textContent=couples.length+" couples ("+flt.length+" measurements) of "+D.length+" entries shown"+(recOnly?"":" — all determinations visible")+" — click a row for the verification panel; click an "+'"n values"'+" badge to expand all measurements of that couple";
   tb.querySelectorAll(".badge").forEach(b=>b.addEventListener("click",ev=>{
     ev.stopPropagation();
     const cid=b.dataset.cid;
@@ -441,6 +452,7 @@ function showDetail(id){
   h+=`<table>`;
   if(r.Ea!=null)h+=`<tr><td>E°(X/X⁻) [E°(ox/red) for pairs]</td><td><b>${r.Ea.toFixed(3)} V vs ${refSc}</b></td></tr>`;
   if(r.Eb!=null)h+=`<tr><td>E°(XH⁺/XH)</td><td><b>${r.Eb.toFixed(3)} V vs ${refSc}</b></td></tr>`;
+  if(r.Ec!=null)h+=`<tr><td>E°(X⁺/X•) [hydricity leg]</td><td><b>${r.Ec.toFixed(3)} V vs ${refSc}</b></td></tr>`;
   if(r.pkaA!=null)h+=`<tr><td>pK<sub>a</sub>(XH⁺ / M<sup>n+1</sup>LH)</td><td><b>${r.pkaA.toFixed(1)}</b></td></tr>`;
   if(r.pka!=null&&r.pka===r.pka)h+=`<tr><td>pK<sub>a</sub>(XH) [pK<sub>a</sub>(baseH⁺/acid) for pairs]</td><td><b>${r.pka.toFixed(1)}</b></td></tr>`;
   h+=`<tr><td>E°(V vs H₂)</td><td><b>${isNaN(r.E)?"–":r.E.toFixed(3)} V</b></td></tr>`;
@@ -649,6 +661,14 @@ function init(){
   document.getElementById("solv").innerHTML='<option value="">all</option>'+solvs.map(s=>`<option>${s}</option>`).join("");
   const bonds=[...new Set(D.map(r=>r.bond))].sort();
   document.getElementById("bond").innerHTML='<option value="">all</option>'+bonds.map(s=>`<option>${s}</option>`).join("");
+  const methods=[...new Set(D.map(r=>r.method))].sort((a,b)=>a.localeCompare(b));
+  document.getElementById("mBoxes").innerHTML=methods.map(m=>
+    `<label style="display:flex;align-items:center;gap:5px;cursor:pointer;font-size:.92em"><input type="checkbox" class="mBox" data-m="${m}" checked style="width:auto"> ${m===""?"tabulated":m==="sq"?"sq (square scheme)":m==="hyd"?"hyd (hydricity closure)":m==="equil"?"equil (equilibration)":m==="OCP"?"OCP (open-circuit)":m}</label>`).join("");
+  document.querySelectorAll(".mBox").forEach(b=>b.addEventListener("change",()=>{
+    b.checked?mActive.add(b.dataset.m):mActive.delete(b.dataset.m);
+    renderTable();renderLadder();
+  }));
+  document.getElementById("recOnly").addEventListener("change",e=>{recOnly=e.target.checked;renderTable();});
   document.getElementById("uSolv").innerHTML=Object.keys(DGH).filter(s=>s!=="gas").map(s=>`<option${s==="MeCN"?" selected":""}>${s}</option>`).join("");
   ["q","solv","bond","unit","scale"].forEach(id=>document.getElementById(id).addEventListener("input",()=>{renderTable();renderLadder();}));
   document.querySelectorAll("#tbl th").forEach(th=>th.addEventListener("click",()=>{

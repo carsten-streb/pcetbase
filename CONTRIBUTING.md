@@ -20,7 +20,7 @@ The website and the default CSV export show one value per couple: the **recommen
 
 Applied in order; rules 1–2 are deterministic and implemented in `build.py` (`recommended = auto`); rules 3–4 are curator judgment recorded as manual `recommended = 1` / `0` plus a `recommended_reason` on the couple.
 
-1. **Method hierarchy.** Direct equilibration against an anchored standard (`equil`) > square scheme from measured E° + pKa (`sq`) > open-circuit potentiometry (`OCP`) > Hess-cycle construction (`hess:*` flags) > computed/estimated values.
+1. **Method hierarchy.** Direct equilibration against an anchored standard (`equil`) > square scheme from measured E° + pKa (`sq`) > hydricity closure from an independently measured dG(H-) plus potentials (`hyd`; one extra potential and the CHyd constant accumulate uncertainty relative to sq) > open-circuit potentiometry (`OCP`) > Hess-cycle construction (`hess:*` flags) > computed/estimated values. A `hess:*` flag on a `hyd` row marks a derived leg (e.g. a back-calculated pKa) and does not demote the complete hydricity cycle.
 2. **Concordance.** Independent measurements agreeing within combined uncertainty are averaged; the mean is stored as its own measurement row with flag `avg` and the constituent `entry_id`s in `refs`, and receives the star.
 3. **Supersession.** A newer measurement displaces the star only with a stated reason (e.g. "corrects junction potential in BDFE-0123"), recorded in `recommended_reason`.
 4. **Discord.** If measurements disagree beyond ~2 kcal/mol without resolution, the methodologically stronger value is starred, `discordant = 1` is set on the couple, and the spread is displayed.

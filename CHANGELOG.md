@@ -4,6 +4,16 @@ All star (recommendation) moves and releases are recorded here, newest first.
 
 ## Unreleased (toward v1.4)
 
+- 2026-11-12: TMH batch 1 (CR-2026-11-12-tmh-wiedner): 47 transition-metal
+  hydride rows BDFE-0427..0473 (Wiedner Chem. Rev. 2016 SI xlsx, MeCN;
+  23 sq + 24 hyd), CHyd constants (MeCN 79.6 as published, H2O 34.2),
+  new E_c column (E(X+/X*), the hydricity leg; Q3 decision), hydricity
+  diagonal with 1.364 (Q2 decision) now live: 47 checks, 0 deviations
+  > 0.5. Method `hyd` enters the recommendation hierarchy below `sq`.
+  Rh(Cp*)(ppy)H held back for an sq+hyd pair (H20/H21). Builder
+  corrections on delivery: 8 rows' year field held the page range's
+  1925 -> 2002; hyd-row pKa_b regenerated with 1.364.
+
 - 2026-11-12: schema for the TMH (transition-metal hydride) class
   (CR-2026-11-11-tmh-schema): new data column `hydricity_kcal`
   (dG(H-), as published), hydricity closure check in validate.py

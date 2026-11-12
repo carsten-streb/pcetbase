@@ -217,6 +217,11 @@
             "name": "hydricity_kcal",
             "type": "number",
             "description": "Hydricity dG(H-) in kcal/mol in the stated solvent, as published (TM hydrides; CR-2026-11-11-tmh-schema). Interconverts with BDFE via pKa, the two 1e potentials and the solvent H- scale constant (CHyd in constants.csv, from Wiedner Chem. Rev. 2016 Table 2)."
+          },
+          {
+            "name": "E_c",
+            "type": "number",
+            "description": "E(X+/X*) in V on the row's stated reference scale: the one-electron couple above the X*/X- (E_a) couple, outside the X-H square scheme. Used with E_a in the hydricity closure (class tmh; CR-2026-11-12-tmh-wiedner Q3 decision: own column, no E_b overload)."
           }
         ],
         "primaryKey": "entry_id"

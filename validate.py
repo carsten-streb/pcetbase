@@ -151,14 +151,16 @@ def main():
                 resid10[r["entry_id"]] = d
                 if abs(d) > 0.5:
                     flags10.append((name, float(r["BDFE"]), round(float(r["BDFE"])+d,2), round(d,2), "soft" if soft else "CHECK"))
-        # hydricity diagonal (CR-2026-11-11-tmh-schema): dG(H-) = 1.37*pKa(MH)
-        # + 23.06*(E1 + E2) + CHyd(solvent), the two 1e couples stored in
-        # E_a/E_b. Active only where hydricity_kcal is populated AND the
-        # solvent's CHyd constant exists (delivered from Wiedner Chem. Rev.
-        # 2016 Table 2 with the first TMH row batch); inert until then.
-        if r.get("hydricity_kcal") and r["solvent"] in ch and r["E_a"] and r["E_b"] and r["pKa_b"]:
+        # hydricity diagonal (CR-2026-11-12-tmh-wiedner): dG(H-) = 1.364*pKa(MH)
+        # + 23.06*(E_a + E_c) + CHyd(solvent). E_a = E(X*/X-), E_c = E(X+/X*)
+        # (Q3 decision: own column, not an E_b overload). 1.364 because Wiedner
+        # (Chem. Rev. 2016, Table 1 + SI xlsx) computes every hydricity with
+        # 1.364; 1.37 would add a +0.006*pKa convention artifact (Q2 decision).
+        # Bordwell/eq 10 stays at 1.37 (Agarwal convention). Active only where
+        # hydricity_kcal is populated AND the solvent's CHyd constant exists.
+        if r.get("hydricity_kcal") and r["solvent"] in ch and r["E_a"] and r.get("E_c") and r["pKa_b"]:
             n_hyd += 1
-            calc = 1.37*float(r["pKa_b"]) + 23.06*(float(r["E_a"]) + float(r["E_b"])) + ch[r["solvent"]]
+            calc = 1.364*float(r["pKa_b"]) + 23.06*(float(r["E_a"]) + float(r["E_c"])) + ch[r["solvent"]]
             d = calc - float(r["hydricity_kcal"])
             residhyd[r["entry_id"]] = d
             if abs(d) > 0.5:

@@ -280,7 +280,8 @@ const D=parseCSV(DATA_CSV).map((r,i)=>({
   rec:r.recommended==="1"||r.recommended==="auto",recManual:r.recommended==="1",
   nH:r.n_H||"",method:r.method||"",doi:r.doi||"",bdfePub:r.BDFE_pub||"",
   cid:r.couple_id||"",sigma:r.sigma_BDFE||"",
-  hyd:r.hydricity_kcal===""||r.hydricity_kcal===undefined?null:parseFloat(r.hydricity_kcal),tK:r.T_K||"",cond:r.conditions||"",entryId:r.entry_id||"",
+  hyd:r.hydricity_kcal===""||r.hydricity_kcal===undefined?null:parseFloat(r.hydricity_kcal),
+  Ec:r.E_c===""||r.E_c===undefined?null:parseFloat(r.E_c),tK:r.T_K||"",cond:r.conditions||"",entryId:r.entry_id||"",
   year:r.year||"",
   srcDoi:r.doi||REVIEW_DOI,
   srcRef:r.doi?"":(r.refs?` [ref ${r.refs.replace(/;/g,", ")}]`:""),
@@ -441,6 +442,7 @@ function showDetail(id){
   h+=`<table>`;
   if(r.Ea!=null)h+=`<tr><td>E°(X/X⁻) [E°(ox/red) for pairs]</td><td><b>${r.Ea.toFixed(3)} V vs ${refSc}</b></td></tr>`;
   if(r.Eb!=null)h+=`<tr><td>E°(XH⁺/XH)</td><td><b>${r.Eb.toFixed(3)} V vs ${refSc}</b></td></tr>`;
+  if(r.Ec!=null)h+=`<tr><td>E°(X⁺/X•) [hydricity leg]</td><td><b>${r.Ec.toFixed(3)} V vs ${refSc}</b></td></tr>`;
   if(r.pkaA!=null)h+=`<tr><td>pK<sub>a</sub>(XH⁺ / M<sup>n+1</sup>LH)</td><td><b>${r.pkaA.toFixed(1)}</b></td></tr>`;
   if(r.pka!=null&&r.pka===r.pka)h+=`<tr><td>pK<sub>a</sub>(XH) [pK<sub>a</sub>(baseH⁺/acid) for pairs]</td><td><b>${r.pka.toFixed(1)}</b></td></tr>`;
   h+=`<tr><td>E°(V vs H₂)</td><td><b>${isNaN(r.E)?"–":r.E.toFixed(3)} V</b></td></tr>`;

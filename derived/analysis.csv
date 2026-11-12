@@ -1,427 +1,427 @@
 entry_id,compound,couple_id,class,solvent,method,flags,recommended,eq18_residual_kcal,eq10_residual_kcal,hyd_residual_kcal,constants_version
-BDFE-0001,PhOH,CPL-0001,phenol,gas,,,,-0.010,,,4a9a697cb0f5
-BDFE-0002,PhOH,CPL-0002,phenol,H2O,,,,-0.077,,,4a9a697cb0f5
-BDFE-0003,PhOH,CPL-0003,phenol,C6H6,,,,0.039,,,4a9a697cb0f5
-BDFE-0004,4-Me-PhOH,CPL-0004,phenol,H2O,,,,0.047,,,4a9a697cb0f5
-BDFE-0005,4-Me-PhOH,CPL-0005,phenol,C6H6,,,,0.041,,,4a9a697cb0f5
-BDFE-0006,4-MeO-PhOH,CPL-0006,phenol,H2O,,,,0.088,,,4a9a697cb0f5
-BDFE-0007,4-MeO-PhOH,CPL-0007,phenol,C6H6,,,,-0.049,,,4a9a697cb0f5
-BDFE-0008,4-NO2-PhOH,CPL-0008,phenol,H2O,,,,0.018,,,4a9a697cb0f5
-BDFE-0009,4-F-PhOH,CPL-0009,phenol,H2O,,,,0.131,,,4a9a697cb0f5
-BDFE-0010,4-Cl-PhOH,CPL-0010,phenol,H2O,,,,0.062,,,4a9a697cb0f5
-BDFE-0011,4-Br-PhOH,CPL-0011,phenol,H2O,,,,0.123,,,4a9a697cb0f5
-BDFE-0012,4-I-PhOH,CPL-0012,phenol,H2O,,,,-0.008,,,4a9a697cb0f5
-BDFE-0013,4-CO2--PhOH,CPL-0013,phenol,H2O,,,,0.068,,,4a9a697cb0f5
-BDFE-0014,4-Ac-PhOH,CPL-0014,phenol,H2O,,,,-0.102,,,4a9a697cb0f5
-BDFE-0015,4-CN-PhOH,CPL-0015,phenol,H2O,,,,0.065,,,4a9a697cb0f5
-BDFE-0016,4-NH2-PhOH,CPL-0016,phenol,H2O,,,,0.009,,,4a9a697cb0f5
-BDFE-0017,4-NH2-PhOH,CPL-0017,phenol,DMSO,,,,0.047,,,4a9a697cb0f5
-BDFE-0018,4-NMe2-PhOH,CPL-0018,phenol,H2O,,,,0.002,,,4a9a697cb0f5
-BDFE-0019,1-naphthol,CPL-0019,phenol,H2O,,,,-0.012,,,4a9a697cb0f5
-BDFE-0020,2-naphthol,CPL-0020,phenol,H2O,,,,0.056,,,4a9a697cb0f5
-BDFE-0021,tyrosine,CPL-0021,phenol,H2O,,,,0.009,,,4a9a697cb0f5
-BDFE-0022,Trolox C,CPL-0022,phenol,H2O,,,,0.038,,,4a9a697cb0f5
-BDFE-0023,alpha-tocopherol,CPL-0023,phenol,C6H6,,,,-0.038,,,4a9a697cb0f5
-BDFE-0024,"2,4,6-tBu3-PhOH",CPL-0024,phenol,H2O,,,,-0.032,,,4a9a697cb0f5
-BDFE-0025,"2,4,6-tBu3-PhOH",CPL-0025,phenol,MeCN,,,,0.052,,,4a9a697cb0f5
-BDFE-0026,"2,4,6-tBu3-PhOH",CPL-0026,phenol,DMSO,,,,0.013,,,4a9a697cb0f5
-BDFE-0027,"2,4,6-tBu3-PhOH",CPL-0027,phenol,C6H6,,,,-0.017,,,4a9a697cb0f5
-BDFE-0028,"2,4,6-tBu3-PhOH",CPL-0028,phenol,CCl4,,,,-0.017,,,4a9a697cb0f5
-BDFE-0029,"2,4,6-tBu3-PhOH",CPL-0029,phenol,THF,,,,-0.009,,,4a9a697cb0f5
-BDFE-0030,"2,6-tBu2-PhOH",CPL-0030,phenol,C6H6,,,,0.051,,,4a9a697cb0f5
-BDFE-0031,"4-Me-2,6-tBu2-PhOH",CPL-0031,phenol,C6H6,,,,-0.048,,,4a9a697cb0f5
-BDFE-0032,"4-MeO-2,6-tBu2-PhOH",CPL-0032,phenol,C6H6,,,,-0.046,,,4a9a697cb0f5
-BDFE-0033,"4-MeO-2,6-tBu2-PhOH",CPL-0033,phenol,MeCN,,,,0.016,,,4a9a697cb0f5
-BDFE-0034,"4-MeO-2,6-tBu2-PhOH",CPL-0034,phenol,THF,,,,0.024,,,4a9a697cb0f5
-BDFE-0035,H2NOH,CPL-0035,aminoxyl,H2O,,,,-0.046,,,4a9a697cb0f5
-BDFE-0036,TEMPOH,CPL-0036,aminoxyl,MeCN,,,,-0.164,,,4a9a697cb0f5
-BDFE-0037,TEMPOH,CPL-0037,aminoxyl,THF,,,,-0.125,,,4a9a697cb0f5
-BDFE-0038,TEMPOH,CPL-0038,aminoxyl,C6H6,,,,-0.170,,,4a9a697cb0f5
-BDFE-0039,TEMPOH,CPL-0039,aminoxyl,hexane,,,,-0.170,,,4a9a697cb0f5
-BDFE-0040,4-oxo-TEMPOH,CPL-0040,aminoxyl,hexane,,,,-0.001,,,4a9a697cb0f5
-BDFE-0041,4-oxo-TEMPOH,CPL-0041,aminoxyl,CCl4,,,,-0.002,,,4a9a697cb0f5
-BDFE-0042,4-oxo-TEMPOH,CPL-0042,aminoxyl,MeCN,,,,0.043,,,4a9a697cb0f5
-BDFE-0043,4-MeO-TEMPOH,CPL-0043,aminoxyl,MeCN,,,,0.043,,,4a9a697cb0f5
-BDFE-0044,4-OH-TEMPOH,CPL-0044,aminoxyl,hexane,,,,0.006,,,4a9a697cb0f5
-BDFE-0045,4-NH2-TEMPOH,CPL-0045,aminoxyl,hexane,,,,0.006,,,4a9a697cb0f5
-BDFE-0046,4-Cl-TEMPOH,CPL-0046,aminoxyl,hexane,,,,0.013,,,4a9a697cb0f5
-BDFE-0047,tBu2NOH,CPL-0047,aminoxyl,MeCN,,,,0.006,,,4a9a697cb0f5
-BDFE-0048,NHPI,CPL-0048,imide,H2O,,lowprec,,0.696,,,4a9a697cb0f5
-BDFE-0049,NHPI,CPL-0049,imide,MeCN,,,,0.071,,,4a9a697cb0f5
-BDFE-0050,AscH- (ascorbate),CPL-0050,ascorbate,H2O,,,,-0.027,,,4a9a697cb0f5
-BDFE-0051,iAscH-,CPL-0051,ascorbate,MeCN,,,,-0.011,,,4a9a697cb0f5
-BDFE-0052,AscH2 (ascorbic acid),CPL-0052,ascorbate,H2O,,,,0.038,,,4a9a697cb0f5
-BDFE-0053,iAscH2,CPL-0053,ascorbate,MeCN,,,,-0.058,,,4a9a697cb0f5
-BDFE-0054,Asc.-,CPL-0054,ascorbate,H2O,,,,-0.120,,,4a9a697cb0f5
-BDFE-0055,guanosine,CPL-0055,nucleoside,H2O,,,,-0.098,,,4a9a697cb0f5
-BDFE-0056,adenosine,CPL-0056,nucleoside,H2O,,,,-0.100,,,4a9a697cb0f5
-BDFE-0057,cytidine,CPL-0057,nucleoside,H2O,,,,-0.080,,,4a9a697cb0f5
-BDFE-0058,thymidine,CPL-0058,nucleoside,H2O,,,,0.226,,,4a9a697cb0f5
-BDFE-0059,N(4-MeO-C6H4)3.+,CPL-0059,pair,MeCN,,ox-base,,0.046,0.056,,4a9a697cb0f5
-BDFE-0060,N(4-MeO-C6H4)3.+,CPL-0060,pair,MeCN,,ox-base,,-0.079,0.048,,4a9a697cb0f5
-BDFE-0061,N(4-MeO-C6H4)3.+,CPL-0061,pair,MeCN,,ox-base,,-0.036,0.029,,4a9a697cb0f5
-BDFE-0062,N(4-MeO-C6H4)3.+,CPL-0062,pair,MeCN,,ox-base,,0.035,0.098,,4a9a697cb0f5
-BDFE-0063,N(4-Me-C6H4)3.+,CPL-0063,pair,MeCN,,ox-base,,0.019,0.029,,4a9a697cb0f5
-BDFE-0064,N(4-Me-C6H4)3.+,CPL-0064,pair,MeCN,,ox-base,,-0.106,0.021,,4a9a697cb0f5
-BDFE-0065,N(4-Br-C6H4)3.+,CPL-0065,pair,MeCN,,ox-base,,0.006,0.016,,4a9a697cb0f5
-BDFE-0066,N(4-Br-C6H4)3.+,CPL-0066,pair,MeCN,,ox-base,,-0.118,0.008,,4a9a697cb0f5
-BDFE-0067,"N(2,4-Br2-C6H4)3.+",CPL-0067,pair,MeCN,,ox-base,,0.045,0.054,,4a9a697cb0f5
-BDFE-0068,Cp2Fe+,CPL-0068,pair,MeCN,,ox-base,,-0.044,-0.034,,4a9a697cb0f5
-BDFE-0069,Cp2Fe+,CPL-0069,pair,MeCN,,ox-base,,0.024,0.058,,4a9a697cb0f5
-BDFE-0070,[Fe(bpy)3]3+,CPL-0070,pair,MeCN,,ox-base,,-0.002,0.008,,4a9a697cb0f5
-BDFE-0071,[Fe(bpy)3]3+,CPL-0071,pair,MeCN,,ox-base,,-0.126,0.000,,4a9a697cb0f5
-BDFE-0072,*Ir(dF(CF3)ppy)2(dtbbpy),CPL-0072,pair,MeCN,,ox-base;excited,,-0.058,-0.001,,4a9a697cb0f5
-BDFE-0073,*Ir(dF(CF3)ppy)2(dtbbpy),CPL-0073,pair,MeCN,,ox-base;excited,,-0.015,0.076,,4a9a697cb0f5
-BDFE-0074,*Ir(dF(CF3)ppy)2(bpy),CPL-0074,pair,MeCN,,ox-base;excited,,0.018,0.074,,4a9a697cb0f5
-BDFE-0075,*Ir(dF(CF3)ppy)2(bpy),CPL-0075,pair,MeCN,,ox-base;excited,,-0.040,0.051,,4a9a697cb0f5
-BDFE-0076,*Ir(ppy)3,CPL-0076,pair,MeCN,,red-acid;excited,,0.035,-0.036,,4a9a697cb0f5
-BDFE-0077,*Ir((dF)ppy)3,CPL-0077,pair,MeCN,,red-acid;excited,,0.077,0.007,,4a9a697cb0f5
-BDFE-0078,*Ir(d(OMe)ppy)3,CPL-0078,pair,MeCN,,red-acid;excited,,-0.003,0.049,,4a9a697cb0f5
-BDFE-0079,*Ir(d(OMe)ppy)3,CPL-0079,pair,MeCN,,red-acid;excited,,-0.050,0.068,,4a9a697cb0f5
-BDFE-0080,[Ru(bpy)3]+,CPL-0080,pair,MeCN,,red-acid,,0.020,-0.051,,4a9a697cb0f5
-BDFE-0081,[Ru(bpy)3]+,CPL-0081,pair,MeCN,,red-acid,,-0.058,-0.007,,4a9a697cb0f5
-BDFE-0082,[Ru(bpy)3]+,CPL-0082,pair,MeCN,,red-acid,,-0.105,0.012,,4a9a697cb0f5
-BDFE-0083,[Ru(bpy)3]+,CPL-0083,pair,MeCN,,red-acid,,-0.055,0.036,,4a9a697cb0f5
-BDFE-0084,[Ru(bpy)3]+,CPL-0084,pair,MeCN,,red-acid,,0.013,0.076,,4a9a697cb0f5
-BDFE-0085,Ir(ppy)2(dtbbpy),CPL-0085,pair,MeCN,,red-acid,,-0.152,-0.025,,4a9a697cb0f5
-BDFE-0086,Ir(ppy)2(dtbbpy),CPL-0086,pair,MeCN,,red-acid,,-0.009,0.042,,4a9a697cb0f5
-BDFE-0087,(C5Me5)2Fe,CPL-0087,pair,MeCN,,red-acid,,-0.004,0.005,,4a9a697cb0f5
-BDFE-0088,Cp2Fe,CPL-0088,pair,MeCN,,red-acid,,-0.044,-0.034,,4a9a697cb0f5
-BDFE-0089,Cp2Fe,CPL-0089,pair,MeCN,,red-acid,,0.045,0.109,,4a9a697cb0f5
-BDFE-0090,FeII(H2O)6^2+,CPL-0090,metal-3d,H2O,,hess:E_a;check-src,,-0.046,-0.030,,4a9a697cb0f5
-BDFE-0091,[(TPA)CuOH2]+,CPL-0091,metal-3d,H2O,,,,-0.021,0.010,,4a9a697cb0f5
-BDFE-0092,MnO3(OH)-,CPL-0092,metal-3d,H2O,,,,-0.009,0.444,,4a9a697cb0f5
-BDFE-0093,(H2O)5CrOH2+,CPL-0093,metal-3d,H2O,,limit,,-0.011,,,4a9a697cb0f5
-BDFE-0094,(H2O)5CrOOH2+,CPL-0094,metal-3d,H2O,,,,-0.048,,,4a9a697cb0f5
-BDFE-0095,(Me6cyclam)Co(H2O)(OOH)2+,CPL-0095,metal-3d,H2O,,,,0.013,,,4a9a697cb0f5
-BDFE-0096,([14]aneN4)Co(H2O)(OOH)2+,CPL-0096,metal-3d,H2O,,,,-0.009,,,4a9a697cb0f5
-BDFE-0097,NiII(cyclamN-H),CPL-0097,metal-3d,H2O,,,,-0.116,0.018,,4a9a697cb0f5
-BDFE-0098,(Py5)FeII(OH2)2+,CPL-0098,metal-3d,DMSO,,dmso-unc,,0.028,0.006,,4a9a697cb0f5
-BDFE-0099,[(LD)FeIIOH]2-,CPL-0099,metal-3d,DMSO,,dmso-unc,,0.002,0.073,,4a9a697cb0f5
-BDFE-0100,[(LD)MnIIOH]2-,CPL-0100,metal-3d,DMSO,,dmso-unc;limit;hess:pKa_b,,-0.045,0.050,,4a9a697cb0f5
-BDFE-0101,[(LD)MnIIIOH]-,CPL-0101,metal-3d,DMSO,,dmso-unc;approx;hess:E_b,,-1.422,-0.289,,4a9a697cb0f5
-BDFE-0102,[FeIICp(eta6-C6Me6)]PF6,CPL-0102,metal-3d,DMSO,,,,-0.036,-0.067,,4a9a697cb0f5
-BDFE-0103,[FeIICp*(eta6-C6Me6)]PF6,CPL-0103,metal-3d,DMSO,,,,0.072,-0.093,,4a9a697cb0f5
-BDFE-0104,(Py5)MnII(OH2)2+,CPL-0104,metal-3d,MeCN,,hess:pKa_a,,-0.009,-0.001,,4a9a697cb0f5
-BDFE-0105,(bpy)2VV(O)(OH)+,CPL-0105,metal-3d,MeCN,,,,0.009,,,4a9a697cb0f5
-BDFE-0106,Py2Py(piCy)2FeIIOH,CPL-0106,metal-3d,MeCN,,,,0.030,0.059,,4a9a697cb0f5
-BDFE-0107,PhB(tBuIm)3CoIIOH,CPL-0107,metal-3d,MeCN,,,,-0.091,0.068,,4a9a697cb0f5
-BDFE-0108,[Mn2(OH)2(phen)4]3+,CPL-0108,metal-3d,MeCN,,,,-0.019,-0.037,,4a9a697cb0f5
-BDFE-0109,[Mn2(O)(OH)(phen)4]3+,CPL-0109,metal-3d,MeCN,,,,-0.007,0.071,,4a9a697cb0f5
-BDFE-0110,(salpn)2(Mn2(O)(OH)),CPL-0110,metal-3d,MeCN,,,,-0.033,0.015,,4a9a697cb0f5
-BDFE-0111,(LA)2(Mn2(O)(OH)),CPL-0111,metal-3d,MeCN,,,,0.081,0.027,,4a9a697cb0f5
-BDFE-0112,(LB)2(Mn2(O)(OH)),CPL-0112,metal-3d,MeCN,,,,-0.083,-0.012,,4a9a697cb0f5
-BDFE-0113,[(TPA)2Cu2OH]2+,CPL-0113,metal-3d,MeCN,,,,0.029,0.022,,4a9a697cb0f5
-BDFE-0114,[(TPA)2Cu2OH]3+,CPL-0114,metal-3d,MeCN,,,,0.124,0.117,,4a9a697cb0f5
-BDFE-0115,[LetCu2(OOH)]2+,CPL-0115,metal-3d,MeCN,,,,-0.005,0.109,,4a9a697cb0f5
-BDFE-0116,FeII(H2bip)3,CPL-0116,metal-3d,MeCN,,,,-0.139,-0.008,,4a9a697cb0f5
-BDFE-0117,FeII(H2bim)3,CPL-0117,metal-3d,MeCN,,approx,,-0.105,0.026,,4a9a697cb0f5
-BDFE-0118,CoII(H2bim)3,CPL-0118,metal-3d,MeCN,,,,0.042,0.089,,4a9a697cb0f5
-BDFE-0119,(TPP)FeII(MeImH)2,CPL-0119,metal-3d,MeCN,,hess:E_a,,-0.058,0.006,,4a9a697cb0f5
-BDFE-0120,(PrbbimH)(Prbbim)Fe2S2 (Rieske model),CPL-0120,metal-3d,MeCN,,lowprec,,-0.388,0.260,,4a9a697cb0f5
-BDFE-0121,(LE)Fe2S2(LF-H) (mito-NEET model),CPL-0121,metal-3d,MeCN,,hess:pKa_b,,-0.047,0.024,,4a9a697cb0f5
-BDFE-0122,[(TAML)FeIV(NHTs)]-,CPL-0122,metal-3d,MeCN,,,,0.023,-0.005,,4a9a697cb0f5
-BDFE-0123,[(Cp)Co(CpNH)]+,CPL-0123,metal-3d,MeCN,,hess:pKa_b,,0.050,-0.021,,4a9a697cb0f5
-BDFE-0124,[(Cp)Co(CpNH)]2+,CPL-0124,metal-3d,MeCN,,,,0.044,-0.027,,4a9a697cb0f5
-BDFE-0125,[SNS]Ni(PPh3),CPL-0125,metal-3d,MeCN,,,,0.002,0.016,,4a9a697cb0f5
-BDFE-0126,CpCr(CO)3H,CPL-0126,metal-3d,MeCN,,hess:pKa_a,,0.029,0.056,,4a9a697cb0f5
-BDFE-0127,CpCr(CO)2(PPh3)H,CPL-0127,metal-3d,MeCN,,,,-0.008,0.042,,4a9a697cb0f5
-BDFE-0128,(dppm)V(CO)4H,CPL-0128,metal-3d,MeCN,,,,-0.022,0.045,,4a9a697cb0f5
-BDFE-0129,(dppe)V(CO)4H,CPL-0129,metal-3d,MeCN,,,,0.047,0.085,,4a9a697cb0f5
-BDFE-0130,[(TPP)FeIII(OOH)],CPL-0130,metal-3d,THF,,lowT,,-0.133,0.191,,4a9a697cb0f5
-BDFE-0131,[(PIm)FeIII(OOH)],CPL-0131,metal-3d,THF,,lowT,,-0.058,0.212,,4a9a697cb0f5
-BDFE-0132,[(F8TPP)FeIII(OOH)],CPL-0132,metal-3d,THF,,lowT,,-0.038,0.276,,4a9a697cb0f5
-BDFE-0133,pipMeLGCuOH,CPL-0133,metal-3d,THF,,,,0.086,0.104,,4a9a697cb0f5
-BDFE-0134,LGCuOH,CPL-0134,metal-3d,THF,,,,-0.031,0.050,,4a9a697cb0f5
-BDFE-0135,P3SiFeCNH,CPL-0135,metal-3d,THF,,,,-0.136,-0.014,,4a9a697cb0f5
-BDFE-0136,[P3SiFeCN(Me)H]+,CPL-0136,metal-3d,THF,,,,-0.083,0.018,,4a9a697cb0f5
-BDFE-0137,P3SiFeCN(Me)H,CPL-0137,metal-3d,THF,,,,-0.061,0.041,,4a9a697cb0f5
-BDFE-0138,P3SiFeNN(Me)H,CPL-0138,metal-3d,THF,,,,0.076,0.027,,4a9a697cb0f5
-BDFE-0139,[(bpy)2pyRuIIOH2]2+,CPL-0139,metal-4d5d,H2O,,,,-0.026,-0.014,,4a9a697cb0f5
-BDFE-0140,trans-[RuIV(tmc)(O)(OH2)]2+,CPL-0140,metal-4d5d,H2O,,,,0.005,-0.013,,4a9a697cb0f5
-BDFE-0141,trans-[RuV(tmc)(O)(OH)]2+,CPL-0141,metal-4d5d,H2O,,hess:E_b;limit,,0.134,0.050,,4a9a697cb0f5
-BDFE-0142,[(bpy)2pyRuIIIOH]2+,CPL-0142,metal-4d5d,H2O,,limit,,0.019,2.379,,4a9a697cb0f5
-BDFE-0143,(Me6cyclam)Rh(HO)(OOH)2+,CPL-0143,metal-4d5d,H2O,,,,0.007,,,4a9a697cb0f5
-BDFE-0144,(Me6cyclam)Rh(H2O)(OOH)2+,CPL-0144,metal-4d5d,H2O,,,,-0.032,,,4a9a697cb0f5
-BDFE-0145,(dipic)RuII(tpyCO2H),CPL-0145,metal-4d5d,MeCN,,,,-0.020,0.029,,4a9a697cb0f5
-BDFE-0146,(dipic)RuII(tpyPhCO2H),CPL-0146,metal-4d5d,MeCN,,,,-0.085,0.005,,4a9a697cb0f5
-BDFE-0147,(acac)2RuII(pyImH),CPL-0147,metal-4d5d,MeCN,,hess:pKa_b,,0.140,0.062,,4a9a697cb0f5
-BDFE-0148,(hfacac)2RuII(pyImH),CPL-0148,metal-4d5d,MeCN,,hess:pKa_a,,-0.034,0.027,,4a9a697cb0f5
-BDFE-0149,[RuII(dmdmp)Cl(MeBPA)],CPL-0149,metal-4d5d,MeCN,,hess:pKa_a,,0.070,0.078,,4a9a697cb0f5
-BDFE-0150,[RuII(dmdmp)(TPA)]+,CPL-0150,metal-4d5d,MeCN,,hess:pKa_a,,0.088,-0.013,,4a9a697cb0f5
-BDFE-0151,TpOsIII(NH2Ph)Cl2,CPL-0151,metal-4d5d,MeCN,,hess:pKa_a,,0.049,0.048,,4a9a697cb0f5
-BDFE-0152,[SNS]Pd(PPh3),CPL-0152,metal-4d5d,MeCN,,,,0.069,0.063,,4a9a697cb0f5
-BDFE-0153,[SNS]Pt(PPh3),CPL-0153,metal-4d5d,MeCN,,,,-0.060,0.053,,4a9a697cb0f5
-BDFE-0154,TpMo(CO)3H,CPL-0154,metal-4d5d,MeCN,,,,0.028,0.045,,4a9a697cb0f5
-BDFE-0155,Tp'Mo(CO)3H,CPL-0155,metal-4d5d,MeCN,,,,-0.078,-0.031,,4a9a697cb0f5
-BDFE-0156,TpW(CO)3H,CPL-0156,metal-4d5d,MeCN,,,,-0.028,0.007,,4a9a697cb0f5
-BDFE-0157,(Phtpy)(PPh2Me)2MoNH3,CPL-0157,metal-4d5d,THF,,,,0.078,-0.003,,4a9a697cb0f5
-BDFE-0158,(Phtpy)(PPh2Me)2MoCH2CH3,CPL-0158,metal-4d5d,THF,,,,0.078,0.100,,4a9a697cb0f5
-BDFE-0159,(teriPrP2)Mo2PH,CPL-0159,metal-4d5d,THF,,,,0.122,0.041,,4a9a697cb0f5
-BDFE-0160,[V6O6(OH)(OCH3)12]1-,CPL-0160,pom,MeCN,sq,recomputed,,0.040,0.054,,4a9a697cb0f5
-BDFE-0161,[V6O6(OH)(OCH3)12]0,CPL-0161,pom,MeCN,sq,recomputed,,-0.001,-0.032,,4a9a697cb0f5
-BDFE-0162,[V6O6(OH)(OCH3)12]1+,CPL-0162,pom,MeCN,sq,recomputed,,0.005,0.000,,4a9a697cb0f5
-BDFE-0163,[V6O11(OH)2(TRIOLNO2)2]2-,CPL-0163,pom,MeCN,OCP,avg,,0.006,,,4a9a697cb0f5
-BDFE-0164,"V6O7(OH)2- (mu2-OH, Lindqvist)",CPL-0164,pom,MeCN,equil,,,0.001,,,4a9a697cb0f5
-BDFE-0165,"1,2-H2Q",CPL-0165,quinone,H2O,,avg,,0.009,,,4a9a697cb0f5
-BDFE-0166,"tetrachloro-1,2-H2Q",CPL-0166,quinone,H2O,,avg,,0.009,,,4a9a697cb0f5
-BDFE-0167,"4-tBu-1,2-H2Q",CPL-0167,quinone,H2O,,avg,,0.004,,,4a9a697cb0f5
-BDFE-0168,"3,5-tBu2-1,2-H2Q",CPL-0168,quinone,H2O,,avg,,-0.025,,,4a9a697cb0f5
-BDFE-0169,"1,4-H2Q",CPL-0169,quinone,H2O,,avg,,0.028,,,4a9a697cb0f5
-BDFE-0170,"1,4-H2Q",CPL-0170,quinone,MeCN,,avg,,0.012,,,4a9a697cb0f5
-BDFE-0171,"1,4-H2Q",CPL-0171,quinone,THF,,avg,,0.020,,,4a9a697cb0f5
-BDFE-0172,"tetrafluoro-1,4-H2Q",CPL-0172,quinone,H2O,,avg,,-0.020,,,4a9a697cb0f5
-BDFE-0173,"2-chloro-1,4-H2Q",CPL-0173,quinone,H2O,,avg,,-0.011,,,4a9a697cb0f5
-BDFE-0174,"2,6-dichloro-1,4-H2Q",CPL-0174,quinone,H2O,,avg,,0.026,,,4a9a697cb0f5
-BDFE-0175,"2,5-dichloro-1,4-H2Q",CPL-0175,quinone,H2O,,avg,,0.019,,,4a9a697cb0f5
-BDFE-0176,"2,3-dichloro-1,4-H2Q",CPL-0176,quinone,H2O,,avg,,-0.020,,,4a9a697cb0f5
-BDFE-0177,"tetrachloro-1,4-H2Q",CPL-0177,quinone,H2O,,avg,,0.019,,,4a9a697cb0f5
-BDFE-0178,"DDQH2 (2,3-dichloro-5,6-dicyano-1,4-H2Q)",CPL-0178,quinone,H2O,,avg,,-0.046,,,4a9a697cb0f5
-BDFE-0179,"bromo-1,4-H2Q",CPL-0179,quinone,H2O,,avg,,-0.012,,,4a9a697cb0f5
-BDFE-0180,"2-bromo-5-methyl-1,4-H2Q",CPL-0180,quinone,H2O,,avg,,0.027,,,4a9a697cb0f5
-BDFE-0181,"2-chloro-5-methyl-1,4-H2Q",CPL-0181,quinone,H2O,,avg,,-0.019,,,4a9a697cb0f5
-BDFE-0182,"2-methyl-1,4-H2Q",CPL-0182,quinone,H2O,,avg,,0.013,,,4a9a697cb0f5
-BDFE-0183,"2,3-dimethyl-1,4-H2Q",CPL-0183,quinone,H2O,,avg,,-0.048,,,4a9a697cb0f5
-BDFE-0184,"2,5-dimethyl-1,4-H2Q",CPL-0184,quinone,H2O,,avg,,0.044,,,4a9a697cb0f5
-BDFE-0185,"2,6-dimethyl-1,4-H2Q",CPL-0185,quinone,H2O,,avg,,0.037,,,4a9a697cb0f5
-BDFE-0186,"2,6-dimethyl-1,4-H2Q",CPL-0186,quinone,MeCN,,avg,,0.083,,,4a9a697cb0f5
-BDFE-0187,"2,6-dimethyl-1,4-H2Q",CPL-0187,quinone,THF,,avg,,0.014,,,4a9a697cb0f5
-BDFE-0188,"2,6-dimethyl-1,4-H2Q",CPL-0188,quinone,DMF,,avg,,0.029,,,4a9a697cb0f5
-BDFE-0189,"2,6-dimethyl-1,4-H2Q",CPL-0189,quinone,IPA,,avg;assumed-dGfH,,-0.048,,,4a9a697cb0f5
-BDFE-0190,"2,3,5-trimethyl-1,4-H2Q",CPL-0190,quinone,H2O,,avg,,0.030,,,4a9a697cb0f5
-BDFE-0191,"tetramethyl-1,4-H2Q",CPL-0191,quinone,H2O,,avg,,-0.007,,,4a9a697cb0f5
-BDFE-0192,"2-methyl-5-isopropyl-1,4-H2Q",CPL-0192,quinone,H2O,,avg,,-0.018,,,4a9a697cb0f5
-BDFE-0193,"2,5-dimethyl-3-chloro-1,4-H2Q",CPL-0193,quinone,H2O,,avg,,0.021,,,4a9a697cb0f5
-BDFE-0194,"2-tBu-1,4-H2Q",CPL-0194,quinone,H2O,,avg,,-0.048,,,4a9a697cb0f5
-BDFE-0195,"2,6-tBu2-1,4-H2Q",CPL-0195,quinone,MeCN,,avg,,0.053,,,4a9a697cb0f5
-BDFE-0196,"2-phenyl-1,4-H2Q",CPL-0196,quinone,H2O,,avg,,0.020,,,4a9a697cb0f5
-BDFE-0197,"2-methoxy-1,4-H2Q",CPL-0197,quinone,H2O,,avg,,0.044,,,4a9a697cb0f5
-BDFE-0198,"2,5-dimethoxy-1,4-H2Q",CPL-0198,quinone,H2O,,avg,,0.005,,,4a9a697cb0f5
-BDFE-0199,"2,6-dimethoxy-1,4-H2Q",CPL-0199,quinone,H2O,,avg,,0.007,,,4a9a697cb0f5
-BDFE-0200,"2,6-dimethoxy-1,4-H2Q",CPL-0200,quinone,MeCN,,avg,,0.015,,,4a9a697cb0f5
-BDFE-0201,"1,2-H2NQ",CPL-0201,quinone,H2O,,avg,,0.037,,,4a9a697cb0f5
-BDFE-0202,"1,4-H2NQ",CPL-0202,quinone,H2O,,avg,,-0.029,,,4a9a697cb0f5
-BDFE-0203,"1,4-H2NQ",CPL-0203,quinone,THF,,avg,,0.008,,,4a9a697cb0f5
-BDFE-0204,"2-methyl-1,4-H2NQ",CPL-0204,quinone,H2O,,avg,,-0.030,,,4a9a697cb0f5
-BDFE-0205,"2,3-dimethyl-1,4-H2NQ",CPL-0205,quinone,H2O,,avg,,0.040,,,4a9a697cb0f5
-BDFE-0206,"2,3-dichloro-1,4-H2NQ",CPL-0206,quinone,H2O,,avg,,0.008,,,4a9a697cb0f5
-BDFE-0207,"2,7-tBu2-1,4-H2NQ",CPL-0207,quinone,THF,,avg,,0.047,,,4a9a697cb0f5
-BDFE-0208,"9,10-H2AQ",CPL-0208,quinone,H2O,,avg,,-0.048,,,4a9a697cb0f5
-BDFE-0209,"1,8-dichloro-9,10-H2AQ",CPL-0209,quinone,H2O,,avg,,-0.048,,,4a9a697cb0f5
-BDFE-0210,"1,8-dichloro-9,10-H2AQ",CPL-0210,quinone,THF,,avg;check-src,,-0.841,,,4a9a697cb0f5
-BDFE-0211,"9,10-dihydroxyphenanthrene (phenanthrenequinone)",CPL-0211,quinone,H2O,,avg,,-0.038,,,4a9a697cb0f5
-BDFE-0212,"1,10-phenanthroline-5,6-diol",CPL-0212,quinone,H2O,,avg,,-0.033,,,4a9a697cb0f5
-BDFE-0213,"1,2-H2Q (H2Q→HQ•)",CPL-0213,quinone,H2O,,,,-0.022,0.045,,4a9a697cb0f5
-BDFE-0214,"1,4-H2Q (H2Q→HQ•)",CPL-0214,quinone,H2O,,derived-E,,-0.124,-0.004,,4a9a697cb0f5
-BDFE-0215,"2-methyl-1,4-H2Q (H2Q→HQ•)",CPL-0215,quinone,H2O,,derived-E,,-0.015,-0.014,,4a9a697cb0f5
-BDFE-0216,"2,3-dimethyl-1,4-H2Q (H2Q→HQ•)",CPL-0216,quinone,H2O,,derived-E,,-0.046,-0.095,,4a9a697cb0f5
-BDFE-0217,"2,5-dimethyl-1,4-H2Q (H2Q→HQ•)",CPL-0217,quinone,H2O,,derived-E,,-0.201,-0.020,,4a9a697cb0f5
-BDFE-0218,"2,3,5-trimethyl-1,4-H2Q (H2Q→HQ•)",CPL-0218,quinone,H2O,,derived-E,,-0.030,0.008,,4a9a697cb0f5
-BDFE-0219,"tetramethyl-1,4-H2Q (H2Q→HQ•)",CPL-0219,quinone,H2O,,derived-E,,-0.044,-0.013,,4a9a697cb0f5
-BDFE-0220,"2-methyl-1,4-H2NQ (H2Q→HQ•)",CPL-0220,quinone,H2O,,,,-0.044,,,4a9a697cb0f5
-BDFE-0221,"2,3-dimethyl-1,4-H2NQ (H2Q→HQ•)",CPL-0221,quinone,H2O,,,,0.150,,,4a9a697cb0f5
-BDFE-0222,"1,2-HQ• (HQ•→Q)",CPL-0222,quinone,H2O,,,,0.040,0.042,,4a9a697cb0f5
-BDFE-0223,"1,4-HQ• (HQ•→Q)",CPL-0223,quinone,H2O,,hess:E_b,,-0.060,-0.000,,4a9a697cb0f5
-BDFE-0224,"2-methyl-1,4-HQ• (HQ•→Q)",CPL-0224,quinone,H2O,,,,-0.013,-0.005,,4a9a697cb0f5
-BDFE-0225,"2,3-dimethyl-1,4-HQ• (HQ•→Q)",CPL-0225,quinone,H2O,,,,-0.088,0.033,,4a9a697cb0f5
-BDFE-0226,"2,5-dimethyl-1,4-HQ• (HQ•→Q)",CPL-0226,quinone,H2O,,,,0.143,0.057,,4a9a697cb0f5
-BDFE-0227,"2,3,5-trimethyl-1,4-HQ• (HQ•→Q)",CPL-0227,quinone,H2O,,,,-0.002,0.045,,4a9a697cb0f5
-BDFE-0228,"tetramethyl-1,4-HQ• (HQ•→Q)",CPL-0228,quinone,H2O,,,,-0.016,0.031,,4a9a697cb0f5
-BDFE-0229,"2-methyl-1,4-HNQ• (HQ•→Q)",CPL-0229,quinone,H2O,,,,0.084,0.047,,4a9a697cb0f5
-BDFE-0230,"2,3-dimethyl-1,4-HNQ• (HQ•→Q)",CPL-0230,quinone,H2O,,,,-0.069,0.057,,4a9a697cb0f5
-BDFE-0231,H2O (HO–H),CPL-0231,smallOH,gas,,,,0.021,,,4a9a697cb0f5
-BDFE-0232,H2O (HO–H),CPL-0232,smallOH,H2O,,,,-0.046,0.040,,4a9a697cb0f5
-BDFE-0233,HO• (•O–H),CPL-0233,smallOH,gas,,,,0.041,,,4a9a697cb0f5
-BDFE-0234,HO• (•O–H),CPL-0234,smallOH,H2O,,,,-0.082,0.079,,4a9a697cb0f5
-BDFE-0235,OH− (−O–H),CPL-0235,smallOH,gas,,,,0.020,,,4a9a697cb0f5
-BDFE-0236,OH− (−O–H),CPL-0236,smallOH,H2O,,hess:E_H2,,-0.036,,,4a9a697cb0f5
-BDFE-0237,MeOH,CPL-0237,smallOH,gas,,,,0.040,,,4a9a697cb0f5
-BDFE-0238,EtOH,CPL-0238,smallOH,gas,,,,0.032,,,4a9a697cb0f5
-BDFE-0239,iPrOH,CPL-0239,smallOH,gas,,,,0.023,,,4a9a697cb0f5
-BDFE-0240,tBuOH,CPL-0240,smallOH,gas,,,,0.023,,,4a9a697cb0f5
-BDFE-0241,H2O2 (HOO–H),CPL-0241,smallOH,gas,,,,0.031,,,4a9a697cb0f5
-BDFE-0242,H2O2 (HOO–H),CPL-0242,smallOH,H2O,,hess:E_a,,-0.032,-0.052,,4a9a697cb0f5
-BDFE-0243,HO2• (•OO–H),CPL-0243,smallOH,gas,,,,0.031,,,4a9a697cb0f5
-BDFE-0244,HO2• (•OO–H),CPL-0244,smallOH,H2O,,,,-0.014,0.105,,4a9a697cb0f5
-BDFE-0245,HO2− (−OO–H),CPL-0245,smallOH,H2O,,hess:E_a,,-0.087,0.032,,4a9a697cb0f5
-BDFE-0246,O2/H2O (O2+2H2→2H2O),CPL-0246,smallOH,gas,,avg,,0.016,,,4a9a697cb0f5
-BDFE-0247,O2/H2O (O2+2H2→2H2O),CPL-0247,smallOH,MeCN,,avg,,-0.006,,,4a9a697cb0f5
-BDFE-0248,O2/H2O (O2+2H2→2H2O),CPL-0248,smallOH,DMF,,avg,,-0.044,,,4a9a697cb0f5
-BDFE-0249,O2/H2O (O2+2H2→2H2O),CPL-0249,smallOH,H2O,,avg,,0.041,,,4a9a697cb0f5
-BDFE-0250,O2/H2O2 (O2+H2→H2O2),CPL-0250,smallOH,gas,,avg,,-0.019,,,4a9a697cb0f5
-BDFE-0251,O2/H2O2 (O2+H2→H2O2),CPL-0251,smallOH,H2O,,avg,,0.027,,,4a9a697cb0f5
-BDFE-0252,H2O2/H2O (H2O2+H2→2H2O),CPL-0252,smallOH,gas,,avg,,0.028,,,4a9a697cb0f5
-BDFE-0253,H2O2/H2O (H2O2+H2→2H2O),CPL-0253,smallOH,H2O,,avg,,-0.045,,,4a9a697cb0f5
-BDFE-0254,MeOOH,CPL-0254,smallOH,gas,,,,0.029,,,4a9a697cb0f5
-BDFE-0255,MeOOH,CPL-0255,smallOH,H2O,,,,-0.043,0.031,,4a9a697cb0f5
-BDFE-0256,EtOOH,CPL-0256,smallOH,gas,,,,0.031,,,4a9a697cb0f5
-BDFE-0257,EtOOH,CPL-0257,smallOH,H2O,,,,0.027,0.051,,4a9a697cb0f5
-BDFE-0258,iPrOOH,CPL-0258,smallOH,H2O,,,,0.082,0.056,,4a9a697cb0f5
-BDFE-0259,tBuOOH,CPL-0259,smallOH,gas,,,,0.024,,,4a9a697cb0f5
-BDFE-0260,tBuOOH,CPL-0260,smallOH,H2O,,,,0.098,0.109,,4a9a697cb0f5
-BDFE-0261,trans-HC(O)OOH,CPL-0261,smallOH,gas,,,,0.023,,,4a9a697cb0f5
-BDFE-0262,cis-HC(O)OOH,CPL-0262,smallOH,gas,,,,0.021,,,4a9a697cb0f5
-BDFE-0263,CH3C(O)OOH,CPL-0263,smallOH,gas,,,,0.027,,,4a9a697cb0f5
-BDFE-0264,CH3C(O)OOH,CPL-0264,smallOH,H2O,,approx,,0.088,0.022,,4a9a697cb0f5
-BDFE-0265,MeOH/MeOOH (ROOH+H2→ROH+H2O),CPL-0265,smallOH,H2O,,avg,,0.002,,,4a9a697cb0f5
-BDFE-0266,tBuOH/tBuOOH (ROOH+H2→ROH+H2O),CPL-0266,smallOH,H2O,,avg,,0.041,,,4a9a697cb0f5
-BDFE-0267,HC(O)OH/HC(O)OOH (ROOH+H2→ROH+H2O),CPL-0267,smallOH,H2O,,avg,,-0.031,,,4a9a697cb0f5
-BDFE-0268,CH3C(O)OH/CH3C(O)OOH (ROOH+H2→ROH+H2O),CPL-0268,smallOH,H2O,,avg,,0.008,,,4a9a697cb0f5
-BDFE-0269,HNN-H,CPL-0269,nitrogen,gas,,,,-0.090,,,4a9a697cb0f5
-BDFE-0270,HN•NH-H,CPL-0270,nitrogen,gas,,hess:E_H2,,0.076,,,4a9a697cb0f5
-BDFE-0271,H2NNH-H,CPL-0271,nitrogen,gas,,,,-0.028,,,4a9a697cb0f5
-BDFE-0272,H2NNH-H,CPL-0272,nitrogen,H2O,,,,0.127,0.075,,4a9a697cb0f5
-BDFE-0273,N2/NH3 (N2+3H2→2NH3),CPL-0273,nitrogen,gas,,avg,,0.004,,,4a9a697cb0f5
-BDFE-0274,N2/NH3 (N2+3H2→2NH3),CPL-0274,nitrogen,H2O,,avg,,0.022,,,4a9a697cb0f5
-BDFE-0275,N2/NH3 (N2+3H2→2NH3),CPL-0275,nitrogen,MeCN,,avg,,-0.047,,,4a9a697cb0f5
-BDFE-0276,N2/N2H4 (N2+2H2→N2H4),CPL-0276,nitrogen,gas,,avg,,-0.034,,,4a9a697cb0f5
-BDFE-0277,N2/N2H2 (N2+H2→N2H2),CPL-0277,nitrogen,gas,,avg;hess:E_H2,,0.016,,,4a9a697cb0f5
-BDFE-0278,NH3,CPL-0278,amine,gas,,,,-0.033,,,4a9a697cb0f5
-BDFE-0279,•NH2,CPL-0279,amine,gas,,,,-0.017,,,4a9a697cb0f5
-BDFE-0280,NH,CPL-0280,amine,gas,,,,-0.017,,,4a9a697cb0f5
-BDFE-0281,MeNH2,CPL-0281,amine,gas,,,,0.019,,,4a9a697cb0f5
-BDFE-0282,PrNH2,CPL-0282,amine,MeCN,,approx;hess:pKa_a;mixed-CH-NH,,0.028,0.545,,4a9a697cb0f5
-BDFE-0283,PrNH2,CPL-0283,amine,C6H6,,mixed-CH-NH,,-0.024,,,4a9a697cb0f5
-BDFE-0284,pentylNH2,CPL-0284,amine,MeCN,,approx;hess:pKa_a;mixed-CH-NH,,0.027,0.013,,4a9a697cb0f5
-BDFE-0285,pentylNH2,CPL-0285,amine,C6H6,,mixed-CH-NH,,-0.031,,,4a9a697cb0f5
-BDFE-0286,Me2NH,CPL-0286,amine,gas,,,,0.031,,,4a9a697cb0f5
-BDFE-0287,Me2NH,CPL-0287,amine,H2O,,approx,,-0.090,0.002,,4a9a697cb0f5
-BDFE-0288,Et2NH,CPL-0288,amine,H2O,,approx,,-0.090,0.023,,4a9a697cb0f5
-BDFE-0289,Et2NH,CPL-0289,amine,MeCN,,mixed-CH-NH,,0.032,,,4a9a697cb0f5
-BDFE-0290,Et2NH,CPL-0290,amine,C6H6,,mixed-CH-NH,,-0.036,,,4a9a697cb0f5
-BDFE-0291,pyrrolidine,CPL-0291,amine,H2O,,approx,,0.065,-0.009,,4a9a697cb0f5
-BDFE-0292,piperidine,CPL-0292,amine,H2O,,approx,,-0.059,0.046,,4a9a697cb0f5
-BDFE-0293,nBu2NH,CPL-0293,amine,C6H6,,mixed-CH-NH,,-0.032,,,4a9a697cb0f5
-BDFE-0294,nBu2NH,CPL-0294,amine,MeCN,,mixed-CH-NH,,0.031,,,4a9a697cb0f5
-BDFE-0295,tBuNH2,CPL-0295,amine,C6H6,,,,-0.035,,,4a9a697cb0f5
-BDFE-0296,tBuNH2,CPL-0296,amine,MeCN,,hess:pKa_a,,0.036,0.055,,4a9a697cb0f5
-BDFE-0297,PhNH2,CPL-0297,arylamine,gas,,,,0.020,,,4a9a697cb0f5
-BDFE-0298,PhNH2,CPL-0298,arylamine,H2O,,,,0.106,0.080,,4a9a697cb0f5
-BDFE-0299,PhNH2,CPL-0299,arylamine,C6H6,,,,-0.025,,,4a9a697cb0f5
-BDFE-0300,4-MePhNH2,CPL-0300,arylamine,gas,,,,0.029,,,4a9a697cb0f5
-BDFE-0301,4-MePhNH2,CPL-0301,arylamine,H2O,,,,0.045,0.160,,4a9a697cb0f5
-BDFE-0302,4-MePhNH2,CPL-0302,arylamine,C6H6,,,,-0.039,,,4a9a697cb0f5
-BDFE-0303,4-MeOPhNH2,CPL-0303,arylamine,H2O,,,,0.062,0.069,,4a9a697cb0f5
-BDFE-0304,4-CNPhNH2,CPL-0304,arylamine,H2O,,,,0.074,0.019,,4a9a697cb0f5
-BDFE-0305,4-CF3PhNH2,CPL-0305,arylamine,gas,,,,0.020,,,4a9a697cb0f5
-BDFE-0306,4-CF3PhNH2,CPL-0306,arylamine,H2O,,,,-0.126,-0.007,,4a9a697cb0f5
-BDFE-0307,Ph2NH,CPL-0307,arylamine,gas,,,,0.029,,,4a9a697cb0f5
-BDFE-0308,Ph2NH,CPL-0308,arylamine,H2O,,approx,,-0.528,0.066,,4a9a697cb0f5
-BDFE-0309,Ph2NH,CPL-0309,arylamine,C6H6,,,,-0.020,,,4a9a697cb0f5
-BDFE-0310,(4-MePh)2NH,CPL-0310,arylamine,gas,,,,0.038,,,4a9a697cb0f5
-BDFE-0311,DPPH-H,CPL-0311,arylamine,MeCN,,,,0.046,,,4a9a697cb0f5
-BDFE-0312,DPPH-H,CPL-0312,arylamine,THF,,,,-0.054,,,4a9a697cb0f5
-BDFE-0313,DPPH-H,CPL-0313,arylamine,C6H6,,,,-0.024,,,4a9a697cb0f5
-BDFE-0314,"2,4-(NO2)2C6H3NHNPh2",CPL-0314,arylamine,DMSO,,dmso-unc,,0.005,0.043,,4a9a697cb0f5
-BDFE-0315,PhNHNPh2,CPL-0315,arylamine,DMSO,,dmso-unc,,-0.025,0.007,,4a9a697cb0f5
-BDFE-0316,PhNHNHPh,CPL-0316,arylamine,DMSO,,dmso-unc,,-0.031,0.000,,4a9a697cb0f5
-BDFE-0317,PhNHNHPh,CPL-0317,arylamine,MeCN,,avg,,0.024,,,4a9a697cb0f5
-BDFE-0318,"DHP (5,10-dihydrophenazine)",CPL-0318,arylamine,MeCN,,avg,,0.010,,,4a9a697cb0f5
-BDFE-0319,indole,CPL-0319,indole,H2O,,hess:E_a,,-0.018,0.007,,4a9a697cb0f5
-BDFE-0320,tryptophan,CPL-0320,indole,H2O,,hess:E_a,,0.076,0.032,,4a9a697cb0f5
-BDFE-0321,2-CH3-indole,CPL-0321,indole,H2O,,,,0.106,0.075,,4a9a697cb0f5
-BDFE-0322,3-CH3-indole,CPL-0322,indole,H2O,,hess:E_a,,0.092,0.005,,4a9a697cb0f5
-BDFE-0323,"2,3-(CH3)2-indole",CPL-0323,indole,H2O,,,,-0.053,0.003,,4a9a697cb0f5
-BDFE-0324,HS-H,CPL-0324,thiol,gas,,,,-0.051,,,4a9a697cb0f5
-BDFE-0325,HS-H,CPL-0325,thiol,H2O,,,,-0.126,0.009,,4a9a697cb0f5
-BDFE-0326,MeS-H,CPL-0326,thiol,gas,,,,0.060,,,4a9a697cb0f5
-BDFE-0327,MeS-H,CPL-0327,thiol,H2O,,,,0.000,0.045,,4a9a697cb0f5
-BDFE-0328,EtS-H,CPL-0328,thiol,gas,,,,-0.071,,,4a9a697cb0f5
-BDFE-0329,EtS-H,CPL-0329,thiol,H2O,,avg-pKa;lowprec,,-0.369,0.086,,4a9a697cb0f5
-BDFE-0330,tBuS-H,CPL-0330,thiol,gas,,,,-0.063,,,4a9a697cb0f5
-BDFE-0331,HOCH2CH2S-H,CPL-0331,thiol,H2O,,,,-0.091,0.147,,4a9a697cb0f5
-BDFE-0332,cysteine,CPL-0332,thiol,H2O,,avg-pKa,,0.025,0.090,,4a9a697cb0f5
-BDFE-0333,glutathione,CPL-0333,thiol,H2O,,,,-0.038,0.020,,4a9a697cb0f5
-BDFE-0334,PhS-H,CPL-0334,thiol,gas,,,,0.040,,,4a9a697cb0f5
-BDFE-0335,PhS-H,CPL-0335,thiol,H2O,,,,0.005,0.053,,4a9a697cb0f5
-BDFE-0336,PhS-H,CPL-0336,thiol,C6H6,,,,0.033,,,4a9a697cb0f5
-BDFE-0337,4-MePhS-H,CPL-0337,thiol,H2O,,,,-0.018,0.074,,4a9a697cb0f5
-BDFE-0338,4-MeOPhS-H,CPL-0338,thiol,H2O,,,,-0.032,0.060,,4a9a697cb0f5
-BDFE-0339,4-BrPhS-H,CPL-0339,thiol,H2O,,,,0.074,-0.007,,4a9a697cb0f5
-BDFE-0340,CH4,CPL-0340,CH,gas,,,,0.032,,,4a9a697cb0f5
-BDFE-0341,CH3CH2-H (ethane),CPL-0341,CH,gas,,,,0.034,,,4a9a697cb0f5
-BDFE-0342,•CH2CH2-H (ethyl radical),CPL-0342,CH,gas,,,,0.020,,,4a9a697cb0f5
-BDFE-0343,(CH3)2CH-H (propane),CPL-0343,CH,gas,,,,0.021,,,4a9a697cb0f5
-BDFE-0344,(CH3)3C-H (isobutane),CPL-0344,CH,gas,,,,0.022,,,4a9a697cb0f5
-BDFE-0345,CH2=CH-H (ethylene),CPL-0345,CH,gas,,,,0.027,,,4a9a697cb0f5
-BDFE-0346,HC≡C-H (acetylene),CPL-0346,CH,gas,,,,0.026,,,4a9a697cb0f5
-BDFE-0347,"1,3-cyclopentadiene",CPL-0347,CH,gas,,,,0.041,,,4a9a697cb0f5
-BDFE-0348,"1,3-cyclopentadiene",CPL-0348,CH,DMSO,,approx;dmso-unc,,-0.009,0.019,,4a9a697cb0f5
-BDFE-0349,"1,4-cyclohexadiene",CPL-0349,CH,gas,,,,-0.001,,,4a9a697cb0f5
-BDFE-0350,cyclohexadienyl (•C6H7),CPL-0350,CH,gas,,,,-0.008,,,4a9a697cb0f5
-BDFE-0351,C6H5-H (benzene),CPL-0351,CH,gas,,,,0.041,,,4a9a697cb0f5
-BDFE-0352,C6H5CH2-H (toluene),CPL-0352,CH,gas,,,,0.035,,,4a9a697cb0f5
-BDFE-0353,(CH3)6C6 (hexamethylbenzene),CPL-0353,CH,MeCN,,,,0.056,-0.063,,4a9a697cb0f5
-BDFE-0354,p-(CH3)2C6H4 (p-xylene),CPL-0354,CH,MeCN,,hess:pKa_a;lowprec,,-0.328,0.146,,4a9a697cb0f5
-BDFE-0355,(CH3)5C6H (pentamethylbenzene),CPL-0355,CH,MeCN,,,,0.100,-0.019,,4a9a697cb0f5
-BDFE-0356,"1,2,4,5-Me4C6H2 (durene)",CPL-0356,CH,MeCN,,,,0.115,-0.018,,4a9a697cb0f5
-BDFE-0357,indene,CPL-0357,CH,DMSO,,approx;dmso-unc,,-0.062,-0.016,,4a9a697cb0f5
-BDFE-0358,fluorene,CPL-0358,CH,DMSO,,approx;dmso-unc,,-0.024,0.011,,4a9a697cb0f5
-BDFE-0359,"DHA (9,10-dihydroanthracene)",CPL-0359,CH,DMSO,,approx;dmso-unc,,-0.030,0.017,,4a9a697cb0f5
-BDFE-0360,xanthene,CPL-0360,CH,DMSO,,approx;dmso-unc,,-0.005,0.044,,4a9a697cb0f5
-BDFE-0361,Ph3CH,CPL-0361,CH,DMSO,,approx;dmso-unc,,-0.086,-0.045,,4a9a697cb0f5
-BDFE-0362,Ph2CH2,CPL-0362,CH,DMSO,,approx;dmso-unc,,-0.018,0.002,,4a9a697cb0f5
-BDFE-0363,"AcrH2 (10-Me-9,10-dihydroacridine)",CPL-0363,nicotinamide,MeCN,,,,-0.017,-0.050,,4a9a697cb0f5
-BDFE-0364,AcrH2•+,CPL-0364,nicotinamide,MeCN,,derived,,-0.056,,,4a9a697cb0f5
-BDFE-0365,"BNAH (1-benzyl-1,4-dihydronicotinamide)",CPL-0365,nicotinamide,MeCN,,,,-0.027,0.001,,4a9a697cb0f5
-BDFE-0366,BNAH•+,CPL-0366,nicotinamide,MeCN,,derived,,0.089,,,4a9a697cb0f5
-BDFE-0367,NADH,CPL-0367,nicotinamide,H2O,,,,-0.066,-0.019,,4a9a697cb0f5
-BDFE-0368,NADH•+,CPL-0368,nicotinamide,H2O,,derived,,-0.058,,,4a9a697cb0f5
-BDFE-0369,CO2/CO (CO2+H2→CO+H2O),CPL-0369,co2,gas,,avg,,-0.023,,,4a9a697cb0f5
-BDFE-0370,CO2/CO (CO2+H2→CO+H2O),CPL-0370,co2,H2O,,avg,,0.002,,,4a9a697cb0f5
-BDFE-0371,CO2/CO (CO2+H2→CO+H2O),CPL-0371,co2,DMF,,avg,,0.032,,,4a9a697cb0f5
-BDFE-0372,CO2/CO (CO2+H2→CO+H2O),CPL-0372,co2,MeCN,,avg,,0.078,,,4a9a697cb0f5
-BDFE-0373,CO2/CH4 (CO2+4H2→CH4+2H2O),CPL-0373,co2,gas,,avg,,0.034,,,4a9a697cb0f5
-BDFE-0374,CO2/CH4 (CO2+4H2→CH4+2H2O),CPL-0374,co2,H2O,,avg,,-0.003,,,4a9a697cb0f5
-BDFE-0375,CO2/CH4 (CO2+4H2→CH4+2H2O),CPL-0375,co2,MeCN,,avg;check-src,,-0.395,,,4a9a697cb0f5
-BDFE-0376,CO2/CH4 (CO2+4H2→CH4+2H2O),CPL-0376,co2,DMF,,avg;check-src,,0.397,,,4a9a697cb0f5
-BDFE-0377,[HPVW11O40]4- (1st H on PVIVW11),CPL-0377,pom,MeCN,sq,derived;sim-pKa,,0.015,0.006,,4a9a697cb0f5
-BDFE-0378,[H2PVW11O40]3- (2nd H on PVIVW11),CPL-0378,pom,MeCN,sq,derived,,-0.040,-0.041,,4a9a697cb0f5
-BDFE-0379,[HPVMo11O40]4- (1st H on PVIVMo11),CPL-0379,pom,MeCN,sq,derived,,0.008,0.007,,4a9a697cb0f5
-BDFE-0380,[H2PVMo11O40]3- (2nd H on PVIVMo11),CPL-0380,pom,MeCN,sq,derived,,-0.047,-0.044,,4a9a697cb0f5
-BDFE-0381,[H3PVMo11O40]2- (3rd H on PVIVMo11),CPL-0381,pom,MeCN,sq,derived,,0.042,0.032,,4a9a697cb0f5
-BDFE-0382,[HAsVW11O40]4- (1st H on AsVIVW11),CPL-0382,pom,MeCN,sq,derived,,-0.040,-0.034,,4a9a697cb0f5
-BDFE-0383,[H2AsVW11O40]3- (2nd H on AsVIVW11),CPL-0383,pom,MeCN,sq,derived,,0.036,0.036,,4a9a697cb0f5
-BDFE-0384,[HAsVMo11O40]4- (1st H on AsVIVMo11),CPL-0384,pom,MeCN,sq,derived,,0.007,-0.002,,4a9a697cb0f5
-BDFE-0385,[H2AsVMo11O40]3- (2nd H on AsVIVMo11),CPL-0385,pom,MeCN,sq,derived,,0.021,0.017,,4a9a697cb0f5
-BDFE-0386,[H3AsVMo11O40]2- (3rd H on AsVIVMo11),CPL-0386,pom,MeCN,sq,derived,,-0.043,-0.045,,4a9a697cb0f5
-BDFE-0387,[V6O7(OH)6(TRIOLNO2)2]2-,CPL-0390,pom,MeCN,OCP,avg,,-0.000,,,4a9a697cb0f5
-BDFE-0388,"(calix)V6O5(OH2)(OMe)8 (aquo, avg 2 O-H)",CPL-0388,pom,THF,equil,avg,,0.000,,,4a9a697cb0f5
-BDFE-0389,[V6O11(OH)2(TRIOLNO2)2]2-,CPL-0163,pom,MeCN,OCP,avg,auto,-0.033,,,4a9a697cb0f5
-BDFE-0390,[V6O9(OH)4(TRIOLNO2)2]2-,CPL-0389,pom,MeCN,OCP,avg,,-0.015,,,4a9a697cb0f5
-BDFE-0391,[V6O7(OH)6(TRIOLNO2)2]2-,CPL-0390,pom,MeCN,OCP,avg,auto,0.024,,,4a9a697cb0f5
-BDFE-0392,[V6O11(OH)2(TRIOLMe)2]2-,CPL-0391,pom,MeCN,OCP,avg,,-0.041,,,4a9a697cb0f5
-BDFE-0393,[V6O9(OH)4(TRIOLMe)2]2-,CPL-0392,pom,MeCN,OCP,avg,,0.038,,,4a9a697cb0f5
-BDFE-0394,[V6O7(OH)6(TRIOLMe)2]2-,CPL-0393,pom,MeCN,OCP,avg,,-0.023,,,4a9a697cb0f5
-BDFE-0395,[V6O9(OMe)2(OH)2(TRIOLNO2)2]2-,CPL-0394,pom,MeCN,OCP,avg,,-0.049,,,4a9a697cb0f5
-BDFE-0396,[V6O7(OMe)2(OH)4(TRIOLNO2)2]2-,CPL-0395,pom,MeCN,OCP,avg,,0.031,,,4a9a697cb0f5
-BDFE-0397,[VW5O18(OH)]3-,CPL-0396,pom,MeCN,sq,recomputed;check-src,,-0.047,-0.042,,4a9a697cb0f5
-BDFE-0398,[VW5O18(OH)]3-,CPL-0396,pom,MeCN,equil,,auto,-0.000,,,4a9a697cb0f5
-BDFE-0399,"NbV5O6(OH2)(OCH3)12 (aquo, avg 2 O-H)",CPL-0397,pom,THF,equil,avg,,0.008,,,4a9a697cb0f5
-BDFE-0400,"[V6O6(OH2)(OMe)12]1- (aquo, avg 2 O-H)",CPL-0398,pom,THF,equil,avg,,0.010,,,4a9a697cb0f5
-BDFE-0401,"[V6O6(OH2)(OEt)12]1- (aquo, avg 2 O-H)",CPL-0399,pom,THF,equil,avg,,0.002,,,4a9a697cb0f5
-BDFE-0402,"[V6O6(OH2)(OPr)12]1- (aquo, avg 2 O-H)",CPL-0400,pom,THF,equil,avg,,0.002,,,4a9a697cb0f5
-BDFE-0403,"[V6O6(OH2)(OBu)12]1- (aquo, avg 2 O-H)",CPL-0401,pom,THF,equil,avg,,0.002,,,4a9a697cb0f5
-BDFE-0404,"[V6O5Cl(OH2)(OEt)12]1- (aquo, avg 2 O-H)",CPL-0402,pom,THF,equil,avg,,0.002,,,4a9a697cb0f5
-BDFE-0405,"[V6O5(SCN)(OH2)(OEt)12]1- (aquo, avg 2 O-H)",CPL-0403,pom,THF,equil,avg,,0.002,,,4a9a697cb0f5
-BDFE-0406,[HPVW11O40]4- (1st H on PVIVW11),CPL-0377,pom,MeCN,sq,,1,-0.096,-0.087,,4a9a697cb0f5
-BDFE-0407,[HPVW11O40]4- (1st H on PVIVW11),CPL-0377,pom,MeCN,OCP,,,0.017,,,4a9a697cb0f5
-BDFE-0408,[PVW11O40] W-sites 1st 2e-/2H+ event (avg 2 O-H),CPL-0404,pom,MeCN,sq,avg,,0.036,0.042,,4a9a697cb0f5
-BDFE-0409,[PVW11O40] W-sites 2nd 2e-/2H+ event (avg 2 O-H),CPL-0405,pom,MeCN,sq,avg,,-0.018,-0.011,,4a9a697cb0f5
-BDFE-0410,TiV5O5(OH2)(OCH3)12 (aquo avg 2 O-H),CPL-0406,pom,THF,equil,avg,,-0.006,,,4a9a697cb0f5
-BDFE-0411,[V6O6(OH2)(OCH3)12]0 (aquo avg 2 O-H),CPL-0407,pom,THF,equil,avg,,0.008,,,4a9a697cb0f5
-BDFE-0412,[V6O5(OH2)(OCH3)12]0 (O-deficient aquo avg 2 O-H),CPL-0408,pom,THF,equil,avg,,-0.006,,,4a9a697cb0f5
-BDFE-0413,[HPV2W10O40]5- (1st H on PVIVVVW10),CPL-0409,pom,H2O,sq,recomputed;check-src,,-0.021,-0.034,,4a9a697cb0f5
-BDFE-0414,[PW12O38(OH)2]3- (avg 2 O-H; 1st 2e-/2H+ event),CPL-0410,pom,MeCN,sq,avg;derived,,0.003,-0.033,,4a9a697cb0f5
-BDFE-0415,[PW12O36(OH)4]3- (avg 2 O-H; 2nd 2e-/2H+ event),CPL-0411,pom,MeCN,sq,avg;derived,,-0.002,-0.022,,4a9a697cb0f5
-BDFE-0416,[PMo12O38(OH)2]3- (avg 2 O-H),CPL-0412,pom,MeCN,sq,avg;derived,,-0.003,-0.043,,4a9a697cb0f5
-BDFE-0417,[SiVW11O39(OH)]5- (1st H on SiVIVW11),CPL-0413,pom,MeCN,sq,,,0.035,0.028,,4a9a697cb0f5
-BDFE-0418,[SVW11O39(OH)]3- (1st H on SVIVW11),CPL-0414,pom,MeCN,sq,,,-0.003,-0.009,,4a9a697cb0f5
-BDFE-0419,[VW12O40]3- (VinW12),CPL-0415,pom,MeCN,sq,ox-base,,0.010,,,4a9a697cb0f5
-BDFE-0420,[VW12O40]3- (VinW12),CPL-0416,pom,MeCN,sq,ox-base;approx,,0.001,,,4a9a697cb0f5
-BDFE-0421,[VW12O40]4- (1e-red VinW12),CPL-0417,pom,MeCN,sq,red-acid;approx,,0.010,,,4a9a697cb0f5
-BDFE-0422,"{TiOH} Keggin POT, shell O-H (1st 1e-/1H+ event)",CPL-0418,pom,MeCN,sq,recomputed,,-0.000,-0.013,,4a9a697cb0f5
-BDFE-0423,"{TiOH} Keggin POT, shell O-H (2nd 1e-/1H+ event)",CPL-0419,pom,MeCN,sq,recomputed,,0.012,0.012,,4a9a697cb0f5
-BDFE-0424,"{TiOH} Keggin POT, shell O-H (3rd 1e-/1H+ event)",CPL-0420,pom,MeCN,sq,,,0.003,0.032,,4a9a697cb0f5
-BDFE-0425,"{TiOBn} Keggin POT, shell O-H (1st 1e-/1H+ event)",CPL-0421,pom,MeCN,sq,,,-0.001,0.008,,4a9a697cb0f5
-BDFE-0426,"{TiOBn} Keggin POT, shell O-H (2nd 1e-/1H+ event)",CPL-0422,pom,MeCN,sq,,,0.007,-0.015,,4a9a697cb0f5
+BDFE-0001,PhOH,CPL-0001,phenol,gas,,,,-0.010,,,93fe87e489dd
+BDFE-0002,PhOH,CPL-0002,phenol,H2O,,,,-0.077,,,93fe87e489dd
+BDFE-0003,PhOH,CPL-0003,phenol,C6H6,,,,0.039,,,93fe87e489dd
+BDFE-0004,4-Me-PhOH,CPL-0004,phenol,H2O,,,,0.047,,,93fe87e489dd
+BDFE-0005,4-Me-PhOH,CPL-0005,phenol,C6H6,,,,0.041,,,93fe87e489dd
+BDFE-0006,4-MeO-PhOH,CPL-0006,phenol,H2O,,,,0.088,,,93fe87e489dd
+BDFE-0007,4-MeO-PhOH,CPL-0007,phenol,C6H6,,,,-0.049,,,93fe87e489dd
+BDFE-0008,4-NO2-PhOH,CPL-0008,phenol,H2O,,,,0.018,,,93fe87e489dd
+BDFE-0009,4-F-PhOH,CPL-0009,phenol,H2O,,,,0.131,,,93fe87e489dd
+BDFE-0010,4-Cl-PhOH,CPL-0010,phenol,H2O,,,,0.062,,,93fe87e489dd
+BDFE-0011,4-Br-PhOH,CPL-0011,phenol,H2O,,,,0.123,,,93fe87e489dd
+BDFE-0012,4-I-PhOH,CPL-0012,phenol,H2O,,,,-0.008,,,93fe87e489dd
+BDFE-0013,4-CO2--PhOH,CPL-0013,phenol,H2O,,,,0.068,,,93fe87e489dd
+BDFE-0014,4-Ac-PhOH,CPL-0014,phenol,H2O,,,,-0.102,,,93fe87e489dd
+BDFE-0015,4-CN-PhOH,CPL-0015,phenol,H2O,,,,0.065,,,93fe87e489dd
+BDFE-0016,4-NH2-PhOH,CPL-0016,phenol,H2O,,,,0.009,,,93fe87e489dd
+BDFE-0017,4-NH2-PhOH,CPL-0017,phenol,DMSO,,,,0.047,,,93fe87e489dd
+BDFE-0018,4-NMe2-PhOH,CPL-0018,phenol,H2O,,,,0.002,,,93fe87e489dd
+BDFE-0019,1-naphthol,CPL-0019,phenol,H2O,,,,-0.012,,,93fe87e489dd
+BDFE-0020,2-naphthol,CPL-0020,phenol,H2O,,,,0.056,,,93fe87e489dd
+BDFE-0021,tyrosine,CPL-0021,phenol,H2O,,,,0.009,,,93fe87e489dd
+BDFE-0022,Trolox C,CPL-0022,phenol,H2O,,,,0.038,,,93fe87e489dd
+BDFE-0023,alpha-tocopherol,CPL-0023,phenol,C6H6,,,,-0.038,,,93fe87e489dd
+BDFE-0024,"2,4,6-tBu3-PhOH",CPL-0024,phenol,H2O,,,,-0.032,,,93fe87e489dd
+BDFE-0025,"2,4,6-tBu3-PhOH",CPL-0025,phenol,MeCN,,,,0.052,,,93fe87e489dd
+BDFE-0026,"2,4,6-tBu3-PhOH",CPL-0026,phenol,DMSO,,,,0.013,,,93fe87e489dd
+BDFE-0027,"2,4,6-tBu3-PhOH",CPL-0027,phenol,C6H6,,,,-0.017,,,93fe87e489dd
+BDFE-0028,"2,4,6-tBu3-PhOH",CPL-0028,phenol,CCl4,,,,-0.017,,,93fe87e489dd
+BDFE-0029,"2,4,6-tBu3-PhOH",CPL-0029,phenol,THF,,,,-0.009,,,93fe87e489dd
+BDFE-0030,"2,6-tBu2-PhOH",CPL-0030,phenol,C6H6,,,,0.051,,,93fe87e489dd
+BDFE-0031,"4-Me-2,6-tBu2-PhOH",CPL-0031,phenol,C6H6,,,,-0.048,,,93fe87e489dd
+BDFE-0032,"4-MeO-2,6-tBu2-PhOH",CPL-0032,phenol,C6H6,,,,-0.046,,,93fe87e489dd
+BDFE-0033,"4-MeO-2,6-tBu2-PhOH",CPL-0033,phenol,MeCN,,,,0.016,,,93fe87e489dd
+BDFE-0034,"4-MeO-2,6-tBu2-PhOH",CPL-0034,phenol,THF,,,,0.024,,,93fe87e489dd
+BDFE-0035,H2NOH,CPL-0035,aminoxyl,H2O,,,,-0.046,,,93fe87e489dd
+BDFE-0036,TEMPOH,CPL-0036,aminoxyl,MeCN,,,,-0.164,,,93fe87e489dd
+BDFE-0037,TEMPOH,CPL-0037,aminoxyl,THF,,,,-0.125,,,93fe87e489dd
+BDFE-0038,TEMPOH,CPL-0038,aminoxyl,C6H6,,,,-0.170,,,93fe87e489dd
+BDFE-0039,TEMPOH,CPL-0039,aminoxyl,hexane,,,,-0.170,,,93fe87e489dd
+BDFE-0040,4-oxo-TEMPOH,CPL-0040,aminoxyl,hexane,,,,-0.001,,,93fe87e489dd
+BDFE-0041,4-oxo-TEMPOH,CPL-0041,aminoxyl,CCl4,,,,-0.002,,,93fe87e489dd
+BDFE-0042,4-oxo-TEMPOH,CPL-0042,aminoxyl,MeCN,,,,0.043,,,93fe87e489dd
+BDFE-0043,4-MeO-TEMPOH,CPL-0043,aminoxyl,MeCN,,,,0.043,,,93fe87e489dd
+BDFE-0044,4-OH-TEMPOH,CPL-0044,aminoxyl,hexane,,,,0.006,,,93fe87e489dd
+BDFE-0045,4-NH2-TEMPOH,CPL-0045,aminoxyl,hexane,,,,0.006,,,93fe87e489dd
+BDFE-0046,4-Cl-TEMPOH,CPL-0046,aminoxyl,hexane,,,,0.013,,,93fe87e489dd
+BDFE-0047,tBu2NOH,CPL-0047,aminoxyl,MeCN,,,,0.006,,,93fe87e489dd
+BDFE-0048,NHPI,CPL-0048,imide,H2O,,lowprec,,0.696,,,93fe87e489dd
+BDFE-0049,NHPI,CPL-0049,imide,MeCN,,,,0.071,,,93fe87e489dd
+BDFE-0050,AscH- (ascorbate),CPL-0050,ascorbate,H2O,,,,-0.027,,,93fe87e489dd
+BDFE-0051,iAscH-,CPL-0051,ascorbate,MeCN,,,,-0.011,,,93fe87e489dd
+BDFE-0052,AscH2 (ascorbic acid),CPL-0052,ascorbate,H2O,,,,0.038,,,93fe87e489dd
+BDFE-0053,iAscH2,CPL-0053,ascorbate,MeCN,,,,-0.058,,,93fe87e489dd
+BDFE-0054,Asc.-,CPL-0054,ascorbate,H2O,,,,-0.120,,,93fe87e489dd
+BDFE-0055,guanosine,CPL-0055,nucleoside,H2O,,,,-0.098,,,93fe87e489dd
+BDFE-0056,adenosine,CPL-0056,nucleoside,H2O,,,,-0.100,,,93fe87e489dd
+BDFE-0057,cytidine,CPL-0057,nucleoside,H2O,,,,-0.080,,,93fe87e489dd
+BDFE-0058,thymidine,CPL-0058,nucleoside,H2O,,,,0.226,,,93fe87e489dd
+BDFE-0059,N(4-MeO-C6H4)3.+,CPL-0059,pair,MeCN,,ox-base,,0.046,0.056,,93fe87e489dd
+BDFE-0060,N(4-MeO-C6H4)3.+,CPL-0060,pair,MeCN,,ox-base,,-0.079,0.048,,93fe87e489dd
+BDFE-0061,N(4-MeO-C6H4)3.+,CPL-0061,pair,MeCN,,ox-base,,-0.036,0.029,,93fe87e489dd
+BDFE-0062,N(4-MeO-C6H4)3.+,CPL-0062,pair,MeCN,,ox-base,,0.035,0.098,,93fe87e489dd
+BDFE-0063,N(4-Me-C6H4)3.+,CPL-0063,pair,MeCN,,ox-base,,0.019,0.029,,93fe87e489dd
+BDFE-0064,N(4-Me-C6H4)3.+,CPL-0064,pair,MeCN,,ox-base,,-0.106,0.021,,93fe87e489dd
+BDFE-0065,N(4-Br-C6H4)3.+,CPL-0065,pair,MeCN,,ox-base,,0.006,0.016,,93fe87e489dd
+BDFE-0066,N(4-Br-C6H4)3.+,CPL-0066,pair,MeCN,,ox-base,,-0.118,0.008,,93fe87e489dd
+BDFE-0067,"N(2,4-Br2-C6H4)3.+",CPL-0067,pair,MeCN,,ox-base,,0.045,0.054,,93fe87e489dd
+BDFE-0068,Cp2Fe+,CPL-0068,pair,MeCN,,ox-base,,-0.044,-0.034,,93fe87e489dd
+BDFE-0069,Cp2Fe+,CPL-0069,pair,MeCN,,ox-base,,0.024,0.058,,93fe87e489dd
+BDFE-0070,[Fe(bpy)3]3+,CPL-0070,pair,MeCN,,ox-base,,-0.002,0.008,,93fe87e489dd
+BDFE-0071,[Fe(bpy)3]3+,CPL-0071,pair,MeCN,,ox-base,,-0.126,0.000,,93fe87e489dd
+BDFE-0072,*Ir(dF(CF3)ppy)2(dtbbpy),CPL-0072,pair,MeCN,,ox-base;excited,,-0.058,-0.001,,93fe87e489dd
+BDFE-0073,*Ir(dF(CF3)ppy)2(dtbbpy),CPL-0073,pair,MeCN,,ox-base;excited,,-0.015,0.076,,93fe87e489dd
+BDFE-0074,*Ir(dF(CF3)ppy)2(bpy),CPL-0074,pair,MeCN,,ox-base;excited,,0.018,0.074,,93fe87e489dd
+BDFE-0075,*Ir(dF(CF3)ppy)2(bpy),CPL-0075,pair,MeCN,,ox-base;excited,,-0.040,0.051,,93fe87e489dd
+BDFE-0076,*Ir(ppy)3,CPL-0076,pair,MeCN,,red-acid;excited,,0.035,-0.036,,93fe87e489dd
+BDFE-0077,*Ir((dF)ppy)3,CPL-0077,pair,MeCN,,red-acid;excited,,0.077,0.007,,93fe87e489dd
+BDFE-0078,*Ir(d(OMe)ppy)3,CPL-0078,pair,MeCN,,red-acid;excited,,-0.003,0.049,,93fe87e489dd
+BDFE-0079,*Ir(d(OMe)ppy)3,CPL-0079,pair,MeCN,,red-acid;excited,,-0.050,0.068,,93fe87e489dd
+BDFE-0080,[Ru(bpy)3]+,CPL-0080,pair,MeCN,,red-acid,,0.020,-0.051,,93fe87e489dd
+BDFE-0081,[Ru(bpy)3]+,CPL-0081,pair,MeCN,,red-acid,,-0.058,-0.007,,93fe87e489dd
+BDFE-0082,[Ru(bpy)3]+,CPL-0082,pair,MeCN,,red-acid,,-0.105,0.012,,93fe87e489dd
+BDFE-0083,[Ru(bpy)3]+,CPL-0083,pair,MeCN,,red-acid,,-0.055,0.036,,93fe87e489dd
+BDFE-0084,[Ru(bpy)3]+,CPL-0084,pair,MeCN,,red-acid,,0.013,0.076,,93fe87e489dd
+BDFE-0085,Ir(ppy)2(dtbbpy),CPL-0085,pair,MeCN,,red-acid,,-0.152,-0.025,,93fe87e489dd
+BDFE-0086,Ir(ppy)2(dtbbpy),CPL-0086,pair,MeCN,,red-acid,,-0.009,0.042,,93fe87e489dd
+BDFE-0087,(C5Me5)2Fe,CPL-0087,pair,MeCN,,red-acid,,-0.004,0.005,,93fe87e489dd
+BDFE-0088,Cp2Fe,CPL-0088,pair,MeCN,,red-acid,,-0.044,-0.034,,93fe87e489dd
+BDFE-0089,Cp2Fe,CPL-0089,pair,MeCN,,red-acid,,0.045,0.109,,93fe87e489dd
+BDFE-0090,FeII(H2O)6^2+,CPL-0090,metal-3d,H2O,,hess:E_a;check-src,,-0.046,-0.030,,93fe87e489dd
+BDFE-0091,[(TPA)CuOH2]+,CPL-0091,metal-3d,H2O,,,,-0.021,0.010,,93fe87e489dd
+BDFE-0092,MnO3(OH)-,CPL-0092,metal-3d,H2O,,,,-0.009,0.444,,93fe87e489dd
+BDFE-0093,(H2O)5CrOH2+,CPL-0093,metal-3d,H2O,,limit,,-0.011,,,93fe87e489dd
+BDFE-0094,(H2O)5CrOOH2+,CPL-0094,metal-3d,H2O,,,,-0.048,,,93fe87e489dd
+BDFE-0095,(Me6cyclam)Co(H2O)(OOH)2+,CPL-0095,metal-3d,H2O,,,,0.013,,,93fe87e489dd
+BDFE-0096,([14]aneN4)Co(H2O)(OOH)2+,CPL-0096,metal-3d,H2O,,,,-0.009,,,93fe87e489dd
+BDFE-0097,NiII(cyclamN-H),CPL-0097,metal-3d,H2O,,,,-0.116,0.018,,93fe87e489dd
+BDFE-0098,(Py5)FeII(OH2)2+,CPL-0098,metal-3d,DMSO,,dmso-unc,,0.028,0.006,,93fe87e489dd
+BDFE-0099,[(LD)FeIIOH]2-,CPL-0099,metal-3d,DMSO,,dmso-unc,,0.002,0.073,,93fe87e489dd
+BDFE-0100,[(LD)MnIIOH]2-,CPL-0100,metal-3d,DMSO,,dmso-unc;limit;hess:pKa_b,,-0.045,0.050,,93fe87e489dd
+BDFE-0101,[(LD)MnIIIOH]-,CPL-0101,metal-3d,DMSO,,dmso-unc;approx;hess:E_b,,-1.422,-0.289,,93fe87e489dd
+BDFE-0102,[FeIICp(eta6-C6Me6)]PF6,CPL-0102,metal-3d,DMSO,,,,-0.036,-0.067,,93fe87e489dd
+BDFE-0103,[FeIICp*(eta6-C6Me6)]PF6,CPL-0103,metal-3d,DMSO,,,,0.072,-0.093,,93fe87e489dd
+BDFE-0104,(Py5)MnII(OH2)2+,CPL-0104,metal-3d,MeCN,,hess:pKa_a,,-0.009,-0.001,,93fe87e489dd
+BDFE-0105,(bpy)2VV(O)(OH)+,CPL-0105,metal-3d,MeCN,,,,0.009,,,93fe87e489dd
+BDFE-0106,Py2Py(piCy)2FeIIOH,CPL-0106,metal-3d,MeCN,,,,0.030,0.059,,93fe87e489dd
+BDFE-0107,PhB(tBuIm)3CoIIOH,CPL-0107,metal-3d,MeCN,,,,-0.091,0.068,,93fe87e489dd
+BDFE-0108,[Mn2(OH)2(phen)4]3+,CPL-0108,metal-3d,MeCN,,,,-0.019,-0.037,,93fe87e489dd
+BDFE-0109,[Mn2(O)(OH)(phen)4]3+,CPL-0109,metal-3d,MeCN,,,,-0.007,0.071,,93fe87e489dd
+BDFE-0110,(salpn)2(Mn2(O)(OH)),CPL-0110,metal-3d,MeCN,,,,-0.033,0.015,,93fe87e489dd
+BDFE-0111,(LA)2(Mn2(O)(OH)),CPL-0111,metal-3d,MeCN,,,,0.081,0.027,,93fe87e489dd
+BDFE-0112,(LB)2(Mn2(O)(OH)),CPL-0112,metal-3d,MeCN,,,,-0.083,-0.012,,93fe87e489dd
+BDFE-0113,[(TPA)2Cu2OH]2+,CPL-0113,metal-3d,MeCN,,,,0.029,0.022,,93fe87e489dd
+BDFE-0114,[(TPA)2Cu2OH]3+,CPL-0114,metal-3d,MeCN,,,,0.124,0.117,,93fe87e489dd
+BDFE-0115,[LetCu2(OOH)]2+,CPL-0115,metal-3d,MeCN,,,,-0.005,0.109,,93fe87e489dd
+BDFE-0116,FeII(H2bip)3,CPL-0116,metal-3d,MeCN,,,,-0.139,-0.008,,93fe87e489dd
+BDFE-0117,FeII(H2bim)3,CPL-0117,metal-3d,MeCN,,approx,,-0.105,0.026,,93fe87e489dd
+BDFE-0118,CoII(H2bim)3,CPL-0118,metal-3d,MeCN,,,,0.042,0.089,,93fe87e489dd
+BDFE-0119,(TPP)FeII(MeImH)2,CPL-0119,metal-3d,MeCN,,hess:E_a,,-0.058,0.006,,93fe87e489dd
+BDFE-0120,(PrbbimH)(Prbbim)Fe2S2 (Rieske model),CPL-0120,metal-3d,MeCN,,lowprec,,-0.388,0.260,,93fe87e489dd
+BDFE-0121,(LE)Fe2S2(LF-H) (mito-NEET model),CPL-0121,metal-3d,MeCN,,hess:pKa_b,,-0.047,0.024,,93fe87e489dd
+BDFE-0122,[(TAML)FeIV(NHTs)]-,CPL-0122,metal-3d,MeCN,,,,0.023,-0.005,,93fe87e489dd
+BDFE-0123,[(Cp)Co(CpNH)]+,CPL-0123,metal-3d,MeCN,,hess:pKa_b,,0.050,-0.021,,93fe87e489dd
+BDFE-0124,[(Cp)Co(CpNH)]2+,CPL-0124,metal-3d,MeCN,,,,0.044,-0.027,,93fe87e489dd
+BDFE-0125,[SNS]Ni(PPh3),CPL-0125,metal-3d,MeCN,,,,0.002,0.016,,93fe87e489dd
+BDFE-0126,CpCr(CO)3H,CPL-0126,metal-3d,MeCN,,hess:pKa_a,,0.029,0.056,,93fe87e489dd
+BDFE-0127,CpCr(CO)2(PPh3)H,CPL-0127,metal-3d,MeCN,,,,-0.008,0.042,,93fe87e489dd
+BDFE-0128,(dppm)V(CO)4H,CPL-0128,metal-3d,MeCN,,,,-0.022,0.045,,93fe87e489dd
+BDFE-0129,(dppe)V(CO)4H,CPL-0129,metal-3d,MeCN,,,,0.047,0.085,,93fe87e489dd
+BDFE-0130,[(TPP)FeIII(OOH)],CPL-0130,metal-3d,THF,,lowT,,-0.133,0.191,,93fe87e489dd
+BDFE-0131,[(PIm)FeIII(OOH)],CPL-0131,metal-3d,THF,,lowT,,-0.058,0.212,,93fe87e489dd
+BDFE-0132,[(F8TPP)FeIII(OOH)],CPL-0132,metal-3d,THF,,lowT,,-0.038,0.276,,93fe87e489dd
+BDFE-0133,pipMeLGCuOH,CPL-0133,metal-3d,THF,,,,0.086,0.104,,93fe87e489dd
+BDFE-0134,LGCuOH,CPL-0134,metal-3d,THF,,,,-0.031,0.050,,93fe87e489dd
+BDFE-0135,P3SiFeCNH,CPL-0135,metal-3d,THF,,,,-0.136,-0.014,,93fe87e489dd
+BDFE-0136,[P3SiFeCN(Me)H]+,CPL-0136,metal-3d,THF,,,,-0.083,0.018,,93fe87e489dd
+BDFE-0137,P3SiFeCN(Me)H,CPL-0137,metal-3d,THF,,,,-0.061,0.041,,93fe87e489dd
+BDFE-0138,P3SiFeNN(Me)H,CPL-0138,metal-3d,THF,,,,0.076,0.027,,93fe87e489dd
+BDFE-0139,[(bpy)2pyRuIIOH2]2+,CPL-0139,metal-4d5d,H2O,,,,-0.026,-0.014,,93fe87e489dd
+BDFE-0140,trans-[RuIV(tmc)(O)(OH2)]2+,CPL-0140,metal-4d5d,H2O,,,,0.005,-0.013,,93fe87e489dd
+BDFE-0141,trans-[RuV(tmc)(O)(OH)]2+,CPL-0141,metal-4d5d,H2O,,hess:E_b;limit,,0.134,0.050,,93fe87e489dd
+BDFE-0142,[(bpy)2pyRuIIIOH]2+,CPL-0142,metal-4d5d,H2O,,limit,,0.019,2.379,,93fe87e489dd
+BDFE-0143,(Me6cyclam)Rh(HO)(OOH)2+,CPL-0143,metal-4d5d,H2O,,,,0.007,,,93fe87e489dd
+BDFE-0144,(Me6cyclam)Rh(H2O)(OOH)2+,CPL-0144,metal-4d5d,H2O,,,,-0.032,,,93fe87e489dd
+BDFE-0145,(dipic)RuII(tpyCO2H),CPL-0145,metal-4d5d,MeCN,,,,-0.020,0.029,,93fe87e489dd
+BDFE-0146,(dipic)RuII(tpyPhCO2H),CPL-0146,metal-4d5d,MeCN,,,,-0.085,0.005,,93fe87e489dd
+BDFE-0147,(acac)2RuII(pyImH),CPL-0147,metal-4d5d,MeCN,,hess:pKa_b,,0.140,0.062,,93fe87e489dd
+BDFE-0148,(hfacac)2RuII(pyImH),CPL-0148,metal-4d5d,MeCN,,hess:pKa_a,,-0.034,0.027,,93fe87e489dd
+BDFE-0149,[RuII(dmdmp)Cl(MeBPA)],CPL-0149,metal-4d5d,MeCN,,hess:pKa_a,,0.070,0.078,,93fe87e489dd
+BDFE-0150,[RuII(dmdmp)(TPA)]+,CPL-0150,metal-4d5d,MeCN,,hess:pKa_a,,0.088,-0.013,,93fe87e489dd
+BDFE-0151,TpOsIII(NH2Ph)Cl2,CPL-0151,metal-4d5d,MeCN,,hess:pKa_a,,0.049,0.048,,93fe87e489dd
+BDFE-0152,[SNS]Pd(PPh3),CPL-0152,metal-4d5d,MeCN,,,,0.069,0.063,,93fe87e489dd
+BDFE-0153,[SNS]Pt(PPh3),CPL-0153,metal-4d5d,MeCN,,,,-0.060,0.053,,93fe87e489dd
+BDFE-0154,TpMo(CO)3H,CPL-0154,metal-4d5d,MeCN,,,,0.028,0.045,,93fe87e489dd
+BDFE-0155,Tp'Mo(CO)3H,CPL-0155,metal-4d5d,MeCN,,,,-0.078,-0.031,,93fe87e489dd
+BDFE-0156,TpW(CO)3H,CPL-0156,metal-4d5d,MeCN,,,,-0.028,0.007,,93fe87e489dd
+BDFE-0157,(Phtpy)(PPh2Me)2MoNH3,CPL-0157,metal-4d5d,THF,,,,0.078,-0.003,,93fe87e489dd
+BDFE-0158,(Phtpy)(PPh2Me)2MoCH2CH3,CPL-0158,metal-4d5d,THF,,,,0.078,0.100,,93fe87e489dd
+BDFE-0159,(teriPrP2)Mo2PH,CPL-0159,metal-4d5d,THF,,,,0.122,0.041,,93fe87e489dd
+BDFE-0160,[V6O6(OH)(OCH3)12]1-,CPL-0160,pom,MeCN,sq,recomputed,,0.040,0.054,,93fe87e489dd
+BDFE-0161,[V6O6(OH)(OCH3)12]0,CPL-0161,pom,MeCN,sq,recomputed,,-0.001,-0.032,,93fe87e489dd
+BDFE-0162,[V6O6(OH)(OCH3)12]1+,CPL-0162,pom,MeCN,sq,recomputed,,0.005,0.000,,93fe87e489dd
+BDFE-0163,[V6O11(OH)2(TRIOLNO2)2]2-,CPL-0163,pom,MeCN,OCP,avg,,0.006,,,93fe87e489dd
+BDFE-0164,"V6O7(OH)2- (mu2-OH, Lindqvist)",CPL-0164,pom,MeCN,equil,,,0.001,,,93fe87e489dd
+BDFE-0165,"1,2-H2Q",CPL-0165,quinone,H2O,,avg,,0.009,,,93fe87e489dd
+BDFE-0166,"tetrachloro-1,2-H2Q",CPL-0166,quinone,H2O,,avg,,0.009,,,93fe87e489dd
+BDFE-0167,"4-tBu-1,2-H2Q",CPL-0167,quinone,H2O,,avg,,0.004,,,93fe87e489dd
+BDFE-0168,"3,5-tBu2-1,2-H2Q",CPL-0168,quinone,H2O,,avg,,-0.025,,,93fe87e489dd
+BDFE-0169,"1,4-H2Q",CPL-0169,quinone,H2O,,avg,,0.028,,,93fe87e489dd
+BDFE-0170,"1,4-H2Q",CPL-0170,quinone,MeCN,,avg,,0.012,,,93fe87e489dd
+BDFE-0171,"1,4-H2Q",CPL-0171,quinone,THF,,avg,,0.020,,,93fe87e489dd
+BDFE-0172,"tetrafluoro-1,4-H2Q",CPL-0172,quinone,H2O,,avg,,-0.020,,,93fe87e489dd
+BDFE-0173,"2-chloro-1,4-H2Q",CPL-0173,quinone,H2O,,avg,,-0.011,,,93fe87e489dd
+BDFE-0174,"2,6-dichloro-1,4-H2Q",CPL-0174,quinone,H2O,,avg,,0.026,,,93fe87e489dd
+BDFE-0175,"2,5-dichloro-1,4-H2Q",CPL-0175,quinone,H2O,,avg,,0.019,,,93fe87e489dd
+BDFE-0176,"2,3-dichloro-1,4-H2Q",CPL-0176,quinone,H2O,,avg,,-0.020,,,93fe87e489dd
+BDFE-0177,"tetrachloro-1,4-H2Q",CPL-0177,quinone,H2O,,avg,,0.019,,,93fe87e489dd
+BDFE-0178,"DDQH2 (2,3-dichloro-5,6-dicyano-1,4-H2Q)",CPL-0178,quinone,H2O,,avg,,-0.046,,,93fe87e489dd
+BDFE-0179,"bromo-1,4-H2Q",CPL-0179,quinone,H2O,,avg,,-0.012,,,93fe87e489dd
+BDFE-0180,"2-bromo-5-methyl-1,4-H2Q",CPL-0180,quinone,H2O,,avg,,0.027,,,93fe87e489dd
+BDFE-0181,"2-chloro-5-methyl-1,4-H2Q",CPL-0181,quinone,H2O,,avg,,-0.019,,,93fe87e489dd
+BDFE-0182,"2-methyl-1,4-H2Q",CPL-0182,quinone,H2O,,avg,,0.013,,,93fe87e489dd
+BDFE-0183,"2,3-dimethyl-1,4-H2Q",CPL-0183,quinone,H2O,,avg,,-0.048,,,93fe87e489dd
+BDFE-0184,"2,5-dimethyl-1,4-H2Q",CPL-0184,quinone,H2O,,avg,,0.044,,,93fe87e489dd
+BDFE-0185,"2,6-dimethyl-1,4-H2Q",CPL-0185,quinone,H2O,,avg,,0.037,,,93fe87e489dd
+BDFE-0186,"2,6-dimethyl-1,4-H2Q",CPL-0186,quinone,MeCN,,avg,,0.083,,,93fe87e489dd
+BDFE-0187,"2,6-dimethyl-1,4-H2Q",CPL-0187,quinone,THF,,avg,,0.014,,,93fe87e489dd
+BDFE-0188,"2,6-dimethyl-1,4-H2Q",CPL-0188,quinone,DMF,,avg,,0.029,,,93fe87e489dd
+BDFE-0189,"2,6-dimethyl-1,4-H2Q",CPL-0189,quinone,IPA,,avg;assumed-dGfH,,-0.048,,,93fe87e489dd
+BDFE-0190,"2,3,5-trimethyl-1,4-H2Q",CPL-0190,quinone,H2O,,avg,,0.030,,,93fe87e489dd
+BDFE-0191,"tetramethyl-1,4-H2Q",CPL-0191,quinone,H2O,,avg,,-0.007,,,93fe87e489dd
+BDFE-0192,"2-methyl-5-isopropyl-1,4-H2Q",CPL-0192,quinone,H2O,,avg,,-0.018,,,93fe87e489dd
+BDFE-0193,"2,5-dimethyl-3-chloro-1,4-H2Q",CPL-0193,quinone,H2O,,avg,,0.021,,,93fe87e489dd
+BDFE-0194,"2-tBu-1,4-H2Q",CPL-0194,quinone,H2O,,avg,,-0.048,,,93fe87e489dd
+BDFE-0195,"2,6-tBu2-1,4-H2Q",CPL-0195,quinone,MeCN,,avg,,0.053,,,93fe87e489dd
+BDFE-0196,"2-phenyl-1,4-H2Q",CPL-0196,quinone,H2O,,avg,,0.020,,,93fe87e489dd
+BDFE-0197,"2-methoxy-1,4-H2Q",CPL-0197,quinone,H2O,,avg,,0.044,,,93fe87e489dd
+BDFE-0198,"2,5-dimethoxy-1,4-H2Q",CPL-0198,quinone,H2O,,avg,,0.005,,,93fe87e489dd
+BDFE-0199,"2,6-dimethoxy-1,4-H2Q",CPL-0199,quinone,H2O,,avg,,0.007,,,93fe87e489dd
+BDFE-0200,"2,6-dimethoxy-1,4-H2Q",CPL-0200,quinone,MeCN,,avg,,0.015,,,93fe87e489dd
+BDFE-0201,"1,2-H2NQ",CPL-0201,quinone,H2O,,avg,,0.037,,,93fe87e489dd
+BDFE-0202,"1,4-H2NQ",CPL-0202,quinone,H2O,,avg,,-0.029,,,93fe87e489dd
+BDFE-0203,"1,4-H2NQ",CPL-0203,quinone,THF,,avg,,0.008,,,93fe87e489dd
+BDFE-0204,"2-methyl-1,4-H2NQ",CPL-0204,quinone,H2O,,avg,,-0.030,,,93fe87e489dd
+BDFE-0205,"2,3-dimethyl-1,4-H2NQ",CPL-0205,quinone,H2O,,avg,,0.040,,,93fe87e489dd
+BDFE-0206,"2,3-dichloro-1,4-H2NQ",CPL-0206,quinone,H2O,,avg,,0.008,,,93fe87e489dd
+BDFE-0207,"2,7-tBu2-1,4-H2NQ",CPL-0207,quinone,THF,,avg,,0.047,,,93fe87e489dd
+BDFE-0208,"9,10-H2AQ",CPL-0208,quinone,H2O,,avg,,-0.048,,,93fe87e489dd
+BDFE-0209,"1,8-dichloro-9,10-H2AQ",CPL-0209,quinone,H2O,,avg,,-0.048,,,93fe87e489dd
+BDFE-0210,"1,8-dichloro-9,10-H2AQ",CPL-0210,quinone,THF,,avg;check-src,,-0.841,,,93fe87e489dd
+BDFE-0211,"9,10-dihydroxyphenanthrene (phenanthrenequinone)",CPL-0211,quinone,H2O,,avg,,-0.038,,,93fe87e489dd
+BDFE-0212,"1,10-phenanthroline-5,6-diol",CPL-0212,quinone,H2O,,avg,,-0.033,,,93fe87e489dd
+BDFE-0213,"1,2-H2Q (H2Q→HQ•)",CPL-0213,quinone,H2O,,,,-0.022,0.045,,93fe87e489dd
+BDFE-0214,"1,4-H2Q (H2Q→HQ•)",CPL-0214,quinone,H2O,,derived-E,,-0.124,-0.004,,93fe87e489dd
+BDFE-0215,"2-methyl-1,4-H2Q (H2Q→HQ•)",CPL-0215,quinone,H2O,,derived-E,,-0.015,-0.014,,93fe87e489dd
+BDFE-0216,"2,3-dimethyl-1,4-H2Q (H2Q→HQ•)",CPL-0216,quinone,H2O,,derived-E,,-0.046,-0.095,,93fe87e489dd
+BDFE-0217,"2,5-dimethyl-1,4-H2Q (H2Q→HQ•)",CPL-0217,quinone,H2O,,derived-E,,-0.201,-0.020,,93fe87e489dd
+BDFE-0218,"2,3,5-trimethyl-1,4-H2Q (H2Q→HQ•)",CPL-0218,quinone,H2O,,derived-E,,-0.030,0.008,,93fe87e489dd
+BDFE-0219,"tetramethyl-1,4-H2Q (H2Q→HQ•)",CPL-0219,quinone,H2O,,derived-E,,-0.044,-0.013,,93fe87e489dd
+BDFE-0220,"2-methyl-1,4-H2NQ (H2Q→HQ•)",CPL-0220,quinone,H2O,,,,-0.044,,,93fe87e489dd
+BDFE-0221,"2,3-dimethyl-1,4-H2NQ (H2Q→HQ•)",CPL-0221,quinone,H2O,,,,0.150,,,93fe87e489dd
+BDFE-0222,"1,2-HQ• (HQ•→Q)",CPL-0222,quinone,H2O,,,,0.040,0.042,,93fe87e489dd
+BDFE-0223,"1,4-HQ• (HQ•→Q)",CPL-0223,quinone,H2O,,hess:E_b,,-0.060,-0.000,,93fe87e489dd
+BDFE-0224,"2-methyl-1,4-HQ• (HQ•→Q)",CPL-0224,quinone,H2O,,,,-0.013,-0.005,,93fe87e489dd
+BDFE-0225,"2,3-dimethyl-1,4-HQ• (HQ•→Q)",CPL-0225,quinone,H2O,,,,-0.088,0.033,,93fe87e489dd
+BDFE-0226,"2,5-dimethyl-1,4-HQ• (HQ•→Q)",CPL-0226,quinone,H2O,,,,0.143,0.057,,93fe87e489dd
+BDFE-0227,"2,3,5-trimethyl-1,4-HQ• (HQ•→Q)",CPL-0227,quinone,H2O,,,,-0.002,0.045,,93fe87e489dd
+BDFE-0228,"tetramethyl-1,4-HQ• (HQ•→Q)",CPL-0228,quinone,H2O,,,,-0.016,0.031,,93fe87e489dd
+BDFE-0229,"2-methyl-1,4-HNQ• (HQ•→Q)",CPL-0229,quinone,H2O,,,,0.084,0.047,,93fe87e489dd
+BDFE-0230,"2,3-dimethyl-1,4-HNQ• (HQ•→Q)",CPL-0230,quinone,H2O,,,,-0.069,0.057,,93fe87e489dd
+BDFE-0231,H2O (HO–H),CPL-0231,smallOH,gas,,,,0.021,,,93fe87e489dd
+BDFE-0232,H2O (HO–H),CPL-0232,smallOH,H2O,,,,-0.046,0.040,,93fe87e489dd
+BDFE-0233,HO• (•O–H),CPL-0233,smallOH,gas,,,,0.041,,,93fe87e489dd
+BDFE-0234,HO• (•O–H),CPL-0234,smallOH,H2O,,,,-0.082,0.079,,93fe87e489dd
+BDFE-0235,OH− (−O–H),CPL-0235,smallOH,gas,,,,0.020,,,93fe87e489dd
+BDFE-0236,OH− (−O–H),CPL-0236,smallOH,H2O,,hess:E_H2,,-0.036,,,93fe87e489dd
+BDFE-0237,MeOH,CPL-0237,smallOH,gas,,,,0.040,,,93fe87e489dd
+BDFE-0238,EtOH,CPL-0238,smallOH,gas,,,,0.032,,,93fe87e489dd
+BDFE-0239,iPrOH,CPL-0239,smallOH,gas,,,,0.023,,,93fe87e489dd
+BDFE-0240,tBuOH,CPL-0240,smallOH,gas,,,,0.023,,,93fe87e489dd
+BDFE-0241,H2O2 (HOO–H),CPL-0241,smallOH,gas,,,,0.031,,,93fe87e489dd
+BDFE-0242,H2O2 (HOO–H),CPL-0242,smallOH,H2O,,hess:E_a,,-0.032,-0.052,,93fe87e489dd
+BDFE-0243,HO2• (•OO–H),CPL-0243,smallOH,gas,,,,0.031,,,93fe87e489dd
+BDFE-0244,HO2• (•OO–H),CPL-0244,smallOH,H2O,,,,-0.014,0.105,,93fe87e489dd
+BDFE-0245,HO2− (−OO–H),CPL-0245,smallOH,H2O,,hess:E_a,,-0.087,0.032,,93fe87e489dd
+BDFE-0246,O2/H2O (O2+2H2→2H2O),CPL-0246,smallOH,gas,,avg,,0.016,,,93fe87e489dd
+BDFE-0247,O2/H2O (O2+2H2→2H2O),CPL-0247,smallOH,MeCN,,avg,,-0.006,,,93fe87e489dd
+BDFE-0248,O2/H2O (O2+2H2→2H2O),CPL-0248,smallOH,DMF,,avg,,-0.044,,,93fe87e489dd
+BDFE-0249,O2/H2O (O2+2H2→2H2O),CPL-0249,smallOH,H2O,,avg,,0.041,,,93fe87e489dd
+BDFE-0250,O2/H2O2 (O2+H2→H2O2),CPL-0250,smallOH,gas,,avg,,-0.019,,,93fe87e489dd
+BDFE-0251,O2/H2O2 (O2+H2→H2O2),CPL-0251,smallOH,H2O,,avg,,0.027,,,93fe87e489dd
+BDFE-0252,H2O2/H2O (H2O2+H2→2H2O),CPL-0252,smallOH,gas,,avg,,0.028,,,93fe87e489dd
+BDFE-0253,H2O2/H2O (H2O2+H2→2H2O),CPL-0253,smallOH,H2O,,avg,,-0.045,,,93fe87e489dd
+BDFE-0254,MeOOH,CPL-0254,smallOH,gas,,,,0.029,,,93fe87e489dd
+BDFE-0255,MeOOH,CPL-0255,smallOH,H2O,,,,-0.043,0.031,,93fe87e489dd
+BDFE-0256,EtOOH,CPL-0256,smallOH,gas,,,,0.031,,,93fe87e489dd
+BDFE-0257,EtOOH,CPL-0257,smallOH,H2O,,,,0.027,0.051,,93fe87e489dd
+BDFE-0258,iPrOOH,CPL-0258,smallOH,H2O,,,,0.082,0.056,,93fe87e489dd
+BDFE-0259,tBuOOH,CPL-0259,smallOH,gas,,,,0.024,,,93fe87e489dd
+BDFE-0260,tBuOOH,CPL-0260,smallOH,H2O,,,,0.098,0.109,,93fe87e489dd
+BDFE-0261,trans-HC(O)OOH,CPL-0261,smallOH,gas,,,,0.023,,,93fe87e489dd
+BDFE-0262,cis-HC(O)OOH,CPL-0262,smallOH,gas,,,,0.021,,,93fe87e489dd
+BDFE-0263,CH3C(O)OOH,CPL-0263,smallOH,gas,,,,0.027,,,93fe87e489dd
+BDFE-0264,CH3C(O)OOH,CPL-0264,smallOH,H2O,,approx,,0.088,0.022,,93fe87e489dd
+BDFE-0265,MeOH/MeOOH (ROOH+H2→ROH+H2O),CPL-0265,smallOH,H2O,,avg,,0.002,,,93fe87e489dd
+BDFE-0266,tBuOH/tBuOOH (ROOH+H2→ROH+H2O),CPL-0266,smallOH,H2O,,avg,,0.041,,,93fe87e489dd
+BDFE-0267,HC(O)OH/HC(O)OOH (ROOH+H2→ROH+H2O),CPL-0267,smallOH,H2O,,avg,,-0.031,,,93fe87e489dd
+BDFE-0268,CH3C(O)OH/CH3C(O)OOH (ROOH+H2→ROH+H2O),CPL-0268,smallOH,H2O,,avg,,0.008,,,93fe87e489dd
+BDFE-0269,HNN-H,CPL-0269,nitrogen,gas,,,,-0.090,,,93fe87e489dd
+BDFE-0270,HN•NH-H,CPL-0270,nitrogen,gas,,hess:E_H2,,0.076,,,93fe87e489dd
+BDFE-0271,H2NNH-H,CPL-0271,nitrogen,gas,,,,-0.028,,,93fe87e489dd
+BDFE-0272,H2NNH-H,CPL-0272,nitrogen,H2O,,,,0.127,0.075,,93fe87e489dd
+BDFE-0273,N2/NH3 (N2+3H2→2NH3),CPL-0273,nitrogen,gas,,avg,,0.004,,,93fe87e489dd
+BDFE-0274,N2/NH3 (N2+3H2→2NH3),CPL-0274,nitrogen,H2O,,avg,,0.022,,,93fe87e489dd
+BDFE-0275,N2/NH3 (N2+3H2→2NH3),CPL-0275,nitrogen,MeCN,,avg,,-0.047,,,93fe87e489dd
+BDFE-0276,N2/N2H4 (N2+2H2→N2H4),CPL-0276,nitrogen,gas,,avg,,-0.034,,,93fe87e489dd
+BDFE-0277,N2/N2H2 (N2+H2→N2H2),CPL-0277,nitrogen,gas,,avg;hess:E_H2,,0.016,,,93fe87e489dd
+BDFE-0278,NH3,CPL-0278,amine,gas,,,,-0.033,,,93fe87e489dd
+BDFE-0279,•NH2,CPL-0279,amine,gas,,,,-0.017,,,93fe87e489dd
+BDFE-0280,NH,CPL-0280,amine,gas,,,,-0.017,,,93fe87e489dd
+BDFE-0281,MeNH2,CPL-0281,amine,gas,,,,0.019,,,93fe87e489dd
+BDFE-0282,PrNH2,CPL-0282,amine,MeCN,,approx;hess:pKa_a;mixed-CH-NH,,0.028,0.545,,93fe87e489dd
+BDFE-0283,PrNH2,CPL-0283,amine,C6H6,,mixed-CH-NH,,-0.024,,,93fe87e489dd
+BDFE-0284,pentylNH2,CPL-0284,amine,MeCN,,approx;hess:pKa_a;mixed-CH-NH,,0.027,0.013,,93fe87e489dd
+BDFE-0285,pentylNH2,CPL-0285,amine,C6H6,,mixed-CH-NH,,-0.031,,,93fe87e489dd
+BDFE-0286,Me2NH,CPL-0286,amine,gas,,,,0.031,,,93fe87e489dd
+BDFE-0287,Me2NH,CPL-0287,amine,H2O,,approx,,-0.090,0.002,,93fe87e489dd
+BDFE-0288,Et2NH,CPL-0288,amine,H2O,,approx,,-0.090,0.023,,93fe87e489dd
+BDFE-0289,Et2NH,CPL-0289,amine,MeCN,,mixed-CH-NH,,0.032,,,93fe87e489dd
+BDFE-0290,Et2NH,CPL-0290,amine,C6H6,,mixed-CH-NH,,-0.036,,,93fe87e489dd
+BDFE-0291,pyrrolidine,CPL-0291,amine,H2O,,approx,,0.065,-0.009,,93fe87e489dd
+BDFE-0292,piperidine,CPL-0292,amine,H2O,,approx,,-0.059,0.046,,93fe87e489dd
+BDFE-0293,nBu2NH,CPL-0293,amine,C6H6,,mixed-CH-NH,,-0.032,,,93fe87e489dd
+BDFE-0294,nBu2NH,CPL-0294,amine,MeCN,,mixed-CH-NH,,0.031,,,93fe87e489dd
+BDFE-0295,tBuNH2,CPL-0295,amine,C6H6,,,,-0.035,,,93fe87e489dd
+BDFE-0296,tBuNH2,CPL-0296,amine,MeCN,,hess:pKa_a,,0.036,0.055,,93fe87e489dd
+BDFE-0297,PhNH2,CPL-0297,arylamine,gas,,,,0.020,,,93fe87e489dd
+BDFE-0298,PhNH2,CPL-0298,arylamine,H2O,,,,0.106,0.080,,93fe87e489dd
+BDFE-0299,PhNH2,CPL-0299,arylamine,C6H6,,,,-0.025,,,93fe87e489dd
+BDFE-0300,4-MePhNH2,CPL-0300,arylamine,gas,,,,0.029,,,93fe87e489dd
+BDFE-0301,4-MePhNH2,CPL-0301,arylamine,H2O,,,,0.045,0.160,,93fe87e489dd
+BDFE-0302,4-MePhNH2,CPL-0302,arylamine,C6H6,,,,-0.039,,,93fe87e489dd
+BDFE-0303,4-MeOPhNH2,CPL-0303,arylamine,H2O,,,,0.062,0.069,,93fe87e489dd
+BDFE-0304,4-CNPhNH2,CPL-0304,arylamine,H2O,,,,0.074,0.019,,93fe87e489dd
+BDFE-0305,4-CF3PhNH2,CPL-0305,arylamine,gas,,,,0.020,,,93fe87e489dd
+BDFE-0306,4-CF3PhNH2,CPL-0306,arylamine,H2O,,,,-0.126,-0.007,,93fe87e489dd
+BDFE-0307,Ph2NH,CPL-0307,arylamine,gas,,,,0.029,,,93fe87e489dd
+BDFE-0308,Ph2NH,CPL-0308,arylamine,H2O,,approx,,-0.528,0.066,,93fe87e489dd
+BDFE-0309,Ph2NH,CPL-0309,arylamine,C6H6,,,,-0.020,,,93fe87e489dd
+BDFE-0310,(4-MePh)2NH,CPL-0310,arylamine,gas,,,,0.038,,,93fe87e489dd
+BDFE-0311,DPPH-H,CPL-0311,arylamine,MeCN,,,,0.046,,,93fe87e489dd
+BDFE-0312,DPPH-H,CPL-0312,arylamine,THF,,,,-0.054,,,93fe87e489dd
+BDFE-0313,DPPH-H,CPL-0313,arylamine,C6H6,,,,-0.024,,,93fe87e489dd
+BDFE-0314,"2,4-(NO2)2C6H3NHNPh2",CPL-0314,arylamine,DMSO,,dmso-unc,,0.005,0.043,,93fe87e489dd
+BDFE-0315,PhNHNPh2,CPL-0315,arylamine,DMSO,,dmso-unc,,-0.025,0.007,,93fe87e489dd
+BDFE-0316,PhNHNHPh,CPL-0316,arylamine,DMSO,,dmso-unc,,-0.031,0.000,,93fe87e489dd
+BDFE-0317,PhNHNHPh,CPL-0317,arylamine,MeCN,,avg,,0.024,,,93fe87e489dd
+BDFE-0318,"DHP (5,10-dihydrophenazine)",CPL-0318,arylamine,MeCN,,avg,,0.010,,,93fe87e489dd
+BDFE-0319,indole,CPL-0319,indole,H2O,,hess:E_a,,-0.018,0.007,,93fe87e489dd
+BDFE-0320,tryptophan,CPL-0320,indole,H2O,,hess:E_a,,0.076,0.032,,93fe87e489dd
+BDFE-0321,2-CH3-indole,CPL-0321,indole,H2O,,,,0.106,0.075,,93fe87e489dd
+BDFE-0322,3-CH3-indole,CPL-0322,indole,H2O,,hess:E_a,,0.092,0.005,,93fe87e489dd
+BDFE-0323,"2,3-(CH3)2-indole",CPL-0323,indole,H2O,,,,-0.053,0.003,,93fe87e489dd
+BDFE-0324,HS-H,CPL-0324,thiol,gas,,,,-0.051,,,93fe87e489dd
+BDFE-0325,HS-H,CPL-0325,thiol,H2O,,,,-0.126,0.009,,93fe87e489dd
+BDFE-0326,MeS-H,CPL-0326,thiol,gas,,,,0.060,,,93fe87e489dd
+BDFE-0327,MeS-H,CPL-0327,thiol,H2O,,,,0.000,0.045,,93fe87e489dd
+BDFE-0328,EtS-H,CPL-0328,thiol,gas,,,,-0.071,,,93fe87e489dd
+BDFE-0329,EtS-H,CPL-0329,thiol,H2O,,avg-pKa;lowprec,,-0.369,0.086,,93fe87e489dd
+BDFE-0330,tBuS-H,CPL-0330,thiol,gas,,,,-0.063,,,93fe87e489dd
+BDFE-0331,HOCH2CH2S-H,CPL-0331,thiol,H2O,,,,-0.091,0.147,,93fe87e489dd
+BDFE-0332,cysteine,CPL-0332,thiol,H2O,,avg-pKa,,0.025,0.090,,93fe87e489dd
+BDFE-0333,glutathione,CPL-0333,thiol,H2O,,,,-0.038,0.020,,93fe87e489dd
+BDFE-0334,PhS-H,CPL-0334,thiol,gas,,,,0.040,,,93fe87e489dd
+BDFE-0335,PhS-H,CPL-0335,thiol,H2O,,,,0.005,0.053,,93fe87e489dd
+BDFE-0336,PhS-H,CPL-0336,thiol,C6H6,,,,0.033,,,93fe87e489dd
+BDFE-0337,4-MePhS-H,CPL-0337,thiol,H2O,,,,-0.018,0.074,,93fe87e489dd
+BDFE-0338,4-MeOPhS-H,CPL-0338,thiol,H2O,,,,-0.032,0.060,,93fe87e489dd
+BDFE-0339,4-BrPhS-H,CPL-0339,thiol,H2O,,,,0.074,-0.007,,93fe87e489dd
+BDFE-0340,CH4,CPL-0340,CH,gas,,,,0.032,,,93fe87e489dd
+BDFE-0341,CH3CH2-H (ethane),CPL-0341,CH,gas,,,,0.034,,,93fe87e489dd
+BDFE-0342,•CH2CH2-H (ethyl radical),CPL-0342,CH,gas,,,,0.020,,,93fe87e489dd
+BDFE-0343,(CH3)2CH-H (propane),CPL-0343,CH,gas,,,,0.021,,,93fe87e489dd
+BDFE-0344,(CH3)3C-H (isobutane),CPL-0344,CH,gas,,,,0.022,,,93fe87e489dd
+BDFE-0345,CH2=CH-H (ethylene),CPL-0345,CH,gas,,,,0.027,,,93fe87e489dd
+BDFE-0346,HC≡C-H (acetylene),CPL-0346,CH,gas,,,,0.026,,,93fe87e489dd
+BDFE-0347,"1,3-cyclopentadiene",CPL-0347,CH,gas,,,,0.041,,,93fe87e489dd
+BDFE-0348,"1,3-cyclopentadiene",CPL-0348,CH,DMSO,,approx;dmso-unc,,-0.009,0.019,,93fe87e489dd
+BDFE-0349,"1,4-cyclohexadiene",CPL-0349,CH,gas,,,,-0.001,,,93fe87e489dd
+BDFE-0350,cyclohexadienyl (•C6H7),CPL-0350,CH,gas,,,,-0.008,,,93fe87e489dd
+BDFE-0351,C6H5-H (benzene),CPL-0351,CH,gas,,,,0.041,,,93fe87e489dd
+BDFE-0352,C6H5CH2-H (toluene),CPL-0352,CH,gas,,,,0.035,,,93fe87e489dd
+BDFE-0353,(CH3)6C6 (hexamethylbenzene),CPL-0353,CH,MeCN,,,,0.056,-0.063,,93fe87e489dd
+BDFE-0354,p-(CH3)2C6H4 (p-xylene),CPL-0354,CH,MeCN,,hess:pKa_a;lowprec,,-0.328,0.146,,93fe87e489dd
+BDFE-0355,(CH3)5C6H (pentamethylbenzene),CPL-0355,CH,MeCN,,,,0.100,-0.019,,93fe87e489dd
+BDFE-0356,"1,2,4,5-Me4C6H2 (durene)",CPL-0356,CH,MeCN,,,,0.115,-0.018,,93fe87e489dd
+BDFE-0357,indene,CPL-0357,CH,DMSO,,approx;dmso-unc,,-0.062,-0.016,,93fe87e489dd
+BDFE-0358,fluorene,CPL-0358,CH,DMSO,,approx;dmso-unc,,-0.024,0.011,,93fe87e489dd
+BDFE-0359,"DHA (9,10-dihydroanthracene)",CPL-0359,CH,DMSO,,approx;dmso-unc,,-0.030,0.017,,93fe87e489dd
+BDFE-0360,xanthene,CPL-0360,CH,DMSO,,approx;dmso-unc,,-0.005,0.044,,93fe87e489dd
+BDFE-0361,Ph3CH,CPL-0361,CH,DMSO,,approx;dmso-unc,,-0.086,-0.045,,93fe87e489dd
+BDFE-0362,Ph2CH2,CPL-0362,CH,DMSO,,approx;dmso-unc,,-0.018,0.002,,93fe87e489dd
+BDFE-0363,"AcrH2 (10-Me-9,10-dihydroacridine)",CPL-0363,nicotinamide,MeCN,,,,-0.017,-0.050,,93fe87e489dd
+BDFE-0364,AcrH2•+,CPL-0364,nicotinamide,MeCN,,derived,,-0.056,,,93fe87e489dd
+BDFE-0365,"BNAH (1-benzyl-1,4-dihydronicotinamide)",CPL-0365,nicotinamide,MeCN,,,,-0.027,0.001,,93fe87e489dd
+BDFE-0366,BNAH•+,CPL-0366,nicotinamide,MeCN,,derived,,0.089,,,93fe87e489dd
+BDFE-0367,NADH,CPL-0367,nicotinamide,H2O,,,,-0.066,-0.019,,93fe87e489dd
+BDFE-0368,NADH•+,CPL-0368,nicotinamide,H2O,,derived,,-0.058,,,93fe87e489dd
+BDFE-0369,CO2/CO (CO2+H2→CO+H2O),CPL-0369,co2,gas,,avg,,-0.023,,,93fe87e489dd
+BDFE-0370,CO2/CO (CO2+H2→CO+H2O),CPL-0370,co2,H2O,,avg,,0.002,,,93fe87e489dd
+BDFE-0371,CO2/CO (CO2+H2→CO+H2O),CPL-0371,co2,DMF,,avg,,0.032,,,93fe87e489dd
+BDFE-0372,CO2/CO (CO2+H2→CO+H2O),CPL-0372,co2,MeCN,,avg,,0.078,,,93fe87e489dd
+BDFE-0373,CO2/CH4 (CO2+4H2→CH4+2H2O),CPL-0373,co2,gas,,avg,,0.034,,,93fe87e489dd
+BDFE-0374,CO2/CH4 (CO2+4H2→CH4+2H2O),CPL-0374,co2,H2O,,avg,,-0.003,,,93fe87e489dd
+BDFE-0375,CO2/CH4 (CO2+4H2→CH4+2H2O),CPL-0375,co2,MeCN,,avg;check-src,,-0.395,,,93fe87e489dd
+BDFE-0376,CO2/CH4 (CO2+4H2→CH4+2H2O),CPL-0376,co2,DMF,,avg;check-src,,0.397,,,93fe87e489dd
+BDFE-0377,[HPVW11O40]4- (1st H on PVIVW11),CPL-0377,pom,MeCN,sq,derived;sim-pKa,,0.015,0.006,,93fe87e489dd
+BDFE-0378,[H2PVW11O40]3- (2nd H on PVIVW11),CPL-0378,pom,MeCN,sq,derived,,-0.040,-0.041,,93fe87e489dd
+BDFE-0379,[HPVMo11O40]4- (1st H on PVIVMo11),CPL-0379,pom,MeCN,sq,derived,,0.008,0.007,,93fe87e489dd
+BDFE-0380,[H2PVMo11O40]3- (2nd H on PVIVMo11),CPL-0380,pom,MeCN,sq,derived,,-0.047,-0.044,,93fe87e489dd
+BDFE-0381,[H3PVMo11O40]2- (3rd H on PVIVMo11),CPL-0381,pom,MeCN,sq,derived,,0.042,0.032,,93fe87e489dd
+BDFE-0382,[HAsVW11O40]4- (1st H on AsVIVW11),CPL-0382,pom,MeCN,sq,derived,,-0.040,-0.034,,93fe87e489dd
+BDFE-0383,[H2AsVW11O40]3- (2nd H on AsVIVW11),CPL-0383,pom,MeCN,sq,derived,,0.036,0.036,,93fe87e489dd
+BDFE-0384,[HAsVMo11O40]4- (1st H on AsVIVMo11),CPL-0384,pom,MeCN,sq,derived,,0.007,-0.002,,93fe87e489dd
+BDFE-0385,[H2AsVMo11O40]3- (2nd H on AsVIVMo11),CPL-0385,pom,MeCN,sq,derived,,0.021,0.017,,93fe87e489dd
+BDFE-0386,[H3AsVMo11O40]2- (3rd H on AsVIVMo11),CPL-0386,pom,MeCN,sq,derived,,-0.043,-0.045,,93fe87e489dd
+BDFE-0387,[V6O7(OH)6(TRIOLNO2)2]2-,CPL-0390,pom,MeCN,OCP,avg,,-0.000,,,93fe87e489dd
+BDFE-0388,"(calix)V6O5(OH2)(OMe)8 (aquo, avg 2 O-H)",CPL-0388,pom,THF,equil,avg,,0.000,,,93fe87e489dd
+BDFE-0389,[V6O11(OH)2(TRIOLNO2)2]2-,CPL-0163,pom,MeCN,OCP,avg,auto,-0.033,,,93fe87e489dd
+BDFE-0390,[V6O9(OH)4(TRIOLNO2)2]2-,CPL-0389,pom,MeCN,OCP,avg,,-0.015,,,93fe87e489dd
+BDFE-0391,[V6O7(OH)6(TRIOLNO2)2]2-,CPL-0390,pom,MeCN,OCP,avg,auto,0.024,,,93fe87e489dd
+BDFE-0392,[V6O11(OH)2(TRIOLMe)2]2-,CPL-0391,pom,MeCN,OCP,avg,,-0.041,,,93fe87e489dd
+BDFE-0393,[V6O9(OH)4(TRIOLMe)2]2-,CPL-0392,pom,MeCN,OCP,avg,,0.038,,,93fe87e489dd
+BDFE-0394,[V6O7(OH)6(TRIOLMe)2]2-,CPL-0393,pom,MeCN,OCP,avg,,-0.023,,,93fe87e489dd
+BDFE-0395,[V6O9(OMe)2(OH)2(TRIOLNO2)2]2-,CPL-0394,pom,MeCN,OCP,avg,,-0.049,,,93fe87e489dd
+BDFE-0396,[V6O7(OMe)2(OH)4(TRIOLNO2)2]2-,CPL-0395,pom,MeCN,OCP,avg,,0.031,,,93fe87e489dd
+BDFE-0397,[VW5O18(OH)]3-,CPL-0396,pom,MeCN,sq,recomputed;check-src,,-0.047,-0.042,,93fe87e489dd
+BDFE-0398,[VW5O18(OH)]3-,CPL-0396,pom,MeCN,equil,,auto,-0.000,,,93fe87e489dd
+BDFE-0399,"NbV5O6(OH2)(OCH3)12 (aquo, avg 2 O-H)",CPL-0397,pom,THF,equil,avg,,0.008,,,93fe87e489dd
+BDFE-0400,"[V6O6(OH2)(OMe)12]1- (aquo, avg 2 O-H)",CPL-0398,pom,THF,equil,avg,,0.010,,,93fe87e489dd
+BDFE-0401,"[V6O6(OH2)(OEt)12]1- (aquo, avg 2 O-H)",CPL-0399,pom,THF,equil,avg,,0.002,,,93fe87e489dd
+BDFE-0402,"[V6O6(OH2)(OPr)12]1- (aquo, avg 2 O-H)",CPL-0400,pom,THF,equil,avg,,0.002,,,93fe87e489dd
+BDFE-0403,"[V6O6(OH2)(OBu)12]1- (aquo, avg 2 O-H)",CPL-0401,pom,THF,equil,avg,,0.002,,,93fe87e489dd
+BDFE-0404,"[V6O5Cl(OH2)(OEt)12]1- (aquo, avg 2 O-H)",CPL-0402,pom,THF,equil,avg,,0.002,,,93fe87e489dd
+BDFE-0405,"[V6O5(SCN)(OH2)(OEt)12]1- (aquo, avg 2 O-H)",CPL-0403,pom,THF,equil,avg,,0.002,,,93fe87e489dd
+BDFE-0406,[HPVW11O40]4- (1st H on PVIVW11),CPL-0377,pom,MeCN,sq,,1,-0.096,-0.087,,93fe87e489dd
+BDFE-0407,[HPVW11O40]4- (1st H on PVIVW11),CPL-0377,pom,MeCN,OCP,,,0.017,,,93fe87e489dd
+BDFE-0408,[PVW11O40] W-sites 1st 2e-/2H+ event (avg 2 O-H),CPL-0404,pom,MeCN,sq,avg,,0.036,0.042,,93fe87e489dd
+BDFE-0409,[PVW11O40] W-sites 2nd 2e-/2H+ event (avg 2 O-H),CPL-0405,pom,MeCN,sq,avg,,-0.018,-0.011,,93fe87e489dd
+BDFE-0410,TiV5O5(OH2)(OCH3)12 (aquo avg 2 O-H),CPL-0406,pom,THF,equil,avg,,-0.006,,,93fe87e489dd
+BDFE-0411,[V6O6(OH2)(OCH3)12]0 (aquo avg 2 O-H),CPL-0407,pom,THF,equil,avg,,0.008,,,93fe87e489dd
+BDFE-0412,[V6O5(OH2)(OCH3)12]0 (O-deficient aquo avg 2 O-H),CPL-0408,pom,THF,equil,avg,,-0.006,,,93fe87e489dd
+BDFE-0413,[HPV2W10O40]5- (1st H on PVIVVVW10),CPL-0409,pom,H2O,sq,recomputed;check-src,,-0.021,-0.034,,93fe87e489dd
+BDFE-0414,[PW12O38(OH)2]3- (avg 2 O-H; 1st 2e-/2H+ event),CPL-0410,pom,MeCN,sq,avg;derived,,0.003,-0.033,,93fe87e489dd
+BDFE-0415,[PW12O36(OH)4]3- (avg 2 O-H; 2nd 2e-/2H+ event),CPL-0411,pom,MeCN,sq,avg;derived,,-0.002,-0.022,,93fe87e489dd
+BDFE-0416,[PMo12O38(OH)2]3- (avg 2 O-H),CPL-0412,pom,MeCN,sq,avg;derived,,-0.003,-0.043,,93fe87e489dd
+BDFE-0417,[SiVW11O39(OH)]5- (1st H on SiVIVW11),CPL-0413,pom,MeCN,sq,,,0.035,0.028,,93fe87e489dd
+BDFE-0418,[SVW11O39(OH)]3- (1st H on SVIVW11),CPL-0414,pom,MeCN,sq,,,-0.003,-0.009,,93fe87e489dd
+BDFE-0419,[VW12O40]3- (VinW12),CPL-0415,pom,MeCN,sq,ox-base,,0.010,,,93fe87e489dd
+BDFE-0420,[VW12O40]3- (VinW12),CPL-0416,pom,MeCN,sq,ox-base;approx,,0.001,,,93fe87e489dd
+BDFE-0421,[VW12O40]4- (1e-red VinW12),CPL-0417,pom,MeCN,sq,red-acid;approx,,0.010,,,93fe87e489dd
+BDFE-0422,"{TiOH} Keggin POT, shell O-H (1st 1e-/1H+ event)",CPL-0418,pom,MeCN,sq,recomputed,,-0.000,-0.013,,93fe87e489dd
+BDFE-0423,"{TiOH} Keggin POT, shell O-H (2nd 1e-/1H+ event)",CPL-0419,pom,MeCN,sq,recomputed,,0.012,0.012,,93fe87e489dd
+BDFE-0424,"{TiOH} Keggin POT, shell O-H (3rd 1e-/1H+ event)",CPL-0420,pom,MeCN,sq,,,0.003,0.032,,93fe87e489dd
+BDFE-0425,"{TiOBn} Keggin POT, shell O-H (1st 1e-/1H+ event)",CPL-0421,pom,MeCN,sq,,,-0.001,0.008,,93fe87e489dd
+BDFE-0426,"{TiOBn} Keggin POT, shell O-H (2nd 1e-/1H+ event)",CPL-0422,pom,MeCN,sq,,,0.007,-0.015,,93fe87e489dd

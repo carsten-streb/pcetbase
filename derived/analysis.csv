@@ -425,3 +425,50 @@ BDFE-0423,"{TiOH} Keggin POT, shell O-H (2nd 1e-/1H+ event)",CPL-0419,pom,MeCN,s
 BDFE-0424,"{TiOH} Keggin POT, shell O-H (3rd 1e-/1H+ event)",CPL-0420,pom,MeCN,sq,,,0.003,0.032,,c246e516d2eb
 BDFE-0425,"{TiOBn} Keggin POT, shell O-H (1st 1e-/1H+ event)",CPL-0421,pom,MeCN,sq,,,-0.001,0.008,,c246e516d2eb
 BDFE-0426,"{TiOBn} Keggin POT, shell O-H (2nd 1e-/1H+ event)",CPL-0422,pom,MeCN,sq,,,0.007,-0.015,,c246e516d2eb
+BDFE-0427,[Pt(EtXantphos)2H]+,CPL-0423,tmh,MeCN,sq,recomputed,,-0.005,0.003,-0.046,c246e516d2eb
+BDFE-0428,"[Co(CpC5F4N)(PR2NR'2)H]+ ; R = tBu, R' = Ph",CPL-0424,tmh,MeCN,sq,derived,,-0.008,-0.021,-0.011,c246e516d2eb
+BDFE-0429,[Pd(EtXantphos)2H]+,CPL-0425,tmh,MeCN,sq,recomputed,,0.004,-0.020,-0.016,c246e516d2eb
+BDFE-0430,"[Ni(dppp)(PR2NR'2H)]+ ; R = Ph, R' = Bn",CPL-0426,tmh,MeCN,sq,derived,,-0.009,0.046,0.047,c246e516d2eb
+BDFE-0431,[Ni(dppv)2H]+,CPL-0427,tmh,MeCN,sq,recomputed,,-0.008,0.048,-0.026,c246e516d2eb
+BDFE-0432,[Ni(PNP)2H]+,CPL-0428,tmh,MeCN,sq,derived,,-0.010,0.031,0.037,c246e516d2eb
+BDFE-0433,[Pd(depPE)2H]+,CPL-0429,tmh,MeCN,sq,recomputed,,-0.011,-0.033,0.021,c246e516d2eb
+BDFE-0434,[Ni(depp)2H]+,CPL-0430,tmh,MeCN,hyd,recomputed;hess:pKa_b,,-0.008,0.112,0.001,c246e516d2eb
+BDFE-0435,"[Ni(PR2NR'2)2H]+ ; R = Cy, R' = Ph",CPL-0431,tmh,MeCN,hyd,derived;hess:pKa_b,,0.008,0.097,-0.004,c246e516d2eb
+BDFE-0436,[Ni(dppe)2H]+,CPL-0432,tmh,MeCN,sq,recomputed;approx,,0.000,0.022,-0.007,c246e516d2eb
+BDFE-0437,[Ir(Cp*)(bpy)H]+,CPL-0433,tmh,MeCN,sq,derived;approx,,-0.006,0.047,0.033,c246e516d2eb
+BDFE-0438,[Pd(depx)2H]+,CPL-0434,tmh,MeCN,sq,recomputed,,-0.011,0.016,0.019,c246e516d2eb
+BDFE-0439,Fe(Cp)(CO)2(H),CPL-0435,tmh,MeCN,sq,derived,,-0.006,0.041,-0.018,c246e516d2eb
+BDFE-0440,"[Ni(PR2NR'2)2H]+ ; R = Cy, R' = tBu",CPL-0436,tmh,MeCN,sq,derived,,0.007,-0.003,-0.029,c246e516d2eb
+BDFE-0441,"[Ni(PR2NR'2)2H]+ ; R = Cy, R' = Bn",CPL-0437,tmh,MeCN,hyd,derived;hess:pKa_b,,-0.000,0.183,0.007,c246e516d2eb
+BDFE-0442,[Ni(dmpp)2H]+,CPL-0438,tmh,MeCN,hyd,recomputed;hess:pKa_b,,-0.009,0.172,0.006,c246e516d2eb
+BDFE-0443,[Co(dppe)2H]+,CPL-0439,tmh,MeCN,sq,recomputed;approx;check-src,,0.009,-0.037,0.050,c246e516d2eb
+BDFE-0444,"[Ni(PR2NR'2)( PR''2NR'2)H]+ ; R = R' = Ph, R'' = Cy",CPL-0440,tmh,MeCN,hyd,derived;hess:pKa_b,,0.008,0.129,0.004,c246e516d2eb
+BDFE-0445,[Ni(dedpe)2H]+,CPL-0441,tmh,MeCN,sq,recomputed,,-0.003,0.017,-0.036,c246e516d2eb
+BDFE-0446,"[Ni(PR2NR'2)2H]+ ; R = Bn, R' = Ph",CPL-0442,tmh,MeCN,hyd,derived;hess:pKa_b,,-0.007,0.152,0.003,c246e516d2eb
+BDFE-0447,"[Ni(PR2NR'2)2H]+ ; R = Ph, R' = Ph",CPL-0443,tmh,MeCN,hyd,derived;hess:pKa_b,,-0.007,0.074,0.005,c246e516d2eb
+BDFE-0448,"[Ni(PR2NR'2)2H]+ ; R = Cy, R' = CH2-C6H4-OMe",CPL-0444,tmh,MeCN,sq,derived,,-0.007,0.009,-0.028,c246e516d2eb
+BDFE-0449,"[Ni(PR2NR'2)2H]+ ; R = Ph, R' = C6H4-OMe",CPL-0445,tmh,MeCN,hyd,derived;hess:pKa_b,,0.000,0.064,-0.003,c246e516d2eb
+BDFE-0450,"[Ni(PR2NR'2)2H]+ ; R = 2-phenylethyl, R' = Ph",CPL-0446,tmh,MeCN,hyd,derived;hess:pKa_b,,0.008,0.061,-0.006,c246e516d2eb
+BDFE-0451,"[Ni(PR2NR'2)2H]+ ; R = 2,4,4-trimethylpentyl, R' = Ph",CPL-0447,tmh,MeCN,hyd,derived;hess:pKa_b,,0.001,0.139,0.003,c246e516d2eb
+BDFE-0452,"[Ni(PR2NR'2)2H]+ ; R = Ph, R' = Bn",CPL-0448,tmh,MeCN,hyd,derived;hess:pKa_b,,0.008,0.097,0.003,c246e516d2eb
+BDFE-0453,"[Ni(PR2NR'2)2H]+ ; R = nBu, R' = Ph",CPL-0449,tmh,MeCN,hyd,derived;hess:pKa_b,,-0.007,0.164,-0.002,c246e516d2eb
+BDFE-0454,W(Cp)(CO)2(IMes)H,CPL-0450,tmh,MeCN,sq,derived,,-0.005,-0.046,0.029,c246e516d2eb
+BDFE-0455,[Ni(depe)2H]+,CPL-0451,tmh,MeCN,hyd,recomputed;hess:pKa_b,,-0.002,0.185,-0.007,c246e516d2eb
+BDFE-0456,[Pd(depp)2H]+,CPL-0452,tmh,MeCN,sq,recomputed;approx,,0.005,0.040,-0.031,c246e516d2eb
+BDFE-0457,[Pt(PNP)2H]+,CPL-0453,tmh,MeCN,hyd,derived;hess:pKa_b;approx,,0.010,0.131,0.005,c246e516d2eb
+BDFE-0458,[Ru(C6Me6)(bpy)H]+,CPL-0454,tmh,MeCN,sq,derived;approx,,-0.002,0.006,0.037,c246e516d2eb
+BDFE-0459,"[Ni(PR2NR'2)2H]+ ; R = Me, R' = Ph",CPL-0455,tmh,MeCN,hyd,derived;hess:pKa_b,,0.009,0.169,-0.005,c246e516d2eb
+BDFE-0460,[Pt(depp)2H]+,CPL-0456,tmh,MeCN,hyd,recomputed;hess:pKa_b;approx,,0.010,0.156,0.001,c246e516d2eb
+BDFE-0461,[Pt(dppe)2H]+,CPL-0457,tmh,MeCN,sq,recomputed;approx,,-0.010,0.043,0.015,c246e516d2eb
+BDFE-0462,[Pd(PNP)2H]+,CPL-0458,tmh,MeCN,hyd,derived;hess:pKa_b;approx,,0.008,0.128,0.007,c246e516d2eb
+BDFE-0463,[Pt(dmpp)2H]+,CPL-0459,tmh,MeCN,hyd,recomputed;hess:pKa_b;approx,,0.010,0.172,0.007,c246e516d2eb
+BDFE-0464,[Ni(dmpe)2H]+,CPL-0460,tmh,MeCN,hyd,recomputed;hess:pKa_b;approx,,0.006,0.198,-0.007,c246e516d2eb
+BDFE-0465,[Co(P4N2)H]+,CPL-0461,tmh,MeCN,sq,derived,,-0.006,0.050,0.045,c246e516d2eb
+BDFE-0466,[Pt(depe)2H]+,CPL-0462,tmh,MeCN,sq,recomputed;approx,,0.005,0.040,0.013,c246e516d2eb
+BDFE-0467,[Pd(depe)2H]+,CPL-0463,tmh,MeCN,sq,recomputed;approx,,-0.006,-0.045,-0.013,c246e516d2eb
+BDFE-0468,[Pt(dmpe)2H]+,CPL-0464,tmh,MeCN,hyd,recomputed;hess:pKa_b;approx,,0.006,0.178,0.001,c246e516d2eb
+BDFE-0469,Rh(dppb)2H,CPL-0465,tmh,MeCN,hyd,derived;hess:pKa_b;approx,,-0.009,0.191,0.000,c246e516d2eb
+BDFE-0470,"Rh(PR2NR'2)2H ; R = Cy, R' = Ph",CPL-0466,tmh,MeCN,hyd,derived;hess:pKa_b;approx,,0.002,0.287,-0.001,c246e516d2eb
+BDFE-0471,"Rh(PR2NR'2)2H ; R = Ph, R' = C6H4-OMe",CPL-0467,tmh,MeCN,hyd,derived;hess:pKa_b;approx,,-0.011,0.290,-0.005,c246e516d2eb
+BDFE-0472,"Rh(PR2NR'2)2H ; R = Cy, R' = C6H4-OMe",CPL-0468,tmh,MeCN,hyd,derived;hess:pKa_b;approx,,0.002,0.272,-0.004,c246e516d2eb
+BDFE-0473,"Rh(PR2NR'2)2H ; R = Ph, R' = Bn",CPL-0469,tmh,MeCN,hyd,derived;hess:pKa_b;approx,,-0.004,0.307,0.004,c246e516d2eb

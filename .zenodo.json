@@ -8,7 +8,7 @@
       "orcid": "0000-0002-5846-1905"
     }
   ],
-  "description": "Open community database of solution-phase proton-coupled electron transfer (PCET) thermochemistry: bond dissociation free energies (BDFE), standard potentials (E°) and pKa values on self-consistent scales, with per-entry provenance, reference-electrode conversions and a recomputable recommendation policy. Interactive explorer: https://carsten-streb.github.io/pcetbase/. Core data extracted from Agarwal et al., Chem. Rev. 2022, 122, 1-49 (doi:10.1021/acs.chemrev.1c00521), extended with primary-literature polyoxometalate entries. Please also cite the primary source of each value you use.",
+  "description": "Open community database of solution-phase proton-coupled electron transfer (PCET) thermochemistry: bond dissociation free energies (BDFE), standard potentials (E°) and pKa values on self-consistent scales, with per-entry provenance, reference-electrode conversions and a recomputable recommendation policy. Interactive explorer: https://carsten-streb.github.io/pcetbase/. Core data extracted from Agarwal et al., Chem. Rev. 2022, 122, 1-49 (doi:10.1021/acs.chemrev.1c00521), extended with primary-literature polyoxometalate entries and transition-metal hydride entries (Wiedner 2016 and Morris 2016 review tables, primary-verified), including hydricities ΔG°(H⁻) and the BDFE↔hydricity closure. Please also cite the primary source of each value you use.",
   "license": "cc-by-4.0",
   "keywords": [
     "proton-coupled electron transfer",
@@ -16,7 +16,9 @@
     "bond dissociation free energy",
     "BDFE",
     "thermochemistry",
-    "polyoxometalates"
+    "polyoxometalates",
+    "transition metal hydrides",
+    "hydricity"
   ],
   "notes": "Funding: This database is developed as part of the Collaborative Research Center SFB 1633 \"PCET\" (https://uni-goettingen.de/de/683468.html), funded by Deutsche Forschungsgemeinschaft DFG (grant no: 536858973).",
   "related_identifiers": [
@@ -30,5 +32,6 @@
       "relation": "isDescribedBy",
       "scheme": "url"
     }
-  ]
+  ],
+  "version": "1.4"
 }

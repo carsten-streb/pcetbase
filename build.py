@@ -40,7 +40,9 @@ def autorecommend(data_path=None):
          else newest year wins (tie -> most complete square scheme, then first).
     Winner gets recommended='auto'. Idempotent: all 'auto' cleared first.
     Supersession and discord stay manual (recommended=1/0 + recommended_reason
-    in couples.csv); never auto-assigned."""
+    in couples.csv). Cross-closure (sq vs hyd) disagreement >= ~1 kcal/mol is set
+    discordant = 1 by the builder with a recorded reason, star stays auto
+    (CONTRIBUTING rule 4); other discord stays manual."""
     import csv as _csv
     from collections import defaultdict
     path = data_path or os.path.join(HERE, "data", "data.csv")

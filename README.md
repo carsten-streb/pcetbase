@@ -91,7 +91,7 @@ will be asked for sources.
 ## License and citation
 
 Data and code: **CC BY 4.0** (see `LICENSE`). Cite via `CITATION.cff`; archived releases receive DOIs via Zenodo
-(this release v1.3: [doi:10.5281/zenodo.24137124](https://doi.org/10.5281/zenodo.24137124); all versions: [doi:10.5281/zenodo.24121910](https://doi.org/10.5281/zenodo.24121910)). If you use individual values, please also cite the
+(this release: v1.4, version DOI minted on Zenodo after archiving; all versions: [doi:10.5281/zenodo.24121910](https://doi.org/10.5281/zenodo.24121910)). If you use individual values, please also cite the
 primary source given in the entry (`doi` column or the review reference number).
 
 ## Funding

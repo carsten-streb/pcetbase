@@ -272,6 +272,26 @@ if (chips.length) {
   $("q").value = ""; fire($("q"), "input");
   T("search fuzz: no crashes", crash === 0);
   T("search fuzz: no injected script element", !d.querySelector("#tbl script"));
+  /* method-filter UI (CR-2026-11-12-method-filter-ui) */
+  {
+    const boxes = [...d.querySelectorAll(".mBox")];
+    T("method checkboxes derived from data (5 values)", boxes.length === 5, "found " + boxes.length);
+    const hydBox = boxes.find(b => b.dataset.m === "hyd");
+    T("hyd checkbox present", !!hydBox);
+    const before = w.filtered().length;
+    hydBox.checked = false; hydBox.dispatchEvent(new w.Event("change"));
+    const after = w.filtered().length;
+    T("unticking hyd hides the 25 hyd rows", before - after === 25, before + "->" + after);
+    hydBox.checked = true; hydBox.dispatchEvent(new w.Event("change"));
+    const rec = d.getElementById("recOnly");
+    T("recommended-only toggle default ON", rec.checked === true);
+    const rowsCollapsed = d.querySelectorAll("#tbl tbody tr").length;
+    rec.checked = false; rec.dispatchEvent(new w.Event("change"));
+    const rowsFlat = d.querySelectorAll("#tbl tbody tr").length;
+    T("toggle off shows every determination", rowsFlat === 473 && rowsCollapsed < rowsFlat, rowsCollapsed + "/" + rowsFlat);
+    rec.checked = true; rec.dispatchEvent(new w.Event("change"));
+  }
+
   T("search recovers to full view", /468 couples/.test(countText()), countText());
 }
 

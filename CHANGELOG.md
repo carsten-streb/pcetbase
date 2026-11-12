@@ -4,6 +4,16 @@ All star (recommendation) moves and releases are recorded here, newest first.
 
 ## Unreleased (toward v1.4)
 
+### TMH primary-literature pass P2a (PR #42)
+- 6 new Co hydride rows from Wiedner-review primaries (BDFE-0484..0489, CPL-0473..0477):
+  cis-[H2Co(dppe)2]+ sq/hyd pair (Ciancanelli 2002; spread 0.1 kcal/mol),
+  [HCo(dppe)2(MeCN)]2+ (Ciancanelli 2002), [HCo(P4N2)(MeCN)]2+ and Co(P4N2)H
+  (Wiedner 2013; hyd row form 2, `approx` Co(I/0) estimate), Co(CpC5F4N)(PtBu2NPh2)H
+  oxidised diagonal (Fang 2014, form 2, hydricity filled on a single-determination row).
+- BDFE_pub filled on BDFE-0428 (53.0, Fang 2014) and BDFE-0465 (39.7, Wiedner 2013
+  completed cycle); flags derived -> recomputed on both.
+- Counts: 489 measurements / 476 couples; 12 multi-source badges; no new deviations.
+
 - 2026-11-12: TMH primaries batch P1 (CR-2026-11-12-tmh-primaries-p1):
   8 new rows BDFE-0476..0483 (6 measured-pKa sq second determinations
   on existing couples - Berning 1999 / Curtis 2002 primaries, independent

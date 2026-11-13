@@ -4,6 +4,22 @@ All star (recommendation) moves and releases are recorded here, newest first.
 
 ## Unreleased (toward v1.5)
 
+### Verification ledger: per-entry record of how each value was checked (PR #56)
+- Build-generated derived/verification.csv, one row per entry_id: source type
+  and locator, extraction route, primary-verified, introducing CR/PR, last
+  modification, closure checks with residuals (byte-copied from analysis.csv),
+  outcome vs the validate.py soft thresholds, BDFE-vs-published delta,
+  cross-checks (multi-member couples, Morris 2016 second-review pass),
+  stress-test spot-checks (25 IDs, 2026-11-12 sample) and a generated
+  one-line summary.
+- Provenance inputs: hand-maintained data/provenance_batches.csv (13 ID
+  ranges, PR-verified) + data/provenance_overrides.csv (50 per-row entries).
+- validate.py: hard errors on uncovered entry_ids, overlapping ranges and a
+  stale ledger; CI build-sync now diffs verification.csv.
+- App: "Verification record" block in the panel + CSV download (this entry /
+  full ledger). datapackage verification resource; README + CONTRIBUTING
+  (producer provenance-line rule). Gate 84 -> 88.
+
 ### Ladder tick boxes: per-couple selection mode (PR #55)
 - Leading checkbox per table row (couple-keyed, session-only Set; no
   localStorage). No ticks = today's filtered ladder, unchanged. >= 1 tick =

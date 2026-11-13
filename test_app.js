@@ -163,6 +163,34 @@ if (chips.length) {
   T("clear selection restores the filtered ladder", rungs() === baseline, rungs() + " vs " + baseline);
 }
 
+// ---------- 6e. verification ledger (CR-2026-11-13-verification-ledger) ----------
+{
+  // review row: Agarwal locator + spot-check
+  const dR = newDom({ hash: "#BDFE-0013" }).window.document;
+  const vR = dR.getElementById("verifrec");
+  T("ledger panel: review row (BDFE-0013) with locator + spot-check",
+    vR && /review-table/.test(vR.textContent) && /Agarwal 2022 T6/.test(vR.textContent)
+      && /stress test 2026-11-12/.test(vR.textContent),
+    vR ? vR.textContent.slice(0, 80) : "no block");
+  // TMH primary row
+  const dT = newDom({ hash: "#BDFE-0498" }).window.document;
+  const vT = dT.getElementById("verifrec");
+  T("ledger panel: primary row (BDFE-0498) primary-verified + PR",
+    vT && /primary/.test(vT.textContent) && /PR #44/.test(vT.textContent)
+      && /spot-check/i.test(vT.textContent));
+  // multi-member couple CPL-0470 member shows the cross-check
+  const dM = newDom({ hash: "#BDFE-0478" }).window.document;
+  const vM = dM.getElementById("verifrec");
+  T("ledger panel: multi-member couple cross-check shown",
+    vM && /multi-member couple CPL-/.test(vM.textContent));
+  // download texts: one row and full ledger row counts
+  const one = w.verifText("entry", "BDFE-0013");
+  const all = w.verifText("all");
+  T("ledger export: 1-row and full counts correct",
+    one.trim().split("\n").length === 2 && all.trim().split("\n").length - 1 === 523,
+    one.trim().split("\n").length + " / " + (all.trim().split("\n").length - 1));
+}
+
 // ---------- 7. CSV: scope + content ----------
 {
   $("csvScope").value = "all"; const csvAll = typeof w.csvText === "function" ? w.csvText() : null;

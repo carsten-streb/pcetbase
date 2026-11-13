@@ -27,6 +27,14 @@ Applied in order; rules 1–2 are deterministic and implemented in `build.py` (`
 
 A single measurement of a couple is trivially its recommended value (rule 1 applied to a set of one).
 
+## Provenance line in data change requests
+
+Every data CR states, in one line, the `source_type` / `extraction_route` /
+`primary_verified` values for its rows, so the curator can extend
+`data/provenance_batches.csv` without reconstruction. The build regenerates
+`derived/verification.csv` from the batch map and `data/provenance_overrides.csv`;
+CI fails if the ledger is stale or an entry is uncovered.
+
 ## Who may move a star
 
 **Principle: stars are moved by argument recorded in public, not by authority.** The curator's role is to apply the written rules above; any star whose `recommended_reason` cannot be reconstructed from those rules is a bug and may be reported as one.

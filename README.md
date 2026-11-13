@@ -59,6 +59,18 @@ from primary measurables with corrected constants), `avg` (average over n_H tran
 applied), `ref-conv-missing` (no verified offset on file; no BDFE computed),
 `check-src` (internal inconsistency in the source, detected by validation).
 
+### Verification ledger
+
+`derived/verification.csv` (build-generated, one row per `entry_id`) records how each
+value was obtained and checked: source type and locator, extraction route,
+primary-verified status, introducing CR/PR, the closure checks run with their
+residuals (copied from `derived/analysis.csv`), cross-checks, independent spot-checks
+and a one-line summary. Provenance comes from the hand-maintained batch map
+`data/provenance_batches.csv` (one row per contiguous entry-ID range) plus
+`data/provenance_overrides.csv` (per-row exceptions). The app's verification panel
+shows the record for each entry and offers the ledger as a CSV download. Do not edit
+`derived/verification.csv` by hand; edit the two provenance files and rebuild.
+
 ### Recommended values (★)
 
 Where several independent measurements exist for one compound/partner/solvent, all are

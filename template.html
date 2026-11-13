@@ -240,6 +240,7 @@
 const CONST_CSV = `__CONST_CSV__`;
 const DATA_CSV = `__DATA_CSV__`;
 const COUPLES_CSV = `__COUPLES_CSV__`;
+const VERIF_CSV = `__VERIF_CSV__`; /* derived/verification.csv, build-generated (CR-2026-11-13-verification-ledger) */
 /* ============================================================================ */
 
 function parseCSV(text){
@@ -295,6 +296,8 @@ const D=parseCSV(DATA_CSV).map((r,i)=>({
 /* couples layer: aliases for search, recommended_reason, discordant */
 const COUPLES={};
 parseCSV(COUPLES_CSV).forEach(c=>{COUPLES[c.couple_id]=c;});
+const VERIF={};
+parseCSV(VERIF_CSV).forEach(v=>{VERIF[v.entry_id]=v;});
 /* multi-source handling: entries sharing a couple_id are independent
    measurements of the same couple; the starred one is the recommended value */
 const DUPKEY={};
@@ -498,6 +501,26 @@ function showDetail(id){
     h+=`<div class="eq">eq 18: BDFE = 23.06 × (${r.E.toFixed(3)}) + ΔG°f(H•)(${r.solvent}) ${dg.toFixed(1)} = <b>${v.toFixed(1)} kcal mol⁻¹</b> &nbsp;(stored: ${r.bdfe.toFixed(1)}, Δ = ${(v-r.bdfe).toFixed(2)})</div>`;
   }
   h+=squareSchemeHTML(r,refSc);
+  const vr=VERIF[r.entryId];
+  if(vr){
+    h+=`<details id="verifrec"><summary>Verification record (how this value was obtained and checked)</summary>
+      <div class="eq" style="white-space:normal">${vr.summary}</div>
+      <table>
+        <tr><td>Source</td><td>${vr.source_type} — ${vr.source_locator}</td></tr>
+        <tr><td>Extraction route</td><td>${vr.extraction_route}</td></tr>
+        <tr><td>Primary-verified</td><td>${vr.primary_verified}</td></tr>
+        <tr><td>Introduced in</td><td>${vr.introduced_in}</td></tr>
+        ${vr.last_modified_in?`<tr><td>Last modified in</td><td>${vr.last_modified_in}</td></tr>`:""}
+        <tr><td>Checks</td><td>${vr.checks_run?vr.checks_run+" — "+vr.check_outcome+(vr.eq18_res?`; eq18 ${vr.eq18_res}`:"")+(vr.eq10_res?`; eq10 ${vr.eq10_res}`:"")+(vr.hyd_res?`; hyd ${vr.hyd_res}`:""):"n/a"}</td></tr>
+        ${vr.bdfe_pub_delta?`<tr><td>BDFE − published</td><td>${vr.bdfe_pub_delta} kcal mol⁻¹</td></tr>`:""}
+        ${vr.cross_checks?`<tr><td>Cross-checks</td><td>${vr.cross_checks}</td></tr>`:""}
+        ${vr.spot_check?`<tr><td>Spot-check</td><td>${vr.spot_check}</td></tr>`:""}
+        ${vr.open_flags?`<tr><td>Open flags</td><td>${vr.open_flags}</td></tr>`:""}
+      </table>
+      <button id="verifDlOne" data-eid="${r.entryId}" style="margin:4px 6px 0 0">Download this record (CSV)</button>
+      <button id="verifDlAll">Download full verification ledger (CSV)</button>
+    </details>`;
+  }
   h+=`<div class="warn">Constants C<sub>G</sub> and ΔG°f(H•): Agarwal et al. 2022, Table 1 (<a href="https://doi.org/10.1021/acs.chemrev.1c00521">10.1021/acs.chemrev.1c00521</a>), consistent with the correction <a href="https://doi.org/10.1021/acs.chemrev.1c00791">10.1021/acs.chemrev.1c00791</a>. Primary source: <a href="https://doi.org/${r.srcDoi}">${r.srcDoi}</a>${r.srcRef?" — original citation"+r.srcRef+" therein":""}.</div>`;
   if(r.flags){
     h+=`<div class="warn">Flags: `+r.flags.split(";").map(f=>{
@@ -506,6 +529,9 @@ function showDetail(id){
     }).join("; ")+`</div>`;
   }
   box.innerHTML=h;
+  const vd1=document.getElementById("verifDlOne"),vdA=document.getElementById("verifDlAll");
+  if(vd1)vd1.addEventListener("click",ev=>{ev.stopPropagation();downloadText("pcetbase_verification_"+vd1.dataset.eid+".csv",verifText("entry",vd1.dataset.eid));});
+  if(vdA)vdA.addEventListener("click",ev=>{ev.stopPropagation();downloadText("pcetbase_verification.csv",verifText("all"));});
   box.style.display="block";
   if(r.entryId&&history.replaceState)history.replaceState(null,"","#"+r.entryId);
   if(box.scrollIntoView)box.scrollIntoView({behavior:"smooth",block:"nearest"});
@@ -726,6 +752,27 @@ function copyCSV(){
   navigator.clipboard.writeText(csvText()).then(
     ()=>{const b=document.getElementById("csv");b.textContent="Copied ✓";setTimeout(()=>b.textContent="Copy CSV",1500);},
     ()=>alert("Clipboard unavailable — use Download CSV instead."));
+}
+async function downloadText(filename,text){
+  /* sandbox-aware download, shared by the CSV export and the verification ledger */
+  if(window.claude&&window.claude.use){
+    try{
+      const dl=await window.claude.use("downloads");
+      if(dl){await dl.save({filename,data:text});return;}
+    }catch(e){/* fall through to blob */}
+  }
+  const blob=new Blob([text],{type:"text/csv;charset=utf-8"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);a.download=filename;
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href),4000);
+}
+function verifText(scope,entryId){
+  /* scope "entry": header + that entry's ledger row; "all": the full build-generated ledger */
+  if(scope==="all")return VERIF_CSV.trim();
+  const lines=VERIF_CSV.trim().split("\n");
+  const i=lines.findIndex((l,ix)=>ix>0&&l.startsWith(entryId+","));
+  return i>0?lines[0]+"\n"+lines[i]:lines[0];
 }
 async function downloadCSV(){
   const text=csvText();

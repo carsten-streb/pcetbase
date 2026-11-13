@@ -4,6 +4,17 @@ All star (recommendation) moves and releases are recorded here, newest first.
 
 ## Unreleased (toward v1.5)
 
+### Ladder tick boxes: per-couple selection mode (PR #55)
+- Leading checkbox per table row (couple-keyed, session-only Set; no
+  localStorage). No ticks = today's filtered ladder, unchanged. >= 1 tick =
+  selection mode: the ladder shows only ticked couples, every rung labelled,
+  banner with count + show all / clear selection; "show all" keeps the ticks.
+- Header controls "select visible" / "clear". Filters, chips and search never
+  mutate the tick set; a ticked couple filtered out of the table stays on the
+  ladder. Sub-row ticks tick their couple (one rung per couple invariant).
+- Calculator marker renders in both modes. UI-only, no schema change.
+- Gate 81 -> 84 (selection rendering, filter independence, clear).
+
 ### Square-scheme view in the verification panel (PR #54)
 - SVG thermochemical square for every non-pair row with >= 2 stored legs:
   corners XH(.+)/X(.)/XH/X(-), stored legs solid with values, eq-10-derivable

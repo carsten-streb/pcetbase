@@ -142,6 +142,27 @@ if (chips.length) {
     !!dP.getElementById("sqnote") && !dP.getElementById("sqsvg"));
 }
 
+// ---------- 6d. ladder tickboxes (CR-2026-11-13-ladder-tickboxes) ----------
+{
+  const rungs = () => d.querySelectorAll("#ladder line.rung").length;
+  const baseline = rungs();
+  // tick 3 couples across classes -> exactly 3 labelled rungs
+  const boxes = [...d.querySelectorAll("#tbl tbody .tick")].slice(0, 3);
+  boxes.forEach(b => { b.checked = true; b.dispatchEvent(new w.Event("click", { bubbles: true })); });
+  const nSel = rungs();
+  const labels = d.querySelectorAll("#ladder text").length;
+  T("3 ticks -> 3 rungs, banner, all labelled",
+    nSel === 3 && /3<\/b> selected/.test($("ladderSel").innerHTML) && labels > 0, nSel + " rungs");
+  // filters do not alter the rung set
+  $("q").value = "zzz-no-match"; fire($("q"), "input");
+  T("search change does not alter selected rungs", rungs() === 3, rungs() + "");
+  $("q").value = ""; fire($("q"), "input");
+  // clear restores the filtered view
+  const clr = d.getElementById("selClear");
+  clr.dispatchEvent(new w.Event("click", { bubbles: true, cancelable: true }));
+  T("clear selection restores the filtered ladder", rungs() === baseline, rungs() + " vs " + baseline);
+}
+
 // ---------- 7. CSV: scope + content ----------
 {
   $("csvScope").value = "all"; const csvAll = typeof w.csvText === "function" ? w.csvText() : null;

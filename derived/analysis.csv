@@ -124,7 +124,7 @@ BDFE-0122,[(TAML)FeIV(NHTs)]-,CPL-0122,metal-3d,MeCN,,,,0.023,-0.005,,71f79d4ef4
 BDFE-0123,[(Cp)Co(CpNH)]+,CPL-0123,metal-3d,MeCN,,hess:pKa_b,,0.050,-0.021,,71f79d4ef4b1
 BDFE-0124,[(Cp)Co(CpNH)]2+,CPL-0124,metal-3d,MeCN,,,,0.044,-0.027,,71f79d4ef4b1
 BDFE-0125,[SNS]Ni(PPh3),CPL-0125,metal-3d,MeCN,,,,0.002,0.016,,71f79d4ef4b1
-BDFE-0126,CpCr(CO)3H,CPL-0126,metal-3d,MeCN,,hess:pKa_a,,0.029,0.056,,71f79d4ef4b1
+BDFE-0126,CpCr(CO)3H,CPL-0126,metal-3d,MeCN,,hess:pKa_a;approx,,-0.002,-0.023,,71f79d4ef4b1
 BDFE-0127,CpCr(CO)2(PPh3)H,CPL-0127,metal-3d,MeCN,,,,-0.008,0.042,,71f79d4ef4b1
 BDFE-0128,(dppm)V(CO)4H,CPL-0128,metal-3d,MeCN,,,,-0.022,0.045,,71f79d4ef4b1
 BDFE-0129,(dppe)V(CO)4H,CPL-0129,metal-3d,MeCN,,,,0.047,0.085,,71f79d4ef4b1
@@ -508,3 +508,14 @@ BDFE-0506,[Rh(bpy)2(H2O)H]2+,CPL-0491,tmh,H2O,hess,derived;approx,,-0.007,0.009,
 BDFE-0507,[Fe4N(CO)12H]-,CPL-0492,tmh,MeCN,sq,recomputed;check-src,,-0.010,-0.020,,71f79d4ef4b1
 BDFE-0508,[Ir(Cp*)(bpy-COO)H]- (to hydroxo complex),CPL-0493,tmh,H2O,sq,derived;approx,,-0.009,0.007,-0.049,71f79d4ef4b1
 BDFE-0509,[Ru(cymene)(bpy-COO)H]- (to hydroxo complex),CPL-0494,tmh,H2O,sq,derived;approx,,0.001,0.048,-0.041,71f79d4ef4b1
+BDFE-0510,CpMo(CO)3H,CPL-0495,tmh,MeCN,sq,derived;approx;hess:pKa_a,,-0.008,-0.020,,71f79d4ef4b1
+BDFE-0511,CpW(CO)3H,CPL-0496,tmh,MeCN,sq,derived;approx;hess:pKa_a,,0.005,0.015,,71f79d4ef4b1
+BDFE-0512,Cp*Mo(CO)3H,CPL-0497,tmh,MeCN,sq,derived;approx;hess:pKa_a,,0.000,0.022,,71f79d4ef4b1
+BDFE-0513,CpW(CO)2(PMe3)H,CPL-0498,tmh,MeCN,sq,derived;approx;check-src;hess:pKa_a,,0.007,0.034,,71f79d4ef4b1
+BDFE-0514,HMn(CO)5,CPL-0499,tmh,MeCN,sq,derived;approx,,0.007,0.033,,71f79d4ef4b1
+BDFE-0515,HMn(CO)4(PPh3),CPL-0500,tmh,MeCN,sq,derived;approx;check-src,,0.008,0.031,,71f79d4ef4b1
+BDFE-0516,HRe(CO)5,CPL-0501,tmh,MeCN,sq,derived;approx,,0.003,-0.023,,71f79d4ef4b1
+BDFE-0517,H2Fe(CO)4,CPL-0502,tmh,MeCN,sq,derived;approx;lowT,,-0.007,0.017,,71f79d4ef4b1
+BDFE-0518,HCo(CO)4,CPL-0503,tmh,MeCN,sq,derived;approx;lowT,,0.002,0.005,,71f79d4ef4b1
+BDFE-0519,HCo(CO)3(P(OPh)3),CPL-0504,tmh,MeCN,sq,derived;approx;check-src,,0.010,0.010,,71f79d4ef4b1
+BDFE-0520,HCo(CO)3(PPh3),CPL-0505,tmh,MeCN,sq,derived;approx,,-0.005,-0.029,,71f79d4ef4b1

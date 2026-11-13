@@ -2,6 +2,20 @@
 
 All star (recommendation) moves and releases are recorded here, newest first.
 
+## Unreleased (toward v1.5)
+
+### TMH phase P3: OCP hydricities + first aqueous TMH row (PR #49)
+- 5 new rows (BDFE-0499..0503): three OCP hydricity determinations (Smith &
+  Miller 2024) on CPL-0460/0433/0454 - the first OCP-method TMH rows; the
+  heterobimetallic [Cp*Ir(H)(mu-bpm)Ru(bpy)2]3+ (Brereton 2016) in MeCN and in
+  water (first aqueous TMH row; CHyd(H2O) 34.2, CG(H2O) 52.8).
+- Stars (manual freeze, builder decision on CR open q.1): CPL-0433 and CPL-0454
+  keep the sq row starred (hierarchy sq > OCP); CPL-0454 set discordant
+  (sq vs OCP 1.3 kcal/mol); CPL-0460's discord reason now lists the OCP value
+  (three-method spread 3.8 kcal/mol).
+- BDFE-0469: primary-check note (Price 2002), no value change.
+- Counts: 503 measurements / 487 couples; no new deviations.
+
 ## v1.4.1 — 2026-11-13
 
 Point release, data unchanged (498/485, identical to v1.4). Version DOI

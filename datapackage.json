@@ -222,6 +222,12 @@
             "name": "E_c",
             "type": "number",
             "description": "E(X+/X*) in V on the row's stated reference scale: the one-electron couple above the X*/X- (E_a) couple, outside the X-H square scheme. Used with E_a in the hydricity closure (class tmh; CR-2026-11-12-tmh-wiedner Q3 decision: own column, no E_b overload)."
+          },
+          {
+            "name": "origin",
+            "type": "string",
+            "constraints": { "enum": ["", "exp", "comp", "mixed"] },
+            "description": "Provenance of the stored values (CR-2026-11-13-origin-provenance): exp = all legs measured; comp = defining value computed (DFT, simulation-only, empirical estimate); mixed = at least one leg computed or simulation-fitted, at least one measured; empty = not yet classified (classification is incremental, never guessed)."
           }
         ],
         "primaryKey": "entry_id"

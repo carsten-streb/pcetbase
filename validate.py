@@ -67,6 +67,11 @@ def validate_couples(rows):
             errors.append(f"data.csv: duplicate entry_id '{eid}' (rows {seen_eid[eid]+2} and {i+2})")
         else:
             seen_eid[eid] = i
+    # origin enum (CR-2026-11-13-origin-provenance): exp/comp/mixed/empty only
+    for r in rows:
+        o = r.get("origin", "")
+        if o not in ("", "exp", "comp", "mixed"):
+            errors.append(f"data.csv {r.get('entry_id','?')}: invalid origin '{o}' (allowed: exp, comp, mixed, empty)")
     # F7: BDFE required and numeric unless the row is flagged ref-conv-missing
     for r in rows:
         if "ref-conv-missing" in r.get("flags", ""):
@@ -200,6 +205,12 @@ def main():
             else:
                 mark = "MULTIPLE STARS - fix"
             print(f"   {rs[0]['compound']} / {rs[0]['solvent']}: {len(rs)} entries — {mark}")
+    # origin soft check: exp claimed where a leg is simulation-fitted
+    contradictions = [r["entry_id"] for r in rows if r.get("origin") == "exp"
+                      and ("sim-pKa" in r.get("flags", "")
+                           or "simulation" in r.get("conditions", "").lower())]
+    if contradictions:
+        print(f"\nSOFT WARN origin=exp but simulation-fitted leg: {', '.join(contradictions)}")
     print("\n--- structural checks (hard) ---")
     errors = validate_couples(rows)
     if errors:

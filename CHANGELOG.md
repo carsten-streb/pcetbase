@@ -4,6 +4,19 @@ All star (recommendation) moves and releases are recorded here, newest first.
 
 ## Unreleased (toward v1.5)
 
+### TMH round 2a: first aqueous Co-H entries - TMH campaign complete (PR #52)
+- 3 new rows (BDFE-0521..0523), all approx with explicit sigma_BDFE per the
+  H64 drop rule: [HCo(CN)5]3- 56.5 hess sigma 4.5 (Halpern 1971 kinetic pKa
+  ca. 20; Lim & Anson 1971 Hess-composed E(II/I) -1.27 V vs SCE);
+  rac-[Co(HMD)(H2O)H]2+ 38.1 sq sigma 2.5 (Creutz 1991 pKa 11.5; E(II/I)
+  -1.32 V vs SHE estimated from the Fujita 1991 MeCN E1/2);
+  [Co(bpy)2(H2O)H]2+ 37.1 sq sigma 3 (Creutz 1984 pKa 6.9; Schwarz 1985
+  ladder E(II/I) -1.09 V vs NHE).
+- The two macrocycle/polypyridine hydrides (37-38 kcal/mol) are the weakest
+  M-H bonds in the database. Water now holds 7 TMH rows on 7 hydrides.
+- Rh(Cp*)(bpy)H+ dropped at step 0 (ring protonation, Pitman & Miller 2016);
+  meso-HMD, cobaltocene and Rh(en)2 out of scope (H64).
+
 ### TMH phase P5: group-6/7/8/9 carbonyl hydrides in MeCN (PR #51)
 - 11 new rows (BDFE-0510..0520), all MeCN sq full cycles: anion oxidation
   potentials from Tilset & Parker 1989 (DCV peak + kinetic dimerization

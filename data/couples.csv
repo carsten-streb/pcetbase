@@ -503,3 +503,6 @@ CPL-0502,H2Fe(CO)4,,MeCN,M-H,tmh,,,0
 CPL-0503,HCo(CO)4,,MeCN,M-H,tmh,,,0
 CPL-0504,HCo(CO)3(P(OPh)3),,MeCN,M-H,tmh,,,0
 CPL-0505,HCo(CO)3(PPh3),,MeCN,M-H,tmh,,,0
+CPL-0506,[HCo(CN)5]3-,,H2O,M-H,tmh,,,0
+CPL-0507,rac-[Co(HMD)(H2O)H]2+,,H2O,M-H,tmh,,,0
+CPL-0508,[Co(bpy)2(H2O)H]2+,,H2O,M-H,tmh,,,0

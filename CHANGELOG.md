@@ -2,8 +2,6 @@
 
 All star (recommendation) moves and releases are recorded here, newest first.
 
-## v1.4 — 2026-11-12
-
 ## v1.4.1 — 2026-11-13
 
 Point release, data unchanged (498/485, identical to v1.4). Version DOI
@@ -24,6 +22,8 @@ Point release, data unchanged (498/485, identical to v1.4). Version DOI
   (~1 kcal/mol, auto star, recorded reason) made explicit (F6).
 - Queued: F7 validator hardening + F8 analysis.csv line endings (v1.4.x);
   F9 10k latency + F10 flag question (v1.5).
+
+## v1.4 — 2026-11-12
 
 **Scope:** all transition-metal hydrides from the Wiedner 2016 and Morris 2016
 review tables that close a BDFE, primary-verified where the review value was

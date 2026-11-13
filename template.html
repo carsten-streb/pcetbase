@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PCETbase — PCET Thermochemistry (BDFE, E°, pKa)</title>
+<title>PCETbase — proton-coupled electron transfer (PCET) thermochemistry: BDFE, E°, pKa, hydricity</title>
 <style>
   :root{
     color-scheme: light;
@@ -99,8 +99,8 @@
 </head>
 <body>
 <header>
-  <h1>PCETbase <span style="font-weight:400;color:var(--ink-2)">— open PCET thermochemistry: BDFE, E°, pK<sub>a</sub></span></h1>
-  <div class="sub">Solution X–H bond dissociation free energies on a common scale. Canonical value per entry:
+  <h1>PCETbase <span style="font-weight:400;color:var(--ink-2)">— open proton-coupled electron transfer (PCET) thermochemistry: BDFE, E°, pK<sub>a</sub>, hydricity</span></h1>
+  <div class="sub">Solution X–H and M–H bond dissociation free energies and hydricities ΔG(H⁻) on a common scale. Canonical value per entry:
   <i>E</i>°(V&nbsp;vs&nbsp;H₂) in the stated solvent; BDFE and scale conversions are computed live.
   Data: Agarwal&nbsp;et&nbsp;al., <i>Chem.&nbsp;Rev.</i> 2022, 122, 1–49; transition-metal hydrides from Wiedner&nbsp;et&nbsp;al. and Morris&nbsp;et&nbsp;al., <i>Chem.&nbsp;Rev.</i> 2016 and the primary literature; POM entries from the primary literature. Entries with flags (hover ⚑) carry caveats from the source. Coverage grows by release; see the CHANGELOG.<br>
   Funding: This database is developed as part of the Collaborative Research Center <a href="https://uni-goettingen.de/de/683468.html">SFB&nbsp;1633 "PCET"</a>, funded by Deutsche Forschungsgemeinschaft DFG (grant no: 536858973).</div>
@@ -117,10 +117,10 @@
     <div class="panel" style="margin-bottom:16px">
       <h2>Filters &amp; display</h2>
       <div class="controls">
-        <div><label>Search</label><input id="q" type="text" placeholder="compound or partner…"></div>
+        <div><label>Search</label><input id="q" type="text" placeholder="compound, alias or partner…"></div>
         <div><label>Solvent</label><select id="solv"><option value="">all</option></select></div>
         <div><label>Bond</label><select id="bond"><option value="">all</option></select></div>
-        <div style="grid-column:1/-1"><label>Methods <span class="src">(one box per method value in the data)</span></label><div id="mBoxes" style="display:flex;gap:14px;flex-wrap:wrap;padding-top:4px"></div></div>
+        <div style="grid-column:1/-1"><label>BDFE determination method <span class="src">(how each value was obtained; the hierarchy equil &gt; sq &gt; hyd &gt; OCP &gt; hess &gt; tabulated also sets the ★ recommendation)</span></label><div id="mBoxes" style="display:flex;gap:14px;flex-wrap:wrap;padding-top:4px"></div></div>
         <div style="grid-column:1/-1"><label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox" id="recOnly" checked style="width:auto"> Recommended only <span class="src">(one ★/best value per couple; untick to list every determination)</span></label></div>
         <div><label>Energy unit</label>
           <select id="unit">
@@ -321,8 +321,8 @@ const CLASSES=[
  {k:"smallOH",label:"O–H small molecules",color:"var(--c-imide)"},
  {k:"organicNH",label:"N–H compounds",color:"var(--c-ascorbate)"},
  {k:"otherXH",label:"C–H / S–H / CO₂",color:"var(--c-nucleoside)"},
- {k:"pair",label:"Ox/base + red/acid pairs",color:"var(--c-pair)"},
- {k:"metal",label:"TM complexes (3d–5d)",color:"var(--c-metal)"},
+ {k:"pair",label:"oxidant + base / reductant + acid",color:"var(--c-pair)"},
+ {k:"metal",label:"TM complexes (non-hydride)",color:"var(--c-metal)"},
  {k:"tmh",label:"TM hydrides (M–H)",color:"var(--c-tmh)"},
  {k:"pom",label:"POM clusters",color:"var(--c-pom)"},
 ];
@@ -650,10 +650,13 @@ function init(){
     `<span class="chip" data-k="${c.k}"><span class="dot" style="background:${c.color}"></span>${c.label}</span>`).join("");
   cc.querySelectorAll(".chip").forEach(ch=>ch.addEventListener("click",()=>{
     const k=ch.dataset.k;
-    if(active.size===1&&active.has(k)){ /* second click on the solo chip: restore all */
-      active=new Set(CLASSES.map(c=>c.k));
-    }else{ /* solo: show only this class */
+    if(active.size===CLASSES.length){ /* all on: solo this class */
       active=new Set([k]);
+    }else if(active.has(k)){ /* remove from the selection; removing the last restores all */
+      active.delete(k);
+      if(active.size===0)active=new Set(CLASSES.map(c=>c.k));
+    }else{ /* add to the selection (multi-select) */
+      active.add(k);
     }
     cc.querySelectorAll(".chip").forEach(c2=>c2.classList.toggle("off",!active.has(c2.dataset.k)));
     renderTable();renderLadder();
@@ -662,9 +665,11 @@ function init(){
   document.getElementById("solv").innerHTML='<option value="">all</option>'+solvs.map(s=>`<option>${s}</option>`).join("");
   const bonds=[...new Set(D.map(r=>r.bond))].sort();
   document.getElementById("bond").innerHTML='<option value="">all</option>'+bonds.map(s=>`<option>${s}</option>`).join("");
+  const M_LBL={"":"tabulated (review data)",sq:"sq (square scheme: pKa + E\u00b0)",hyd:"hyd (hydricity cycle: \u0394G(H\u207b) + E\u00b0)",equil:"equil (equilibrium data)",OCP:"OCP (open-circuit potential)",hess:"hess (Hess combination)"};
+  const M_TIP={"":"Taken as tabulated in the source review; no thermodynamic cycle stored.",sq:"Bordwell square scheme from a measured pKa and electrode potential.",hyd:"Closed through a measured hydricity \u0394G(H\u207b) and the X\u207a/X\u2022 potential.",equil:"Measured equilibrium with a reference acid or H-atom donor \u2014 the most direct method.",OCP:"From the open-circuit (rest) potential of the couple.",hess:"Composed from other measured legs or entries; no independent measurement for this couple."};
   const methods=[...new Set(D.map(r=>r.method))].sort((a,b)=>a.localeCompare(b));
   document.getElementById("mBoxes").innerHTML=methods.map(m=>
-    `<label style="display:flex;align-items:center;gap:5px;cursor:pointer;font-size:.92em"><input type="checkbox" class="mBox" data-m="${m}" checked style="width:auto"> ${m===""?"tabulated":m==="sq"?"sq (square scheme)":m==="hyd"?"hyd (hydricity closure)":m==="equil"?"equil (equilibration)":m==="OCP"?"OCP (open-circuit)":m==="hess"?"hess (Hess cycle)":m}</label>`).join("");
+    `<label title="${M_TIP[m]||""}" style="display:flex;align-items:center;gap:5px;cursor:pointer;font-size:.92em"><input type="checkbox" class="mBox" data-m="${m}" checked style="width:auto"> ${M_LBL[m]||m}</label>`).join("");
   document.querySelectorAll(".mBox").forEach(b=>b.addEventListener("change",()=>{
     b.checked?mActive.add(b.dataset.m):mActive.delete(b.dataset.m);
     renderTable();renderLadder();

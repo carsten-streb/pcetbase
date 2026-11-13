@@ -4,6 +4,20 @@ All star (recommendation) moves and releases are recorded here, newest first.
 
 ## Unreleased (toward v1.5)
 
+### TMH phase P5: group-6/7/8/9 carbonyl hydrides in MeCN (PR #51)
+- 11 new rows (BDFE-0510..0520), all MeCN sq full cycles: anion oxidation
+  potentials from Tilset & Parker 1989 (DCV peak + kinetic dimerization
+  shift), hydride pKas from Moore/Sullivan/Norton 1986. Group 6 (CpMo(CO)3H,
+  CpW(CO)3H, Cp*Mo(CO)3H, CpW(CO)2(PMe3)H) also carry the oxidised diagonal
+  (E_b, pKa_a) from Ryan/Tilset/Parker 1990. BDFEs 58.6-68.6.
+- Reference bases rescaled to the current MeCN scale (Tshepelevitsh 2019)
+  where a value exists; morpholinium and p-CF3-anilinium kept as published
+  (Carsten decision, H81); phenolate case check-src.
+- M1 (approved, H81): BDFE-0126 CpCr(CO)3H rescaled (pKa_b 13.53), E_b
+  +0.668 V added, BDFE 54.9 -> 55.3.
+- Published values in these papers are enthalpy BDEs (constant 50.3);
+  BDFE_pub left empty, each row's conditions give the published BDE.
+
 ### TMH phase P4: aqueous primaries + Fe4N cluster (PR #50)
 - 6 new rows (BDFE-0504..0509): Pitman/Brereton/Miller 2016 water hydricities,
   [Cp*Ir(bpy-COO)H]- and [(cymene)Ru(bpy-COO)H]-, each stored twice - to the

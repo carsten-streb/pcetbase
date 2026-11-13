@@ -9,7 +9,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 def run_case(name, mutate, expect_fail):
     tmp = tempfile.mkdtemp()
     os.makedirs(os.path.join(tmp, "data"))
-    for f in ("data.csv", "couples.csv", "constants.csv"):
+    for f in ("data.csv", "couples.csv", "constants.csv", "provenance_batches.csv", "provenance_overrides.csv"):
         shutil.copy(os.path.join(HERE, "data", f), os.path.join(tmp, "data", f))
     shutil.copy(os.path.join(HERE, "validate.py"), tmp)
     mutate(tmp)

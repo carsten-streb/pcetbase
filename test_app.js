@@ -1,7 +1,7 @@
 // PCETbase jsdom app test gate (CR-2026-11-11-jsdom-gate; producer spec, builder-committed)
 // Runs against the built index.html. Node 18+, jsdom.
 // Usage: node test_app.js path/to/index.html
-// NOTE: baseline counts (498 measurements / 485 couples / 12 multi-source
+// NOTE: baseline counts (523 measurements / 507 couples / 14 multi-source
 // badges) are asserted literally BY DESIGN - bump them in every data PR;
 // this doubles as a tripwire against accidental row loss.
 const { JSDOM } = require("jsdom");
@@ -33,12 +33,12 @@ const fire = (el, type) => el.dispatchEvent(new w.Event(type, { bubbles: true })
 T("app boots: table rendered", d.querySelectorAll("#tbl tbody tr").length > 0);
 const countText = () => $("count").textContent;
 T("baseline: couple-collapsed count mentions couples",
-  /485 couples \(498 measurements\)/.test(countText()), countText());
+  /507 couples \(523 measurements\)/.test(countText()), countText());
 
 // ---------- 2. couple collapse + badge ----------
 const bodyRows = () => [...d.querySelectorAll("#tbl tbody tr")];
 const badges = bodyRows().filter(r => r.querySelector("button.badge"));
-T("multi-source badges present (expect 12)", badges.length === 12, "found " + badges.length);
+T("multi-source badges present (expect 14)", badges.length === 14, "found " + badges.length);
 if (badges.length) {
   const before = bodyRows().length;
   badges[0].querySelector("button.badge").click();
@@ -88,6 +88,109 @@ if (chips.length) {
   T("panel shows DOI line", /10\.\d{4,}/.test(det.textContent));
 }
 
+// ---------- 6b. origin provenance (CR-2026-11-13-origin-provenance) ----------
+{
+  // filter: "mixed" with recommended-only off -> exactly the 14 stage-1 rows
+  const rec = $("recOnly");
+  rec.checked = false; rec.dispatchEvent(new w.Event("change"));
+  $("orig").value = "mixed"; fire($("orig"), "input");
+  const nMixed = bodyRows().length;
+  T("origin filter mixed = 14 stage-1 rows", nMixed === 14, "" + nMixed);
+  $("orig").value = ""; fire($("orig"), "input");
+  rec.checked = true; rec.dispatchEvent(new w.Event("change"));
+  // panel line on the sim-pKa row
+  const dom3 = newDom({ hash: "#BDFE-0377" });
+  const det3 = dom3.window.document.getElementById("detail");
+  T("panel shows Origin: mixed with sim-pKa reason",
+    det3 && /Origin: mixed/.test(det3.textContent) && /sim-pKa/.test(det3.textContent),
+    det3 ? det3.textContent.slice(0, 80) : "no panel");
+  // unclassified row renders the honest empty state
+  const dom4 = newDom({ hash: "#BDFE-0001" });
+  const det4 = dom4.window.document.getElementById("detail");
+  T("panel shows not-yet-classified for empty origin",
+    det4 && /not yet classified/.test(det4.textContent));
+  // CSV column
+  $("csvScope").value = "all";
+  const csvO = w.csvText();
+  T("csv has origin column with mixed values",
+    /(^|,)origin(,|$)/m.test(csvO.split("\n")[0]) && /,mixed,/.test(csvO));
+}
+
+// ---------- 6c. square-scheme view (CR-2026-11-13-square-scheme-view) ----------
+{
+  // full square: BDFE-0090 (FeII(H2O)6) stores all four legs
+  const dF = newDom({ hash: "#BDFE-0090" }).window.document;
+  const solidF = dF.querySelectorAll('#sqsvg .sqedge[data-state="stored"]').length;
+  T("full-square row: 4 solid edges + BDFE diagonal",
+    solidF === 4 && dF.querySelectorAll("#sqsvg .sqdiag").length >= 1, "solid=" + solidF);
+  // BDFE-0422: E_a + pKa_b solid, E_b/pKa_a dashed-derived, diagonal 52.3
+  const d4 = newDom({ hash: "#BDFE-0422" }).window.document;
+  const st = l => { const e = d4.querySelector(`#sqsvg .sqedge[data-leg="${l}"]`); return e && e.dataset.state; };
+  T("BDFE-0422: Ea/pKaB stored, Eb/pKaA derived, diagonal 52.3",
+    st("Ea") === "stored" && st("pKaB") === "stored" && st("Eb") === "derived" && st("pKaA") === "derived"
+      && /BDFE 52\.3/.test(d4.getElementById("sqsvg").textContent),
+    [st("Ea"), st("pKaB"), st("Eb"), st("pKaA")].join("/"));
+  // TMH sq+hyd row: hydricity extension with the 1.364 diagonal closing to the stored value
+  const dH = newDom({ hash: "#BDFE-0427" }).window.document;
+  const sq = dH.getElementById("sqscheme");
+  T("TMH hyd row: hydricity extension renders and closes",
+    !!dH.querySelector("#sqsvg .sqdiag.hyd") && /1\.364/.test(sq.textContent)
+      && /ΔG\(H⁻\)/.test(sq.textContent));
+  // pair row: notice, no SVG
+  const dP = newDom({ hash: "#BDFE-0059" }).window.document;
+  T("pair row: notice, no square SVG",
+    !!dP.getElementById("sqnote") && !dP.getElementById("sqsvg"));
+}
+
+// ---------- 6d. ladder tickboxes (CR-2026-11-13-ladder-tickboxes) ----------
+{
+  const rungs = () => d.querySelectorAll("#ladder line.rung").length;
+  const baseline = rungs();
+  // tick 3 couples across classes -> exactly 3 labelled rungs
+  const boxes = [...d.querySelectorAll("#tbl tbody .tick")].slice(0, 3);
+  boxes.forEach(b => { b.checked = true; b.dispatchEvent(new w.Event("click", { bubbles: true })); });
+  const nSel = rungs();
+  const labels = d.querySelectorAll("#ladder text").length;
+  T("3 ticks -> 3 rungs, banner, all labelled",
+    nSel === 3 && /3<\/b> selected/.test($("ladderSel").innerHTML) && labels > 0, nSel + " rungs");
+  // filters do not alter the rung set
+  $("q").value = "zzz-no-match"; fire($("q"), "input");
+  T("search change does not alter selected rungs", rungs() === 3, rungs() + "");
+  $("q").value = ""; fire($("q"), "input");
+  // clear restores the filtered view
+  const clr = d.getElementById("selClear");
+  clr.dispatchEvent(new w.Event("click", { bubbles: true, cancelable: true }));
+  T("clear selection restores the filtered ladder", rungs() === baseline, rungs() + " vs " + baseline);
+}
+
+// ---------- 6e. verification ledger (CR-2026-11-13-verification-ledger) ----------
+{
+  // review row: Agarwal locator + spot-check
+  const dR = newDom({ hash: "#BDFE-0013" }).window.document;
+  const vR = dR.getElementById("verifrec");
+  T("ledger panel: review row (BDFE-0013) with locator + spot-check",
+    vR && /review-table/.test(vR.textContent) && /Agarwal 2022 T6/.test(vR.textContent)
+      && /stress test 2026-11-12/.test(vR.textContent),
+    vR ? vR.textContent.slice(0, 80) : "no block");
+  // TMH primary row
+  const dT = newDom({ hash: "#BDFE-0498" }).window.document;
+  const vT = dT.getElementById("verifrec");
+  T("ledger panel: primary row (BDFE-0498) primary-verified + PR",
+    vT && /primary/.test(vT.textContent) && /PR #44/.test(vT.textContent)
+      && /spot-check/i.test(vT.textContent));
+  // multi-member couple CPL-0470 member shows the cross-check
+  const dM = newDom({ hash: "#BDFE-0478" }).window.document;
+  const vM = dM.getElementById("verifrec");
+  T("ledger panel: multi-member couple cross-check shown",
+    vM && /multi-member couple CPL-/.test(vM.textContent));
+  // download texts: one row and full ledger row counts
+  const one = w.verifText("entry", "BDFE-0013");
+  const all = w.verifText("all");
+  T("ledger export: 1-row and full counts correct",
+    one.trim().split("\n").length === 2 && all.trim().split("\n").length - 1 === 523,
+    one.trim().split("\n").length + " / " + (all.trim().split("\n").length - 1));
+}
+
 // ---------- 7. CSV: scope + content ----------
 {
   $("csvScope").value = "all"; const csvAll = typeof w.csvText === "function" ? w.csvText() : null;
@@ -95,8 +198,8 @@ if (chips.length) {
     $("csvScope").value = "rec"; const csvRec = w.csvText();
     const nAll = csvAll.trim().split("\n").length - 1;
     const nRec = csvRec.trim().split("\n").length - 1;
-    T("csv all = 498 rows", nAll === 498, "" + nAll);
-    T("csv recommended = 485 rows (one per couple)", nRec === 485, "" + nRec);
+    T("csv all = 523 rows", nAll === 523, "" + nAll);
+    T("csv recommended = 507 rows (one per couple)", nRec === 507, "" + nRec);
     T("csv has couple_id column", /couple_id/.test(csvAll.split("\n")[0]));
     T("csv has entry_id + metadata columns (F4)",
       ["entry_id","sigma_BDFE","method","T_K","conditions","year"].every(c => csvAll.split("\n")[0].includes(c)));
@@ -238,7 +341,7 @@ if (chips.length) {
   T("K3 no POM/metal-complex family", !/pom|metal/.test(fams), fams);
   // never stored: estimate does not change CSV row count
   $("csvScope").value="all";
-  T("K3 estimate never stored (CSV still 498 rows)", w.csvText().trim().split("\n").length-1===498);
+  T("K3 estimate never stored (CSV still 523 rows)", w.csvText().trim().split("\n").length-1===523);
 }
 
 // ---------- 9d. K3 stage 2: descriptor-based H2O/DMSO ----------
@@ -299,11 +402,11 @@ if (chips.length) {
     const rowsCollapsed = d.querySelectorAll("#tbl tbody tr").length;
     rec.checked = false; rec.dispatchEvent(new w.Event("change"));
     const rowsFlat = d.querySelectorAll("#tbl tbody tr").length;
-    T("toggle off shows every determination", rowsFlat === 498 && rowsCollapsed < rowsFlat, rowsCollapsed + "/" + rowsFlat);
+    T("toggle off shows every determination", rowsFlat === 523 && rowsCollapsed < rowsFlat, rowsCollapsed + "/" + rowsFlat);
     rec.checked = true; rec.dispatchEvent(new w.Event("change"));
   }
 
-  T("search recovers to full view", /485 couples/.test(countText()), countText());
+  T("search recovers to full view", /507 couples/.test(countText()), countText());
 }
 
 console.log(`\n${pass} passed, ${fail} failed`);

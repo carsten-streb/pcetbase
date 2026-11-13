@@ -67,6 +67,35 @@ def validate_couples(rows):
             errors.append(f"data.csv: duplicate entry_id '{eid}' (rows {seen_eid[eid]+2} and {i+2})")
         else:
             seen_eid[eid] = i
+    # provenance batch map (CR-2026-11-13-verification-ledger): every entry_id
+    # covered by exactly one non-overlapping ID range; ledger (if built) complete
+    bpath = os.path.join(HERE, "data", "provenance_batches.csv")
+    if not os.path.exists(bpath):
+        errors.append("data/provenance_batches.csv missing (verification ledger batch map)")
+    else:
+        import csv as _csv
+        ranges = []
+        for b in _csv.DictReader(open(bpath, encoding="utf-8")):
+            ranges.append((int(b["range_start"].split("-")[1]), int(b["range_end"].split("-")[1])))
+        ranges.sort()
+        for (s1, e1), (s2, e2) in zip(ranges, ranges[1:]):
+            if s2 <= e1:
+                errors.append(f"provenance_batches.csv: ranges {s1}..{e1} and {s2}..{e2} overlap")
+        for r in rows:
+            n = int(r["entry_id"].split("-")[1]) if r.get("entry_id", "").startswith("BDFE-") else None
+            if n is not None and not any(s <= n <= e for s, e in ranges):
+                errors.append(f"provenance_batches.csv: {r['entry_id']} not covered by any range")
+        vpath = os.path.join(HERE, "derived", "verification.csv")
+        if os.path.exists(vpath):
+            led = {v["entry_id"] for v in _csv.DictReader(open(vpath, encoding="utf-8"))}
+            missing = [r["entry_id"] for r in rows if r.get("entry_id") and r["entry_id"] not in led]
+            if missing:
+                errors.append(f"derived/verification.csv stale: {len(missing)} entry_ids missing (run build.py), e.g. {missing[:3]}")
+    # origin enum (CR-2026-11-13-origin-provenance): exp/comp/mixed/empty only
+    for r in rows:
+        o = r.get("origin", "")
+        if o not in ("", "exp", "comp", "mixed"):
+            errors.append(f"data.csv {r.get('entry_id','?')}: invalid origin '{o}' (allowed: exp, comp, mixed, empty)")
     # F7: BDFE required and numeric unless the row is flagged ref-conv-missing
     for r in rows:
         if "ref-conv-missing" in r.get("flags", ""):
@@ -200,6 +229,12 @@ def main():
             else:
                 mark = "MULTIPLE STARS - fix"
             print(f"   {rs[0]['compound']} / {rs[0]['solvent']}: {len(rs)} entries — {mark}")
+    # origin soft check: exp claimed where a leg is simulation-fitted
+    contradictions = [r["entry_id"] for r in rows if r.get("origin") == "exp"
+                      and ("sim-pKa" in r.get("flags", "")
+                           or "simulation" in r.get("conditions", "").lower())]
+    if contradictions:
+        print(f"\nSOFT WARN origin=exp but simulation-fitted leg: {', '.join(contradictions)}")
     print("\n--- structural checks (hard) ---")
     errors = validate_couples(rows)
     if errors:

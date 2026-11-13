@@ -2,6 +2,125 @@
 
 All star (recommendation) moves and releases are recorded here, newest first.
 
+## Unreleased (toward v1.5)
+
+### UI wording round: method labels, tooltips, chips, headline (PR #48)
+- Methods block retitled "BDFE determination method" with the hierarchy
+  sub-line; labels per Carsten's review: tabulated (review data), equil
+  (equilibrium data), sq (square scheme: pKa + E deg), hyd (hydricity cycle),
+  OCP (open-circuit potential), hess (Hess combination); hover tooltips per
+  method.
+- Class chips are multi-select: all-on -> click solos, further clicks
+  add/remove, empty restores all. Pair chip "oxidant + base / reductant +
+  acid"; metal chip "TM complexes (non-hydride)"; alias-aware search
+  placeholder.
+- Headline (suggestion A): "PCETbase - open proton-coupled electron transfer
+  (PCET) thermochemistry: BDFE, E deg, pKa, hydricity"; new sub-line; <title>
+  matches.
+
+### Verification ledger: per-entry record of how each value was checked (PR #56)
+- Build-generated derived/verification.csv, one row per entry_id: source type
+  and locator, extraction route, primary-verified, introducing CR/PR, last
+  modification, closure checks with residuals (byte-copied from analysis.csv),
+  outcome vs the validate.py soft thresholds, BDFE-vs-published delta,
+  cross-checks (multi-member couples, Morris 2016 second-review pass),
+  stress-test spot-checks (25 IDs, 2026-11-12 sample) and a generated
+  one-line summary.
+- Provenance inputs: hand-maintained data/provenance_batches.csv (13 ID
+  ranges, PR-verified) + data/provenance_overrides.csv (50 per-row entries).
+- validate.py: hard errors on uncovered entry_ids, overlapping ranges and a
+  stale ledger; CI build-sync now diffs verification.csv.
+- App: "Verification record" block in the panel + CSV download (this entry /
+  full ledger). datapackage verification resource; README + CONTRIBUTING
+  (producer provenance-line rule). Gate 84 -> 88.
+
+### Ladder tick boxes: per-couple selection mode (PR #55)
+- Leading checkbox per table row (couple-keyed, session-only Set; no
+  localStorage). No ticks = today's filtered ladder, unchanged. >= 1 tick =
+  selection mode: the ladder shows only ticked couples, every rung labelled,
+  banner with count + show all / clear selection; "show all" keeps the ticks.
+- Header controls "select visible" / "clear". Filters, chips and search never
+  mutate the tick set; a ticked couple filtered out of the table stays on the
+  ladder. Sub-row ticks tick their couple (one rung per couple invariant).
+- Calculator marker renders in both modes. UI-only, no schema change.
+- Gate 81 -> 84 (selection rendering, filter independence, clear).
+
+### Square-scheme view in the verification panel (PR #54)
+- SVG thermochemical square for every non-pair row with >= 2 stored legs:
+  corners XH(.+)/X(.)/XH/X(-), stored legs solid with values, eq-10-derivable
+  legs dashed "(derived)", a wholly missing diagonal rendered dashed with its
+  joint sum constraint (one undetermined corner), unknown legs greyed.
+  BDFE diagonal always shown; E_c + hydricity rows get the X+ corner and the
+  1.364 hydricity diagonal. Pair rows show a one-line notice instead.
+- Theme-aware (CSS variables); corner labels generic for formula strings.
+- Gate 77 -> 81 (full square, derived-edge marking, hydricity extension,
+  pair exclusion).
+
+### Origin provenance: exp/comp/mixed column + filter (PR #53)
+- New data.csv column origin (enum exp/comp/mixed/empty; datapackage +
+  validate.py hard enum check, soft warn on origin=exp with a
+  simulation-fitted leg). Classification is incremental: empty = not yet
+  classified, never guessed; gas-phase rows deliberately NOT bulk-labelled.
+- Stage-1 pass (from stored conditions text): 14 rows classified mixed
+  (simulation-fitted legs: the 10 DigiSim POM titration rows BDFE-0377..0386,
+  the two W(Cp)(CO)2(IMes)H rows, the two Co(P4N2)H rows). No stored leg is
+  DFT-computed, so comp is currently empty.
+- UI: Origin filter (all/experimental/computational/mixed/not classified),
+  superscript c/m markers in the table, origin in the ladder tooltip,
+  Origin line in the verification panel, origin column in the CSV export.
+- Gate 73 -> 77 (filter count, panel lines, CSV column).
+
+### TMH round 2a: first aqueous Co-H entries - TMH campaign complete (PR #52)
+- 3 new rows (BDFE-0521..0523), all approx with explicit sigma_BDFE per the
+  H64 drop rule: [HCo(CN)5]3- 56.5 hess sigma 4.5 (Halpern 1971 kinetic pKa
+  ca. 20; Lim & Anson 1971 Hess-composed E(II/I) -1.27 V vs SCE);
+  rac-[Co(HMD)(H2O)H]2+ 38.1 sq sigma 2.5 (Creutz 1991 pKa 11.5; E(II/I)
+  -1.32 V vs SHE estimated from the Fujita 1991 MeCN E1/2);
+  [Co(bpy)2(H2O)H]2+ 37.1 sq sigma 3 (Creutz 1984 pKa 6.9; Schwarz 1985
+  ladder E(II/I) -1.09 V vs NHE).
+- The two macrocycle/polypyridine hydrides (37-38 kcal/mol) are the weakest
+  M-H bonds in the database. Water now holds 7 TMH rows on 7 hydrides.
+- Rh(Cp*)(bpy)H+ dropped at step 0 (ring protonation, Pitman & Miller 2016);
+  meso-HMD, cobaltocene and Rh(en)2 out of scope (H64).
+
+### TMH phase P5: group-6/7/8/9 carbonyl hydrides in MeCN (PR #51)
+- 11 new rows (BDFE-0510..0520), all MeCN sq full cycles: anion oxidation
+  potentials from Tilset & Parker 1989 (DCV peak + kinetic dimerization
+  shift), hydride pKas from Moore/Sullivan/Norton 1986. Group 6 (CpMo(CO)3H,
+  CpW(CO)3H, Cp*Mo(CO)3H, CpW(CO)2(PMe3)H) also carry the oxidised diagonal
+  (E_b, pKa_a) from Ryan/Tilset/Parker 1990. BDFEs 58.6-68.6.
+- Reference bases rescaled to the current MeCN scale (Tshepelevitsh 2019)
+  where a value exists; morpholinium and p-CF3-anilinium kept as published
+  (Carsten decision, H81); phenolate case check-src.
+- M1 (approved, H81): BDFE-0126 CpCr(CO)3H rescaled (pKa_b 13.53), E_b
+  +0.668 V added, BDFE 54.9 -> 55.3.
+- Published values in these papers are enthalpy BDEs (constant 50.3);
+  BDFE_pub left empty, each row's conditions give the published BDE.
+
+### TMH phase P4: aqueous primaries + Fe4N cluster (PR #50)
+- 6 new rows (BDFE-0504..0509): Pitman/Brereton/Miller 2016 water hydricities,
+  [Cp*Ir(bpy-COO)H]- and [(cymene)Ru(bpy-COO)H]-, each stored twice - to the
+  aquo complex and, as its own couple with the suffix "(to hydroxo complex)",
+  to the hydroxo complex (the 5.2 kcal/mol gap is the product-state term,
+  Carsten decision Q2); [Rh(bpy)2(H2O)H]2+ (Schwarz & Creutz 1983 potentials,
+  Chou 1982 pKa, method hess); [Fe4N(CO)12H]- in MeCN (Taheri 2015, sq,
+  check-src: pKa rescaled 20.3 -> 21.1 on the current MeCN acidity scale via
+  benzoic acid 20.7 -> 21.5 (Kutt 2021), BDFE 44.4 vs published 47).
+- Water now holds 6 TMH rows on 4 hydrides; both potential-pKa entries of
+  Wiedner 2016 Table 4 are in.
+
+### TMH phase P3: OCP hydricities + first aqueous TMH row (PR #49)
+- 5 new rows (BDFE-0499..0503): three OCP hydricity determinations (Smith &
+  Miller 2024) on CPL-0460/0433/0454 - the first OCP-method TMH rows; the
+  heterobimetallic [Cp*Ir(H)(mu-bpm)Ru(bpy)2]3+ (Brereton 2016) in MeCN and in
+  water (first aqueous TMH row; CHyd(H2O) 34.2, CG(H2O) 52.8).
+- Stars (manual freeze, builder decision on CR open q.1): CPL-0433 and CPL-0454
+  keep the sq row starred (hierarchy sq > OCP); CPL-0454 set discordant
+  (sq vs OCP 1.3 kcal/mol); CPL-0460's discord reason now lists the OCP value
+  (three-method spread 3.8 kcal/mol).
+- BDFE-0469: primary-check note (Price 2002), no value change.
+- Counts: 503 measurements / 487 couples; no new deviations.
+
 ## v1.4.1 — 2026-11-13
 
 Point release, data unchanged (498/485, identical to v1.4). Version DOI

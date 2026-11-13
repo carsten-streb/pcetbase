@@ -84,6 +84,76 @@ def autorecommend(data_path=None):
         w = _csv.writer(f); w.writerow(head); w.writerows(rows)
     print(f"auto-recommendation: {n_auto} starred, {n_conflict} conflict groups (no star), {n_manual} manual-override groups")
 
+
+def write_verification():
+    """derived/verification.csv (CR-2026-11-13-verification-ledger): one row per
+    entry_id recording how the value was obtained and checked. Provenance from
+    data/provenance_batches.csv (ID-range batch map) + data/provenance_overrides.csv
+    (per-row exceptions); residuals copied from derived/analysis.csv."""
+    import csv
+    data = list(csv.DictReader(open(os.path.join(HERE, "data", "data.csv"), encoding="utf-8")))
+    couples = {c["couple_id"]: c for c in csv.DictReader(open(os.path.join(HERE, "data", "couples.csv"), encoding="utf-8"))}
+    analysis = {a["entry_id"]: a for a in csv.DictReader(open(os.path.join(HERE, "derived", "analysis.csv"), encoding="utf-8"))}
+    batches = list(csv.DictReader(open(os.path.join(HERE, "data", "provenance_batches.csv"), encoding="utf-8")))
+    ov = {}
+    for o in csv.DictReader(open(os.path.join(HERE, "data", "provenance_overrides.csv"), encoding="utf-8")):
+        ov.setdefault(o["entry_id"], {})[o["field"]] = o["value"]
+    members = {}
+    for r in data:
+        members[r["couple_id"]] = members.get(r["couple_id"], 0) + 1
+    def batch_of(eid):
+        n = int(eid.split("-")[1])
+        for b in batches:
+            if int(b["range_start"].split("-")[1]) <= n <= int(b["range_end"].split("-")[1]):
+                return b
+        raise SystemExit(f"verification ledger: {eid} not covered by data/provenance_batches.csv")
+    out = []
+    for r in data:
+        eid = r["entry_id"]; b = batch_of(eid); o = ov.get(eid, {})
+        a = analysis.get(eid, {})
+        e18, e10, ehy = a.get("eq18_residual_kcal",""), a.get("eq10_residual_kcal",""), a.get("hyd_residual_kcal","")
+        checks = [n for n,v in (("eq18",e18),("eq10",e10),("hyd",ehy)) if v != ""]
+        soft = (e18 and abs(float(e18)) > 0.3) or (e10 and abs(float(e10)) > 0.5) or (ehy and abs(float(ehy)) > 0.5)
+        outcome = ("soft" if soft else "pass") if checks else "n/a"
+        loc = b["source_locator"]
+        if "Agarwal" in loc and r.get("table") and r["table"] != "EXT":
+            loc = f"Agarwal 2022 {r['table']}"
+        delta = ""
+        if r.get("BDFE_pub"):
+            try: delta = f"{float(r['BDFE']) - float(r['BDFE_pub']):+.1f}"
+            except ValueError: pass
+        cross = []
+        if members.get(r["couple_id"], 1) > 1:
+            c = couples.get(r["couple_id"], {})
+            cross.append(f"multi-member couple {r['couple_id']} ({members[r['couple_id']]} entries"
+                         + (", discordant" if c.get("discordant") == "1" else "") + ")")
+        if o.get("cross_checks"): cross.append(o["cross_checks"])
+        pv = o.get("primary_verified", b["primary_verified"])
+        summary = (f"{b['source_type']} ({loc}), {b['extraction_route']}; primary-verified: {pv}; "
+                   + (f"closes by {', '.join(checks)} ({', '.join(f'{c} {v}' for c,v in (('eq18',e18),('eq10',e10),('hyd',ehy)) if v)}) - {outcome}"
+                      if checks else "no closure applicable")
+                   + (f"; BDFE vs published: {delta}" if delta else "")
+                   + (f"; {' / '.join(cross)}" if cross else "")
+                   + (f"; spot-check: {o['spot_check']}" if o.get("spot_check") else "")
+                   + (f"; flags: {r['flags']}" if r.get("flags") else ""))
+        out.append({
+            "entry_id": eid, "couple_id": r["couple_id"], "compound": r["compound"],
+            "solvent": r["solvent"], "class": r["class"],
+            "source_type": b["source_type"], "source_locator": loc,
+            "extraction_route": b["extraction_route"], "primary_verified": pv,
+            "introduced_in": b["introduced_in"],
+            "last_modified_in": o.get("last_modified_in", ""),
+            "checks_run": ";".join(checks), "eq18_res": e18, "eq10_res": e10, "hyd_res": ehy,
+            "check_outcome": outcome, "bdfe_pub_delta": delta,
+            "cross_checks": " / ".join(cross), "spot_check": o.get("spot_check", ""),
+            "open_flags": r.get("flags", ""), "summary": summary,
+        })
+    path = os.path.join(HERE, "derived", "verification.csv")
+    with open(path, "w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=list(out[0].keys()), lineterminator="\n")
+        w.writeheader(); w.writerows(out)
+    print(f"wrote derived/verification.csv ({len(out)} rows)")
+
 def main():
     print("--- auto-recommendation ---")
     autorecommend()
@@ -91,11 +161,13 @@ def main():
     rc = subprocess.run([sys.executable, os.path.join(HERE, "validate.py")]).returncode
     if rc != 0:
         sys.exit("build aborted: hard validation errors (see report above)")
+    write_verification()
     print("--- build ---")
     tpl = open(os.path.join(HERE, "template.html"), encoding="utf-8").read()
     data = open(os.path.join(HERE, "data", "data.csv"), encoding="utf-8").read()
     const = open(os.path.join(HERE, "data", "constants.csv"), encoding="utf-8").read()
     coup = open(os.path.join(HERE, "data", "couples.csv"), encoding="utf-8").read()
+    verif = open(os.path.join(HERE, "derived", "verification.csv"), encoding="utf-8").read()
     # deterministic staleness stamp (F8): entry count + release version + data hash
     # (no wall-clock date - the build must stay byte-reproducible for CI's sync check)
     import hashlib, re as _re
@@ -104,7 +176,7 @@ def main():
     ver = m.group(1) if m else "?"
     stamp = f"{n_rows} measurements, v{ver}, data {hashlib.sha256(data.encode()).hexdigest()[:8]}"
     out = (tpl.replace("__DATA_CSV__", esc(data)).replace("__CONST_CSV__", esc(const))
-              .replace("__COUPLES_CSV__", esc(coup)).replace("__BUILD_STAMP__", stamp))
+              .replace("__COUPLES_CSV__", esc(coup)).replace("__VERIF_CSV__", esc(verif)).replace("__BUILD_STAMP__", stamp))
     open(os.path.join(HERE, "index.html"), "w", encoding="utf-8").write(out)
     print(f"wrote index.html ({len(out)//1024} kB)")
 

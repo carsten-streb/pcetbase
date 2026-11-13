@@ -430,7 +430,7 @@ CPL-0429,[Pd(depPE)2H]+,,MeCN,M-H,tmh,,,0
 CPL-0430,[Ni(depp)2H]+,,MeCN,M-H,tmh,,,0
 CPL-0431,"[Ni(PR2NR'2)2H]+ ; R = Cy, R' = Ph",,MeCN,M-H,tmh,,,0
 CPL-0432,[Ni(dppe)2H]+,,MeCN,M-H,tmh,,,0
-CPL-0433,[Ir(Cp*)(bpy)H]+,,MeCN,M-H,tmh,,,0
+CPL-0433,[Ir(Cp*)(bpy)H]+,,MeCN,M-H,tmh,,"sq (potential-pKa) and OCP (Smith 2024) agree within 0.4 kcal/mol (59.8 vs 59.4); star to sq by method hierarchy (manual freeze, PR #49)",0
 CPL-0434,[Pd(depx)2H]+,,MeCN,M-H,tmh,,,0
 CPL-0435,Fe(Cp)(CO)2(H),,MeCN,M-H,tmh,,,0
 CPL-0436,"[Ni(PR2NR'2)2H]+ ; R = Cy, R' = tBu",,MeCN,M-H,tmh,,,0
@@ -451,13 +451,13 @@ CPL-0450,W(Cp)(CO)2(IMes)H,,MeCN,M-H,tmh,,,0
 CPL-0451,[Ni(depe)2H]+,,MeCN,M-H,tmh,,,0
 CPL-0452,[Pd(depp)2H]+,,MeCN,M-H,tmh,,,0
 CPL-0453,[Pt(PNP)2H]+,,MeCN,M-H,tmh,,,0
-CPL-0454,[Ru(C6Me6)(bpy)H]+,,MeCN,M-H,tmh,,,0
+CPL-0454,[Ru(C6Me6)(bpy)H]+,,MeCN,M-H,tmh,,"sq (potential-pKa, Wiedner/Matsubara primary) and OCP (open-circuit potentiometry, Smith 2024) disagree by 1.3 kcal/mol (55.3 vs 54.0); star to sq by method hierarchy (manual freeze, PR #49)",1
 CPL-0455,"[Ni(PR2NR'2)2H]+ ; R = Me, R' = Ph",,MeCN,M-H,tmh,,,0
 CPL-0456,[Pt(depp)2H]+,,MeCN,M-H,tmh,,,0
 CPL-0457,[Pt(dppe)2H]+,,MeCN,M-H,tmh,,,0
 CPL-0458,[Pd(PNP)2H]+,,MeCN,M-H,tmh,,,0
 CPL-0459,[Pt(dmpp)2H]+,,MeCN,M-H,tmh,,,0
-CPL-0460,[Ni(dmpe)2H]+,,MeCN,M-H,tmh,,"sq (measured pKa, Berning 1999) and hyd (H2-heterolysis) closures disagree by 1.1 kcal/mol (53.8 vs 54.9); star to sq by rule 1 (auto); discord recorded per convention (CR-2026-11-12-tmh-primaries-p1, H34 builder decision)",1
+CPL-0460,[Ni(dmpe)2H]+,,MeCN,M-H,tmh,,"sq (measured pKa, Berning 1999) and hyd (H2-heterolysis) closures disagree by 1.1 kcal/mol (53.8 vs 54.9); star to sq by rule 1 (auto); discord recorded per convention (CR-2026-11-12-tmh-primaries-p1, H34 builder decision); OCP determination (Smith 2024) adds 57.6, three-method spread 3.8 kcal/mol (PR #49)",1
 CPL-0461,[Co(P4N2)H]+,,MeCN,M-H,tmh,,,0
 CPL-0462,[Pt(depe)2H]+,,MeCN,M-H,tmh,,,0
 CPL-0463,[Pd(depe)2H]+,,MeCN,M-H,tmh,,,0
@@ -484,3 +484,25 @@ CPL-0483,[Rh(depx)2H]+,,MeCN,M-H,tmh,,,0
 CPL-0484,[W(Cp)(CO)2(IMes)H]+,,MeCN,M-H,tmh,,,0
 CPL-0485,[W(Cp)(CO)2(IMes)(H)2]+,,MeCN,M-H,tmh,,,0
 CPL-0486,Co(dppe)2H,,MeCN,M-H,tmh,,,0
+CPL-0487,[Ir(Cp*)H(mu-bpm)Ru(bpy)2]3+,,MeCN,M-H,tmh,,,0
+CPL-0488,[Ir(Cp*)H(mu-bpm)Ru(bpy)2]3+,,H2O,M-H,tmh,,,0
+CPL-0489,[Ir(Cp*)(bpy-COO)H]-,,H2O,M-H,tmh,,,0
+CPL-0490,[Ru(cymene)(bpy-COO)H]-,,H2O,M-H,tmh,,,0
+CPL-0491,[Rh(bpy)2(H2O)H]2+,,H2O,M-H,tmh,,,0
+CPL-0492,[Fe4N(CO)12H]-,,MeCN,M-H,tmh,,,0
+CPL-0493,[Ir(Cp*)(bpy-COO)H]- (to hydroxo complex),,H2O,M-H,tmh,,,0
+CPL-0494,[Ru(cymene)(bpy-COO)H]- (to hydroxo complex),,H2O,M-H,tmh,,,0
+CPL-0495,CpMo(CO)3H,,MeCN,M-H,tmh,,,0
+CPL-0496,CpW(CO)3H,,MeCN,M-H,tmh,,,0
+CPL-0497,Cp*Mo(CO)3H,,MeCN,M-H,tmh,,,0
+CPL-0498,CpW(CO)2(PMe3)H,,MeCN,M-H,tmh,,,0
+CPL-0499,HMn(CO)5,,MeCN,M-H,tmh,,,0
+CPL-0500,HMn(CO)4(PPh3),,MeCN,M-H,tmh,,,0
+CPL-0501,HRe(CO)5,,MeCN,M-H,tmh,,,0
+CPL-0502,H2Fe(CO)4,,MeCN,M-H,tmh,,,0
+CPL-0503,HCo(CO)4,,MeCN,M-H,tmh,,,0
+CPL-0504,HCo(CO)3(P(OPh)3),,MeCN,M-H,tmh,,,0
+CPL-0505,HCo(CO)3(PPh3),,MeCN,M-H,tmh,,,0
+CPL-0506,[HCo(CN)5]3-,,H2O,M-H,tmh,,,0
+CPL-0507,rac-[Co(HMD)(H2O)H]2+,,H2O,M-H,tmh,,,0
+CPL-0508,[Co(bpy)2(H2O)H]2+,,H2O,M-H,tmh,,,0

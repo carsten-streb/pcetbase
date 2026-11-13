@@ -4,7 +4,13 @@ All star (recommendation) moves and releases are recorded here, newest first.
 
 ## v1.4 — 2026-11-12
 
-### Pre-publication stress-test fixes (CR-2026-11-12-stress-v1.4 F1–F6, PR #46)
+## v1.4.1 — 2026-11-13
+
+Point release, data unchanged (498/485, identical to v1.4). Version DOI
+10.5281/zenodo.24186854. Shipped figure set carries the v1.4 watermark
+(content identical to a v1.4.1 render).
+
+### Stress-test fixes (CR-2026-11-12-stress-v1.4 F1–F6, PR #46)
 - .zenodo.json + CITATION.cff: scope sentence and keywords extended to the TMH/
   hydricity content; "version": "1.4" added; the two files are field-identical (F1).
 - Figure watermark now reads the release version from CITATION.cff instead of
@@ -23,7 +29,8 @@ All star (recommendation) moves and releases are recorded here, newest first.
 review tables that close a BDFE, primary-verified where the review value was
 doubtful or deferred (batch-1 deferral list closed). 498 measurements / 485
 couples. Figure set (figures/, Figs 2, 3, 4, 6) rendered from this state by
-scripts/figures/render_all.py. Version DOI added after Zenodo archiving.
+scripts/figures/render_all.py. Version DOI 10.5281/zenodo.24175058 (archives
+the pre-stress-fix tag state b177031; the stress fixes are v1.4.1).
 
 ### TMH primary-literature pass P2c (PR #44) - closes the batch-1 deferral list
 - 6 new rows (BDFE-0493..0498, CPL-0481..0486): cis-[Rh(depx)2(H)2]+ sq,

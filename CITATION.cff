@@ -10,13 +10,13 @@ authors:
 repository-code: "https://github.com/carsten-streb/pcetbase"
 url: "https://carsten-streb.github.io/pcetbase/"
 license: CC-BY-4.0
-doi: 10.5281/zenodo.24121910
+doi: 10.5281/zenodo.24186854
 identifiers:
   - type: doi
     value: 10.5281/zenodo.24121910
     description: "Concept DOI - resolves to the latest version"
-version: "1.4"
-date-released: "2026-11-12"
+version: "1.4.1"
+date-released: "2026-11-13"
 keywords:
   - "proton-coupled electron transfer"
   - "PCET"

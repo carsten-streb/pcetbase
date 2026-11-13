@@ -4,6 +4,18 @@ All star (recommendation) moves and releases are recorded here, newest first.
 
 ## Unreleased (toward v1.5)
 
+### TMH phase P4: aqueous primaries + Fe4N cluster (PR #50)
+- 6 new rows (BDFE-0504..0509): Pitman/Brereton/Miller 2016 water hydricities,
+  [Cp*Ir(bpy-COO)H]- and [(cymene)Ru(bpy-COO)H]-, each stored twice - to the
+  aquo complex and, as its own couple with the suffix "(to hydroxo complex)",
+  to the hydroxo complex (the 5.2 kcal/mol gap is the product-state term,
+  Carsten decision Q2); [Rh(bpy)2(H2O)H]2+ (Schwarz & Creutz 1983 potentials,
+  Chou 1982 pKa, method hess); [Fe4N(CO)12H]- in MeCN (Taheri 2015, sq,
+  check-src: pKa rescaled 20.3 -> 21.1 on the current MeCN acidity scale via
+  benzoic acid 20.7 -> 21.5 (Kutt 2021), BDFE 44.4 vs published 47).
+- Water now holds 6 TMH rows on 4 hydrides; both potential-pKa entries of
+  Wiedner 2016 Table 4 are in.
+
 ### TMH phase P3: OCP hydricities + first aqueous TMH row (PR #49)
 - 5 new rows (BDFE-0499..0503): three OCP hydricity determinations (Smith &
   Miller 2024) on CPL-0460/0433/0454 - the first OCP-method TMH rows; the

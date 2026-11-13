@@ -502,3 +502,9 @@ BDFE-0500,[Ir(Cp*)(bpy)H]+,CPL-0433,tmh,MeCN,OCP,derived;hess:pKa_b;approx,,0.00
 BDFE-0501,[Ru(C6Me6)(bpy)H]+,CPL-0454,tmh,MeCN,OCP,derived;hess:pKa_b;approx,,0.006,0.168,0.005,71f79d4ef4b1
 BDFE-0502,[Ir(Cp*)H(mu-bpm)Ru(bpy)2]3+,CPL-0487,tmh,MeCN,sq,derived;approx,,0.003,0.044,0.020,71f79d4ef4b1
 BDFE-0503,[Ir(Cp*)H(mu-bpm)Ru(bpy)2]3+,CPL-0488,tmh,H2O,sq,derived;approx,,0.008,-0.034,-0.034,71f79d4ef4b1
+BDFE-0504,[Ir(Cp*)(bpy-COO)H]-,CPL-0489,tmh,H2O,sq,derived;approx,,0.002,0.018,-0.026,71f79d4ef4b1
+BDFE-0505,[Ru(cymene)(bpy-COO)H]-,CPL-0490,tmh,H2O,sq,derived;approx,,-0.011,-0.010,-0.056,71f79d4ef4b1
+BDFE-0506,[Rh(bpy)2(H2O)H]2+,CPL-0491,tmh,H2O,hess,derived;approx,,-0.007,0.009,0.021,71f79d4ef4b1
+BDFE-0507,[Fe4N(CO)12H]-,CPL-0492,tmh,MeCN,sq,recomputed;check-src,,-0.010,-0.020,,71f79d4ef4b1
+BDFE-0508,[Ir(Cp*)(bpy-COO)H]- (to hydroxo complex),CPL-0493,tmh,H2O,sq,derived;approx,,-0.009,0.007,-0.049,71f79d4ef4b1
+BDFE-0509,[Ru(cymene)(bpy-COO)H]- (to hydroxo complex),CPL-0494,tmh,H2O,sq,derived;approx,,0.001,0.048,-0.041,71f79d4ef4b1

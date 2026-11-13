@@ -486,3 +486,9 @@ CPL-0485,[W(Cp)(CO)2(IMes)(H)2]+,,MeCN,M-H,tmh,,,0
 CPL-0486,Co(dppe)2H,,MeCN,M-H,tmh,,,0
 CPL-0487,[Ir(Cp*)H(mu-bpm)Ru(bpy)2]3+,,MeCN,M-H,tmh,,,0
 CPL-0488,[Ir(Cp*)H(mu-bpm)Ru(bpy)2]3+,,H2O,M-H,tmh,,,0
+CPL-0489,[Ir(Cp*)(bpy-COO)H]-,,H2O,M-H,tmh,,,0
+CPL-0490,[Ru(cymene)(bpy-COO)H]-,,H2O,M-H,tmh,,,0
+CPL-0491,[Rh(bpy)2(H2O)H]2+,,H2O,M-H,tmh,,,0
+CPL-0492,[Fe4N(CO)12H]-,,MeCN,M-H,tmh,,,0
+CPL-0493,[Ir(Cp*)(bpy-COO)H]- (to hydroxo complex),,H2O,M-H,tmh,,,0
+CPL-0494,[Ru(cymene)(bpy-COO)H]- (to hydroxo complex),,H2O,M-H,tmh,,,0

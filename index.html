@@ -1335,12 +1335,13 @@ function parseCSV(text){
 }
 
 const REVIEW_DOI="10.1021/acs.chemrev.1c00521";
-const DGH={},CG={},EH2_VS_FC={},REFOFF={};
+const DGH={},CG={},EH2_VS_FC={},REFOFF={},CHYD={};
 parseCSV(CONST_CSV).forEach(r=>{
   const v=parseFloat(r.value_kcal_or_V);
   if(r.key==="dGfH")DGH[r.solvent]=v;
   if(r.key==="CG")CG[r.solvent]=v;
   if(r.key==="EH2vsFc")EH2_VS_FC[r.solvent]=v;
+  if(r.key==="CHyd")CHYD[r.solvent]=v;
   /* refoff:<ELECTRODE> rows: value = E°(Fc+/0) vs that electrode in the given solvent;
      note = uncertainty in V; source = citation. Filled only from verified sources. */
   if(r.key.startsWith("refoff:"))REFOFF[r.key.slice(7)+"|"+r.solvent]={v,unc:r.note,src:r.source};
@@ -1566,6 +1567,7 @@ function showDetail(id){
     const v=23.06*r.E+dg;
     h+=`<div class="eq">eq 18: BDFE = 23.06 × (${r.E.toFixed(3)}) + ΔG°f(H•)(${r.solvent}) ${dg.toFixed(1)} = <b>${v.toFixed(1)} kcal mol⁻¹</b> &nbsp;(stored: ${r.bdfe.toFixed(1)}, Δ = ${(v-r.bdfe).toFixed(2)})</div>`;
   }
+  h+=squareSchemeHTML(r,refSc);
   h+=`<div class="warn">Constants C<sub>G</sub> and ΔG°f(H•): Agarwal et al. 2022, Table 1 (<a href="https://doi.org/10.1021/acs.chemrev.1c00521">10.1021/acs.chemrev.1c00521</a>), consistent with the correction <a href="https://doi.org/10.1021/acs.chemrev.1c00791">10.1021/acs.chemrev.1c00791</a>. Primary source: <a href="https://doi.org/${r.srcDoi}">${r.srcDoi}</a>${r.srcRef?" — original citation"+r.srcRef+" therein":""}.</div>`;
   if(r.flags){
     h+=`<div class="warn">Flags: `+r.flags.split(";").map(f=>{
@@ -1577,6 +1579,77 @@ function showDetail(id){
   box.style.display="block";
   if(r.entryId&&history.replaceState)history.replaceState(null,"","#"+r.entryId);
   if(box.scrollIntoView)box.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+
+
+/* explicit square scheme (CR-2026-11-13-square-scheme-view): SVG of the
+   thermochemical square for every non-pair row with >=2 stored legs.
+   Stored legs solid; a leg derivable from BDFE via eq 10 dashed "(derived)";
+   neither: greyed "not stored". With E_c + hydricity stored, the X+ corner
+   and the 1.364 hydricity diagonal extend the square. */
+function squareSchemeHTML(r,refSc){
+  if(r.cls==="pair")
+    return `<div class="src" id="sqnote" style="margin:8px 0">Effective reagent-pair BDFE — no single-molecule square scheme.</div>`;
+  const cg=CG[r.solvent];
+  if(cg===undefined)return "";
+  const stored=[r.Ea,r.Eb,r.pkaA,(r.pka!=null&&r.pka===r.pka)?r.pka:null].filter(v=>v!=null).length;
+  if(stored<2)return "";
+  const pkb=(r.pka!=null&&r.pka===r.pka)?r.pka:null;
+  const leg=(v,d,fmt)=>v!=null?{v,st:"stored",txt:"<tspan font-weight='700'>"+fmt(v)+"</tspan>"}
+    :(d!=null?{v:d,st:"derived",txt:"("+fmt(d)+") derived"}:{st:"none",txt:"not stored"});
+  const fV=v=>v.toFixed(2)+" V", fP=v=>"pKa "+v.toFixed(1);
+  const Ea=leg(r.Ea, pkb!=null?(r.bdfe-1.37*pkb-cg)/23.06:null, fV);
+  const Pkb=leg(pkb, r.Ea!=null?(r.bdfe-23.06*r.Ea-cg)/1.37:null, fP);
+  const Eb=leg(r.Eb, r.pkaA!=null?(r.bdfe-1.37*r.pkaA-cg)/23.06:null, fV);
+  const Pka=leg(r.pkaA, r.Eb!=null?(r.bdfe-23.06*r.Eb-cg)/1.37:null, fP);
+  /* a wholly missing diagonal is sum-constrained by the closed one (one
+     undetermined corner): render both edges dashed with the joint constraint */
+  const sum=(r.bdfe-cg).toFixed(1);
+  if(Eb.st==="none"&&Pka.st==="none"&&Ea.st!=="none"&&Pkb.st!=="none"){
+    Eb.st=Pka.st="derived";
+    Eb.txt="(derived, sum only)";Pka.txt="(derived: 1.37·pKa + 23.06·E = "+sum+")";
+  }else if(Ea.st==="none"&&Pkb.st==="none"&&Eb.st!=="none"&&Pka.st!=="none"){
+    Ea.st=Pkb.st="derived";
+    Ea.txt="(derived, sum only)";Pkb.txt="(derived: 1.37·pKa + 23.06·E = "+sum+")";
+  }
+  /* corner labels: plain names get derived forms; formula strings get generic corners */
+  const generic=/[\[\]()+\d]|\*|\^/.test(r.name)||r.name.length>12;
+  const cXH=generic?"XH":r.name, cRad=generic?"X•":r.name+"(−H)•",
+        cAn=generic?"X⁻":r.name+"(−H)⁻", cCat=generic?"XH•⁺":r.name+"•⁺";
+  const hydOK=r.Ec!=null&&r.hyd!=null&&CHYD[r.solvent]!==undefined;
+  const W=hydOK?560:440,H=200;
+  const x1=86,x2=322,x3=470,yT=42,yB=160;
+  const stl=s=>s==="stored"?`stroke="var(--ink-2)" stroke-width="1.6"`
+    :s==="derived"?`stroke="var(--ink-muted)" stroke-width="1.4" stroke-dasharray="6 4"`
+    :`stroke="var(--grid)" stroke-width="1.2"`;
+  const txtc=s=>s==="none"?"var(--ink-muted)":"var(--ink-2)";
+  let s=`<svg id="sqsvg" viewBox="0 0 ${W} ${H}" style="max-width:${W}px;width:100%;display:block;margin:6px 0" role="img" aria-label="thermochemical square scheme">`;
+  /* corners */
+  s+=`<text x="${x1}" y="${yT-8}" text-anchor="middle" font-size="12" fill="var(--ink)">${cCat}</text>`;
+  s+=`<text x="${x2}" y="${yT-8}" text-anchor="middle" font-size="12" fill="var(--ink)">${cRad}</text>`;
+  s+=`<text x="${x1}" y="${yB+16}" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">${cXH}</text>`;
+  s+=`<text x="${x2}" y="${yB+16}" text-anchor="middle" font-size="12" fill="var(--ink)">${cAn}</text>`;
+  /* edges */
+  s+=`<line class="sqedge" data-leg="pKaA" data-state="${Pka.st}" x1="${x1+28}" x2="${x2-28}" y1="${yT}" y2="${yT}" ${stl(Pka.st)}/>`;
+  s+=`<text x="${(x1+x2)/2}" y="${yT-6}" text-anchor="middle" font-size="10.5" fill="${txtc(Pka.st)}">−H⁺ · ${Pka.txt}</text>`;
+  s+=`<line class="sqedge" data-leg="pKaB" data-state="${Pkb.st}" x1="${x1+28}" x2="${x2-28}" y1="${yB}" y2="${yB}" ${stl(Pkb.st)}/>`;
+  s+=`<text x="${(x1+x2)/2}" y="${yB+14}" text-anchor="middle" font-size="10.5" fill="${txtc(Pkb.st)}">−H⁺ · ${Pkb.txt}</text>`;
+  s+=`<line class="sqedge" data-leg="Eb" data-state="${Eb.st}" x1="${x1}" x2="${x1}" y1="${yT+8}" y2="${yB-16}" ${stl(Eb.st)}/>`;
+  s+=`<text x="${x1-6}" y="${(yT+yB)/2}" text-anchor="end" font-size="10.5" fill="${txtc(Eb.st)}">−e⁻ · ${Eb.txt}</text>`;
+  s+=`<line class="sqedge" data-leg="Ea" data-state="${Ea.st}" x1="${x2}" x2="${x2}" y1="${yT+8}" y2="${yB-16}" ${stl(Ea.st)}/>`;
+  s+=`<text x="${x2+6}" y="${(yT+yB)/2}" font-size="10.5" fill="${txtc(Ea.st)}">−e⁻ · ${Ea.txt}</text>`;
+  /* BDFE diagonal XH -> X* */
+  s+=`<line class="sqdiag" x1="${x1+30}" x2="${x2-30}" y1="${yB-18}" y2="${yT+10}" stroke="var(--c-user)" stroke-width="2"/>`;
+  s+=`<text x="${(x1+x2)/2+10}" y="${(yT+yB)/2+22}" text-anchor="middle" font-size="11" font-weight="700" fill="var(--c-user)" transform="rotate(-26 ${(x1+x2)/2+10} ${(yT+yB)/2+22})">−H• · BDFE ${r.bdfe.toFixed(1)}</text>`;
+  if(hydOK){
+    s+=`<text x="${x3}" y="${yT-8}" text-anchor="middle" font-size="12" fill="var(--ink)">${generic?"X⁺":r.name+"(−H)⁺"}</text>`;
+    s+=`<line class="sqedge" data-leg="Ec" data-state="stored" x1="${x2+24}" x2="${x3-18}" y1="${yT-12}" y2="${yT-12}" stroke="var(--ink-2)" stroke-width="1.6"/>`;
+    s+=`<text x="${(x2+x3)/2+4}" y="${yT-18}" text-anchor="middle" font-size="10.5" fill="var(--ink-2)">−e⁻ · <tspan font-weight="700">${r.Ec.toFixed(2)} V</tspan></text>`;
+    s+=`<line class="sqdiag hyd" x1="${x1+34}" x2="${x3-14}" y1="${yB-14}" y2="${yT+2}" stroke="var(--c-tmh)" stroke-width="1.8" stroke-dasharray="2 3"/>`;
+    s+=`<text x="${x3-62}" y="${yB-46}" font-size="10.5" font-weight="700" fill="var(--c-tmh)">−H⁻ · ΔG(H⁻) ${r.hyd.toFixed(1)}</text>`;
+  }
+  s+=`</svg>`;
+  return `<details open id="sqscheme"><summary>Square scheme (stored legs solid, eq-10-derived dashed${hydOK?"; hydricity extension, 1.364 diagonal":""})</summary>${s}<div class="src">Potentials V vs ${refSc}; BDFE and ΔG(H⁻) kcal mol⁻¹. Derived legs use eq 10 with C<sub>G</sub>(${r.solvent}) = ${cg.toFixed(1)}${hydOK?`; hydricity diagonal: 1.364·pK<sub>a</sub> + 23.06·(E<sub>a</sub>+E<sub>c</sub>) + C<sub>Hyd</sub>(${r.solvent}) = ${(1.364*(pkb!=null?pkb:0)+23.06*((r.Ea||0)+r.Ec)+CHYD[r.solvent]).toFixed(1)}`:""}.</div></details>`;
 }
 
 function renderLadder(){

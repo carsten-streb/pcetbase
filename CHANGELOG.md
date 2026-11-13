@@ -4,6 +4,17 @@ All star (recommendation) moves and releases are recorded here, newest first.
 
 ## Unreleased (toward v1.5)
 
+### Square-scheme view in the verification panel (PR #54)
+- SVG thermochemical square for every non-pair row with >= 2 stored legs:
+  corners XH(.+)/X(.)/XH/X(-), stored legs solid with values, eq-10-derivable
+  legs dashed "(derived)", a wholly missing diagonal rendered dashed with its
+  joint sum constraint (one undetermined corner), unknown legs greyed.
+  BDFE diagonal always shown; E_c + hydricity rows get the X+ corner and the
+  1.364 hydricity diagonal. Pair rows show a one-line notice instead.
+- Theme-aware (CSS variables); corner labels generic for formula strings.
+- Gate 77 -> 81 (full square, derived-edge marking, hydricity extension,
+  pair exclusion).
+
 ### Origin provenance: exp/comp/mixed column + filter (PR #53)
 - New data.csv column origin (enum exp/comp/mixed/empty; datapackage +
   validate.py hard enum check, soft warn on origin=exp with a

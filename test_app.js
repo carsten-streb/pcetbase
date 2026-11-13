@@ -116,6 +116,32 @@ if (chips.length) {
     /(^|,)origin(,|$)/m.test(csvO.split("\n")[0]) && /,mixed,/.test(csvO));
 }
 
+// ---------- 6c. square-scheme view (CR-2026-11-13-square-scheme-view) ----------
+{
+  // full square: BDFE-0090 (FeII(H2O)6) stores all four legs
+  const dF = newDom({ hash: "#BDFE-0090" }).window.document;
+  const solidF = dF.querySelectorAll('#sqsvg .sqedge[data-state="stored"]').length;
+  T("full-square row: 4 solid edges + BDFE diagonal",
+    solidF === 4 && dF.querySelectorAll("#sqsvg .sqdiag").length >= 1, "solid=" + solidF);
+  // BDFE-0422: E_a + pKa_b solid, E_b/pKa_a dashed-derived, diagonal 52.3
+  const d4 = newDom({ hash: "#BDFE-0422" }).window.document;
+  const st = l => { const e = d4.querySelector(`#sqsvg .sqedge[data-leg="${l}"]`); return e && e.dataset.state; };
+  T("BDFE-0422: Ea/pKaB stored, Eb/pKaA derived, diagonal 52.3",
+    st("Ea") === "stored" && st("pKaB") === "stored" && st("Eb") === "derived" && st("pKaA") === "derived"
+      && /BDFE 52\.3/.test(d4.getElementById("sqsvg").textContent),
+    [st("Ea"), st("pKaB"), st("Eb"), st("pKaA")].join("/"));
+  // TMH sq+hyd row: hydricity extension with the 1.364 diagonal closing to the stored value
+  const dH = newDom({ hash: "#BDFE-0427" }).window.document;
+  const sq = dH.getElementById("sqscheme");
+  T("TMH hyd row: hydricity extension renders and closes",
+    !!dH.querySelector("#sqsvg .sqdiag.hyd") && /1\.364/.test(sq.textContent)
+      && /ΔG\(H⁻\)/.test(sq.textContent));
+  // pair row: notice, no SVG
+  const dP = newDom({ hash: "#BDFE-0059" }).window.document;
+  T("pair row: notice, no square SVG",
+    !!dP.getElementById("sqnote") && !dP.getElementById("sqsvg"));
+}
+
 // ---------- 7. CSV: scope + content ----------
 {
   $("csvScope").value = "all"; const csvAll = typeof w.csvText === "function" ? w.csvText() : null;

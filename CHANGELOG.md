@@ -4,6 +4,20 @@ All star (recommendation) moves and releases are recorded here, newest first.
 
 ## Unreleased (toward v1.5)
 
+### UI wording round: method labels, tooltips, chips, headline (PR #48)
+- Methods block retitled "BDFE determination method" with the hierarchy
+  sub-line; labels per Carsten's review: tabulated (review data), equil
+  (equilibrium data), sq (square scheme: pKa + E deg), hyd (hydricity cycle),
+  OCP (open-circuit potential), hess (Hess combination); hover tooltips per
+  method.
+- Class chips are multi-select: all-on -> click solos, further clicks
+  add/remove, empty restores all. Pair chip "oxidant + base / reductant +
+  acid"; metal chip "TM complexes (non-hydride)"; alias-aware search
+  placeholder.
+- Headline (suggestion A): "PCETbase - open proton-coupled electron transfer
+  (PCET) thermochemistry: BDFE, E deg, pKa, hydricity"; new sub-line; <title>
+  matches.
+
 ### Verification ledger: per-entry record of how each value was checked (PR #56)
 - Build-generated derived/verification.csv, one row per entry_id: source type
   and locator, extraction route, primary-verified, introducing CR/PR, last

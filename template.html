@@ -120,6 +120,7 @@
         <div><label>Search</label><input id="q" type="text" placeholder="compound or partner…"></div>
         <div><label>Solvent</label><select id="solv"><option value="">all</option></select></div>
         <div><label>Bond</label><select id="bond"><option value="">all</option></select></div>
+        <div><label>Origin <span class="src" title="exp = all legs measured; comp = defining value computed (DFT, simulation-only, estimate); mixed = at least one leg computed or simulation-fitted">(?)</span></label><select id="orig"><option value="">all</option><option value="exp">experimental</option><option value="comp">computational</option><option value="mixed">mixed</option><option value="none">not classified</option></select></div>
         <div style="grid-column:1/-1"><label>Methods <span class="src">(one box per method value in the data)</span></label><div id="mBoxes" style="display:flex;gap:14px;flex-wrap:wrap;padding-top:4px"></div></div>
         <div style="grid-column:1/-1"><label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox" id="recOnly" checked style="width:auto"> Recommended only <span class="src">(one ★/best value per couple; untick to list every determination)</span></label></div>
         <div><label>Energy unit</label>
@@ -284,7 +285,7 @@ const D=parseCSV(DATA_CSV).map((r,i)=>({
   cid:r.couple_id||"",sigma:r.sigma_BDFE||"",
   hyd:r.hydricity_kcal===""||r.hydricity_kcal===undefined?null:parseFloat(r.hydricity_kcal),
   Ec:r.E_c===""||r.E_c===undefined?null:parseFloat(r.E_c),tK:r.T_K||"",cond:r.conditions||"",entryId:r.entry_id||"",
-  year:r.year||"",
+  year:r.year||"",origin:r.origin||"",
   srcDoi:r.doi||REVIEW_DOI,
   srcRef:r.doi?"":(r.refs?` [ref ${r.refs.replace(/;/g,", ")}]`:""),
   src:""
@@ -346,10 +347,12 @@ function filtered(){
   const q=document.getElementById("q").value.trim().toLowerCase();
   const sv=document.getElementById("solv").value;
   const bd=document.getElementById("bond").value;
+  const og=document.getElementById("orig").value;
   return D.filter(r=>active.has(r.cls)
     &&mActive.has(r.method)
     &&(!sv||r.solvent===sv)
     &&(!bd||r.bond===bd)
+    &&(!og||(og==="none"?!r.origin:r.origin===og))
     &&(!q||r.name.toLowerCase().includes(q)||r.partner.toLowerCase().includes(q)||r.aliases.includes(q)));
 }
 
@@ -401,7 +404,7 @@ function renderTable(){
   const flt=filtered();
   const couples=coupleView(flt).sort((a,b)=>cmp(a.rep,b.rep));
   const rowHtml=(r,sub)=>
-   `<tr data-id="${r.id}"${sub?' class="sub"':''}><td>${sub?'<span class="src" style="margin-left:18px">↳</span> ':`<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${clsColor(r.cls)};margin-right:6px"></span>`}${r.name}${r.rec?` <span title="recommended value${r.recManual?" (manual, see reason in the verification panel)":" (auto, policy rules 1-2)"}">★</span>`:""}${COUPLES[r.cid]&&COUPLES[r.cid].discordant==="1"?` <span title="discordant couple: independent measurements disagree beyond combined uncertainty — see verification panel">⚠</span>`:""}${r.flags?` <span class="flagmark" title="${r.flags}">⚑</span>`:""}${!sub&&r.nDup>1?` <button class="badge" data-cid="${r.cid}" title="independent measurements of this couple — click to ${expanded.has(r.cid)?"collapse":"expand"}">${r.nDup} values ${expanded.has(r.cid)?"▾":"▸"}</button>`:""}${sub?` <span class="src">${r.method||"tabulated"}${r.sigma?`, σ ${r.sigma}`:""}, ${r.year}</span>`:""}</td>`+
+   `<tr data-id="${r.id}"${sub?' class="sub"':''}><td>${sub?'<span class="src" style="margin-left:18px">↳</span> ':`<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${clsColor(r.cls)};margin-right:6px"></span>`}${r.name}${r.rec?` <span title="recommended value${r.recManual?" (manual, see reason in the verification panel)":" (auto, policy rules 1-2)"}">★</span>`:""}${COUPLES[r.cid]&&COUPLES[r.cid].discordant==="1"?` <span title="discordant couple: independent measurements disagree beyond combined uncertainty — see verification panel">⚠</span>`:""}${r.flags?` <span class="flagmark" title="${r.flags}">⚑</span>`:""}${r.origin==="comp"?` <sup class="src" title="computational: defining value computed (DFT, simulation-only, empirical estimate)">c</sup>`:r.origin==="mixed"?` <sup class="src" title="mixed origin: at least one leg computed or simulation-fitted, at least one measured">m</sup>`:""}${!sub&&r.nDup>1?` <button class="badge" data-cid="${r.cid}" title="independent measurements of this couple — click to ${expanded.has(r.cid)?"collapse":"expand"}">${r.nDup} values ${expanded.has(r.cid)?"▾":"▸"}</button>`:""}${sub?` <span class="src">${r.method||"tabulated"}${r.sigma?`, σ ${r.sigma}`:""}, ${r.year}</span>`:""}</td>`+
    `<td>${r.partner||"–"}</td><td>${r.bond}</td><td>${r.solvent}</td>`+
    `<td class="num">${eDisplay(r,sc)}</td>`+
    `<td class="num">${r.pka==null||r.pka!==r.pka?"–":r.pka.toFixed(1)}</td>`+
@@ -446,6 +449,7 @@ function showDetail(id){
   let h=`<button class="close" onclick="document.getElementById('detail').style.display='none'">✕</button>`;
   h+=`<h3>${r.name}${r.partner?" + "+r.partner:""} — ${r.solvent} — verification${r.rec?" ★":""}</h3>`;
   h+=`<div class="src" style="margin:-2px 0 8px">Source: <a href="https://doi.org/${r.srcDoi}">doi:${r.srcDoi}</a>${r.srcRef?" — original citation"+r.srcRef+" therein":""}${r.year?" ("+r.year+")":""} · ${r.entryId}${r.cid?" · "+r.cid:""} · <a href="#${r.entryId}" title="permalink to this entry">#</a></div>`;
+  h+=`<div class="src" style="margin:-2px 0 8px">Origin: ${r.origin==="exp"?"experimental (all legs measured)":r.origin==="comp"?"computational (defining value computed)":r.origin==="mixed"?("mixed ("+(r.flags.includes("sim-pKa")?"sim-pKa: simulation-fitted pKa leg":"simulation-fitted leg, see conditions")+")"):"not yet classified — classification in progress"}</div>`;
   if(r.nDup>1){
     const cpl=COUPLES[r.cid]||{};
     h+=`<div class="warn">${r.nDup} independent measurements exist for this couple/solvent${r.rec?"; this is the recommended value ("+(r.recManual?"manual":"auto, policy v1")+")":"; a ★-starred recommended value may exist — compare sources"}.${cpl.discordant==="1"?" <b>Discordant couple:</b> the independent values disagree beyond their combined uncertainty.":""}${r.rec&&cpl.recommended_reason?" Reason: "+cpl.recommended_reason:""}</div>`;
@@ -553,7 +557,7 @@ function renderLadder(){
       const r=D[+el.dataset.id];
       tip.style.display="block";
       tip.style.left=(ev.clientX+14)+"px"; tip.style.top=(ev.clientY-10)+"px";
-      tip.innerHTML=`<b>${r.name}</b>${r.partner?" + "+r.partner:""} (${r.solvent})<br>BDFE ${toUnit(r.bdfe,u).toFixed(1)} ${unitLbl[u]} · E° ${isNaN(r.E)?"–":r.E.toFixed(3)} V vs H₂${r.pka!=null&&r.pka===r.pka?`<br>pK<sub>a</sub>(XH) ${r.pka.toFixed(1)}`:""}${r.nH&&r.nH!=="1"?`<br>avg over ${r.nH} H`:""}${r.method?`<br>method: ${r.method}`:""}${r.bdfePub&&parseFloat(r.bdfePub).toFixed(1)!==r.bdfe.toFixed(1)?`<br>published: ${r.bdfePub}`:""}${r.flags?`<br>⚑ ${r.flags}`:""}<br><span class="src">${r.srcText}</span>`;
+      tip.innerHTML=`<b>${r.name}</b>${r.partner?" + "+r.partner:""} (${r.solvent})<br>BDFE ${toUnit(r.bdfe,u).toFixed(1)} ${unitLbl[u]} · E° ${isNaN(r.E)?"–":r.E.toFixed(3)} V vs H₂${r.pka!=null&&r.pka===r.pka?`<br>pK<sub>a</sub>(XH) ${r.pka.toFixed(1)}`:""}${r.nH&&r.nH!=="1"?`<br>avg over ${r.nH} H`:""}${r.method?`<br>method: ${r.method}`:""}${r.origin==="comp"?"<br>origin: computational":r.origin==="mixed"?"<br>origin: mixed (simulation-fitted leg)":""}${r.bdfePub&&parseFloat(r.bdfePub).toFixed(1)!==r.bdfe.toFixed(1)?`<br>published: ${r.bdfePub}`:""}${r.flags?`<br>⚑ ${r.flags}`:""}<br><span class="src">${r.srcText}</span>`;
     });
     el.addEventListener("mouseleave",()=>tip.style.display="none");
     el.addEventListener("click",()=>{tip.style.display="none";showDetail(+el.dataset.id);});
@@ -617,9 +621,9 @@ function csvText(){
   const scope=document.getElementById("csvScope").value;
   let rows=filtered();
   if(scope==="rec")rows=rows.filter(r=>r.rec||r.nDup===1);
-  const head=["couple_id","entry_id","compound","partner","class","bond","solvent","E_V_vs_H2","E_display_"+sc,"pKa_XH","pKa_a","E_a_V","E_b_V","E_c_V","BDFE_"+u,"hydricity_kcal","sigma_BDFE","method","T_K","conditions","year","flags","recommended","source_doi","orig_ref_in_source"];
+  const head=["couple_id","entry_id","compound","partner","class","bond","solvent","E_V_vs_H2","E_display_"+sc,"pKa_XH","pKa_a","E_a_V","E_b_V","E_c_V","BDFE_"+u,"hydricity_kcal","sigma_BDFE","method","origin","T_K","conditions","year","flags","recommended","source_doi","orig_ref_in_source"];
   return [head.join(",")].concat(rows.map(r=>
-    [r.cid,r.entryId,`"${r.name}"`,`"${r.partner}"`,r.cls,r.bond,r.solvent,isNaN(r.E)?"":r.E,eDisplay(r,sc),r.pka==null||r.pka!==r.pka?"":r.pka,r.pkaA==null?"":r.pkaA,r.Ea==null?"":r.Ea,r.Eb==null?"":r.Eb,r.Ec==null?"":r.Ec,toUnit(r.bdfe,u).toFixed(2),r.hyd==null?"":r.hyd,r.sigma,r.method,r.tK,`"${r.cond}"`,r.year,`"${r.flags}"`,r.rec?"1":"",`"https://doi.org/${r.srcDoi}"`,`"${r.doi?"":r.refs}"`].join(","))).join("\n");
+    [r.cid,r.entryId,`"${r.name}"`,`"${r.partner}"`,r.cls,r.bond,r.solvent,isNaN(r.E)?"":r.E,eDisplay(r,sc),r.pka==null||r.pka!==r.pka?"":r.pka,r.pkaA==null?"":r.pkaA,r.Ea==null?"":r.Ea,r.Eb==null?"":r.Eb,r.Ec==null?"":r.Ec,toUnit(r.bdfe,u).toFixed(2),r.hyd==null?"":r.hyd,r.sigma,r.method,r.origin,r.tK,`"${r.cond}"`,r.year,`"${r.flags}"`,r.rec?"1":"",`"https://doi.org/${r.srcDoi}"`,`"${r.doi?"":r.refs}"`].join(","))).join("\n");
 }
 function copyCSV(){
   navigator.clipboard.writeText(csvText()).then(
@@ -671,7 +675,7 @@ function init(){
   }));
   document.getElementById("recOnly").addEventListener("change",e=>{recOnly=e.target.checked;renderTable();});
   document.getElementById("uSolv").innerHTML=Object.keys(DGH).filter(s=>s!=="gas").map(s=>`<option${s==="MeCN"?" selected":""}>${s}</option>`).join("");
-  ["q","solv","bond","unit","scale"].forEach(id=>document.getElementById(id).addEventListener("input",()=>{renderTable();renderLadder();}));
+  ["q","solv","bond","orig","unit","scale"].forEach(id=>document.getElementById(id).addEventListener("input",()=>{renderTable();renderLadder();}));
   document.querySelectorAll("#tbl th").forEach(th=>th.addEventListener("click",()=>{
     const k=th.dataset.k;
     if(sortK===k)sortAsc=!sortAsc;else{sortK=k;sortAsc=true;}

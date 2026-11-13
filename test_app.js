@@ -88,6 +88,34 @@ if (chips.length) {
   T("panel shows DOI line", /10\.\d{4,}/.test(det.textContent));
 }
 
+// ---------- 6b. origin provenance (CR-2026-11-13-origin-provenance) ----------
+{
+  // filter: "mixed" with recommended-only off -> exactly the 14 stage-1 rows
+  const rec = $("recOnly");
+  rec.checked = false; rec.dispatchEvent(new w.Event("change"));
+  $("orig").value = "mixed"; fire($("orig"), "input");
+  const nMixed = bodyRows().length;
+  T("origin filter mixed = 14 stage-1 rows", nMixed === 14, "" + nMixed);
+  $("orig").value = ""; fire($("orig"), "input");
+  rec.checked = true; rec.dispatchEvent(new w.Event("change"));
+  // panel line on the sim-pKa row
+  const dom3 = newDom({ hash: "#BDFE-0377" });
+  const det3 = dom3.window.document.getElementById("detail");
+  T("panel shows Origin: mixed with sim-pKa reason",
+    det3 && /Origin: mixed/.test(det3.textContent) && /sim-pKa/.test(det3.textContent),
+    det3 ? det3.textContent.slice(0, 80) : "no panel");
+  // unclassified row renders the honest empty state
+  const dom4 = newDom({ hash: "#BDFE-0001" });
+  const det4 = dom4.window.document.getElementById("detail");
+  T("panel shows not-yet-classified for empty origin",
+    det4 && /not yet classified/.test(det4.textContent));
+  // CSV column
+  $("csvScope").value = "all";
+  const csvO = w.csvText();
+  T("csv has origin column with mixed values",
+    /(^|,)origin(,|$)/m.test(csvO.split("\n")[0]) && /,mixed,/.test(csvO));
+}
+
 // ---------- 7. CSV: scope + content ----------
 {
   $("csvScope").value = "all"; const csvAll = typeof w.csvText === "function" ? w.csvText() : null;

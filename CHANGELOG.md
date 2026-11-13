@@ -4,6 +4,20 @@ All star (recommendation) moves and releases are recorded here, newest first.
 
 ## Unreleased (toward v1.5)
 
+### Origin provenance: exp/comp/mixed column + filter (PR #53)
+- New data.csv column origin (enum exp/comp/mixed/empty; datapackage +
+  validate.py hard enum check, soft warn on origin=exp with a
+  simulation-fitted leg). Classification is incremental: empty = not yet
+  classified, never guessed; gas-phase rows deliberately NOT bulk-labelled.
+- Stage-1 pass (from stored conditions text): 14 rows classified mixed
+  (simulation-fitted legs: the 10 DigiSim POM titration rows BDFE-0377..0386,
+  the two W(Cp)(CO)2(IMes)H rows, the two Co(P4N2)H rows). No stored leg is
+  DFT-computed, so comp is currently empty.
+- UI: Origin filter (all/experimental/computational/mixed/not classified),
+  superscript c/m markers in the table, origin in the ladder tooltip,
+  Origin line in the verification panel, origin column in the CSV export.
+- Gate 73 -> 77 (filter count, panel lines, CSV column).
+
 ### TMH round 2a: first aqueous Co-H entries - TMH campaign complete (PR #52)
 - 3 new rows (BDFE-0521..0523), all approx with explicit sigma_BDFE per the
   H64 drop rule: [HCo(CN)5]3- 56.5 hess sigma 4.5 (Halpern 1971 kinetic pKa

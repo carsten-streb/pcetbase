@@ -109,6 +109,7 @@
 <main>
   <section class="panel">
     <h2 id="ladderHead">Ladder — BDFE / <i>E</i>°(V vs H₂)</h2>
+    <div id="ladderSel" class="src" style="display:none;margin:4px 0 6px"></div>
     <svg id="ladder" viewBox="0 0 340 760" role="img" aria-label="BDFE ladder of PCET reagents"></svg>
     <div class="warn">Hover a rung for details. Dashed marker (black in light mode, white in dark mode) = your couple (calculator below). Pairs (green) are <i>effective</i> BDFEs of oxidant/base and reductant/acid combinations.</div>
   </section>
@@ -148,7 +149,7 @@
       <div class="count" id="count"></div>
       <div class="tablewrap"><table id="tbl">
         <thead><tr>
-          <th data-k="name">Compound <span class="arr"></span></th>
+          <th data-k="name"><span style="white-space:nowrap"><button id="tickAll" title="tick every couple in the current filtered view (adds to the ladder selection)" style="font-size:.75em;padding:1px 6px">select visible</button> <button id="tickNone" title="clear the ladder selection" style="font-size:.75em;padding:1px 6px">clear</button></span> Compound <span class="arr"></span></th>
           <th data-k="partner">Partner <span class="arr"></span></th>
           <th data-k="bond">Bond <span class="arr"></span></th>
           <th data-k="solvent">Solvent <span class="arr"></span></th>
@@ -332,6 +333,8 @@ const clsColor=k=>{const c=CLASSES.find(c=>c.k===k);return c?c.color:"var(--ink-
 const clsLabel=k=>{const c=CLASSES.find(c=>c.k===k);return c?c.label:k;};
 
 let active=new Set(CLASSES.map(c=>c.k));
+const ticked=new Set(); /* couple_ids ticked for the ladder (session only, CR-2026-11-13-ladder-tickboxes) */
+let selOff=false; /* "show all": keep the ticks but show the filtered ladder */
 let sortK="bdfe", sortAsc=true;
 let userPt=null;
 
@@ -405,7 +408,7 @@ function renderTable(){
   const flt=filtered();
   const couples=coupleView(flt).sort((a,b)=>cmp(a.rep,b.rep));
   const rowHtml=(r,sub)=>
-   `<tr data-id="${r.id}"${sub?' class="sub"':''}><td>${sub?'<span class="src" style="margin-left:18px">↳</span> ':`<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${clsColor(r.cls)};margin-right:6px"></span>`}${r.name}${r.rec?` <span title="recommended value${r.recManual?" (manual, see reason in the verification panel)":" (auto, policy rules 1-2)"}">★</span>`:""}${COUPLES[r.cid]&&COUPLES[r.cid].discordant==="1"?` <span title="discordant couple: independent measurements disagree beyond combined uncertainty — see verification panel">⚠</span>`:""}${r.flags?` <span class="flagmark" title="${r.flags}">⚑</span>`:""}${r.origin==="comp"?` <sup class="src" title="computational: defining value computed (DFT, simulation-only, empirical estimate)">c</sup>`:r.origin==="mixed"?` <sup class="src" title="mixed origin: at least one leg computed or simulation-fitted, at least one measured">m</sup>`:""}${!sub&&r.nDup>1?` <button class="badge" data-cid="${r.cid}" title="independent measurements of this couple — click to ${expanded.has(r.cid)?"collapse":"expand"}">${r.nDup} values ${expanded.has(r.cid)?"▾":"▸"}</button>`:""}${sub?` <span class="src">${r.method||"tabulated"}${r.sigma?`, σ ${r.sigma}`:""}, ${r.year}</span>`:""}</td>`+
+   `<tr data-id="${r.id}"${sub?' class="sub"':''}><td><input type="checkbox" class="tick" data-cid="${r.cid}" ${ticked.has(r.cid)?"checked":""} title="show this couple on the ladder (selection mode)" style="width:auto;margin-right:6px">${sub?'<span class="src" style="margin-left:18px">↳</span> ':`<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${clsColor(r.cls)};margin-right:6px"></span>`}${r.name}${r.rec?` <span title="recommended value${r.recManual?" (manual, see reason in the verification panel)":" (auto, policy rules 1-2)"}">★</span>`:""}${COUPLES[r.cid]&&COUPLES[r.cid].discordant==="1"?` <span title="discordant couple: independent measurements disagree beyond combined uncertainty — see verification panel">⚠</span>`:""}${r.flags?` <span class="flagmark" title="${r.flags}">⚑</span>`:""}${r.origin==="comp"?` <sup class="src" title="computational: defining value computed (DFT, simulation-only, empirical estimate)">c</sup>`:r.origin==="mixed"?` <sup class="src" title="mixed origin: at least one leg computed or simulation-fitted, at least one measured">m</sup>`:""}${!sub&&r.nDup>1?` <button class="badge" data-cid="${r.cid}" title="independent measurements of this couple — click to ${expanded.has(r.cid)?"collapse":"expand"}">${r.nDup} values ${expanded.has(r.cid)?"▾":"▸"}</button>`:""}${sub?` <span class="src">${r.method||"tabulated"}${r.sigma?`, σ ${r.sigma}`:""}, ${r.year}</span>`:""}</td>`+
    `<td>${r.partner||"–"}</td><td>${r.bond}</td><td>${r.solvent}</td>`+
    `<td class="num">${eDisplay(r,sc)}</td>`+
    `<td class="num">${r.pka==null||r.pka!==r.pka?"–":r.pka.toFixed(1)}</td>`+
@@ -424,8 +427,13 @@ function renderTable(){
     renderTable();
   }));
   tb.querySelectorAll("tr").forEach(tr=>tr.addEventListener("click",ev=>{
-    if(ev.target.closest("a")||ev.target.closest(".badge"))return;
+    if(ev.target.closest("a")||ev.target.closest(".badge")||ev.target.closest(".tick"))return;
     showDetail(+tr.dataset.id);
+  }));
+  tb.querySelectorAll(".tick").forEach(cb=>cb.addEventListener("click",ev=>{
+    ev.stopPropagation();
+    if(cb.checked){ticked.add(cb.dataset.cid);selOff=false;}else ticked.delete(cb.dataset.cid);
+    renderTable();renderLadder();
   }));
 }
 
@@ -579,7 +587,19 @@ function renderLadder(){
   const u=document.getElementById("unit").value;
   const sc0=document.getElementById("scale").value;
   document.getElementById("ladderHead").innerHTML="Ladder — BDFE ("+unitLbl[u]+") / <i>E</i>°("+(sc0==="H2"?"V vs H₂":"V vs Fc⁺/⁰")+")";
-  const rows=coupleView(filtered()).map(c=>c.rep);
+  /* selection mode (>=1 tick): the ladder shows the ticked couples only,
+     independent of filters/search; otherwise exactly the filtered view */
+  const selMode=ticked.size>0&&!selOff;
+  const rows=selMode?coupleView(D).map(c=>c.rep).filter(r=>ticked.has(r.cid))
+                    :coupleView(filtered()).map(c=>c.rep);
+  const selBox=document.getElementById("ladderSel");
+  if(ticked.size>0&&selOff){
+    selBox.style.display="block";
+    selBox.innerHTML=`Ladder: filtered view (selection of ${ticked.size} kept) — <a href="#" id="selShowSel">show selected</a> / <a href="#" id="selClear">clear selection</a>`;
+  }else if(selMode){
+    selBox.style.display="block";
+    selBox.innerHTML=`Ladder: <b>${ticked.size}</b> selected couple${ticked.size>1?"s":""} — <a href="#" id="selShowAll">show all</a> / <a href="#" id="selClear">clear selection</a>`;
+  }else{selBox.style.display="none";selBox.innerHTML="";}
   const W=340,H=760,mL=58,mR=118,mT=16,mB=28;
   let vals=rows.map(r=>r.bdfe).filter(v=>v===v);
   if(userPt)vals.push(userPt.bdfe);
@@ -613,7 +633,7 @@ function renderLadder(){
   const anchors=["TEMPOH","PhOH","NHPI","AscH- (ascorbate)","thymidine","*Ir(dF(CF3)ppy)2(bpy)","*Ir(ppy)3","CpCr(CO)3H","[(bpy)2pyRuIIOH2]2+","CH4","1,4-H2Q","NADH","HS-H","C6H5CH2-H (toluene)","H2O (HO–H)"];
   const seen=new Set();
   rows.forEach(r=>{
-    if(anchors.includes(r.name)&&!seen.has(r.name)&&r.bdfe===r.bdfe){
+    if((selMode||anchors.includes(r.name))&&!seen.has(r.name)&&r.bdfe===r.bdfe){
       seen.add(r.name);
       s+=`<text x="${W-mR+2}" y="${y(r.bdfe)+3.5}" font-size="11" fill="var(--ink-2)">${r.name.split(" ")[0].slice(0,14)} <tspan fill="var(--ink-muted)">(${r.solvent})</tspan></text>`;
     }
@@ -636,6 +656,10 @@ function renderLadder(){
     el.addEventListener("click",()=>{tip.style.display="none";showDetail(+el.dataset.id);});
     el.style.cursor="pointer";
   });
+  const sa=document.getElementById("selShowAll"),ss=document.getElementById("selShowSel"),scl=document.getElementById("selClear");
+  if(sa)sa.addEventListener("click",ev=>{ev.preventDefault();selOff=true;renderLadder();});
+  if(ss)ss.addEventListener("click",ev=>{ev.preventDefault();selOff=false;renderLadder();});
+  if(scl)scl.addEventListener("click",ev=>{ev.preventDefault();ticked.clear();selOff=false;renderTable();renderLadder();});
 }
 
 function compute(){
@@ -747,6 +771,8 @@ function init(){
     renderTable();renderLadder();
   }));
   document.getElementById("recOnly").addEventListener("change",e=>{recOnly=e.target.checked;renderTable();});
+  document.getElementById("tickAll").addEventListener("click",ev=>{ev.stopPropagation();coupleView(filtered()).forEach(c=>ticked.add(c.rep.cid));selOff=false;renderTable();renderLadder();});
+  document.getElementById("tickNone").addEventListener("click",ev=>{ev.stopPropagation();ticked.clear();selOff=false;renderTable();renderLadder();});
   document.getElementById("uSolv").innerHTML=Object.keys(DGH).filter(s=>s!=="gas").map(s=>`<option${s==="MeCN"?" selected":""}>${s}</option>`).join("");
   ["q","solv","bond","orig","unit","scale"].forEach(id=>document.getElementById(id).addEventListener("input",()=>{renderTable();renderLadder();}));
   document.querySelectorAll("#tbl th").forEach(th=>th.addEventListener("click",()=>{

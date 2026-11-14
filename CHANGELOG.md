@@ -2,7 +2,15 @@
 
 All star (recommendation) moves and releases are recorded here, newest first.
 
-## Unreleased (toward v1.5)
+## v1.5 — 2026-11-14
+
+**Data scope (freeze at PR #58): 525 measurements / 509 couples, 30 columns, 10
+classes.** Scope sentence: v1.4.1 plus the complete TMH primary campaign (P3,
+P4, P5, citation-chase round 2a — all Wiedner/Morris-derived hydrides that
+close a BDFE, primary-verified), the first MOH rows (Warren 2010 Table 21
+gap-fill), the origin provenance layer, the square-scheme view, ladder
+tickboxes + archetype anchors, the verification ledger and the v1.5 UI
+wording round. Data CRs filed after this freeze target v1.6.
 
 ### Catch-up: validator hardening + line endings + F10 convention (PR #59)
 - Stress F7 (M1-M7) in validate.py: method whitelist (hard), method=hyd

@@ -191,6 +191,17 @@ if (chips.length) {
     one.trim().split("\n").length + " / " + (all.trim().split("\n").length - 1));
 }
 
+// ---------- 6f. ladder label de-collision (CR-2026-11-14-ladder-label-overlap) ----------
+{
+  const lbl = [...d.querySelectorAll("#ladder text")].filter(t => t.getAttribute("x") === "224");
+  const ys = lbl.map(t => parseFloat(t.getAttribute("y"))).sort((a, b) => a - b);
+  let minGap = 1e9;
+  for (let i = 1; i < ys.length; i++) minGap = Math.min(minGap, ys[i] - ys[i - 1]);
+  T("anchor labels never closer than 11 px",
+    lbl.length >= 10 && minGap >= 11,
+    lbl.length + " labels, min gap " + minGap.toFixed(1));
+}
+
 // ---------- 7. CSV: scope + content ----------
 {
   $("csvScope").value = "all"; const csvAll = typeof w.csvText === "function" ? w.csvText() : null;

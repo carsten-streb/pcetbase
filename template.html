@@ -657,12 +657,28 @@ function renderLadder(){
     s+=`<rect class="rung" data-id="${r.id}" x="${mL}" width="${W-mR-mL}" y="${yy-4}" height="8" fill="transparent"/>`;
   });
   const anchors=["TEMPOH","PhOH","NHPI","AscH- (ascorbate)","thymidine","*Ir(dF(CF3)ppy)2(bpy)","*Ir(ppy)3","CpCr(CO)3H","[(bpy)2pyRuIIOH2]2+","CH4","1,4-H2Q","NADH","HS-H","C6H5CH2-H (toluene)","H2O (HO–H)"];
-  const seen=new Set();
+  /* anchor/selection labels with overlap avoidance (CR-2026-11-14-ladder-label-overlap):
+     collect first, then push labels apart to a minimum gap and draw a thin
+     leader line from the rung to any label that had to move */
+  const seen=new Set(),labels=[];
   rows.forEach(r=>{
     if((selMode||anchors.includes(r.name))&&!seen.has(r.name)&&r.bdfe===r.bdfe){
       seen.add(r.name);
-      s+=`<text x="${W-mR+2}" y="${y(r.bdfe)+3.5}" font-size="11" fill="var(--ink-2)">${r.name.split(" ")[0].slice(0,14)} <tspan fill="var(--ink-muted)">(${r.solvent})</tspan></text>`;
+      labels.push({yr:y(r.bdfe),txt:r.name.split(" ")[0].slice(0,14),solv:r.solvent});
     }
+  });
+  const GAP=12.5,yTop=mT+4,yBot=H-mB;
+  labels.sort((a,b)=>a.yr-b.yr);
+  let prevY=-1e9;
+  labels.forEach(L=>{L.yl=Math.max(L.yr,prevY+GAP,yTop);prevY=L.yl;});
+  for(let i=labels.length-1,lim=yBot;i>=0;i--){ /* bottom overflow: push back up */
+    if(labels[i].yl>lim)labels[i].yl=lim;
+    lim=labels[i].yl-GAP;
+  }
+  labels.forEach(L=>{
+    if(Math.abs(L.yl-L.yr)>2)
+      s+=`<line class="lbl-lead" x1="${W-mR-2}" x2="${W-mR+1}" y1="${L.yr}" y2="${L.yl}" stroke="var(--ink-muted)" stroke-width="0.8"/>`;
+    s+=`<text x="${W-mR+2}" y="${L.yl+3.5}" font-size="11" fill="var(--ink-2)">${L.txt} <tspan fill="var(--ink-muted)">(${L.solv})</tspan></text>`;
   });
   if(userPt){
     const yy=y(userPt.bdfe);

@@ -4,6 +4,13 @@ All star (recommendation) moves and releases are recorded here, newest first.
 
 ## Unreleased (toward v1.5)
 
+### Ladder label de-collision (PR #57)
+- Anchor and selection-mode labels no longer overlap: labels are pushed apart
+  to a 12.5 px minimum gap (clamped to the plot area) and any label moved off
+  its rung gets a thin leader line back to it. Fixes the thymidine/*Ir(dF),
+  HS-H/toluene/PhOH/RuO and NADH/AscH-/1,4-H2Q/TEMPOH clusters.
+- Gate 88 -> 89 (minimum-gap invariant).
+
 ### UI wording round: method labels, tooltips, chips, headline (PR #48)
 - Methods block retitled "BDFE determination method" with the hierarchy
   sub-line; labels per Carsten's review: tabulated (review data), equil

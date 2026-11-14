@@ -15,8 +15,8 @@ identifiers:
   - type: doi
     value: 10.5281/zenodo.24121910
     description: "Concept DOI - resolves to the latest version"
-version: "1.4.1"
-date-released: "2026-11-13"
+version: "1.5"
+date-released: "2026-11-14"
 keywords:
   - "proton-coupled electron transfer"
   - "PCET"

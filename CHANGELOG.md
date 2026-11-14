@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased (toward v1.5.x)
+
+### Header wording (PR #61)
+- Headline gains "database"; sub-line: "(BDFEs)" spelled out, "standard redox
+  potential" before E deg; <title> matches. Carsten's reviewed text 2026-11-14.
+  UI wording only - the v1.5 tag (7da97ac) and data are unchanged.
+
+
 All star (recommendation) moves and releases are recorded here, newest first.
 
 ## v1.5 — 2026-11-14

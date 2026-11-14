@@ -4,6 +4,21 @@ All star (recommendation) moves and releases are recorded here, newest first.
 
 ## Unreleased (toward v1.5)
 
+### MOH campaign P1: class moh + first MeOH rows (PR #58)
+- New class moh (metal-oxo/hydroxo/aqua O-H couples) with its own chip
+  "metal oxo/hydroxo (M-O-H)"; datapackage class enum extended (also adds the
+  previously missing tmh value). Existing metal-3d/metal-4d5d rows untouched.
+- 2 rows (BDFE-0524/0525), the Warren 2010 Table 21 entries Agarwal 2022
+  dropped: (Py5)FeII(MeOH)2+ (first MeOH rows, BDFE 78.6; the review's
+  bracketed pKa_a fails Hess closure - source-inconsistency candidate #17)
+  and [(LD)FeIIIOH]- (Borovik FeIII-OH/FeIV-O, DMSO, BDFE 110.1 - among the
+  strongest O-H bonds stored). Both approx + sigma + check-src; BDFEs
+  recomputed with corrected CG, never copied from the 2010 review.
+- build.py/validate.py: the ledger-staleness check is now skipped during the
+  build's inner validate run (PCETBASE_BUILDING=1) and enforced standalone,
+  fixing a build abort on any data change after PR #56.
+- 525 measurements / 509 couples; jsdom baselines bumped (chips 10).
+
 ### Ladder labels: de-collision + revised archetype anchors (PR #57)
 - Anchor and selection-mode labels no longer overlap: labels are pushed apart
   to a 12.5 px minimum gap (clamped to the plot area) and any label moved off

@@ -158,7 +158,8 @@ def main():
     print("--- auto-recommendation ---")
     autorecommend()
     print("--- validation ---")
-    rc = subprocess.run([sys.executable, os.path.join(HERE, "validate.py")]).returncode
+    env = dict(os.environ, PCETBASE_BUILDING="1")  # ledger regenerated below
+    rc = subprocess.run([sys.executable, os.path.join(HERE, "validate.py")], env=env).returncode
     if rc != 0:
         sys.exit("build aborted: hard validation errors (see report above)")
     write_verification()

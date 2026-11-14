@@ -86,7 +86,10 @@ def validate_couples(rows):
             if n is not None and not any(s <= n <= e for s, e in ranges):
                 errors.append(f"provenance_batches.csv: {r['entry_id']} not covered by any range")
         vpath = os.path.join(HERE, "derived", "verification.csv")
-        if os.path.exists(vpath):
+        # build.py regenerates the ledger right after this validate run, so the
+        # staleness check is skipped there (PCETBASE_BUILDING=1); standalone
+        # validate.py (CI) still enforces it on the committed tree.
+        if os.path.exists(vpath) and os.environ.get("PCETBASE_BUILDING") != "1":
             led = {v["entry_id"] for v in _csv.DictReader(open(vpath, encoding="utf-8"))}
             missing = [r["entry_id"] for r in rows if r.get("entry_id") and r["entry_id"] not in led]
             if missing:

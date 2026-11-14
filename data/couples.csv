@@ -508,3 +508,11 @@ CPL-0507,rac-[Co(HMD)(H2O)H]2+,,H2O,M-H,tmh,,,0
 CPL-0508,[Co(bpy)2(H2O)H]2+,,H2O,M-H,tmh,,,0
 CPL-0509,(Py5)FeII(MeOH)2+,,MeOH,O-H,moh,,,0
 CPL-0510,[(LD)FeIIIOH]-,,DMSO,O-H,moh,,,0
+CPL-0511,"[LCu3(I,I,I)(OH2)]3+",,MeCN,O-H,moh,,,0
+CPL-0512,"[LCu3(II,I,I)(OH2)]4+",,MeCN,O-H,moh,,,0
+CPL-0513,"[LCu3(II,II,I)(OH2)]5+",,MeCN,O-H,moh,,,0
+CPL-0514,"[LHCu3(II,II,I)(OH)]5+",,MeCN,O-H,moh,,,0
+CPL-0515,"[LHCu3(II,I,I)(OH)]4+",,MeCN,O-H,moh,,,0
+CPL-0516,"[LHCu3(I,I,I)(OH)]3+",,MeCN,O-H,moh,,,0
+CPL-0517,[SO3LGCu(OH2)]2-,,H2O,O-H,moh,,,0
+CPL-0518,[NMe3LGCu(OH2)]2+,,H2O,O-H,moh,,,0

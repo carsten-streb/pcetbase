@@ -1,5 +1,19 @@
 # Changelog
 
+## Unreleased (toward v1.6)
+
+### MOH P2: tricopper ladder + aqueous Tolman variants (PR #63)
+- 8 rows (BDFE-0526..0533), all primaries page-read: Mondal 2024 tricopper
+  TREN4 MCO model in MeCN - six mu-OH2/mu-OH/mu-O couples 44.7-78.1 kcal/mol
+  with two direct OCP anchors (53.0 +/- 1.2, 57.1 +/- 1.11) and four
+  Hess-propagated rows (one form-2); Dhar 2018 water-soluble charged Tolman
+  variants [SO3LGCu(OH2)]2- 83.9 and [NMe3LGCu(OH2)]2+ 87.5 (first aqueous
+  Cu-OH2 rows). All Tolman BDEs recomputed to BDFEs, nothing copied.
+- Enrichments: BDFE-0134 page-verified vs Dhar 2015 + oxidized diagonal
+  stored (E_b 0.345 V, pKa_a 11.7 from CV simulation -> sim-pKa, origin
+  mixed); BDFE-0133 page-verified vs Dhar 2016 (+doi/year/sigma).
+- 533/517; jsdom baselines bumped (mixed = 15).
+
 ## Unreleased (toward v1.5.x)
 
 ### v1.5 DOI references (PR #62)

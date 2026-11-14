@@ -202,6 +202,22 @@ if (chips.length) {
     lbl.length + " labels, min gap " + minGap.toFixed(1));
 }
 
+// ---------- 6g. permanent stress specs (CR-2026-11-12-stress-v1.4) ----------
+{
+  // TMH multi-method couple CPL-0460: panel shows all three determinations + discordant reason
+  const dC = newDom({ hash: "#BDFE-0478" }).window.document;
+  const det = dC.getElementById("detail");
+  T("CPL-0460 panel: sq/hyd/OCP members + discordant reason",
+    det && /53\.8/.test(det.textContent) && /54\.9/.test(det.textContent) && /57\.6/.test(det.textContent)
+      && /discordant/i.test(det.textContent),
+    det ? det.textContent.slice(0, 60) : "no panel");
+  // 5-digit-ID permalink guard: unknown long id must not break boot
+  const d5 = newDom({ hash: "#BDFE-10000" }).window.document;
+  T("5-digit permalink: app boots, no detail for unknown id",
+    d5.querySelectorAll("#tbl tbody tr").length > 0
+      && (!d5.getElementById("detail") || d5.getElementById("detail").style.display !== "block"));
+}
+
 // ---------- 7. CSV: scope + content ----------
 {
   $("csvScope").value = "all"; const csvAll = typeof w.csvText === "function" ? w.csvText() : null;

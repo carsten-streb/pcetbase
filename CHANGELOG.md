@@ -4,6 +4,22 @@ All star (recommendation) moves and releases are recorded here, newest first.
 
 ## Unreleased (toward v1.5)
 
+### Catch-up: validator hardening + line endings + F10 convention (PR #59)
+- Stress F7 (M1-M7) in validate.py: method whitelist (hard), method=hyd
+  requires hydricity_kcal (hard), clean per-row errors for non-numeric
+  fields instead of tracebacks (hard), soft warnings for hydricity cycles
+  on CHyd-less solvents and for limit flags without conditions text (4
+  pre-existing Agarwal-era limit rows now warn, documented). Mutation gate
+  9 -> 13 cases.
+- Permanent jsdom specs from the stress report: CPL-0460 three-method panel
+  (sq/hyd/OCP + discordant reason) and the 5-digit-permalink boot guard.
+  Gate 89 -> 91.
+- F8: .gitattributes normalizes all CSVs to LF (ends the analysis.csv
+  line-ending churn).
+- F10: convention recorded in CONTRIBUTING - a primary's own in-paper
+  derived pKa stays unflagged; hess:* is for PCETbase-composed legs.
+- No data rows touched (v1.5 data freeze at 525/509).
+
 ### MOH campaign P1: class moh + first MeOH rows (PR #58)
 - New class moh (metal-oxo/hydroxo/aqua O-H couples) with its own chip
   "metal oxo/hydroxo (M-O-H)"; datapackage class enum extended (also adds the

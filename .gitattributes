@@ -1,2 +1,4 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+# Normalize all CSVs to LF in the working tree too (stress F8: analysis.csv churn)
+*.csv text eol=lf

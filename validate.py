@@ -99,6 +99,26 @@ def validate_couples(rows):
         o = r.get("origin", "")
         if o not in ("", "exp", "comp", "mixed"):
             errors.append(f"data.csv {r.get('entry_id','?')}: invalid origin '{o}' (allowed: exp, comp, mixed, empty)")
+    # F7 hardening M1 (stress 2026-11-12): method whitelist
+    ALLOWED_METHODS = {"", "equil", "sq", "hyd", "OCP", "hess", "tabulated"}
+    for r in rows:
+        m = r.get("method", "")
+        if m not in ALLOWED_METHODS:
+            errors.append(f"data.csv {r.get('entry_id','?')}: unknown method '{m}' (allowed: {', '.join(sorted(v or 'empty' for v in ALLOWED_METHODS))})")
+    # F7 hardening M2: method=hyd requires hydricity_kcal
+    for r in rows:
+        if r.get("method") == "hyd" and not r.get("hydricity_kcal"):
+            errors.append(f"data.csv {r.get('entry_id','?')}: method=hyd but hydricity_kcal is empty")
+    # F7 hardening M4: numeric fields must parse (clean per-row error, never a traceback)
+    NUMERIC_FIELDS = ("E_a", "E_b", "E_c", "E_H2", "pKa_a", "pKa_b", "BDFE_pub", "hydricity_kcal", "sigma_BDFE")
+    for r in rows:
+        for f in NUMERIC_FIELDS:
+            v = r.get(f, "")
+            if v:
+                try:
+                    float(v)
+                except ValueError:
+                    errors.append(f"data.csv {r.get('entry_id','?')}: non-numeric {f} ('{v}')")
     # F7: BDFE required and numeric unless the row is flagged ref-conv-missing
     for r in rows:
         if "ref-conv-missing" in r.get("flags", ""):
@@ -156,6 +176,14 @@ def validate_couples(rows):
 def main():
     dgh, cg, ch = load_constants()
     rows = list(csv.DictReader(open(os.path.join(HERE, "data", "data.csv"))))
+    # F7 hardening M3 (soft): hydricity cycle present but no CHyd constant for the solvent
+    for r in rows:
+        if r.get("hydricity_kcal") and r.get("E_c") and r.get("solvent") not in ch:
+            print(f"SOFT WARN {r.get('entry_id','?')}: hydricity_kcal + E_c stored but no CHyd constant for solvent '{r.get('solvent')}' — diagonal not checked")
+    # F7 hardening M7 (soft): limit flag without conditions text
+    for r in rows:
+        if "limit" in r.get("flags", "") and not r.get("conditions", "").strip():
+            print(f"SOFT WARN {r.get('entry_id','?')}: flag 'limit' but conditions is empty (document the limit)")
     n_eq18 = n_eq10 = n_hyd = 0
     flags18, flags10, flagshyd = [], [], []
     resid18, resid10, residhyd = {}, {}, {}

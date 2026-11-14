@@ -27,6 +27,13 @@ Applied in order; rules 1–2 are deterministic and implemented in `build.py` (`
 
 A single measurement of a couple is trivially its recommended value (rule 1 applied to a set of one).
 
+## Derived-leg flag convention (stress F10)
+
+A pKa that the primary paper itself derives from its own cycle and tabulates
+alongside measured values (e.g. Miedaner 2004 Table 3 for BDFE-0482) stays
+unflagged: `hess:*` markers are reserved for legs composed by PCETbase from
+other entries or papers, not for a primary's own in-paper derivation.
+
 ## Provenance line in data change requests
 
 Every data CR states, in one line, the `source_type` / `extraction_route` /

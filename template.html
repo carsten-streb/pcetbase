@@ -273,7 +273,7 @@ parseCSV(CONST_CSV).forEach(r=>{
 const DISPLAY_MAP={phenol:"arylOH",quinone:"arylOH",aminoxyl:"noxyl",imide:"noxyl",
  ascorbate:"smallOH",smallOH:"smallOH",nucleoside:"organicNH",nitrogen:"organicNH",
  amine:"organicNH",arylamine:"organicNH",indole:"organicNH",thiol:"otherXH",
- CH:"otherXH",nicotinamide:"otherXH",co2:"otherXH",pair:"pair",pom:"pom"};
+ CH:"otherXH",nicotinamide:"otherXH",co2:"otherXH",pair:"pair",pom:"pom",moh:"moh"};
 const D=parseCSV(DATA_CSV).map((r,i)=>({
   id:i,table:r.table,cls:r.class.startsWith("metal")?"metal":(DISPLAY_MAP[r.class]||r.class),
   rawCls:r.class,
@@ -330,6 +330,7 @@ const CLASSES=[
  {k:"pair",label:"oxidant + base / reductant + acid",color:"var(--c-pair)"},
  {k:"metal",label:"TM complexes (non-hydride)",color:"var(--c-metal)"},
  {k:"tmh",label:"TM hydrides (M–H)",color:"var(--c-tmh)"},
+ {k:"moh",label:"metal oxo/hydroxo (M–O–H)",color:"var(--c-metal3d, var(--c-metal))"},
  {k:"pom",label:"POM clusters",color:"var(--c-pom)"},
 ];
 const clsColor=k=>{const c=CLASSES.find(c=>c.k===k);return c?c.color:"var(--ink-muted)";};

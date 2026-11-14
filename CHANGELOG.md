@@ -2,6 +2,11 @@
 
 ## Unreleased (toward v1.5.x)
 
+### v1.5 DOI references (PR #62)
+- Zenodo archived the v1.5 release: version DOI 10.5281/zenodo.24222265
+  (minted 2026-11-14). Footer, README and CITATION.cff now cite it; this
+  commit is the citable v1.5 state for testers.
+
 ### Header wording (PR #61)
 - Headline gains "database"; sub-line: "(BDFEs)" spelled out, "standard redox
   potential" before E deg; <title> matches. Carsten's reviewed text 2026-11-14.

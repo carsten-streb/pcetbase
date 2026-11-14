@@ -10,7 +10,7 @@ authors:
 repository-code: "https://github.com/carsten-streb/pcetbase"
 url: "https://carsten-streb.github.io/pcetbase/"
 license: CC-BY-4.0
-doi: 10.5281/zenodo.24186854
+doi: 10.5281/zenodo.24222265
 identifiers:
   - type: doi
     value: 10.5281/zenodo.24121910

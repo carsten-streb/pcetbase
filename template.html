@@ -110,7 +110,7 @@
   <section class="panel">
     <h2 id="ladderHead">Ladder — BDFE / <i>E</i>°(V vs H₂)</h2>
     <div id="ladderSel" class="src" style="display:none;margin:4px 0 6px"></div>
-    <svg id="ladder" viewBox="0 0 340 760" role="img" aria-label="BDFE ladder of PCET reagents"></svg>
+    <svg id="ladder" viewBox="0 0 352 760" role="img" aria-label="BDFE ladder of PCET reagents"></svg>
     <div class="warn">Hover a rung for details. Dashed marker (black in light mode, white in dark mode) = your couple (calculator below). Pairs (green) are <i>effective</i> BDFEs of oxidant/base and reductant/acid combinations.</div>
   </section>
 
@@ -626,7 +626,7 @@ function renderLadder(){
     selBox.style.display="block";
     selBox.innerHTML=`Ladder: <b>${ticked.size}</b> selected couple${ticked.size>1?"s":""} — <a href="#" id="selShowAll">show all</a> / <a href="#" id="selClear">clear selection</a>`;
   }else{selBox.style.display="none";selBox.innerHTML="";}
-  const W=340,H=760,mL=58,mR=118,mT=16,mB=28;
+  const W=352,H=760,mL=58,mR=130,mT=16,mB=28;
   let vals=rows.map(r=>r.bdfe).filter(v=>v===v);
   if(userPt)vals.push(userPt.bdfe);
   if(!vals.length)vals=[40,110];
@@ -656,7 +656,7 @@ function renderLadder(){
         stroke="${clsColor(r.cls)}" stroke-width="2.5" stroke-linecap="round" opacity="0.8"/>`;
     s+=`<rect class="rung" data-id="${r.id}" x="${mL}" width="${W-mR-mL}" y="${yy-4}" height="8" fill="transparent"/>`;
   });
-  const anchors=["TEMPOH","PhOH","NHPI","AscH- (ascorbate)","thymidine","*Ir(dF(CF3)ppy)2(bpy)","*Ir(ppy)3","CpCr(CO)3H","[(bpy)2pyRuIIOH2]2+","CH4","1,4-H2Q","NADH","HS-H","C6H5CH2-H (toluene)","H2O (HO–H)"];
+  const anchors=["[Ru(tpy)(bpy)H]2+","*Ir(ppy)3","N2/N2H2 (N2+H2\u2192N2H2)","[Co(bpy)2(H2O)H]2+","CO2/CO (CO2+H2\u2192CO+H2O)","[Ni(PR2NR'2)2H]+ ; R = Me, R' = Ph","CpCr(CO)3H","HCo(CO)4","TEMPOH","[VW12O40]3- (VinW12)","O2/H2O (O2+2H2\u21922H2O)","PhOH","tryptophan","NHPI","CH4","thymidine","H2O (HO\u2013H)","HC\u2261C-H (acetylene)"];
   /* anchor/selection labels with overlap avoidance (CR-2026-11-14-ladder-label-overlap):
      collect first, then push labels apart to a minimum gap and draw a thin
      leader line from the rung to any label that had to move */
@@ -664,7 +664,7 @@ function renderLadder(){
   rows.forEach(r=>{
     if((selMode||anchors.includes(r.name))&&!seen.has(r.name)&&r.bdfe===r.bdfe){
       seen.add(r.name);
-      labels.push({yr:y(r.bdfe),txt:r.name.split(" ")[0].slice(0,14),solv:r.solvent});
+      labels.push({yr:y(r.bdfe),txt:r.name.split(" ")[0].slice(0,18),solv:r.solvent});
     }
   });
   const GAP=12.5,yTop=mT+4,yBot=H-mB;

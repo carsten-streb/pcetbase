@@ -4,11 +4,16 @@ All star (recommendation) moves and releases are recorded here, newest first.
 
 ## Unreleased (toward v1.5)
 
-### Ladder label de-collision (PR #57)
+### Ladder labels: de-collision + revised archetype anchors (PR #57)
 - Anchor and selection-mode labels no longer overlap: labels are pushed apart
   to a 12.5 px minimum gap (clamped to the plot area) and any label moved off
-  its rung gets a thin leader line back to it. Fixes the thymidine/*Ir(dF),
-  HS-H/toluene/PhOH/RuO and NADH/AscH-/1,4-H2Q/TEMPOH clusters.
+  its rung gets a thin leader line back to it.
+- Anchor list revised (Carsten 2026-11-14) to 18 archetypes spaced across the
+  full BDFE range (8.6-125.1): [Ru(tpy)(bpy)H]2+, *Ir(ppy)3, N2/N2H2,
+  [Co(bpy)2(H2O)H]2+, CO2/CO, DuBois [Ni(PR2NR'2)2H]+ (R = Me), CpCr(CO)3H,
+  HCo(CO)4, TEMPOH, [VW12O40]3-, O2/H2O, PhOH, tryptophan, NHPI, CH4,
+  thymidine, H2O, acetylene. Label cut 14 -> 18 chars; label margin widened
+  (plot width unchanged), so no anchor name is cut mid-formula.
 - Gate 88 -> 89 (minimum-gap invariant).
 
 ### UI wording round: method labels, tooltips, chips, headline (PR #48)

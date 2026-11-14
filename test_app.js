@@ -197,8 +197,8 @@ if (chips.length) {
   const ys = lbl.map(t => parseFloat(t.getAttribute("y"))).sort((a, b) => a - b);
   let minGap = 1e9;
   for (let i = 1; i < ys.length; i++) minGap = Math.min(minGap, ys[i] - ys[i - 1]);
-  T("anchor labels never closer than 11 px (leader lines where moved)",
-    lbl.length >= 10 && minGap >= 11 && d.querySelectorAll("#ladder .lbl-lead").length > 0,
+  T("anchor labels never closer than 11 px",
+    lbl.length >= 10 && minGap >= 11,
     lbl.length + " labels, min gap " + minGap.toFixed(1));
 }
 

@@ -532,3 +532,11 @@ BDFE-0530,"[LHCu3(II,I,I)(OH)]4+",CPL-0515,moh,MeCN,hess,derived;recomputed;appr
 BDFE-0531,"[LHCu3(I,I,I)(OH)]3+",CPL-0516,moh,MeCN,hess,derived;recomputed,,-0.042,-0.031,,71f79d4ef4b1
 BDFE-0532,[SO3LGCu(OH2)]2-,CPL-0517,moh,H2O,sq,approx,,0.031,0.032,,71f79d4ef4b1
 BDFE-0533,[NMe3LGCu(OH2)]2+,CPL-0518,moh,H2O,sq,,,-0.110,0.012,,71f79d4ef4b1
+BDFE-0534,[MnII(H3bpuea-OMe)(OH)]2-,CPL-0519,moh,DMSO,sq,dmso-unc;recomputed,,0.064,0.005,,71f79d4ef4b1
+BDFE-0535,[MnII(H3bpuea-H)(OH)]2-,CPL-0520,moh,DMSO,sq,dmso-unc;recomputed,,0.111,0.016,,71f79d4ef4b1
+BDFE-0536,[MnII(H3bpuea-F)(OH)]2-,CPL-0521,moh,DMSO,sq,dmso-unc;recomputed,,-0.050,-0.009,,71f79d4ef4b1
+BDFE-0537,[MnII(H3bpuea-Cl)(OH)]2-,CPL-0522,moh,DMSO,sq,dmso-unc;recomputed,,0.056,0.011,,71f79d4ef4b1
+BDFE-0538,[MnII(H3bpuea-CF3)(OH)]2-,CPL-0523,moh,DMSO,sq,dmso-unc;recomputed;approx,,0.081,-0.045,,71f79d4ef4b1
+BDFE-0539,[MnII(OH2)(pinF)2]2-,CPL-0524,moh,THF,sq,approx,,0.073,-0.047,,71f79d4ef4b1
+BDFE-0540,[MnII(TBDAP)(OH)(OH2)]+,CPL-0525,moh,MeCN,sq,recomputed;ref-conv,,-0.015,-0.028,,71f79d4ef4b1
+BDFE-0541,[MnII(TBDAP)(OH2)2]2+,CPL-0526,moh,MeCN,sq,recomputed;ref-conv,,0.129,0.036,,71f79d4ef4b1

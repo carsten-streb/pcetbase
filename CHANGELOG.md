@@ -2,6 +2,19 @@
 
 ## Unreleased (toward v1.6)
 
+### MOH P3: manganese series (PR #64)
+- 8 rows (BDFE-0534..0541), all primaries page-read, all oxidized-diagonal
+  (form-2) storage: Barman/Borovik 2019 H3bpuea-R series (DMSO, 5 rows
+  68.1-70.3; published on the pre-Correction C 71.1, recomputed with CG
+  68.0); Moore/Doerrer 2023 pinF MnII-aqua (THF, 68.3, approx + sigma 3);
+  Lee/Cho 2024 TBDAP aqua-hydroxo/bis-aqua (MeCN, 73.0/74.7; published
+  75.3/77.3 used the erroneous 2010 CG 54.9, SCE potentials converted with
+  the PCETbase refoff).
+- No rows: Opalade 2021 + the dpaq5R series (DFT-calculated only; the
+  literature list's experimental-looking values were a planning error,
+  corrected); Wijeratne 2014 (no pKa).
+- 541/525; jsdom baselines bumped.
+
 ### MOH P2: tricopper ladder + aqueous Tolman variants (PR #63)
 - 8 rows (BDFE-0526..0533), all primaries page-read: Mondal 2024 tricopper
   TREN4 MCO model in MeCN - six mu-OH2/mu-OH/mu-O couples 44.7-78.1 kcal/mol

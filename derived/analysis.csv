@@ -132,7 +132,7 @@ BDFE-0130,[(TPP)FeIII(OOH)],CPL-0130,metal-3d,THF,,lowT,,-0.133,0.191,,71f79d4ef
 BDFE-0131,[(PIm)FeIII(OOH)],CPL-0131,metal-3d,THF,,lowT,,-0.058,0.212,,71f79d4ef4b1
 BDFE-0132,[(F8TPP)FeIII(OOH)],CPL-0132,metal-3d,THF,,lowT,,-0.038,0.276,,71f79d4ef4b1
 BDFE-0133,pipMeLGCuOH,CPL-0133,metal-3d,THF,,,,0.086,0.104,,71f79d4ef4b1
-BDFE-0134,LGCuOH,CPL-0134,metal-3d,THF,,,,-0.031,0.050,,71f79d4ef4b1
+BDFE-0134,LGCuOH,CPL-0134,metal-3d,THF,,sim-pKa,,-0.031,-0.015,,71f79d4ef4b1
 BDFE-0135,P3SiFeCNH,CPL-0135,metal-3d,THF,,,,-0.136,-0.014,,71f79d4ef4b1
 BDFE-0136,[P3SiFeCN(Me)H]+,CPL-0136,metal-3d,THF,,,,-0.083,0.018,,71f79d4ef4b1
 BDFE-0137,P3SiFeCN(Me)H,CPL-0137,metal-3d,THF,,,,-0.061,0.041,,71f79d4ef4b1
@@ -524,3 +524,11 @@ BDFE-0522,rac-[Co(HMD)(H2O)H]2+,CPL-0507,tmh,H2O,sq,derived;approx,,0.011,0.016,
 BDFE-0523,[Co(bpy)2(H2O)H]2+,CPL-0508,tmh,H2O,sq,derived;approx,,-0.004,0.018,,71f79d4ef4b1
 BDFE-0524,(Py5)FeII(MeOH)2+,CPL-0509,moh,MeOH,sq,approx;check-src,,0.050,0.034,,71f79d4ef4b1
 BDFE-0525,[(LD)FeIIIOH]-,CPL-0510,moh,DMSO,sq,approx;dmso-unc;check-src,,-0.081,-0.010,,71f79d4ef4b1
+BDFE-0526,"[LCu3(I,I,I)(OH2)]3+",CPL-0511,moh,MeCN,OCP,derived;recomputed,,-0.078,0.017,,71f79d4ef4b1
+BDFE-0527,"[LCu3(II,I,I)(OH2)]4+",CPL-0512,moh,MeCN,hess,derived;recomputed,,-0.051,0.025,,71f79d4ef4b1
+BDFE-0528,"[LCu3(II,II,I)(OH2)]5+",CPL-0513,moh,MeCN,hess,derived;recomputed;lowT,,-0.079,0.011,,71f79d4ef4b1
+BDFE-0529,"[LHCu3(II,II,I)(OH)]5+",CPL-0514,moh,MeCN,OCP,derived;recomputed,,-0.027,0.008,,71f79d4ef4b1
+BDFE-0530,"[LHCu3(II,I,I)(OH)]4+",CPL-0515,moh,MeCN,hess,derived;recomputed;approx;lowT,,-0.033,-0.022,,71f79d4ef4b1
+BDFE-0531,"[LHCu3(I,I,I)(OH)]3+",CPL-0516,moh,MeCN,hess,derived;recomputed,,-0.042,-0.031,,71f79d4ef4b1
+BDFE-0532,[SO3LGCu(OH2)]2-,CPL-0517,moh,H2O,sq,approx,,0.031,0.032,,71f79d4ef4b1
+BDFE-0533,[NMe3LGCu(OH2)]2+,CPL-0518,moh,H2O,sq,,,-0.110,0.012,,71f79d4ef4b1

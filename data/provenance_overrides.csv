@@ -49,3 +49,7 @@ BDFE-0126,last_modified_in,"PR #51 (M1: pKa rescale + E_b, CR-2026-11-13-tmh-pri
 BDFE-0469,last_modified_in,"PR #49 (primary-check note, CR-2026-11-12-tmh-primaries-p3)"
 BDFE-0437,last_modified_in,"PR #49 (manual star, sq > OCP; CR-2026-11-12-tmh-primaries-p3)"
 BDFE-0458,last_modified_in,"PR #49 (manual star, sq > OCP; CR-2026-11-12-tmh-primaries-p3)"
+BDFE-0134,last_modified_in,PR #63 (Dhar 2015 page-verification + oxidized diagonal; CR-2026-11-14-moh-p2)
+BDFE-0134,primary_verified,"yes (Dhar 2015, PR #63)"
+BDFE-0133,last_modified_in,PR #63 (Dhar 2016 page-verification; CR-2026-11-14-moh-p2)
+BDFE-0133,primary_verified,"yes (Dhar 2016, PR #63)"

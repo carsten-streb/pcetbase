@@ -121,23 +121,25 @@ if (chips.length) {
   // full square: BDFE-0090 (FeII(H2O)6) stores all four legs
   const dF = newDom({ hash: "#BDFE-0090" }).window.document;
   const solidF = dF.querySelectorAll('#sqsvg .sqedge[data-state="stored"]').length;
-  const compF = dF.querySelectorAll('#sqsvg .sqedge[data-state="composed"]').length;
-  // since PR #65 (U9) the hess:E_a leg renders as its own "composed" style
-  T("full-square row: 3 measured + 1 Hess-composed edge + BDFE diagonal",
-    solidF === 3 && compF === 1 && dF.querySelectorAll("#sqsvg .sqdiag").length >= 1, "solid=" + solidF + " composed=" + compF);
+  const stEa0090 = dF.querySelector('#sqsvg .sqedge[data-leg="Ea"]');
+  // since the H105 redesign Hess-composed stored values render as derived (dashed)
+  T("full-square row: 3 measured edges, hess:E_a leg derived, BDFE diagonal",
+    solidF === 3 && stEa0090 && stEa0090.dataset.state === "derived"
+      && dF.querySelectorAll("#sqsvg .sqdiag").length >= 1,
+    "solid=" + solidF + " Ea=" + (stEa0090 ? stEa0090.dataset.state : "none"));
   // BDFE-0422: E_a + pKa_b solid, E_b/pKa_a dashed-derived, diagonal 52.3
   const d4 = newDom({ hash: "#BDFE-0422" }).window.document;
   const st = l => { const e = d4.querySelector(`#sqsvg .sqedge[data-leg="${l}"]`); return e && e.dataset.state; };
   T("BDFE-0422: Ea/pKaB stored, Eb/pKaA derived, diagonal 52.3",
     st("Ea") === "stored" && st("pKaB") === "stored" && st("Eb") === "derived" && st("pKaA") === "derived"
-      && /BDFE 52\.3/.test(d4.getElementById("sqsvg").textContent),
+      && /BDFE\(X–H\) = 52\.3 kcal mol/.test(d4.getElementById("sqsvg").textContent),
     [st("Ea"), st("pKaB"), st("Eb"), st("pKaA")].join("/"));
   // TMH sq+hyd row: hydricity extension with the 1.364 diagonal closing to the stored value
   const dH = newDom({ hash: "#BDFE-0427" }).window.document;
   const sq = dH.getElementById("sqscheme");
-  T("TMH hyd row: hydricity extension renders and closes",
-    !!dH.querySelector("#sqsvg .sqdiag.hyd") && /1\.364/.test(sq.textContent)
-      && /ΔG\(H⁻\)/.test(sq.textContent));
+  T("TMH hyd row: hydricity cycle renders, closes, outside the square group",
+    !!dH.querySelector("#sqsvg #sqhyd .sqdiag.hyd") && !dH.querySelector("#sqsvg #sqsquare .sqdiag.hyd")
+      && /1\.364/.test(sq.textContent) && /ΔG°\(H⁻\)/.test(sq.textContent));
   // pair row: notice, no SVG
   const dP = newDom({ hash: "#BDFE-0059" }).window.document;
   T("pair row: notice, no square SVG",
@@ -310,7 +312,7 @@ if (chips.length) {
     const cg=dom.window.eval("CG")["MeCN"];
     const eCons=((tempoh.bdfe-1.37*tempoh.pka-cg)/23.06).toFixed(4);
     const outP=setCalc(eCons,"",String(tempoh.bdfe));
-    T("K4 solve-for-pKa labeled as derived", /derived from eq 10/.test(outP), outP.slice(0,80));
+    T("K4 solve-for-pKa labeled as derived", /derived from the Bordwell equation/.test(outP), outP.slice(0,80));
     const num=(outP.match(/= ([-\d.]+)/g)||[]).map(x=>parseFloat(x.slice(2))).pop();
     T("K4 pKa recovered = stored ("+tempoh.pka+")", Math.abs(num-tempoh.pka)<=0.1, "got "+num);
   } else { T("TEMPOH/MeCN row with pKa+BDFE found", false); }
@@ -487,12 +489,12 @@ if (chips.length) {
   }
   T("U7: no CR/PR/file references outside the collapsed curation trail", jargHits.length === 0, jargHits.join("; "));
 
-  // U9: Hess-composed pKa leg visually distinct from a measured one
+  // U9/H105: Hess-composed pKa leg renders derived (dashed), measured stays solid
   const d99 = newDom({ hash: "#BDFE-0499" }).window.document;
   const d78 = newDom({ hash: "#BDFE-0478" }).window.document;
   const stOf = (doc, lg) => { const e = doc.querySelector(`#sqsvg .sqedge[data-leg="${lg}"]`); return e ? e.dataset.state : "none"; };
-  T("U9: BDFE-0499 pKa(XH) leg is composed, BDFE-0478's is stored",
-    stOf(d99, "pKaB") === "composed" && stOf(d78, "pKaB") === "stored",
+  T("U9/H105: BDFE-0499 pKa(XH) leg derived, BDFE-0478's stored",
+    stOf(d99, "pKaB") === "derived" && stOf(d78, "pKaB") === "stored",
     stOf(d99, "pKaB") + " / " + stOf(d78, "pKaB"));
 
   // U8: sigma label scoped; empty sigma renders "not reported"
@@ -533,13 +535,96 @@ if (chips.length) {
   const potRows = [...det139.querySelectorAll("tr")].filter(tr => /E°\(/.test(tr.textContent) && !/V vs H/.test(tr.textContent));
   T("units: BDFE-0139 BDFE row carries kcal mol⁻¹", bdfeRow && /kcal mol⁻¹/.test(bdfeRow.textContent), bdfeRow ? bdfeRow.textContent : "no row");
   T("units: every component potential row says V vs", potRows.length >= 2 && potRows.every(tr => /V vs/.test(tr.textContent)), potRows.map(tr => tr.textContent).join(" | ").slice(0, 160));
-  T("units: worked equations state stored/delta units", (det139.textContent.match(/kcal mol⁻¹, Δ = /g) || []).length >= 1);
+  T("units: worked equations state stored/delta units", (det139.textContent.match(/kcal mol⁻¹; Δ = /g) || []).length >= 1);
   const dp = JSON.parse(fs.readFileSync("datapackage.json", "utf-8"));
   const missingUnit = [];
   dp.resources.forEach(res => res.schema.fields.forEach(f => {
     if ((f.type === "number" || f.type === "integer") && !f.unit) missingUnit.push(res.name + "." + f.name);
   }));
   T("units: datapackage has a unit for every numeric field", missingUnit.length === 0, missingUnit.join(", "));
+}
+
+
+// ---------- 6i. equation labels + units addendum + square-scheme redesign (PR #67) ----------
+{
+  // H104: no bare Agarwal equation numbers in visible text (boot + two panels)
+  const eqRx = /\beq[ -]?1[08]\b/i;
+  const vis = doc => { const b = doc.body.cloneNode(true); b.querySelectorAll("script,style").forEach(x => x.remove()); return b.textContent; };
+  const d139 = newDom({ hash: "#BDFE-0139" }).window.document;
+  const d478 = newDom({ hash: "#BDFE-0478" }).window.document;
+  T("H104: no bare eq 10/18 in visible text (boot, BDFE-0139, BDFE-0478)",
+    !eqRx.test(vis(d)) && !eqRx.test(vis(d139)) && !eqRx.test(vis(d478)),
+    (vis(d139).match(eqRx) || vis(d) .match(eqRx) || [""])[0]);
+  T("H104: Bordwell + H-atom-potential names present in the panel",
+    /Bordwell equation/.test(vis(d139)) && /BDFE from the H-atom potential/.test(vis(d139)));
+
+  // units addendum: every number in the worked-equation lines carries a unit (pKa excepted)
+  const checkEq = doc => {
+    const bad = [];
+    doc.querySelectorAll("#detail .eq").forEach(eq => {
+      const txt = eq.textContent;
+      if (!/BDFE|Hydricity/i.test(txt)) return;
+      /* match numbers and look at what follows; pKa values follow "× " after "kcal mol⁻¹ ×" with no unit */
+      const re = /(−|-)?\d+\.\d+/g; let m;
+      while ((m = re.exec(txt))) {
+        const after = txt.slice(m.index + m[0].length, m.index + m[0].length + 22);
+        const before = txt.slice(Math.max(0, m.index - 30), m.index);
+        const unitAfter = /^\s*(kcal mol⁻¹( V⁻¹)?|V\b|V vs)/.test(after);
+        const isPka = /1\.37 kcal mol⁻¹ × $|pK\u2090 = $|× $/.test(before) && !unitAfter && /^[\s)+;]|^$/.test(after);
+        if (!unitAfter && !isPka) bad.push(m[0] + " ←" + after.slice(0, 12));
+      }
+    });
+    return bad;
+  };
+  const d77 = newDom({ hash: "#BDFE-0077" }).window.document;
+  const bad77 = checkEq(d77), bad139 = checkEq(d139);
+  T("units: every worked-equation number except pKa carries its unit (BDFE-0077 + BDFE-0139)",
+    bad77.length === 0 && bad139.length === 0, bad77.concat(bad139).slice(0, 3).join(" | "));
+  const hyph = [...d139.querySelectorAll("#detail .eq")].map(e => e.textContent).join(" ");
+  T("units: no ASCII hyphen-minus before a digit in the worked equations", !/-\d/.test(hyph),
+    (hyph.match(/.{10}-\d.{6}/) || [""])[0]);
+
+  // H105 Part A: redesigned square scheme
+  const svg139 = d139.getElementById("sqsvg");
+  const arrows139 = svg139 ? svg139.querySelectorAll('[marker-end]').length : 0;
+  T("H105: BDFE-0139 square has 5 arrowed legs (4 + diagonal) and corner boxes",
+    arrows139 === 5 && svg139.querySelectorAll("#sqsquare rect").length >= 4, "arrows=" + arrows139);
+  T("H105: no rotated text in the square scheme", svg139 && !/rotate\(/.test(svg139.innerHTML));
+  T("H105: every E-leg label carries V + reference; pKa labels unitless",
+    [...svg139.querySelectorAll("#sqsquare text")].every(tx => {
+      const s = tx.textContent;
+      if (!/E° = /.test(s)) return true;
+      return / V/.test(s) && /vs /.test(s);
+    }));
+  const dH427 = newDom({ hash: "#BDFE-0427" }).window.document;
+  T("H105: hydricity cycle outside the square group, with its own worked equation",
+    !!dH427.querySelector("#sqsvg #sqhyd") && !dH427.querySelector("#sqsquare #sqhyd")
+      && /Hydricity cycle/.test(dH427.getElementById("detail").textContent));
+
+  // H105 Part B: compound-name sub/superscripts + no plain-text pKa nodes
+  const h3 = d139.querySelector("#detail h3");
+  T("H105: BDFE-0139 name renders (bpy)<sub>2</sub> … <sup>2+</sup>",
+    h3 && /<sub>2<\/sub>/.test(h3.innerHTML) && /<sup>2\+<\/sup>/.test(h3.innerHTML)
+      && /<sup>II<\/sup>/.test(h3.innerHTML), h3 ? h3.innerHTML.slice(0, 90) : "no h3");
+  const walker = d.createTreeWalker(d.body, 4 /* TEXT */);
+  const plainPka = [];
+  while (walker.nextNode()) {
+    const v = walker.currentNode.nodeValue;
+    if (/pKa/.test(v) && !/sim-pKa|hess:pKa/.test(v)) {
+      const el = walker.currentNode.parentElement;
+      if (el && !el.closest("#csvColsBody") && !el.closest("script,style")) plainPka.push(v.trim().slice(0, 40));
+    }
+  }
+  T("H105: no visible text node contains plain 'pKa' (flag tokens + export docs exempt)",
+    plainPka.length === 0, plainPka.slice(0, 3).join(" | "));
+  T("H105: table shows formatted names (subscript in a bracketed formula)",
+    /<sub>/.test(d.querySelector("#tbl tbody").innerHTML));
+
+  // ledger closure names mapped at render (CSV keeps eq18/eq10)
+  const vrec = d478.getElementById("verifrec");
+  T("H104: ledger panel says 'Bordwell closure', CSV download keeps eq10_residual",
+    vrec && /Bordwell closure|H-atom-potential closure/.test(vrec.textContent)
+      && /eq10_res/.test(w.verifText("all").split("\n")[0]));
 }
 
 console.log(`\n${pass} passed, ${fail} failed`);

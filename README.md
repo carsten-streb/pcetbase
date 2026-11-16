@@ -16,8 +16,8 @@ also works offline — just open `index.html`).
 Canonical value per entry: **E°(V vs H2)** in the stated solvent — the potential of
 hydrogenation. Everything else is computed:
 
-- eq 18: `BDFE(X–H) = 23.06·E°(V vs H2) + ΔG°f(H•)_solv`
-- eq 10 (square scheme): `BDFE = 23.06·E° + 1.37·pKa + CG_solv`
+- BDFE from the H-atom potential (eq 18 in Agarwal et al. 2022): `BDFE(X–H) = 23.06 kcal/mol/V · E°(V vs H2) + ΔG°f(H•)_solv (kcal/mol)`
+- Bordwell equation (square scheme; eq 10 in Agarwal et al. 2022): `BDFE = 23.06 kcal/mol/V · E° + 1.37 kcal/mol · pKa + CG_solv (kcal/mol)`
 
 Constants (ΔG°f(H•), CG, reference-electrode offsets) live in `data/constants.csv`,
 each with its literature citation and uncertainty. Values follow Agarwal et al.,
@@ -77,6 +77,9 @@ and a one-line summary. Provenance comes from the hand-maintained batch map
 `data/provenance_overrides.csv` (per-row exceptions). The app's verification panel
 shows the record for each entry and offers the ledger as a CSV download. Do not edit
 `derived/verification.csv` by hand; edit the two provenance files and rebuild.
+Ledger/analysis column names `eq18_residual_kcal` (H-atom-potential closure residual,
+kcal/mol) and `eq10_residual_kcal` (Bordwell closure residual, kcal/mol) keep the
+source equation numbers of Agarwal et al. 2022 for machine-readability.
 
 ### Recommended values (★)
 
@@ -94,7 +97,7 @@ edit data/data.csv  →  python build.py  →  index.html regenerated
 ```
 
 `build.py` runs, in order: the auto-recommendation policy, the full validation
-(every row checked by eq 18 and both eq 10 diagonals against the constants), and the
+(every row checked by the H-atom-potential closure and both Bordwell diagonals against the constants), and the
 rebuild of the self-contained `index.html` from `template.html`. `validate.py` can be
 run alone. Pull requests are gated by the same validation via GitHub Actions: a
 contributed value that does not close thermochemically cannot be merged.

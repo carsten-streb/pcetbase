@@ -29,6 +29,34 @@
 
 ## Unreleased (toward v1.5.x)
 
+### Square-scheme redesign, equation names, units ground rule (PR #67; CR-2026-11-16-square-scheme-typography, CR-2026-11-16-equation-labels, CR-2026-11-16-units addendum)
+UI/wording/docs only — no data value changed.
+- Square scheme rebuilt on the manuscript Scheme 1 model: corner species boxes
+  (the X–H species named, with sub/superscripts), arrowheads on every leg,
+  stacked horizontal labels (transfer, symbol = value with unit, reference
+  scale), the BDFE diagonal labelled horizontally on a filled box with
+  E°(H•), hydricity as its own cycle below the square with a worked
+  hydricity-cycle equation, plain-word legend, no rotated or clipped text.
+  Hess-composed stored legs render dashed (derived); supersedes the PR #65
+  interim leg style.
+- User-facing equation names: "Bordwell equation" and "BDFE from the H-atom
+  potential" replace the bare "eq 10"/"eq 18" (source equation numbers of
+  Agarwal et al. 2022 now live in ⓘ tooltips); ledger closure names mapped at
+  render time ("Bordwell closure", "H-atom-potential closure"); file column
+  names eq10_/eq18_residual_kcal kept and documented in README + datapackage.
+- Units ground rule (rule 10) in the worked equations: every number carries
+  its unit and reference scale (23.06 kcal mol⁻¹ V⁻¹ × (−1.920 V vs Fc+/0) …);
+  pKa stays unitless; U+2212 minus throughout displayed values (table, panel,
+  scheme); long equation lines wrap instead of clipping.
+- Render-time sub/superscripts for compound names across table, panel, ladder
+  labels, tooltips and scheme (data files and CSV exports keep plain text);
+  oxidation states and trailing charges superscripted, formula digits
+  subscripted; "pKa" as plain text eliminated from visible UI text (pKₐ / pK
+  with subscript).
+- Plain-language ledger follow-up: "eq-10 closures recomputed" → "Bordwell
+  closures recomputed" in two provenance ranges.
+- jsdom gate 112 → 124 assertions.
+
 ### Manuscript figure scripts at v1.5 (PR #66; CR-2026-11-14-manuscript-figures)
 Scripts only — no data, app or schema change; the committed renders under
 figures/manuscript-v1.5/ are produced from the v1.5 tag data (7da97ac) with the

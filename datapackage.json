@@ -447,18 +447,18 @@
           {
             "name": "checks_run",
             "type": "string",
-            "description": "Semicolon list of the closures that apply: eq18, eq10, hyd."
+            "description": "Semicolon list of the closures that apply: eq18 (H-atom-potential closure), eq10 (Bordwell closure), hyd (hydricity cycle). Names keep the Agarwal 2022 equation numbers for machine-readability."
           },
           {
             "name": "eq18_res",
             "type": "number",
-            "description": "eq 18 closure residual in kcal/mol (copied from derived/analysis.csv).",
+            "description": "H-atom-potential closure residual (eq 18 in Agarwal et al. 2022) in kcal/mol (copied from derived/analysis.csv).",
             "unit": "kcal/mol"
           },
           {
             "name": "eq10_res",
             "type": "number",
-            "description": "eq 10 closure residual in kcal/mol (copied).",
+            "description": "Bordwell closure residual (eq 10 in Agarwal et al. 2022) in kcal/mol (copied).",
             "unit": "kcal/mol"
           },
           {

@@ -1,6 +1,27 @@
 # Changelog
 
-## Unreleased (toward v1.6)
+## v1.6 — 2026-11-16
+
+Data freeze at PR #70: **547 measurements / 531 couples** (v1.5: 525 / 509).
+Scope since v1.5: MOH campaign completed (P2–P4 + citation chase: Cu tricopper
+ladder and aqueous Tolman variants, Mn series, Fe aqua/hydroxo series in water,
+Zr/Co heterobimetallic OCP, Ni(PS3″) aqua; enrichments of BDFE-0099, -0100,
+-0132, -0133, -0134); **one correction of a v1.5 value (BDFE-0525, 110.1 →
+81.5 kcal/mol)**; usability package (typed pair lookup, filter counts, σ
+labelling, export disclosure, dev/release footer stamp); square-scheme redesign
+with named worked equations and a unit on every value; curation statement;
+manuscript figure scripts with label layer (renders pinned to v1.5 under
+figures/manuscript-v1.5/). No v1.5.1 was tagged (H98): the v1.5.x work below
+ships in this release. Release figure set (figures/) re-rendered, watermark v1.6.
+
+### Release prep v1.6 (PR #72)
+- CITATION.cff / .zenodo.json version 1.6; footer stamp RELEASE 1.6 / 547
+  measurements; footer and README name v1.6 with neutral DOI wording until the
+  version DOI mints (DOI-reference PR follows); jsdom U4 assertion moved from the
+  development-state stamp to the release stamp.
+- Review fixes (H121): CITATION.cff top-level doi = concept DOI
+  10.5281/zenodo.24121910 (was the v1.5 version DOI; B2); keyword
+  "metal-oxo/hydroxo complexes" in CITATION.cff and .zenodo.json (N1).
 
 ### Correction of a v1.5 value + MOH citation chase (PR #70; CR-2026-11-16-moh-0525-correction + CR-2026-11-16-moh-chase)
 - **v1.6 correction of a v1.5 value: BDFE-0525** [(LD)FeIII(OH)]− / [(LD)FeIV(O)]−
@@ -76,14 +97,14 @@
   mixed); BDFE-0133 page-verified vs Dhar 2016 (+doi/year/sigma).
 - 533/517; jsdom baselines bumped (mixed = 15).
 
-## Unreleased (toward v1.5.x)
+### v1.5.x work (untagged, shipped in v1.6)
 
-### Curation statement (PR #68; usability U20, H98 a)
+#### Curation statement (PR #68; usability U20, H98 a)
 - "How the data were curated" statement (wording cleared by C. Streb,
   2026-11-16) added as a collapsible section in the footer, linked from the
   header, and as a README section.
 
-### Square-scheme redesign, equation names, units ground rule (PR #67; CR-2026-11-16-square-scheme-typography, CR-2026-11-16-equation-labels, CR-2026-11-16-units addendum)
+#### Square-scheme redesign, equation names, units ground rule (PR #67; CR-2026-11-16-square-scheme-typography, CR-2026-11-16-equation-labels, CR-2026-11-16-units addendum)
 UI/wording/docs only — no data value changed.
 - Square scheme rebuilt on the manuscript Scheme 1 model: corner species boxes
   (the X–H species named, with sub/superscripts), arrowheads on every leg,
@@ -111,7 +132,7 @@ UI/wording/docs only — no data value changed.
   closures recomputed" in two provenance ranges.
 - jsdom gate 112 → 124 assertions.
 
-### Manuscript figure scripts at v1.5 (PR #66; CR-2026-11-14-manuscript-figures)
+#### Manuscript figure scripts at v1.5 (PR #66; CR-2026-11-14-manuscript-figures)
 Scripts only — no data, app or schema change; the committed renders under
 figures/manuscript-v1.5/ are produced from the v1.5 tag data (7da97ac) with the
 revised scripts (watermark "PCETbase v1.5").
@@ -124,7 +145,7 @@ revised scripts (watermark "PCETbase v1.5").
   shading; estimated-legs-only couples inside a bracket drawn hatched (F-3).
 - fig6.py: panel (b) replaced by the dumbbell of all 14 multi-member couples
   (30 points; marker by method, open = sim-pKa, ◆ = discordant, POM grey) (F-4).
-### Usability + units package (PR #65; CR-2026-11-14-usability-test, CR-2026-11-16-units)
+#### Usability + units package (PR #65; CR-2026-11-14-usability-test, CR-2026-11-16-units)
 UI, wording and documentation only — no data value changed.
 - Pair/HAT panel resolves typed names (exact key → unique name/alias → unique
   substring → clickable candidate list); cross-solvent guard unchanged (U1).
@@ -169,12 +190,12 @@ UI, wording and documentation only — no data value changed.
   marker, jargon scrub, composed-leg style, empty state, stamp, units,
   datapackage units).
 
-### v1.5 DOI references (PR #62)
+#### v1.5 DOI references (PR #62)
 - Zenodo archived the v1.5 release: version DOI 10.5281/zenodo.24222265
   (minted 2026-11-14). Footer, README and CITATION.cff now cite it; this
   commit is the citable v1.5 state for testers.
 
-### Header wording (PR #61)
+#### Header wording (PR #61)
 - Headline gains "database"; sub-line: "(BDFEs)" spelled out, "standard redox
   potential" before E deg; <title> matches. Carsten's reviewed text 2026-11-14.
   UI wording only - the v1.5 tag (7da97ac) and data are unchanged.

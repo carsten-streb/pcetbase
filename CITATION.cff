@@ -10,7 +10,7 @@ authors:
 repository-code: "https://github.com/carsten-streb/pcetbase"
 url: "https://carsten-streb.github.io/pcetbase/"
 license: CC-BY-4.0
-doi: 10.5281/zenodo.24222265
+doi: 10.5281/zenodo.24121910
 identifiers:
   - type: doi
     value: 10.5281/zenodo.24121910
@@ -26,6 +26,7 @@ keywords:
   - "polyoxometalates"
   - "transition metal hydrides"
   - "hydricity"
+  - "metal-oxo/hydroxo complexes"
 references:
   - type: article
     title: "Free Energies of Proton-Coupled Electron Transfer Reagents and Their Applications"

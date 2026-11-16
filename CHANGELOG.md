@@ -19,6 +19,9 @@ ships in this release. Release figure set (figures/) re-rendered, watermark v1.6
   measurements; footer and README name v1.6 with neutral DOI wording until the
   version DOI mints (DOI-reference PR follows); jsdom U4 assertion moved from the
   development-state stamp to the release stamp.
+- Review fixes (H121): CITATION.cff top-level doi = concept DOI
+  10.5281/zenodo.24121910 (was the v1.5 version DOI; B2); keyword
+  "metal-oxo/hydroxo complexes" in CITATION.cff and .zenodo.json (N1).
 
 ### Correction of a v1.5 value + MOH citation chase (PR #70; CR-2026-11-16-moh-0525-correction + CR-2026-11-16-moh-chase)
 - **v1.6 correction of a v1.5 value: BDFE-0525** [(LD)FeIII(OH)]− / [(LD)FeIV(O)]−

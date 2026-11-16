@@ -2,6 +2,11 @@
 
 ## Unreleased (toward v1.7)
 
+### Manuscript figures at v1.6 (PR #74; board H119 step 2)
+- figures/manuscript-v1.6/: fig2/3/4/6 (PNG 600 dpi + SVG) rendered from tag v1.6
+  (f7c72e2) with the PR #71 label layer; watermark v1.6. Content identical to the
+  release set figures/ (normalised SVG comparison). figures/manuscript-v1.5/ unchanged.
+
 ### v1.6 DOI references (PR #73)
 - Version DOI 10.5281/zenodo.24293136 (Zenodo, 2026-11-16) in the footer citation
   line, README, CITATION.cff and the build.py RELEASE stamp; tag v1.6 @ f7c72e2.

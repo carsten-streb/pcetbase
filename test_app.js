@@ -520,8 +520,8 @@ if (chips.length) {
 
   // U4: footer stamp names the development state, not the release alone
   const foot = d.querySelector("footer").textContent;
-  T("U4: dev build stamp says 'development state after v1.5' with the release DOI",
-    /development state after v1\.5/.test(foot) && /release v1\.5: 525 measurements/.test(foot) && /10\.5281\/zenodo\.24222265/.test(foot),
+  T("U4: release build stamp says 'release v1.6' with 547 measurements, no development-state wording",
+    /547 measurements, release v1\.6, data [0-9a-f]{8}/.test(foot) && !/development state/.test(foot),
     (foot.match(/Data version[^—]*—[^(]*/) || [""])[0]);
 
   // U19: no "flag — flag" tautology in the flag legend

@@ -30,6 +30,9 @@ ships in this release. Release figure set (figures/) re-rendered, watermark v1.6
   `dmso-unc;check-src` (`check-src` for the unstated solvent of the Lacy CV),
   σ empty, doi 10.1021/ja1047818. The v1.5 release (doi:10.5281/zenodo.24222265)
   stays as published; this entry documents the change.
+- Verification ledger: BDFE-0525 now has its own batch line (source_type
+  `primary`: Lacy et al. 2010 E leg, Gupta & Borovik 2003 pKa leg); BDFE-0524
+  keeps the Warren 2010 Table 21 line (review finding B1, H121).
 - BDFE-0547 [NiII(PS3″)(OH2)]− / [NiIII(PS3″)(OH)]− (Pan et al. 2025, DMSO):
   oxidized-diagonal storage, E_b −0.68 V vs Fc+/0, pKa_a 33.8 (midpoint of the
   32.5–35 bracket), BDFE 98.6 kcal/mol, `approx;dmso-unc`, σ 2.0 kcal/mol —

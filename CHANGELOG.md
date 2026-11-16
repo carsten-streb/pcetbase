@@ -1,6 +1,12 @@
 # Changelog
 
-## v1.6 — 2026-11-16
+## Unreleased (toward v1.7)
+
+### v1.6 DOI references (PR #73)
+- Version DOI 10.5281/zenodo.24293136 (Zenodo, 2026-11-16) in the footer citation
+  line, README, CITATION.cff and the build.py RELEASE stamp; tag v1.6 @ f7c72e2.
+
+## v1.6 — 2026-11-16 (doi:10.5281/zenodo.24293136)
 
 Data freeze at PR #70: **547 measurements / 531 couples** (v1.5: 525 / 509).
 Scope since v1.5: MOH campaign completed (P2–P4 + citation chase: Cu tricopper

@@ -55,3 +55,9 @@ BDFE-0133,last_modified_in,PR #63 (Dhar 2016 page-verification; CR-2026-11-14-mo
 BDFE-0133,primary_verified,"yes (Dhar 2016, PR #63)"
 BDFE-0132,last_modified_in,PR #69 (Kim 2020 page-verification + recompute 72.1 -> 72.4 kcal/mol; CR-2026-11-16-moh-p4)
 BDFE-0132,primary_verified,"yes (Kim 2020 main + SI, PR #69)"
+BDFE-0525,last_modified_in,"PR #70 (v1.6 correction of a v1.5 value: E_a +0.34 -> -0.90 V vs Fc+/0, BDFE 110.1 -> 81.5 kcal/mol; CR-2026-11-16-moh-0525-correction + moh-chase amendment)"
+BDFE-0525,primary_verified,"partial (E leg page-read in Lacy 2010, solvent not stated; pKa leg page-read in Gupta & Borovik 2003)"
+BDFE-0099,last_modified_in,PR #70 (Gupta & Borovik 2003 page-verification; CR-2026-11-16-moh-chase)
+BDFE-0099,primary_verified,"yes (Gupta & Borovik 2003 Table 1, PR #70)"
+BDFE-0100,last_modified_in,PR #70 (E_b and pKa_a page-verified in Gupta & Borovik 2003; CR-2026-11-16-moh-chase)
+BDFE-0100,primary_verified,partial (E_b + pKa_a page-read; E_a + Hess pKa_b not)

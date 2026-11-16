@@ -2,6 +2,26 @@
 
 ## Unreleased (toward v1.6)
 
+### Correction of a v1.5 value + MOH citation chase (PR #70; CR-2026-11-16-moh-0525-correction + CR-2026-11-16-moh-chase)
+- **v1.6 correction of a v1.5 value: BDFE-0525** [(LD)FeIII(OH)]− / [(LD)FeIV(O)]−
+  (LD = H3buea, DMSO). v1.5 stored E_a +0.34 V vs Fc+/0 and BDFE 110.1 kcal/mol,
+  taken from Warren 2010 Table 21, which tabulated the irreversible 2003 wave;
+  the primary group re-measured the couple reversibly at −0.90 V vs Fc+/0
+  (Lacy et al. 2010). Corrected: E_a −0.90 V vs Fc+/0, E_H2 1.25 V vs H2,
+  BDFE 81.5 kcal/mol; pKa_b 25.0 page-verified (Gupta & Borovik 2003); flags
+  `dmso-unc;check-src` (`check-src` for the unstated solvent of the Lacy CV),
+  σ empty, doi 10.1021/ja1047818. The v1.5 release (doi:10.5281/zenodo.24222265)
+  stays as published; this entry documents the change.
+- BDFE-0547 [NiII(PS3″)(OH2)]− / [NiIII(PS3″)(OH)]− (Pan et al. 2025, DMSO):
+  oxidized-diagonal storage, E_b −0.68 V vs Fc+/0, pKa_a 33.8 (midpoint of the
+  32.5–35 bracket), BDFE 98.6 kcal/mol, `approx;dmso-unc`, σ 2.0 kcal/mol —
+  the highest O–H BDFE in class `moh`.
+- BDFE-0099 and BDFE-0100 page-verified against Gupta & Borovik 2003 Table 1
+  (doi/year/conditions; stored values kept, recomputations within 0.1 kcal/mol).
+- Builder decisions: chase q.1 midpoint + `approx` + σ confirmed; q.2 the 0525
+  correction and its amendment applied in one commit (v1.5 state → final state).
+- 547 measurements / 531 couples. MOH campaign complete.
+
 ### MOH P4 (PR #69; CR-2026-11-16-moh-p4)
 - 5 rows BDFE-0542..0546: Molla et al. 2024 [FeII(L5R)(OH2)]+ / [FeIII(L5R)(OH)]+
   series in water (R = OMe, H, Cl, NO2; all four legs from the pH-independent

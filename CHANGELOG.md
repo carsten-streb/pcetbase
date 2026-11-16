@@ -29,6 +29,51 @@
 
 ## Unreleased (toward v1.5.x)
 
+### Usability + units package (PR #65; CR-2026-11-14-usability-test, CR-2026-11-16-units)
+UI, wording and documentation only — no data value changed.
+- Pair/HAT panel resolves typed names (exact key → unique name/alias → unique
+  substring → clickable candidate list); cross-solvent guard unchanged (U1).
+- Origin filter options carry classified counts and a classification-stage
+  note (U2, label part); README star-policy paragraph replaced by a pointer to
+  CONTRIBUTING, and the header links CHANGELOG and "How values are recommended
+  and verified" (U3, U14).
+- Footer stamp distinguishes a release build from a development state: now
+  "541 measurements — development state after v1.5 (release v1.5: 525
+  measurements, doi:10.5281/zenodo.24222265)" (U4; RELEASE constant in build.py).
+- A couple whose ★ row is hidden by the active filters marks its substitute
+  row "★ <value> hidden by filter" (click opens the starred row) (U5).
+- Internal workflow references (CR/PR IDs, file and column names) moved out of
+  the default-open verification panel into the collapsed "Curation trail"
+  (recommendation reasons and conditions notes shown there verbatim) (U7, render part).
+- σ row relabelled "σ, published (quantity as stated in the source; see
+  conditions)"; a missing σ now renders "uncertainty not reported in the
+  source" (U8, label part; the BDFE-0499 value check is H99).
+- Square scheme: stored legs that are Hess-composed (flag hess:<leg>) get
+  their own dotted style and legend entry; wider margins and two-line vertical
+  labels end the clipped "(derived, sum only)" text; sum-constraint and
+  diagonal labels carry kcal/mol (U9).
+- CSV export: a "column list & constants" disclosure documents every export
+  column and the per-solvent C_G / ΔG°f(H•) / C_Hyd values (U10).
+- Empty search shows guidance instead of a bare empty table, and an open
+  verification panel closes when its entry leaves the filtered set (U11).
+- Permalink link labelled; E° and pKa table headers explain their semantics,
+  back-calculated pKa values render italic with a tooltip; calculator formats
+  negative potentials in parentheses and states error propagation into the
+  solved quantity; horizontal overflow of wide panels contained; header now
+  says stored values are recomputed live as a consistency check; complete
+  flag-gloss list (U13–U19).
+- Units rule (CR-2026-11-16-units): every displayed value carries its unit —
+  worked-equation stored/Δ values and coefficient units, BDFE-input label
+  follows the active energy unit, square-scheme diagonals in kcal/mol;
+  datapackage.json now has a `unit` for every numeric field; README column
+  table extended to all 30 columns with units.
+- Verification ledger: extraction_route strings rewritten in plain reader
+  language ("extracted from PDF tables", "extracted from SI spreadsheet
+  (xlsx)" …) — provenance content unchanged (Carsten 2026-11-14).
+- jsdom gate 91 → 112 assertions (typed pair lookup, candidate list, ★-hidden
+  marker, jargon scrub, composed-leg style, empty state, stamp, units,
+  datapackage units).
+
 ### v1.5 DOI references (PR #62)
 - Zenodo archived the v1.5 release: version DOI 10.5281/zenodo.24222265
   (minted 2026-11-14). Footer, README and CITATION.cff now cite it; this

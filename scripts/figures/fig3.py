@@ -3,13 +3,13 @@ pKa-dependence panel, named case boxes (CR-2026-11-14-manuscript-figures F-2).
 Case boxes use the status-doc numbering 1, 3, 5, 6b (writer decision H96)."""
 import statistics
 import matplotlib.pyplot as plt
-from figcommon import load_rows, load_analysis, CLASS_COLORS, provenance, save
+from figcommon import load_rows, load_analysis, CLASS_COLORS, provenance, save, display_name
 
-CASES = [  # writer-final case boxes: status-doc cases 1, 3, 5, 6b
-    ("Case 1 · Hess error", "Fe(H₂O)₆²⁺: printed Hess E° does not close (Δ ≈ 0.09 V)"),
-    ("Case 3 · transcription swap", "CO₂/CH₄: MeCN and DMF BDFE values exactly swapped vs their E°"),
-    ("Case 5 · closure failure", "Shiels 2024: printed 63.8 recomputes to 63.3;\nciting paper propagates misquotes"),
-    ("Case 6b · constants obsolescence", "[HPV₂W₁₀O₄₀]: published BDFE on the pre-correction\nC_G (75.4) recomputes to 70.6 kcal mol⁻¹ (Δ 4.8)"),
+CASES = [  # writer-final case boxes: status-doc cases 1, 3, 5, 6b (labels per CR-2026-11-16-figure-labels-pom)
+    ("Case 1 · Hess error", "[Fe(H$_2$O)$_6$]$^{2{+}}$: printed Hess E° does not close (Δ ≈ 0.09 V)"),
+    ("Case 3 · transcription swap", "CO$_2$/CH$_4$: MeCN and DMF BDFE values exactly swapped vs their E°"),
+    ("Case 5 · closure failure", "Shiels 2024: printed 63.8 kcal mol$^{-1}$ recomputes to 63.3 kcal mol$^{-1}$;\nciting paper propagates misquotes"),
+    ("Case 6b · constants obsolescence", "H[PV$_2$W$_{10}$O$_{40}$]$^{5{-}}$: published BDFE on the pre-correction\n$C_\\mathrm{G}$ (75.4 kcal mol$^{-1}$) recomputes to 70.6 kcal mol$^{-1}$ (Δ 4.8 kcal mol$^{-1}$)"),
 ]
 
 def main():
@@ -29,7 +29,7 @@ def main():
     bins = [x / 10 for x in range(-12, 13)]
     ax_a.hist(revw, bins=bins, color="0.6", alpha=0.7, label=f"review-tabulated (n={len(revw)})")
     ax_a.hist(prim, bins=bins, color="#e34948", alpha=0.7, label=f"primary/recomputed (n={len(prim)})")
-    ax_a.set_xlabel("eq 18 residual (kcal mol$^{-1}$)"); ax_a.set_ylabel("entries")
+    ax_a.set_xlabel("eq 1 residual (kcal mol$^{-1}$)"); ax_a.set_ylabel("entries")
     ax_a.legend(fontsize=6, frameon=False); ax_a.set_title("(a) closure residuals", fontsize=8, loc="left")
 
     by_solv = {}
@@ -38,8 +38,8 @@ def main():
             by_solv.setdefault(a["solvent"], []).append(float(a["eq18_residual_kcal"]))
     solvs = [s for s, v in sorted(by_solv.items(), key=lambda kv: -len(kv[1])) if len(v) >= 5]
     ax_b.bar(range(len(solvs)), [statistics.pstdev(by_solv[s]) for s in solvs], color="0.45")
-    ax_b.set_xticks(range(len(solvs)), solvs, rotation=45, ha="right", fontsize=6)
-    ax_b.set_ylabel("σ(eq 18 residual)"); ax_b.set_title("(b) by solvent (n ≥ 5)", fontsize=8, loc="left")
+    ax_b.set_xticks(range(len(solvs)), [display_name(s) for s in solvs], rotation=45, ha="right", fontsize=6)
+    ax_b.set_ylabel("σ(eq 1 residual) (kcal mol$^{-1}$)"); ax_b.set_title("(b) by solvent (n ≥ 5)", fontsize=8, loc="left")
 
     by_cls = {}
     for a in ana:
@@ -49,9 +49,9 @@ def main():
     ax_c.bar(range(len(clss)), [statistics.pstdev(by_cls[c]) for c in clss],
              color=[CLASS_COLORS.get(c, "0.45") if c == "pom" else "0.6" for c in clss])
     ax_c.set_xticks(range(len(clss)), clss, rotation=45, ha="right", fontsize=6)
-    ax_c.set_ylabel("σ(eq 18 residual)"); ax_c.set_title("(c) by class (POM highlighted)", fontsize=8, loc="left")
+    ax_c.set_ylabel("σ(eq 1 residual) (kcal mol$^{-1}$)"); ax_c.set_title("(c) by class (POM highlighted)", fontsize=8, loc="left")
 
-    # (d) eq 10 residual vs pKa for TMH hyd/OCP rows: the 1.364 vs 1.37 factor
+    # (d) eq 2 (Bordwell) residual vs pKa for TMH hyd/OCP rows: the 1.364 vs 1.37 factor
     # (selection computed from the data; expect n = 34 at the v1.5 tag)
     pts = []
     for a in ana:
@@ -65,7 +65,7 @@ def main():
         lo, hi = min(xs), max(xs)
         ax_d.plot([lo, hi], [0.006 * lo, 0.006 * hi], color="0.3", lw=0.9, ls="--")
     ax_d.axhline(0, color="0.8", lw=0.6)
-    ax_d.set_xlabel("pK$_a$(XH)"); ax_d.set_ylabel("eq 10 residual (kcal/mol)")
+    ax_d.set_xlabel("pK$_a$(XH)"); ax_d.set_ylabel("eq 2 residual (kcal mol$^{-1}$)")
     ax_d.text(0.03, 0.95, "line: 0.006·pK$_a$\n1.364 (hydricity) vs 1.37 (Bordwell) factor",
               transform=ax_d.transAxes, fontsize=5.5, va="top")
     ax_d.set_title(f"(d) hyd/OCP pK$_a$ dependence (n = {len(pts)})", fontsize=8, loc="left")

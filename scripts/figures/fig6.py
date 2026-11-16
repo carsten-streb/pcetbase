@@ -4,7 +4,7 @@ and PVW11 inset; (b) dumbbell of every multi-member couple at the data tag
 open marker = sim-pKa, diamond suffix = discordant couple."""
 import csv, os
 import matplotlib.pyplot as plt
-from figcommon import ROOT, load_rows, CLASS_COLORS, provenance, save
+from figcommon import ROOT, load_rows, CLASS_COLORS, provenance, save, display_name, mathname
 
 def main():
     rows = [r for r in load_rows() if r["solvent"] == "MeCN" and r["_bdfe"]]
@@ -54,7 +54,7 @@ def main():
         ins.set_xticks(range(len(pvw)), [f'{r["year"]}\n{r["method"]}' for r in pvw], fontsize=4.5)
         ins.set_xlim(-0.5, len(pvw) - 0.5)
         ins.tick_params(labelsize=5)
-        ins.set_title("[HPVW11O40]⁴⁻ 1st H · discordant ⚠", fontsize=5.5)
+        ins.set_title(mathname("H[PVW11O40]4-") + " · discordant", fontsize=5.5)
     # (b) F-4: one row per multi-member couple (computed, no hard-coded IDs)
     with open(os.path.join(ROOT, "data", "couples.csv"), newline="", encoding="utf-8") as f:
         cmeta = {c["couple_id"]: c for c in csv.DictReader(f)}
@@ -82,9 +82,14 @@ def main():
                          elinewidth=0.6, capsize=1.5, zorder=2)
             if abs(x) > 3 or x < -4:
                 pass
-        name = ms[0]["compound"].split(" (")[0]
+        name = display_name(ms[0]["compound"])
         disc = "◆ " if cmeta.get(cid, {}).get("discordant") == "1" else ""
-        axb.annotate(f"{disc}{name} · {cid}", xy=(0, yi), xytext=(3, 4),
+        # discordant marker drawn as its own plain-text label: inside a mathtext
+        # string the glyph falls back to a placeholder
+        if disc:
+            axb.annotate("◆", xy=(0, yi), xytext=(3, 4), textcoords="offset points",
+                         fontsize=4.3, color="0.25", fontfamily="DejaVu Sans")
+        axb.annotate(f"{name} · {cid}", xy=(0, yi), xytext=(8.5 if disc else 3, 4),
                      textcoords="offset points", fontsize=4.3, color="0.25")
     axb.axvline(0, color="0.8", lw=0.7, zorder=0)
     axb.set_yticks([])

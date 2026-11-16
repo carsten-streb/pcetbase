@@ -21,6 +21,17 @@
 - Builder decisions: chase q.1 midpoint + `approx` + σ confirmed; q.2 the 0525
   correction and its amendment applied in one commit (v1.5 state → final state).
 - 547 measurements / 531 couples. MOH campaign complete.
+### Manuscript figure labels (PR #71; CR-2026-11-16-figure-labels-pom)
+- scripts/figures/figcommon.py: `POM_LABELS` display map (stored name →
+  proton-in-front manuscript form, e.g. H[PVW11O40]4−, H2[V6O13(TRIOL^NO2)2]2−,
+  H[VW5O19]3−), `mathname()` / `display_name()` for sub/superscripts in every
+  formula label, mathtext set in the same sans face as the text. Stored compound
+  names unchanged.
+- fig3: axes renamed to the manuscript numbering (eq 1 residual, eq 2 residual),
+  unit kcal mol−1 on every axis including the σ panels; case boxes typeset.
+- fig2/fig3/fig4/fig6 re-rendered from tag 7da97ac (v1.5 data) into
+  figures/manuscript-v1.5/. Plotted data arrays identical to the PR #66 renders
+  (checked artist by artist); fig4 re-rendered only for the shared font change.
 
 ### MOH P4 (PR #69; CR-2026-11-16-moh-p4)
 - 5 rows BDFE-0542..0546: Molla et al. 2024 [FeII(L5R)(OH2)]+ / [FeIII(L5R)(OH)]+

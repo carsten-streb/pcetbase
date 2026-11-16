@@ -19,6 +19,12 @@ plt.rcParams.update({
     "font.family": ["Arial", "Liberation Sans", "DejaVu Sans"],
     "font.size": 8, "axes.linewidth": 0.8, "svg.fonttype": "none",
 })
+# mathtext (formula labels, units) in the same sans face as the text
+from matplotlib import font_manager as _fm
+_avail = {f.name for f in _fm.fontManager.ttflist}
+_sans = next((n for n in ("Arial", "Liberation Sans") if n in _avail), "DejaVu Sans")
+plt.rcParams.update({"mathtext.fontset": "custom", "mathtext.rm": _sans,
+                     "mathtext.it": _sans + ":italic", "mathtext.bf": _sans + ":bold"})
 
 # App palette (template.html light theme), colorblind-checked in the app work.
 CLASS_COLORS = {
@@ -96,3 +102,71 @@ def save(fig, name):
     fig.savefig(os.path.join(OUT, name + ".svg"))
     fig.savefig(os.path.join(OUT, name + ".png"), dpi=600)
     print("wrote figures/%s.svg + .png" % name)
+
+# --- display names for manuscript figures (CR-2026-11-16-figure-labels-pom) ---
+# Stored compound names stay as they are; figures show the manuscript notation:
+# POM formulae with the protons in front of the bracket, sub/superscripts via
+# matplotlib mathtext. Explicit map first, then a generic formatter.
+POM_LABELS = {
+    "[HPVW11O40]4- (1st H on PVIVW11)": "H[PVW11O40]4-",
+    "[HPVW11O40]4-": "H[PVW11O40]4-",
+    "[V6O11(OH)2(TRIOLNO2)2]2-": "H2[V6O13(TRIOL^NO2)2]2-",
+    "[V6O7(OH)6(TRIOLNO2)2]2-": "H6[V6O13(TRIOL^NO2)2]2-",
+    "[V6O9(OH)4(TRIOLNO2)2]2-": "H4[V6O13(TRIOL^NO2)2]2-",
+    "[V6O11(OH)2(TRIOLMe)2]2-": "H2[V6O13(TRIOL^Me)2]2-",
+    "[V6O9(OH)4(TRIOLMe)2]2-": "H4[V6O13(TRIOL^Me)2]2-",
+    "[V6O7(OH)6(TRIOLMe)2]2-": "H6[V6O13(TRIOL^Me)2]2-",
+    "[VW5O18(OH)]3-": "H[VW5O19]3-",
+    "[HPV2W10O40]": "H[PV2W10O40]5-",
+}
+
+import re as _re
+def _sub(txt):
+    """Digits after a letter or closing bracket become subscripts (mathtext)."""
+    return _re.sub(r"(?<=[A-Za-z\)\]])(\d+)", r"_{\1}", txt).replace("*", "^{*}")
+
+def mathname(s):
+    """Plain formula -> one matplotlib mathtext string: subscript counts,
+    '^X' superscripted (TRIOL substituent, its own counts subscripted),
+    trailing charge after the final bracket superscripted with a true minus."""
+    charge = ""
+    m = _re.search(r"([\]\)])(\d{0,2})([+-])$", s) or _re.search(r"([A-Za-z])()([+-])$", s)
+    if m:
+        charge = "^{%s{%s}}" % (m.group(2), "-" if m.group(3) == "-" else "+")  # braces: ordinary symbol, no binary-operator spacing
+        s = s[:m.start(3) if not m.group(2) else m.start(2)]
+    parts = _re.split(r"(\^[A-Za-z0-9]+)", s)
+    body = ""
+    for part in parts:
+        if part.startswith("^"):
+            body += "^{\\mathrm{%s}}" % _sub(part[1:])
+        else:
+            body += "\\mathrm{%s}" % _sub(part).replace("(", "(").replace(" ", "\\ ")
+    return "$" + body + charge + "$"
+
+_FORMULA = _re.compile(r"^[A-Za-z0-9()\[\]^*]+(\d{0,2}[+-])?$")
+_PREFIX = _re.compile(r"^((?:cis|trans|fac|mer)-)(.*)$")
+
+# descriptive (non-formula) names shortened where the full text collides with the axis
+SHORT_LABELS = {"{TiOH} Keggin POT, shell O-H": "{TiOH} Keggin POT"}
+
+def display_name(raw, maxlen=None):
+    """Stored compound name -> figure label. POM names go through POM_LABELS
+    (proton-in-front form); any other name whose formula part is a plain
+    formula gets sub/superscripts; descriptive names stay as plain text.
+    maxlen truncates the plain-text remainder only (fig2 label width)."""
+    head, sep, tail = raw.partition(" (")
+    for k, v in SHORT_LABELS.items():
+        if raw.startswith(k):
+            return v
+    if raw in POM_LABELS or head in POM_LABELS:
+        return mathname(POM_LABELS.get(raw, POM_LABELS.get(head)))
+    if maxlen is None:
+        tail = ""; sep = ""
+    pm = _PREFIX.match(head)
+    pre, core = (pm.group(1), pm.group(2)) if pm else ("", head)
+    if _FORMULA.match(core) and _re.search(r"\d|[+-]$|\*", core):
+        rest = (sep + tail) if sep else ""
+        if maxlen:
+            rest = rest[:max(0, maxlen - len(head))]
+        return (r"$\it{%s}$" % pre.rstrip("-") + "-" if pre else "") + mathname(core) + rest
+    return (raw[:maxlen] if maxlen else head)

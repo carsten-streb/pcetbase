@@ -1,7 +1,7 @@
 """Fig 2 - ladder overview: H2O / MeCN / DMSO panels, recommended couples only."""
 import matplotlib.pyplot as plt
 from figcommon import (load_rows, recommended_per_couple, CLASS_COLORS, CLASS_LABELS,
-                       provenance, save)
+                       provenance, save, display_name)
 
 LANDMARK_KEYS = ["TEMPOH", "AscH- (ascorbate)", "hydroperoxyl", "toluene",
                  "[HPVW11O40]4- (1st", "{TiOH} Keggin POT, shell O-H (1st", "phenol ("]
@@ -30,11 +30,11 @@ def main():
         for r in marked:
             y = r["_bdfe"]
             ylab = y if ylab is None else max(y, ylab + 3.2)  # min label spacing
-            ax.annotate(r["compound"][:22], xy=(0.87, y), xytext=(0.95, ylab),
+            ax.annotate(display_name(r["compound"], 22), xy=(0.87, y), xytext=(0.95, ylab),
                         fontsize=5.5, va="center", ha="left", color="0.2",
                         arrowprops=dict(arrowstyle="-", lw=0.4, color="0.55"))
         ax.set_xlim(0, 1.6); ax.set_xticks([])
-        ax.set_title(sv, fontsize=9)
+        ax.set_title(display_name(sv), fontsize=9)
         ax.text(0.04, 0.02, f"n = {len(sub)}", transform=ax.transAxes, fontsize=7, color="0.35")
         if sv in DGH:
             sec = ax.secondary_yaxis("right",

@@ -31,16 +31,19 @@ CLASS_COLORS = {
     "metal":    "#6250d6",  # TM complexes
     "pom":      "#e34948",  # POM clusters
     "tmh":      "#0d8a86",  # TM hydrides
+    "moh":      "#935116",  # metal oxo/hydroxo (M-O-H)
 }
 CLASS_LABELS = {
     "arylOH": "Phenols & quinones", "noxyl": "N-oxyls", "smallOH": "O–H small molecules",
     "organicNH": "N–H compounds", "otherXH": "C–H / S–H / CO₂", "pair": "Ox/base + red/acid pairs",
     "metal": "TM complexes", "pom": "POM clusters", "tmh": "TM hydrides (M–H)",
+    "moh": "Metal oxo/hydroxo (M–O–H)",
 }
 DISPLAY_MAP = {"phenol":"arylOH","quinone":"arylOH","aminoxyl":"noxyl","imide":"noxyl",
  "ascorbate":"smallOH","smallOH":"smallOH","nucleoside":"organicNH","nitrogen":"organicNH",
  "amine":"organicNH","arylamine":"organicNH","indole":"organicNH","thiol":"otherXH",
- "CH":"otherXH","nicotinamide":"otherXH","co2":"otherXH","pair":"pair","pom":"pom","tmh":"tmh"}
+ "CH":"otherXH","nicotinamide":"otherXH","co2":"otherXH","pair":"pair","pom":"pom","tmh":"tmh",
+ "moh":"moh"}
 
 def display_class(raw):
     return "metal" if raw.startswith("metal") else DISPLAY_MAP.get(raw, raw)

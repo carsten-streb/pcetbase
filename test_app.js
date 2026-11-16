@@ -627,5 +627,13 @@ if (chips.length) {
       && /eq10_res/.test(w.verifText("all").split("\n")[0]));
 }
 
+// ---------- 6j. curation statement (U20 / H98 a, PR #68) ----------
+{
+  const cur = d.getElementById("curation");
+  T("U20: curation statement in the footer, human-curator line present",
+    cur && /How the data were curated/.test(cur.textContent) && /human curator \(C\. Streb\)/.test(cur.textContent)
+      && /Curation trail/.test(cur.textContent));
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

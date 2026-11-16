@@ -90,6 +90,24 @@ spread threshold, manual overrides) is specified once, in
 [CONTRIBUTING.md](CONTRIBUTING.md) — that document is normative; this README does not
 restate it.
 
+## How the data were curated
+
+PCETbase entries are extracted from the published literature (critical reviews and
+primary papers), working from the papers’ tables, text and supporting information.
+Each entry stores the primary measurables (potentials with their reference
+electrode, pKa values); BDFEs are recomputed from these with one consistent
+constant set rather than copied. Every stored value passes automatic
+thermochemical closure checks (Bordwell equation, H-atom potential, hydricity
+cycle where applicable) and a structural validation suite; the same checks gate
+every change through continuous integration, so a value that does not close
+thermochemically cannot enter the database. Each entry carries a public
+verification record — source, extraction route, whether the primary literature
+was page-verified, checks run — shown in its Curation trail and downloadable as
+the full verification ledger. All changes enter through reviewed pull requests on
+GitHub, and every addition and release is reviewed and approved by a human
+curator (C. Streb). Values that could not be fully verified carry explicit flags
+rather than silent corrections.
+
 ## Workflow
 
 ```

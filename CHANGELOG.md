@@ -29,6 +29,11 @@
 
 ## Unreleased (toward v1.5.x)
 
+### Curation statement (PR #68; usability U20, H98 a)
+- "How the data were curated" statement (wording cleared by C. Streb,
+  2026-11-16) added as a collapsible section in the footer, linked from the
+  header, and as a README section.
+
 ### Square-scheme redesign, equation names, units ground rule (PR #67; CR-2026-11-16-square-scheme-typography, CR-2026-11-16-equation-labels, CR-2026-11-16-units addendum)
 UI/wording/docs only — no data value changed.
 - Square scheme rebuilt on the manuscript Scheme 1 model: corner species boxes

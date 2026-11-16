@@ -97,7 +97,7 @@ BDFE-0095,(Me6cyclam)Co(H2O)(OOH)2+,CPL-0095,metal-3d,H2O,,,,0.013,,,71f79d4ef4b
 BDFE-0096,([14]aneN4)Co(H2O)(OOH)2+,CPL-0096,metal-3d,H2O,,,,-0.009,,,71f79d4ef4b1
 BDFE-0097,NiII(cyclamN-H),CPL-0097,metal-3d,H2O,,,,-0.116,0.018,,71f79d4ef4b1
 BDFE-0098,(Py5)FeII(OH2)2+,CPL-0098,metal-3d,DMSO,,dmso-unc,,0.028,0.006,,71f79d4ef4b1
-BDFE-0099,[(LD)FeIIOH]2-,CPL-0099,metal-3d,DMSO,,dmso-unc,,0.002,0.073,,71f79d4ef4b1
+BDFE-0099,[(LD)FeIIOH]2-,CPL-0099,metal-3d,DMSO,sq,dmso-unc,,0.002,0.073,,71f79d4ef4b1
 BDFE-0100,[(LD)MnIIOH]2-,CPL-0100,metal-3d,DMSO,,dmso-unc;limit;hess:pKa_b,,-0.045,0.050,,71f79d4ef4b1
 BDFE-0101,[(LD)MnIIIOH]-,CPL-0101,metal-3d,DMSO,,dmso-unc;approx;hess:E_b,,-1.422,-0.289,,71f79d4ef4b1
 BDFE-0102,[FeIICp(eta6-C6Me6)]PF6,CPL-0102,metal-3d,DMSO,,,,-0.036,-0.067,,71f79d4ef4b1
@@ -523,7 +523,7 @@ BDFE-0521,[HCo(CN)5]3-,CPL-0506,tmh,H2O,hess,derived;approx,,-0.010,-0.029,,71f7
 BDFE-0522,rac-[Co(HMD)(H2O)H]2+,CPL-0507,tmh,H2O,sq,derived;approx,,0.011,0.016,,71f79d4ef4b1
 BDFE-0523,[Co(bpy)2(H2O)H]2+,CPL-0508,tmh,H2O,sq,derived;approx,,-0.004,0.018,,71f79d4ef4b1
 BDFE-0524,(Py5)FeII(MeOH)2+,CPL-0509,moh,MeOH,sq,approx;check-src,,0.050,0.034,,71f79d4ef4b1
-BDFE-0525,[(LD)FeIIIOH]-,CPL-0510,moh,DMSO,sq,approx;dmso-unc;check-src,,-0.081,-0.010,,71f79d4ef4b1
+BDFE-0525,[(LD)FeIIIOH]-,CPL-0510,moh,DMSO,sq,dmso-unc;check-src,,-0.075,-0.004,,71f79d4ef4b1
 BDFE-0526,"[LCu3(I,I,I)(OH2)]3+",CPL-0511,moh,MeCN,OCP,derived;recomputed,,-0.078,0.017,,71f79d4ef4b1
 BDFE-0527,"[LCu3(II,I,I)(OH2)]4+",CPL-0512,moh,MeCN,hess,derived;recomputed,,-0.051,0.025,,71f79d4ef4b1
 BDFE-0528,"[LCu3(II,II,I)(OH2)]5+",CPL-0513,moh,MeCN,hess,derived;recomputed;lowT,,-0.079,0.011,,71f79d4ef4b1
@@ -545,3 +545,4 @@ BDFE-0543,[FeII(L5H)(OH2)]+,CPL-0528,moh,H2O,sq,avg,,-0.019,0.270,,71f79d4ef4b1
 BDFE-0544,[FeII(L5Cl)(OH2)]+,CPL-0529,moh,H2O,sq,avg,,0.019,-0.215,,71f79d4ef4b1
 BDFE-0545,[FeII(L5NO2)(OH2)]+,CPL-0530,moh,H2O,sq,avg,,0.011,-0.283,,71f79d4ef4b1
 BDFE-0546,HO-Zr(MesNPiPr2)3CoCNtBu,CPL-0531,moh,THF,OCP,,,-0.001,,,71f79d4ef4b1
+BDFE-0547,[NiII(PS3'')(OH2)]-,CPL-0532,moh,DMSO,sq,approx;dmso-unc,,-0.111,0.025,,71f79d4ef4b1

@@ -174,7 +174,7 @@ def main():
     # U4 (CR-2026-11-14-usability-test): name the release only when the data match it;
     # otherwise say "development state after vX". RELEASE is updated by each release-prep PR.
     import hashlib, re as _re
-    RELEASE = {"version": "1.6", "measurements": 547, "doi": "minted on Zenodo after archiving"}  # DOI-reference PR fills the DOI
+    RELEASE = {"version": "1.6", "measurements": 547, "doi": "10.5281/zenodo.24293136"}
     n_rows = data.count("\n") - 1
     m = _re.search(r'version: "([^"]+)"', open(os.path.join(HERE, "CITATION.cff"), encoding="utf-8").read())
     ver = m.group(1) if m else "?"

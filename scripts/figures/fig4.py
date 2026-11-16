@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from figcommon import (load_rows, recommended_per_couple, CLASS_COLORS, CLASS_LABELS,
                        provenance, save)
 
-BIN_LO, BIN_HI, BIN_W = 20, 110, 5  # 5.3 MC may adjust
+BIN_LO, BIN_HI, BIN_W = 5, 110, 5  # BIN_LO 20 -> 5 (CR-2026-11-14-manuscript-figures F-3)
 
 def main():
     rows = recommended_per_couple(load_rows())
@@ -23,10 +23,35 @@ def main():
             ax.bar([b + BIN_W / 2 for b in bins[:-1]], counts, width=BIN_W * 0.92,
                    bottom=bottom, color=color, label=CLASS_LABELS[cls])
             bottom = [a + c for a, c in zip(bottom, counts)]
-        # empty-window annotation
-        for i, b in enumerate(bins[:-1]):
-            if bottom[i] == 0:
-                ax.axvspan(b, b + BIN_W, color="0.92", zorder=0)
+        # F-3: computed window brackets replace the per-bin grey shading.
+        # Well-characterized subset: recommended discrete couples without
+        # estimated/limit/unverified legs; gaps >= 5 kcal/mol between adjacent
+        # couples are bracketed, and non-well-characterized couples inside a
+        # bracket appear as a hatched "estimated legs only" band.
+        SOFT = ("approx", "limit", "check-src", "lowprec", "dmso-unc")
+        disc = [r for r in discrete if r["class"] != "co2"]
+        wc = sorted([r for r in disc if not any(f in r["flags"] for f in SOFT)],
+                    key=lambda r: r["_bdfe"])
+        est = [r for r in disc if any(f in r["flags"] for f in SOFT)]
+        ymax0 = max(bottom + [1])
+        ybr = ymax0 * 1.02
+        for i in range(len(wc) - 1):
+            loE, hiE = wc[i], wc[i + 1]
+            if hiE["_bdfe"] - loE["_bdfe"] < 5: continue
+            x0, x1 = loE["_bdfe"], hiE["_bdfe"]
+            ax.plot([x0, x0, x1, x1], [ybr - ymax0 * 0.04, ybr, ybr, ybr - ymax0 * 0.04],
+                    color="0.25", lw=0.8, clip_on=False)
+            ax.text((x0 + x1) / 2, ybr + ymax0 * 0.03, f"{x0:.1f}–{x1:.1f}",
+                    fontsize=5.5, ha="center", va="bottom", color="0.25")
+            print(f"bracket {sv}: {x0:.1f} ({loE['entry_id']}) – {x1:.1f} ({hiE['entry_id']})")
+            inside = [r for r in est if x0 < r["_bdfe"] < x1]
+            if inside:
+                bx0 = min(r["_bdfe"] for r in inside); bx1 = max(r["_bdfe"] for r in inside)
+                if bx1 - bx0 < 0.6: bx0, bx1 = bx0 - 0.3, bx1 + 0.3
+                ax.axvspan(bx0, bx1, ymax=0.82, facecolor="none", edgecolor="0.45",
+                           hatch="////", lw=0.4, zorder=0)
+                ax.text((bx0 + bx1) / 2, ymax0 * 0.86, "estimated\nlegs only",
+                        fontsize=5, ha="center", va="bottom", color="0.35")
         # effective-pair strip above the stacks
         ymax = max(bottom + [1]) * 1.15
         for r in pairs:
@@ -36,8 +61,9 @@ def main():
                 transform=ax.transAxes, fontsize=6.5, ha="right", va="top")
         ax.set_ylabel("★ couples / bin"); ax.set_ylim(0, ymax * 1.12)
     axes[1].set_xlabel("BDFE (kcal mol$^{-1}$)"); axes[1].set_xlim(BIN_LO, BIN_HI)
-    axes[0].legend(fontsize=5.5, ncol=3, frameon=False, loc="upper left")
-    fig.suptitle("Reagent-space coverage (recommended couples; grey = empty window)", fontsize=9)
+    h, l = axes[0].get_legend_handles_labels()
+    axes[1].legend(h, l, fontsize=5.5, ncol=2, frameon=False, loc="center left")
+    fig.suptitle("Reagent-space coverage (recommended couples; brackets = windows ≥ 5 kcal/mol between well-characterized couples)", fontsize=8.5)
     fig.tight_layout(rect=(0, 0.01, 1, 0.97))
     provenance(fig, "scripts/figures/fig4.py")
     save(fig, "fig4")

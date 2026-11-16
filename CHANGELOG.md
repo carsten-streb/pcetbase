@@ -29,6 +29,19 @@
 
 ## Unreleased (toward v1.5.x)
 
+### Manuscript figure scripts at v1.5 (PR #66; CR-2026-11-14-manuscript-figures)
+Scripts only — no data, app or schema change; the committed renders under
+figures/manuscript-v1.5/ are produced from the v1.5 tag data (7da97ac) with the
+revised scripts (watermark "PCETbase v1.5").
+- figcommon.py: class `moh` added to colours/labels/display map (F-1).
+- fig3.py: case boxes renumbered to the status-doc cases 1, 3, 5, 6b; new
+  panel (d) eq 10 residual vs pKa for the 34 TMH hyd/OCP rows with the
+  0.006·pKa line (1.364 vs 1.37 factor); boxes now panel (e) (F-2).
+- fig4.py: BIN_LO 20 → 5; computed window brackets (gaps ≥ 5 kcal/mol between
+  adjacent well-characterized recommended couples) replace the per-bin grey
+  shading; estimated-legs-only couples inside a bracket drawn hatched (F-3).
+- fig6.py: panel (b) replaced by the dumbbell of all 14 multi-member couples
+  (30 points; marker by method, open = sim-pKa, ◆ = discordant, POM grey) (F-4).
 ### Usability + units package (PR #65; CR-2026-11-14-usability-test, CR-2026-11-16-units)
 UI, wording and documentation only — no data value changed.
 - Pair/HAT panel resolves typed names (exact key → unique name/alias → unique

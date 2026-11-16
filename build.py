@@ -171,11 +171,20 @@ def main():
     verif = open(os.path.join(HERE, "derived", "verification.csv"), encoding="utf-8").read()
     # deterministic staleness stamp (F8): entry count + release version + data hash
     # (no wall-clock date - the build must stay byte-reproducible for CI's sync check)
+    # U4 (CR-2026-11-14-usability-test): name the release only when the data match it;
+    # otherwise say "development state after vX". RELEASE is updated by each release-prep PR.
     import hashlib, re as _re
+    RELEASE = {"version": "1.5", "measurements": 525, "doi": "10.5281/zenodo.24222265"}
     n_rows = data.count("\n") - 1
     m = _re.search(r'version: "([^"]+)"', open(os.path.join(HERE, "CITATION.cff"), encoding="utf-8").read())
     ver = m.group(1) if m else "?"
-    stamp = f"{n_rows} measurements, v{ver}, data {hashlib.sha256(data.encode()).hexdigest()[:8]}"
+    h = hashlib.sha256(data.encode()).hexdigest()[:8]
+    if ver == RELEASE["version"] and n_rows == RELEASE["measurements"]:
+        stamp = f"{n_rows} measurements, release v{ver}, data {h}"
+    else:
+        stamp = (f"{n_rows} measurements — development state after v{RELEASE['version']} "
+                 f"(release v{RELEASE['version']}: {RELEASE['measurements']} measurements, "
+                 f"doi:{RELEASE['doi']}), data {h}")
     out = (tpl.replace("__DATA_CSV__", esc(data)).replace("__CONST_CSV__", esc(const))
               .replace("__COUPLES_CSV__", esc(coup)).replace("__VERIF_CSV__", esc(verif)).replace("__BUILD_STAMP__", stamp))
     open(os.path.join(HERE, "index.html"), "w", encoding="utf-8").write(out)

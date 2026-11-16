@@ -121,8 +121,10 @@ if (chips.length) {
   // full square: BDFE-0090 (FeII(H2O)6) stores all four legs
   const dF = newDom({ hash: "#BDFE-0090" }).window.document;
   const solidF = dF.querySelectorAll('#sqsvg .sqedge[data-state="stored"]').length;
-  T("full-square row: 4 solid edges + BDFE diagonal",
-    solidF === 4 && dF.querySelectorAll("#sqsvg .sqdiag").length >= 1, "solid=" + solidF);
+  const compF = dF.querySelectorAll('#sqsvg .sqedge[data-state="composed"]').length;
+  // since PR #65 (U9) the hess:E_a leg renders as its own "composed" style
+  T("full-square row: 3 measured + 1 Hess-composed edge + BDFE diagonal",
+    solidF === 3 && compF === 1 && dF.querySelectorAll("#sqsvg .sqdiag").length >= 1, "solid=" + solidF + " composed=" + compF);
   // BDFE-0422: E_a + pKa_b solid, E_b/pKa_a dashed-derived, diagonal 52.3
   const d4 = newDom({ hash: "#BDFE-0422" }).window.document;
   const st = l => { const e = d4.querySelector(`#sqsvg .sqedge[data-leg="${l}"]`); return e && e.dataset.state; };
@@ -434,6 +436,110 @@ if (chips.length) {
   }
 
   T("search recovers to full view", /525 couples/.test(countText()), countText());
+}
+
+
+// ---------- 6h. usability v1.5.x package (CR-2026-11-14-usability-test + CR-2026-11-16-units, PR #65) ----------
+{
+  // U1: typed names resolve without the "name [solvent]" datalist key
+  $("pDon").value = "[Ni(dmpp)2H]+";
+  $("pAcc").value = "[HPVW11O40]4-";
+  d.getElementById("pGo").dispatchEvent(new w.Event("click", { bubbles: true }));
+  const pOut = $("pOut").textContent;
+  T("U1: typed pair lookup computes dG = -13.4", /13\.4/.test(pOut) && /downhill/.test(pOut), pOut.slice(0, 120));
+  // U1: ambiguous bare name offers clickable candidates
+  $("pDon").value = "TEMPOH";
+  $("pAcc").value = "[HPVW11O40]4-";
+  d.getElementById("pGo").dispatchEvent(new w.Event("click", { bubbles: true }));
+  const cands = [...$("pOut").querySelectorAll(".pCand")];
+  T("U1: ambiguous name lists >=2 candidates with solvents", cands.length >= 2 && cands.every(b => /TEMPOH/.test(b.textContent) && /\[.+\]/.test(b.textContent)), cands.length + " candidates");
+  cands[0] && cands[0].dispatchEvent(new w.Event("click", { bubbles: true }));
+  T("U1: clicking a candidate fills the field and evaluates", /TEMPOH/.test($("pDon").value) && /HAT|solvent/i.test($("pOut").textContent));
+
+  // U5: Recommended only + origin filter never silently substitutes a non-star
+  // row for a couple that has a star: CPL-0377's 62.5 row must carry the marker
+  $("orig").value = "mixed"; fire($("orig"), "input");
+  const reps = [...d.querySelectorAll("#tbl tbody tr:not(.sub)")];
+  const pvw = reps.find(tr => /HPVW11O40/.test(tr.textContent));
+  const marked = reps.filter(tr => tr.querySelector(".starhid"));
+  T("U5: starred-value-hidden marker on CPL-0377's substitute row, none on rows already ★",
+    pvw && pvw.querySelector(".starhid") && /68\.1 hidden/.test(pvw.textContent)
+      && marked.every(tr => !/★ </.test(tr.innerHTML.split("starhid")[0])),
+    pvw ? pvw.textContent.slice(0, 90) : "no HPVW11 row");
+  const sh = d.querySelector("#tbl tbody .starhid");
+  if (sh) sh.dispatchEvent(new w.Event("click", { bubbles: true }));
+  T("U5: the marker opens the starred row's panel", sh && /★/.test($("detail").textContent), ($("detail").textContent || "").slice(0, 60));
+  $("orig").value = ""; fire($("orig"), "input");
+
+  // U2: origin filter states the classification stage
+  const origOpts = [...$("orig").options].map(o => o.textContent).join(" | ");
+  T("U2: origin options carry classified counts", /experimental \(\d+ classified/.test(origOpts), origOpts);
+  T("U2: note states unclassified count", /\d+ of \d+ entries not yet classified/.test($("origNote").textContent), $("origNote").textContent);
+
+  // U7: default-open panel text carries no internal workflow references
+  const jarg = /CR-20\d\d|PR #|[a-z_]+\.csv/;
+  let jargHits = [];
+  for (const h of ["BDFE-0036", "BDFE-0478", "BDFE-0499", "BDFE-0406"]) {
+    const dd = newDom({ hash: "#" + h }).window.document;
+    const det = dd.getElementById("detail").cloneNode(true);
+    det.querySelectorAll("details").forEach(x => x.remove());
+    if (jarg.test(det.textContent)) jargHits.push(h + ": " + det.textContent.match(jarg)[0]);
+  }
+  T("U7: no CR/PR/file references outside the collapsed curation trail", jargHits.length === 0, jargHits.join("; "));
+
+  // U9: Hess-composed pKa leg visually distinct from a measured one
+  const d99 = newDom({ hash: "#BDFE-0499" }).window.document;
+  const d78 = newDom({ hash: "#BDFE-0478" }).window.document;
+  const stOf = (doc, lg) => { const e = doc.querySelector(`#sqsvg .sqedge[data-leg="${lg}"]`); return e ? e.dataset.state : "none"; };
+  T("U9: BDFE-0499 pKa(XH) leg is composed, BDFE-0478's is stored",
+    stOf(d99, "pKaB") === "composed" && stOf(d78, "pKaB") === "stored",
+    stOf(d99, "pKaB") + " / " + stOf(d78, "pKaB"));
+
+  // U8: sigma label scoped; empty sigma renders "not reported"
+  const det99 = d99.getElementById("detail").textContent;
+  T("U8: sigma label no longer claims a published BDFE sigma", /σ, published/.test(det99) && !/σ\(BDFE\), published/.test(det99));
+  const det36 = newDom({ hash: "#BDFE-0036" }).window.document.getElementById("detail").textContent;
+  T("U8: missing sigma shown as not reported", /uncertainty not reported/.test(det36));
+
+  // U11: empty search state + stale panel closes
+  $("q").value = "TEMPOH"; fire($("q"), "input");
+  const tr0 = d.querySelector("#tbl tbody tr");
+  tr0.dispatchEvent(new w.Event("click", { bubbles: true }));
+  const panelOpen = $("detail").style.display === "block";
+  $("q").value = "zzz-no-such-compound"; fire($("q"), "input");
+  T("U11: empty search shows guidance", /No entry matches/.test(d.querySelector("#tbl tbody").textContent));
+  T("U11: stale verification panel closes", panelOpen && $("detail").style.display === "none");
+  $("q").value = ""; fire($("q"), "input");
+
+  // U10: export columns + constants documented in the UI
+  const colsTxt = $("csvColsBody").textContent;
+  T("U10: column list names every closure leg", /E_c_V/.test(colsTxt) && /hydricity_kcal/.test(colsTxt) && /sigma_BDFE/.test(colsTxt));
+  T("U10: C_Hyd(MeCN) = 79.6 findable from the export UI", /C/.test(colsTxt) && /79\.6/.test(colsTxt), colsTxt.slice(-200));
+
+  // U4: footer stamp names the development state, not the release alone
+  const foot = d.querySelector("footer").textContent;
+  T("U4: dev build stamp says 'development state after v1.5' with the release DOI",
+    /development state after v1\.5/.test(foot) && /release v1\.5: 525 measurements/.test(foot) && /10\.5281\/zenodo\.24222265/.test(foot),
+    (foot.match(/Data version[^—]*—[^(]*/) || [""])[0]);
+
+  // U19: no "flag — flag" tautology in the flag legend
+  const detD = newDom({ hash: "#BDFE-0406" }).window.document.getElementById("detail").textContent;
+  T("U19: derived flag carries a gloss", !/derived<\/b> — derived/.test(detD) && !/\bderived — derived\b/.test(detD));
+
+  // H103 (CR-2026-11-16-units): units on every panel value of a full-square row
+  const d139 = newDom({ hash: "#BDFE-0139" }).window.document;
+  const det139 = d139.getElementById("detail");
+  const bdfeRow = [...det139.querySelectorAll("tr")].find(tr => /^BDFE/.test(tr.textContent));
+  const potRows = [...det139.querySelectorAll("tr")].filter(tr => /E°\(/.test(tr.textContent) && !/V vs H/.test(tr.textContent));
+  T("units: BDFE-0139 BDFE row carries kcal mol⁻¹", bdfeRow && /kcal mol⁻¹/.test(bdfeRow.textContent), bdfeRow ? bdfeRow.textContent : "no row");
+  T("units: every component potential row says V vs", potRows.length >= 2 && potRows.every(tr => /V vs/.test(tr.textContent)), potRows.map(tr => tr.textContent).join(" | ").slice(0, 160));
+  T("units: worked equations state stored/delta units", (det139.textContent.match(/kcal mol⁻¹, Δ = /g) || []).length >= 1);
+  const dp = JSON.parse(fs.readFileSync("datapackage.json", "utf-8"));
+  const missingUnit = [];
+  dp.resources.forEach(res => res.schema.fields.forEach(f => {
+    if ((f.type === "number" || f.type === "integer") && !f.unit) missingUnit.push(res.name + "." + f.name);
+  }));
+  T("units: datapackage has a unit for every numeric field", missingUnit.length === 0, missingUnit.join(", "));
 }
 
 console.log(`\n${pass} passed, ${fail} failed`);

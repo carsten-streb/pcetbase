@@ -33,12 +33,12 @@ doi:10.1021/acs.chemrev.1c00791; pre-correction (2010) constants are never used.
 | `bond` | O-H, N-H, S-H, C-H, M-H, X-H |
 | `compound`, `partner` | species; `partner` is the base/acid for oxidant–base / reductant–acid pairs |
 | `solvent` | H2O, MeCN, DMSO, DMF, THF, C6H6, CCl4, hexane, toluene, acetone, IPA, gas, … |
-| `E_a` | E°(X/X⁻) (V vs Fc⁺/⁰ in organic solvents, vs SHE in water) |
-| `E_b` | E°(XH⁺/XH), same scale |
-| `pKa_a` | pKa(XH⁺) |
-| `pKa_b` | pKa(XH) |
-| `E_H2` | canonical E°(V vs H2) |
-| `BDFE` | kcal/mol (BDFE_eff for pairs; average over `n_H` H atoms where `avg` flag set) |
+| `E_a` | E°(X/X⁻) in V (vs Fc⁺/⁰ in organic solvents, vs SHE in water) |
+| `E_b` | E°(XH⁺/XH) in V, same scale |
+| `pKa_a` | pKa(XH⁺), unitless |
+| `pKa_b` | pKa(XH), unitless |
+| `E_H2` | canonical E° in V vs H₂ |
+| `BDFE` | in kcal/mol (BDFE_eff for pairs; average over `n_H` H atoms where `avg` flag set) |
 | `flags` | semicolon list, see below |
 | `refs` | original citation numbers inside the source compilation |
 | `n_H` | number of H atoms transferred (1 unless stated) |
@@ -49,6 +49,13 @@ doi:10.1021/acs.chemrev.1c00791; pre-correction (2010) constants are never used.
 | `recommended` | `1` manual star, `0` manual suppress, `auto` assigned by policy (see below) |
 | `year` | publication year (review-tabulated rows: compilation year 2022) |
 | `entry_id` | stable identifier (BDFE-0001 …), never reused |
+| `couple_id` | foreign key to `couples.csv`; groups independent measurements of one couple |
+| `sigma_BDFE` | published uncertainty in kcal/mol (empty = not reported in the source) |
+| `T_K` | temperature in K (empty = not stated) |
+| `conditions` | medium details and caveats, verbatim notes from the source |
+| `hydricity_kcal` | hydricity ΔG°(H⁻) in kcal/mol, as published (Wiedner MeCN scale) |
+| `E_c` | E°(X⁺/X•) in V on the row's reference scale (hydricity leg) |
+| `origin` | exp / comp / mixed; empty = not yet classified |
 
 Flags: `hess` (value derived by Hess's law in the source), `limit` (inequality bound),
 `approx`, `lowprec` (2-significant-figure printed value), `dmso-unc` (larger DMSO
@@ -74,11 +81,11 @@ shows the record for each entry and offers the ledger as a CSV download. Do not 
 ### Recommended values (★)
 
 Where several independent measurements exist for one compound/partner/solvent, all are
-kept with their sources; one is starred by a deterministic policy (`autorecommend()` in
-`build.py`): entries recomputed from primary measurables beat compilation-tabulated
-values; within a tier the newest publication wins; if values within the winning tier
-disagree by more than 0.5 kcal/mol nothing is starred and the conflict is reported for
-manual resolution. Manual `recommended` entries (1/0) always override the policy.
+kept with their sources and one is starred by the deterministic policy implemented in
+`autorecommend()` (`build.py`). The policy (method hierarchy, concordance mean,
+spread threshold, manual overrides) is specified once, in
+[CONTRIBUTING.md](CONTRIBUTING.md) — that document is normative; this README does not
+restate it.
 
 ## Workflow
 

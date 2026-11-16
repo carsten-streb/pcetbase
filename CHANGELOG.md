@@ -2,6 +2,21 @@
 
 ## Unreleased (toward v1.6)
 
+### MOH P4 (PR #69; CR-2026-11-16-moh-p4)
+- 5 rows BDFE-0542..0546: Molla et al. 2024 [FeII(L5R)(OH2)]+ / [FeIII(L5R)(OH)]+
+  series in water (R = OMe, H, Cl, NO2; all four legs from the pH-independent
+  segments of Pourbaix diagrams, BDFE = mean of both diagonals 67.2–69.0 kcal/mol,
+  flag `avg`; Pourbaix origin stated in each conditions string) and Feresin et
+  al. 2025 HO–Zr(MesNPiPr2)3CoCNtBu (THF, direct OCP 0.503 V vs H2,
+  BDFE 63.6 kcal/mol, σ 1.0 kcal/mol; heterobimetallic MS-CPET).
+- BDFE-0132 [(F8TPP)FeIII(OOH)] enriched from Kim et al. 2020 (page-verified):
+  BDFE 72.1 → 72.4 kcal/mol recomputed from the same legs, `lowT;recomputed`,
+  T 193 K, σ 0.7 kcal/mol; class metal-3d kept (Karlin heme set stays together).
+- Builder decisions: q.1 (a) as delivered (both Molla diagonals close within
+  the gates; deviation lists unchanged); q.2 no new `pourbaix` flag; q.3 0132
+  keeps metal-3d; q.4 shipped as its own PR (no rule-11 review needed).
+- 546 measurements / 530 couples.
+
 ### MOH P3: manganese series (PR #64)
 - 8 rows (BDFE-0534..0541), all primaries page-read, all oxidized-diagonal
   (form-2) storage: Barman/Borovik 2019 H3bpuea-R series (DMSO, 5 rows

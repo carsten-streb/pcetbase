@@ -53,3 +53,5 @@ BDFE-0134,last_modified_in,PR #63 (Dhar 2015 page-verification + oxidized diagon
 BDFE-0134,primary_verified,"yes (Dhar 2015, PR #63)"
 BDFE-0133,last_modified_in,PR #63 (Dhar 2016 page-verification; CR-2026-11-14-moh-p2)
 BDFE-0133,primary_verified,"yes (Dhar 2016, PR #63)"
+BDFE-0132,last_modified_in,PR #69 (Kim 2020 page-verification + recompute 72.1 -> 72.4 kcal/mol; CR-2026-11-16-moh-p4)
+BDFE-0132,primary_verified,"yes (Kim 2020 main + SI, PR #69)"

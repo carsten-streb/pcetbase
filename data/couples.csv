@@ -524,3 +524,8 @@ CPL-0523,[MnII(H3bpuea-CF3)(OH)]2-,,DMSO,O-H,moh,,,0
 CPL-0524,[MnII(OH2)(pinF)2]2-,,THF,O-H,moh,,,0
 CPL-0525,[MnII(TBDAP)(OH)(OH2)]+,,MeCN,O-H,moh,,,0
 CPL-0526,[MnII(TBDAP)(OH2)2]2+,,MeCN,O-H,moh,,,0
+CPL-0527,[FeII(L5OMe)(OH2)]+,,H2O,O-H,moh,,,0
+CPL-0528,[FeII(L5H)(OH2)]+,,H2O,O-H,moh,,,0
+CPL-0529,[FeII(L5Cl)(OH2)]+,,H2O,O-H,moh,,,0
+CPL-0530,[FeII(L5NO2)(OH2)]+,,H2O,O-H,moh,,,0
+CPL-0531,HO-Zr(MesNPiPr2)3CoCNtBu,,THF,O-H,moh,,,0

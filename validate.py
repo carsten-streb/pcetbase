@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """Validation of data.csv and couples.csv.
 
-Soft (informational, reviewed by eye): arithmetic closure of eq 18 and eq 10
-(Agarwal et al. 2022) beyond thresholds.
+Closure gate (exit 1 since CR-2026-11-17-si-findings item 5): a closure deviation
+beyond threshold (eq 18 > 0.3 kcal/mol; eq 10 and hydricity > 0.5 kcal/mol)
+fails unless an excusing flag documents it (approx, limit, lowprec, check-src,
+dmso-unc); flagged deviations are listed as "soft" for review.
 Hard (exit 1, fails CI and aborts build.py): schema/structure errors —
 missing or unknown couple_id (FK), duplicate or malformed couple_id, bad
 bond/discordant values, manual star without recommended_reason on the couple,
@@ -273,6 +275,13 @@ def main():
         for e in errors: print("  ", e)
         return 1
     print("structural checks OK")
+    unflagged = [f for f in flags18 + flags10 + flagshyd if f[-1] == "CHECK"]
+    print("\n--- closure gate (hard) ---")
+    if unflagged:
+        print(f"CLOSURE GATE: {len(unflagged)} closure deviation(s) without a flag that documents them")
+        for f in unflagged: print("  ", f)
+        return 1
+    print("closure gate OK (every deviation beyond threshold carries an excusing flag)")
     return 0
 
 if __name__ == "__main__":

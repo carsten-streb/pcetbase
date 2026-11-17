@@ -147,10 +147,13 @@
               "enum": [
                 "",
                 "sq",
+                "hyd",
                 "OCP",
-                "equil"
+                "equil",
+                "hess"
               ]
-            }
+            },
+            "description": "Determination method: empty = tabulated (review value); sq, hyd, OCP, equil, hess (see README)"
           },
           {
             "name": "doi",

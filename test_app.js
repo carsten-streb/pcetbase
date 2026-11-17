@@ -635,5 +635,24 @@ if (chips.length) {
       && /Curation trail/.test(cur.textContent));
 }
 
+// ---------- 6k. raw reference on the target scale + flag glossary (CR-2026-11-17-si-findings 1, 2) ----------
+{
+  for (const id of ["BDFE-0387", "BDFE-0413"]) {
+    const dk = newDom({ hash: "#" + id });
+    const det = dk.window.document.getElementById("detail");
+    T(id + ": no spurious ref-conv-missing (raw reference already on the target scale)",
+      det && det.style.display === "block" && !/ref-conv-missing/.test(det.textContent),
+      det ? det.textContent.slice(0, 80) : "no panel");
+  }
+  const dc = newDom({ hash: "#BDFE-0540" });
+  const detc = dc.window.document.getElementById("detail");
+  T("BDFE-0540: SCE conversion still shown (positive control)",
+    detc && /Reference-electrode conversion \(SCE/.test(detc.textContent));
+  const dg = newDom({ hash: "#BDFE-0214" });
+  const detg = dg.window.document.getElementById("detail");
+  T("BDFE-0214: derived-E flag has a glossary text",
+    detg && /derived-E<\/b> — E°\(HQ/.test(detg.innerHTML));
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

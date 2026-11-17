@@ -234,7 +234,7 @@
   External entries (Src = DOI) are extracted from the primary literature; POM-cluster data include work of the Matson group (polyoxovanadate-alkoxides).
   BDFEs of pairs are <i>effective</i> BDFEs (BDFE<sub>eff</sub>). Always consult the primary source before quantitative use.<br>
   <details id="curation" style="margin:6px 0"><summary><b>How the data were curated</b></summary>
-  <div style="margin-top:4px">PCETbase entries are extracted from the published literature (critical reviews and primary papers), working from the papers’ tables, text and supporting information. Each entry stores the primary measurables (potentials with their reference electrode, pK<sub>a</sub> values); BDFEs are recomputed from these with one consistent constant set rather than copied. Every stored value passes automatic thermochemical closure checks (Bordwell equation, H-atom potential, hydricity cycle where applicable) and a structural validation suite; the same checks gate every change through continuous integration, so a value that does not close thermochemically cannot enter the database. Each entry carries a public verification record — source, extraction route, whether the primary literature was page-verified, checks run — shown in its Curation trail and downloadable as the full verification ledger. All changes enter through reviewed pull requests on <a href="https://github.com/carsten-streb/pcetbase">GitHub</a>, and every addition and release is reviewed and approved by a human curator (C. Streb). Values that could not be fully verified carry explicit flags rather than silent corrections.</div></details>
+  <div style="margin-top:4px">PCETbase entries are extracted from the published literature (critical reviews and primary papers), working from the papers’ tables, text and supporting information. Each entry stores the primary measurables (potentials with their reference electrode, pK<sub>a</sub> values); BDFEs are recomputed from these with one consistent constant set rather than copied. Every stored value passes automatic thermochemical closure checks (Bordwell equation, H-atom potential, hydricity cycle where applicable) and a structural validation suite; the same checks gate every change through continuous integration, so a value that does not close thermochemically cannot enter the database unless a flag documents the deviation. Each entry carries a public verification record — source, extraction route, whether the primary literature was page-verified, checks run — shown in its Curation trail and downloadable as the full verification ledger. All changes enter through reviewed pull requests on <a href="https://github.com/carsten-streb/pcetbase">GitHub</a>, and every addition and release is reviewed and approved by a human curator (C. Streb). Values that could not be fully verified carry explicit flags rather than silent corrections.</div></details>
   <span class="src">Data version: __BUILD_STAMP__ — if these numbers look outdated, hard-reload (Ctrl+F5).</span><br>
   <b>Cite PCETbase:</b> C. Streb, PCETbase: an open database of solution-phase PCET thermochemistry, <a href="https://doi.org/10.5281/zenodo.24121910">doi:10.5281/zenodo.24121910</a> (all versions; this release v1.6: <a href="https://doi.org/10.5281/zenodo.24293136">doi:10.5281/zenodo.24293136</a>) · code &amp; data: <a href="https://github.com/carsten-streb/pcetbase">github.com/carsten-streb/pcetbase</a> (CC BY 4.0)
 </footer>
@@ -313,8 +313,11 @@ D.forEach(r=>{
   r.aliases=cpl&&cpl.aliases?cpl.aliases.toLowerCase():"";
   r.src=`<a href="https://doi.org/${r.srcDoi}">${r.srcDoi}</a>${r.srcRef}`;
   r.srcText=r.srcDoi+r.srcRef;
-  /* reference-electrode conversion: raw potential vs another electrode -> Fc (SHE in water) */
-  if(r.Eraw!=null&&r.ErawRef){
+  /* reference-electrode conversion: raw potential vs another electrode -> Fc (SHE in water).
+     A raw reference that already is the target scale (Fc in organic solvents; SHE/NHE in water,
+     NHE = SHE convention) needs no conversion and gets no ref-conv flag (CR-2026-11-17-si-findings 1). */
+  const onTargetScale=(ref,solv)=>solv==="H2O"?(ref==="SHE"||ref==="NHE"):(ref==="Fc"||ref==="Fc+/0");
+  if(r.Eraw!=null&&r.ErawRef&&!onTargetScale(r.ErawRef,r.solvent)){
     const off=REFOFF[r.ErawRef+"|"+r.solvent];
     if(off){
       r.refconv={raw:r.Eraw,ref:r.ErawRef,off:off.v,unc:off.unc,src:off.src,conv:r.Eraw-off.v};
@@ -489,7 +492,7 @@ function renderTable(){
   }));
 }
 
-const FLAG_GLOSS={hess:"value derived in the source by Hess's law from the other values in its row",
+const FLAG_GLOSS={hess:"hess:<leg> — the named leg is not an independent measurement; obtained from the other legs by Hess's law, in the source compilation for review-tabulated entries or by PCETbase for primary-literature entries",
  limit:"inequality bound (≥/≤) in the source",approx:"approximate value (~) in the source",
  lowprec:"low-precision printed value (2 significant figures) in the source",
  "dmso-unc":"larger uncertainty of the DMSO thermochemical constants (see Agarwal 2022, Table 1)",
@@ -497,7 +500,9 @@ const FLAG_GLOSS={hess:"value derived in the source by Hess's law from the other
  "red-acid":"effective BDFE of a reductant + acid combination",excited:"excited-state redox potential",
  "check-src":"internal inconsistency in the source detected by this database's validation; under review",
  recomputed:"BDFE recalculated here from the primary E°/pKₐ with the corrected C_G (see equations below)",
- avg:"average BDFE over n sequential H-atom transfers",
+ avg:"averaged value: either the average BDFE over n sequential H-atom transfers (n_H > 1), or, for n_H = 1, the mean of both closing square-scheme diagonals (see conditions)",
+ "derived-E":"E°(HQ•/HQ−) derived from E°(V vs H₂) of H₂Q/Q and HQ•/Q (Agarwal 2022, Table 8, footnote c)",
+ "avg-pKa":"pKₐ averaged over two determinations (Agarwal 2022, Table 18, footnotes b and c)",
  "ref-conv":"potential converted from another reference electrode; expand the conversion item in the verification panel for details",
  "ref-conv-missing":"published potential uses a reference electrode for which no verified conversion constant is on file yet; no BDFE computed from it",
  "sim-pKa":"pKₐ obtained by fitting a digital CV simulation, not by direct measurement - a methodologically weaker tier than directly measured square-scheme legs",

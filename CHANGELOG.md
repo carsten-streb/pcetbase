@@ -2,6 +2,25 @@
 
 ## Unreleased (toward v1.7)
 
+### SI findings (CR-2026-11-17-si-findings items 1 to 5)
+- Explorer: a raw potential whose reference already is the target scale (Fc or
+  Fc+/0 in organic solvents; SHE or NHE in H2O) is no longer sent through the
+  reference-electrode conversion, so BDFE-0387 and BDFE-0413 lose the spurious
+  `ref-conv-missing` flag. Display only; no value changes.
+- Flag glossary (Explorer tooltips and README): `hess:<leg>` defined (leg obtained
+  by Hess's law, in the source compilation or by PCETbase); new entries
+  `derived-E` and `avg-pKa`; `avg` covers both uses (n_H > 1 average; n_H = 1
+  mean of both square-scheme diagonals).
+- datapackage.json `method` enum and README method row: `hyd` and `hess` added
+  (both already in use in data.csv).
+- Curation statement (README and Explorer footer): "cannot enter the database
+  unless a flag documents the deviation".
+- validate.py: the closure check is now a hard gate. A deviation beyond threshold
+  (eq 18 > 0.3 kcal/mol; eq 10 and hydricity > 0.5 kcal/mol) without an excusing
+  flag fails CI and build.py. v1.6 data: 0 such rows. Mutation tests 13 → 15;
+  case M3 moved from hexane to pentane (hexane has a dGfH constant and would now
+  trip the gate). jsdom tests 125 → 129.
+
 ### Header wording (PR #75)
 - Explorer header re-worded by Carsten: one line per statement; the data-source
   sentence (Agarwal 2022, Wiedner/Morris 2016, POM primaries) removed from the

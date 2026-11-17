@@ -43,7 +43,9 @@ def main():
                and "HPVW11" in r["compound"] and "1st H" in r["compound"]]
     pvw = [r for r in rows if starred and r["couple_id"] == starred[0]["couple_id"]]
     if pvw:
-        ins = ax.inset_axes((0.56, 0.60, 0.42, 0.36))
+        # lower part of the "V6 / other" column (x 0.75-1.0 of the axes) is empty below
+        # 58 kcal/mol; the inset sits there so no ladder line is covered (review-manuscript-v1.6 B2)
+        ins = ax.inset_axes((0.785, 0.075, 0.2, 0.37))
         ins.set_facecolor("white"); ins.set_zorder(5); ins.patch.set_alpha(1.0)
         pvw = sorted(pvw, key=lambda r: (r["year"], r["entry_id"]))
         for i, r in enumerate(pvw):
@@ -54,7 +56,7 @@ def main():
         ins.set_xticks(range(len(pvw)), [f'{r["year"]}\n{r["method"]}' for r in pvw], fontsize=4.5)
         ins.set_xlim(-0.5, len(pvw) - 0.5)
         ins.tick_params(labelsize=5)
-        ins.set_title(mathname("H[PVW11O40]4-") + " · discordant", fontsize=5.5)
+        ins.set_title(mathname("H[PVW11O40]4-") + "\ndiscordant couple", fontsize=5.5)
     # (b) F-4: one row per multi-member couple (computed, no hard-coded IDs)
     with open(os.path.join(ROOT, "data", "couples.csv"), newline="", encoding="utf-8") as f:
         cmeta = {c["couple_id"]: c for c in csv.DictReader(f)}

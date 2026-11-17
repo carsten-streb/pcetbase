@@ -2,6 +2,18 @@
 
 ## Unreleased (toward v1.7)
 
+### Manuscript-check fixes (review-manuscript-v1.6 B1 to B3, board H132)
+- Explorer: pKa values display at stored precision (verification panel, both
+  Bordwell lines, square scheme, hydricity line, table column, ladder tooltip,
+  calculator). `toFixed(1)` had rounded e.g. BDFE-0139's pKa 0.85 to "0.8", so
+  the worked equation did not reproduce the stored 77.5 kcal/mol. 98 stored pKa
+  values carry a significant second decimal. Display only. jsdom tests 129 → 132.
+- Manuscript figures: Fig 6a inset moved off the "V6 / other" column; Fig 4
+  hatched bands end below the window brackets, labels beside the bands, legend
+  below the axes. New render set `figures/manuscript-v1.6-r2/` (data: tag v1.6;
+  no provenance footer, via `PCETBASE_FIG_FOOTER=0`); `figures/manuscript-v1.6/`
+  stays as rendered for PR #74. No data change.
+
 ### SI findings (CR-2026-11-17-si-findings items 1 to 5)
 - Explorer: a raw potential whose reference already is the target scale (Fc or
   Fc+/0 in organic solvents; SHE or NHE in H2O) is no longer sent through the

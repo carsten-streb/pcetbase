@@ -48,10 +48,13 @@ def main():
             if inside:
                 bx0 = min(r["_bdfe"] for r in inside); bx1 = max(r["_bdfe"] for r in inside)
                 if bx1 - bx0 < 0.6: bx0, bx1 = bx0 - 0.3, bx1 + 0.3
-                ax.axvspan(bx0, bx1, ymax=0.82, facecolor="none", edgecolor="0.45",
+                # band top stays below the bracket and its range label; the label sits
+                # beside the band, not on it (review-manuscript-v1.6 B3)
+                ytop = (ybr - ymax0 * 0.08) / (ymax0 * 1.15 * 1.12)
+                ax.axvspan(bx0, bx1, ymax=ytop, facecolor="none", edgecolor="0.45",
                            hatch="////", lw=0.4, zorder=0)
-                ax.text((bx0 + bx1) / 2, ymax0 * 0.86, "estimated\nlegs only",
-                        fontsize=5, ha="center", va="bottom", color="0.35")
+                ax.text(bx1 + 0.8, ymax0 * 0.45, "estimated\nlegs only",
+                        fontsize=5, ha="left", va="center", color="0.35")
         # effective-pair strip above the stacks
         ymax = max(bottom + [1]) * 1.15
         for r in pairs:
@@ -62,9 +65,11 @@ def main():
         ax.set_ylabel("★ couples / bin"); ax.set_ylim(0, ymax * 1.12)
     axes[1].set_xlabel("BDFE (kcal mol$^{-1}$)"); axes[1].set_xlim(BIN_LO, BIN_HI)
     h, l = axes[0].get_legend_handles_labels()
-    axes[1].legend(h, l, fontsize=5.5, ncol=2, frameon=False, loc="center left")
+    # legend below the axes: inside the H2O panel it covered the hatched band (B3)
+    fig.legend(h, l, fontsize=5.5, ncol=5, frameon=False, loc="lower center",
+               bbox_to_anchor=(0.5, 0.0))
     fig.suptitle("Reagent-space coverage (recommended couples; brackets = windows ≥ 5 kcal/mol between well-characterized couples)", fontsize=8.5)
-    fig.tight_layout(rect=(0, 0.01, 1, 0.97))
+    fig.tight_layout(rect=(0, 0.07, 1, 0.97))
     provenance(fig, "scripts/figures/fig4.py")
     save(fig, "fig4")
 

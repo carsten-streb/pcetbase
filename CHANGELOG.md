@@ -13,8 +13,9 @@
   mean of both square-scheme diagonals).
 - datapackage.json `method` enum and README method row: `hyd` and `hess` added
   (both already in use in data.csv).
-- Curation statement (README and Explorer footer): "cannot enter the database
-  unless a flag documents the deviation".
+- Curation statement (README and Explorer footer): "Every stored value is run
+  through automatic thermochemical closure checks ..." (previously "passes") and
+  "... cannot enter the database unless a flag documents the deviation".
 - validate.py: the closure check is now a hard gate. A deviation beyond threshold
   (eq 18 > 0.3 kcal/mol; eq 10 and hydricity > 0.5 kcal/mol) without an excusing
   flag fails CI and build.py. v1.6 data: 0 such rows. Mutation tests 13 → 15;

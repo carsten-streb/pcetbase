@@ -101,7 +101,7 @@ PCETbase entries are extracted from the published literature (critical reviews a
 primary papers), working from the papers’ tables, text and supporting information.
 Each entry stores the primary measurables (potentials with their reference
 electrode, pKa values); BDFEs are recomputed from these with one consistent
-constant set rather than copied. Every stored value passes automatic
+constant set rather than copied. Every stored value is run through automatic
 thermochemical closure checks (Bordwell equation, H-atom potential, hydricity
 cycle where applicable) and a structural validation suite; the same checks gate
 every change through continuous integration, so a value that does not close

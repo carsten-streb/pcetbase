@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Build index.html from template.html by embedding data/data.csv and data/constants.csv.
 Run after any edit to the CSVs:  python build.py
-It first runs validate.py: soft arithmetic deviations are printed for review,
-hard structural errors (schema/FK/star integrity) abort the build. CI runs the
+It first runs validate.py: flagged closure deviations are printed for review;
+hard structural errors (schema/FK/star integrity) and closure deviations beyond
+threshold without an excusing flag abort the build. CI runs the
 same validate.py as the PR gate.
 """
 import os, subprocess, sys

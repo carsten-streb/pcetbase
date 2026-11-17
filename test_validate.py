@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Mutation tests for validate.py's hard structural gate.
+"""Mutation tests for validate.py's hard gates (structure + closure).
 Copies data/ to a temp dir, applies one mutation per case, runs validate.py
 there, and asserts the expected exit code. Run: python test_validate.py"""
 import csv, os, shutil, subprocess, sys, tempfile
@@ -28,6 +28,15 @@ def edit_csv(tmp, fname, fn):
     with open(p, "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=head); w.writeheader(); w.writerows(rows)
 
+def _shift_bdfe(rows, flags):
+    """Closure-gate mutation: first unflagged MeCN row with E_H2 and BDFE gets
+    BDFE + 1.0 kcal/mol (eq 18 deviation 1.0 kcal/mol) and the given flags."""
+    for x in rows:
+        if x["solvent"] == "MeCN" and x["E_H2"] and x["BDFE"] and not x["flags"]:
+            x["BDFE"] = f'{float(x["BDFE"]) + 1.0:.1f}'
+            x["flags"] = flags
+            return
+
 def main():
     cases = [
         ("clean data passes", lambda t: None, False),
@@ -48,11 +57,16 @@ def main():
         ("method=hyd without hydricity fails (stress M2)",
          lambda t: edit_csv(t, "data.csv", lambda r: [x.update(hydricity_kcal="") for x in r if x["method"] == "hyd"][:1]), True),
         ("hydricity on CHyd-less solvent passes with soft warning (stress M3)",
-         lambda t: edit_csv(t, "data.csv", lambda r: [x.update(solvent="hexane") for x in r if x["method"] == "hyd" and x["solvent"] == "MeCN"][:1] and None), False),
+         lambda t: edit_csv(t, "data.csv", lambda r: [x.update(solvent="pentane") for x in r if x["method"] == "hyd" and x["solvent"] == "MeCN"][:1] and None), False),
+         # pentane: no dGfH, CG or CHyd constant, so only the M3 soft warning applies (hexane has dGfH 51.7 kcal/mol and would now trip the closure gate)
         ("non-numeric E_c fails cleanly (stress M4)",
          lambda t: edit_csv(t, "data.csv", lambda r: [x.update(E_c="abc") for x in r if x["E_c"]][:1]), True),
         ("empty BDFE fails (F7)",
          lambda t: edit_csv(t, "data.csv", lambda r: r[0].update(BDFE="")), True),
+        ("unflagged 1 kcal/mol eq 18 deviation fails (closure gate)",
+         lambda t: edit_csv(t, "data.csv", lambda r: _shift_bdfe(r, "")), True),
+        ("same deviation with flag approx passes (closure gate)",
+         lambda t: edit_csv(t, "data.csv", lambda r: _shift_bdfe(r, "approx")), False),
         ("empty BDFE with ref-conv-missing passes (documented convention)",
          lambda t: edit_csv(t, "data.csv", lambda r: r[0].update(BDFE="", flags="ref-conv-missing")), False),
     ]

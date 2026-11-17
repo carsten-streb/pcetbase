@@ -42,7 +42,7 @@ doi:10.1021/acs.chemrev.1c00791; pre-correction (2010) constants are never used.
 | `flags` | semicolon list, see below |
 | `refs` | original citation numbers inside the source compilation |
 | `n_H` | number of H atoms transferred (1 unless stated) |
-| `method` | sq (square scheme), OCP, equil — for primary-literature entries |
+| `method` | empty = tabulated (review value); sq (square scheme), hyd (hydricity cycle), OCP (open-circuit potential), equil (equilibrium), hess (Hess combination of measured legs) |
 | `doi` | primary-source DOI for `EXT` entries (review entries carry the review DOI implicitly) |
 | `BDFE_pub` | published BDFE where it differs from the recomputed value |
 | `E_raw`, `E_raw_ref` | potential exactly as published + its reference electrode (converted via `constants.csv` offsets) |
@@ -57,11 +57,16 @@ doi:10.1021/acs.chemrev.1c00791; pre-correction (2010) constants are never used.
 | `E_c` | E°(X⁺/X•) in V on the row's reference scale (hydricity leg) |
 | `origin` | exp / comp / mixed; empty = not yet classified |
 
-Flags: `hess` (value derived by Hess's law in the source), `limit` (inequality bound),
+Flags: `hess:<leg>` (the named leg is not an independent measurement; obtained from the
+other legs by Hess's law, in the source compilation for review-tabulated entries or by
+PCETbase for primary-literature entries), `limit` (inequality bound),
 `approx`, `lowprec` (2-significant-figure printed value), `dmso-unc` (larger DMSO
 constant uncertainty), `lowT` (−80 °C), `excited` (excited-state potential),
 `ox-base`/`red-acid` (effective BDFE of a pair), `recomputed` (BDFE recalculated here
-from primary measurables with corrected constants), `avg` (average over n_H transfers),
+from primary measurables with corrected constants), `avg` (average over n_H transfers;
+for n_H = 1 the mean of both closing square-scheme diagonals), `derived-E`
+(E°(HQ•/HQ−) derived from the H2Q/Q and HQ•/Q potentials, Agarwal 2022 Table 8 fn c),
+`avg-pKa` (pKa averaged over two determinations, Agarwal 2022 Table 18 fn b, c),
 `mixed-CH-NH`, `derived`, `assumed-dGfH`, `ref-conv` (reference-electrode conversion
 applied), `ref-conv-missing` (no verified offset on file; no BDFE computed),
 `check-src` (internal inconsistency in the source, detected by validation).
@@ -96,11 +101,11 @@ PCETbase entries are extracted from the published literature (critical reviews a
 primary papers), working from the papers’ tables, text and supporting information.
 Each entry stores the primary measurables (potentials with their reference
 electrode, pKa values); BDFEs are recomputed from these with one consistent
-constant set rather than copied. Every stored value passes automatic
+constant set rather than copied. Every stored value is run through automatic
 thermochemical closure checks (Bordwell equation, H-atom potential, hydricity
 cycle where applicable) and a structural validation suite; the same checks gate
 every change through continuous integration, so a value that does not close
-thermochemically cannot enter the database. Each entry carries a public
+thermochemically cannot enter the database unless a flag documents the deviation. Each entry carries a public
 verification record — source, extraction route, whether the primary literature
 was page-verified, checks run — shown in its Curation trail and downloadable as
 the full verification ledger. All changes enter through reviewed pull requests on

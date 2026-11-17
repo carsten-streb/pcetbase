@@ -94,6 +94,10 @@ def recommended_per_couple(rows):
     return out
 
 def provenance(fig, script):
+    """Margin provenance line; PCETBASE_FIG_FOOTER=0 omits it (manuscript render
+    set; provenance then lives in the render folder's README)."""
+    if os.environ.get("PCETBASE_FIG_FOOTER", "1") == "0":
+        return
     fig.text(0.005, 0.005, f"PCETbase {git_ref()} · {script} · drop at composition",
              fontsize=5, color="0.45", ha="left", va="bottom")
 

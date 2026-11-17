@@ -2027,6 +2027,9 @@ let userPt=null;
 const MINUS="\u2212";
 /* rule 10 / CR-2026-11-16-units addendum: displayed numbers use the true minus sign */
 const fx=(v,d)=>{const s=(+v).toFixed(d);return s.startsWith("-")?MINUS+s.slice(1):s;};
+/* pKa at stored precision (shortest round-trip form, at least one decimal): 0.85 stays 0.85, 27.1 stays 27.1;
+   toFixed(1) rounded 0.85 to "0.8", so worked equations did not reproduce (review-manuscript-v1.6 B1) */
+const fpk=v=>{let s=String(+v);if(!/[.e]/.test(s))s=(+v).toFixed(1);return s.startsWith("-")?MINUS+s.slice(1):s;};
 /* CR-2026-11-16-square-scheme-typography Part B: render-time sub/superscripts for
    compound names (display only; data files and CSV exports keep plain text).
    Rules: digit run after an element letter or closing bracket -> subscript;
@@ -2128,7 +2131,7 @@ function renderTable(){
    `<tr data-id="${r.id}"${sub?' class="sub"':''}><td><input type="checkbox" class="tick" data-cid="${r.cid}" ${ticked.has(r.cid)?"checked":""} title="show this couple on the ladder (selection mode)" style="width:auto;margin-right:6px">${sub?'<span class="src" style="margin-left:18px">↳</span> ':`<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${clsColor(r.cls)};margin-right:6px"></span>`}${fmtName(r.name)}${r.rec?` <span title="recommended value${r.recManual?" (manual, see reason in the verification panel)":" (auto, policy rules 1-2)"}">★</span>`:""}${COUPLES[r.cid]&&COUPLES[r.cid].discordant==="1"?` <span title="discordant couple: independent measurements disagree beyond combined uncertainty — see verification panel">⚠</span>`:""}${r.flags?` <span class="flagmark" title="${r.flags}">⚑</span>`:""}${r.origin==="comp"?` <sup class="src" title="computational: defining value computed (DFT, simulation-only, empirical estimate)">c</sup>`:r.origin==="mixed"?` <sup class="src" title="mixed origin: at least one leg computed or simulation-fitted, at least one measured">m</sup>`:""}${!sub&&!r.rec&&RECBY[r.cid]?` <button class="starhid src" data-rid="${RECBY[r.cid].id}" title="the couple's recommended (★) value is hidden by the current filters — click to open it" style="font-size:.75em;padding:0 5px">★ ${toUnit(RECBY[r.cid].bdfe,u).toFixed(1)} hidden by filter</button>`:""}${!sub&&r.nDup>1?` <button class="badge" data-cid="${r.cid}" title="independent measurements of this couple — click to ${expanded.has(r.cid)?"collapse":"expand"}">${r.nDup} values ${expanded.has(r.cid)?"▾":"▸"}</button>`:""}${sub?` <span class="src">${r.method||"tabulated"}${r.sigma?`, σ ${r.sigma}`:""}, ${r.year}</span>`:""}</td>`+
    `<td>${r.partner?fmtName(r.partner):"–"}</td><td>${r.bond}</td><td>${r.solvent}</td>`+
    `<td class="num">${eDisplay(r,sc)}</td>`+
-   `<td class="num">${r.pka==null||r.pka!==r.pka?"–":(/hess:pKa|derived/.test(r.flags)?`<i title="back-calculated, not directly measured (see panel)">${fx(r.pka,1)}</i>`:fx(r.pka,1))}</td>`+
+   `<td class="num">${r.pka==null||r.pka!==r.pka?"–":(/hess:pKa|derived/.test(r.flags)?`<i title="back-calculated, not directly measured (see panel)">${fpk(r.pka)}</i>`:fpk(r.pka))}</td>`+
    `<td class="num">${fx(toUnit(r.bdfe,u),u==="eV"?2:1)}</td>`+
    `<td class="src">${r.src}</td></tr>`;
   const tb=document.querySelector("#tbl tbody");
@@ -2214,8 +2217,8 @@ function showDetail(id){
   if(r.Ea!=null)h+=`<tr><td>E°(X/X⁻) [E°(ox/red) for pairs]</td><td><b>${fx(r.Ea,3)} V vs ${refSc}</b></td></tr>`;
   if(r.Eb!=null)h+=`<tr><td>E°(XH<sup>•+</sup>/XH)</td><td><b>${fx(r.Eb,3)} V vs ${refSc}</b></td></tr>`;
   if(r.Ec!=null)h+=`<tr><td>E°(X⁺/X•) [hydricity leg]</td><td><b>${fx(r.Ec,3)} V vs ${refSc}</b></td></tr>`;
-  if(r.pkaA!=null)h+=`<tr><td>pK<sub>a</sub>(XH⁺ / M<sup>n+1</sup>LH)</td><td><b>${r.pkaA.toFixed(1)}</b></td></tr>`;
-  if(r.pka!=null&&r.pka===r.pka)h+=`<tr><td>pK<sub>a</sub>(XH) [pK<sub>a</sub>(baseH⁺/acid) for pairs]</td><td><b>${r.pka.toFixed(1)}</b></td></tr>`;
+  if(r.pkaA!=null)h+=`<tr><td>pK<sub>a</sub>(XH⁺ / M<sup>n+1</sup>LH)</td><td><b>${fpk(r.pkaA)}</b></td></tr>`;
+  if(r.pka!=null&&r.pka===r.pka)h+=`<tr><td>pK<sub>a</sub>(XH) [pK<sub>a</sub>(baseH⁺/acid) for pairs]</td><td><b>${fpk(r.pka)}</b></td></tr>`;
   h+=`<tr><td>E°(V vs H₂)</td><td><b>${isNaN(r.E)?"–":fx(r.E,3)+" V vs H⁺/H₂"}</b></td></tr>`;
   h+=`<tr><td>BDFE${r.nH&&r.nH!=="1"?" (avg over "+r.nH+" H)":""}</td><td><b>${r.bdfe.toFixed(1)} kcal mol⁻¹</b>${r.bdfePub&&parseFloat(r.bdfePub).toFixed(1)!==r.bdfe.toFixed(1)?` (published: ${r.bdfePub} kcal mol⁻¹)`:""}</td></tr>`;
   if(r.hyd!=null)h+=`<tr><td>Hydricity ΔG°(H⁻)</td><td><b>${r.hyd.toFixed(1)} kcal mol⁻¹</b> (as published; the hydricity reference constant C<sub>Hyd</sub> is per solvent — see the constants list under "CSV export")</td></tr>`;
@@ -2249,11 +2252,11 @@ function showDetail(id){
   const eqTip=n=>`<span class="src" title="Eq. ${n} in Agarwal et al., Chem. Rev. 2022, 122, 1 (doi:10.1021/acs.chemrev.1c00521)" style="cursor:help">ⓘ</span>`;
   if(r.Ea!=null&&r.pka!=null&&r.pka===r.pka&&cg!==undefined){
     const v=23.06*r.Ea+1.37*r.pka+cg;
-    h+=`<div class="eq"><b>Bordwell equation</b> (square scheme) ${eqTip(10)}: BDFE = 23.06 ${KV} × (${fx(r.Ea,3)} V vs ${refSc}) + 1.37 ${KU} × ${fx(r.pka,1)} + C<sub>G</sub>(${r.solvent}) ${cg.toFixed(1)} ${KU} = <b>${fx(v,1)} ${KU}</b> &nbsp;(stored: ${fx(r.bdfe,1)} ${KU}; Δ = ${fx(v-r.bdfe,2)} ${KU})</div>`;
+    h+=`<div class="eq"><b>Bordwell equation</b> (square scheme) ${eqTip(10)}: BDFE = 23.06 ${KV} × (${fx(r.Ea,3)} V vs ${refSc}) + 1.37 ${KU} × ${fpk(r.pka)} + C<sub>G</sub>(${r.solvent}) ${cg.toFixed(1)} ${KU} = <b>${fx(v,1)} ${KU}</b> &nbsp;(stored: ${fx(r.bdfe,1)} ${KU}; Δ = ${fx(v-r.bdfe,2)} ${KU})</div>`;
   }
   if(r.Eb!=null&&r.pkaA!=null&&cg!==undefined){
     const v=23.06*r.Eb+1.37*r.pkaA+cg;
-    h+=`<div class="eq"><b>Bordwell equation, other diagonal</b> (E° of XH<sup>•+</sup>/XH with pK<sub>a</sub> of XH<sup>•+</sup>) ${eqTip(10)}: BDFE = 23.06 ${KV} × (${fx(r.Eb,3)} V vs ${refSc}) + 1.37 ${KU} × ${fx(r.pkaA,1)} + C<sub>G</sub>(${r.solvent}) ${cg.toFixed(1)} ${KU} = <b>${fx(v,1)} ${KU}</b> &nbsp;(stored: ${fx(r.bdfe,1)} ${KU}; Δ = ${fx(v-r.bdfe,2)} ${KU})</div>`;
+    h+=`<div class="eq"><b>Bordwell equation, other diagonal</b> (E° of XH<sup>•+</sup>/XH with pK<sub>a</sub> of XH<sup>•+</sup>) ${eqTip(10)}: BDFE = 23.06 ${KV} × (${fx(r.Eb,3)} V vs ${refSc}) + 1.37 ${KU} × ${fpk(r.pkaA)} + C<sub>G</sub>(${r.solvent}) ${cg.toFixed(1)} ${KU} = <b>${fx(v,1)} ${KU}</b> &nbsp;(stored: ${fx(r.bdfe,1)} ${KU}; Δ = ${fx(v-r.bdfe,2)} ${KU})</div>`;
   }
   if(!isNaN(r.E)&&dg!==undefined){
     const v=23.06*r.E+dg;
@@ -2325,8 +2328,8 @@ function squareSchemeHTML(r,refSc){
     return{st:"none",lines:["not available"]};
   };
   const mkP=(v,d,comp)=>{
-    if(v!=null)return comp?{st:"derived",lines:["pK\u2090 = "+fx(v,1),"(Hess-derived)"]}
-                         :{st:"stored",lines:["pK\u2090 = "+fx(v,1)]};
+    if(v!=null)return comp?{st:"derived",lines:["pK\u2090 = "+fpk(v),"(Hess-derived)"]}
+                         :{st:"stored",lines:["pK\u2090 = "+fpk(v)]};
     if(d!=null)return{st:"derived",lines:["pK\u2090 = "+fx(d,1),"(derived)"]};
     return{st:"none",lines:["not available"]};
   };
@@ -2407,7 +2410,7 @@ function squareSchemeHTML(r,refSc){
     s+=`</g>`;
   }
   s+=`</svg>`;
-  const hydEq=hydOK?`<div class="eq"><b>Hydricity cycle</b> <span class="src" title="hydricity scale: Wiedner et al., Chem. Rev. 2016 (doi:10.1021/acs.chemrev.6b00168)" style="cursor:help">ⓘ</span>: 1.364 kcal mol⁻¹ × ${pkb!=null?fx(pkb,1):"pK\u2090"} + 23.06 kcal mol⁻¹ V⁻¹ × (${fx((r.Ea||0),2)} V + ${fx(r.Ec,2)} V vs ${refSc}) + C<sub>Hyd</sub>(${r.solvent}) ${CHYD[r.solvent].toFixed(1)} kcal mol⁻¹ = <b>${fx(1.364*(pkb!=null?pkb:0)+23.06*((r.Ea||0)+r.Ec)+CHYD[r.solvent],1)} kcal mol⁻¹</b> (published ΔG°(H⁻): ${fx(r.hyd,1)} kcal mol⁻¹)</div>`:"";
+  const hydEq=hydOK?`<div class="eq"><b>Hydricity cycle</b> <span class="src" title="hydricity scale: Wiedner et al., Chem. Rev. 2016 (doi:10.1021/acs.chemrev.6b00168)" style="cursor:help">ⓘ</span>: 1.364 kcal mol⁻¹ × ${pkb!=null?fpk(pkb):"pK\u2090"} + 23.06 kcal mol⁻¹ V⁻¹ × (${fx((r.Ea||0),2)} V + ${fx(r.Ec,2)} V vs ${refSc}) + C<sub>Hyd</sub>(${r.solvent}) ${CHYD[r.solvent].toFixed(1)} kcal mol⁻¹ = <b>${fx(1.364*(pkb!=null?pkb:0)+23.06*((r.Ea||0)+r.Ec)+CHYD[r.solvent],1)} kcal mol⁻¹</b> (published ΔG°(H⁻): ${fx(r.hyd,1)} kcal mol⁻¹)</div>`:"";
   return `<details open id="sqscheme"><summary>Square scheme${hydOK?" + hydricity cycle":""}</summary>${s}${hydEq}<div class="src">Solid arrow: measured. Dashed arrow: derived from the other legs with the Bordwell equation (Hess-composed stored values count as derived). Potentials in V on the stated reference scale; BDFE and ΔG°(H⁻) in kcal mol⁻¹; C<sub>G</sub>(${r.solvent}) = ${cg.toFixed(1)} kcal mol⁻¹.</div></details>`;
 }
 
@@ -2495,7 +2498,7 @@ function renderLadder(){
       const r=D[+el.dataset.id];
       tip.style.display="block";
       tip.style.left=(ev.clientX+14)+"px"; tip.style.top=(ev.clientY-10)+"px";
-      tip.innerHTML=`<b>${fmtName(r.name)}</b>${r.partner?" + "+fmtName(r.partner):""} (${r.solvent})<br>BDFE ${fx(toUnit(r.bdfe,u),1)} ${unitLbl[u]} · E° ${isNaN(r.E)?"–":fx(r.E,3)} V vs H₂${r.pka!=null&&r.pka===r.pka?`<br>pK<sub>a</sub>(XH) ${fx(r.pka,1)}`:""}${r.nH&&r.nH!=="1"?`<br>avg over ${r.nH} H`:""}${r.method?`<br>method: ${r.method}`:""}${r.origin==="comp"?"<br>origin: computational":r.origin==="mixed"?"<br>origin: mixed (simulation-fitted leg)":""}${r.bdfePub&&parseFloat(r.bdfePub).toFixed(1)!==r.bdfe.toFixed(1)?`<br>published: ${r.bdfePub}`:""}${r.flags?`<br>⚑ ${r.flags}`:""}<br><span class="src">${r.srcText}</span>`;
+      tip.innerHTML=`<b>${fmtName(r.name)}</b>${r.partner?" + "+fmtName(r.partner):""} (${r.solvent})<br>BDFE ${fx(toUnit(r.bdfe,u),1)} ${unitLbl[u]} · E° ${isNaN(r.E)?"–":fx(r.E,3)} V vs H₂${r.pka!=null&&r.pka===r.pka?`<br>pK<sub>a</sub>(XH) ${fpk(r.pka)}`:""}${r.nH&&r.nH!=="1"?`<br>avg over ${r.nH} H`:""}${r.method?`<br>method: ${r.method}`:""}${r.origin==="comp"?"<br>origin: computational":r.origin==="mixed"?"<br>origin: mixed (simulation-fitted leg)":""}${r.bdfePub&&parseFloat(r.bdfePub).toFixed(1)!==r.bdfe.toFixed(1)?`<br>published: ${r.bdfePub}`:""}${r.flags?`<br>⚑ ${r.flags}`:""}<br><span class="src">${r.srcText}</span>`;
     });
     el.addEventListener("mouseleave",()=>tip.style.display="none");
     el.addEventListener("click",()=>{tip.style.display="none";showDetail(+el.dataset.id);});
@@ -2537,7 +2540,7 @@ function compute(){
     const deriv=` <span class="src">— derived from the Bordwell equation, not a database value. Typical propagated error into the solved quantity: ±0.03 V in an E° input ≈ ±0.7 kcal mol⁻¹ in BDFE ≈ ±0.5 pK<sub>a</sub> units.</span>`;
     if(!have.b){
       bdfe=23.06*e+1.37*pka+cg;
-      note=`BDFE = 23.06·${fmtV(e)} + 1.37·${pka.toFixed(1)} + ${cg.toFixed(1)}`;
+      note=`BDFE = 23.06·${fmtV(e)} + 1.37·${fpk(pka)} + ${cg.toFixed(1)}`;
     }else if(!have.p){
       const bk=fromUnit(bIn);
       const p2=(bk-23.06*e-cg)/1.37;
@@ -2548,7 +2551,7 @@ function compute(){
       const bk=fromUnit(bIn);
       const e2=(bk-1.37*pka-cg)/23.06;
       userPt={name,bdfe:bk,solvent:solv};
-      out.innerHTML=`E° = (${bk.toFixed(1)} − 1.37·${pka.toFixed(1)} − ${cg.toFixed(1)}) / 23.06 = <b>${e2.toFixed(3)} V vs ${solv==="H2O"?"SHE":"Fc⁺/⁰"}</b>${deriv}`;
+      out.innerHTML=`E° = (${bk.toFixed(1)} − 1.37·${fpk(pka)} − ${cg.toFixed(1)}) / 23.06 = <b>${e2.toFixed(3)} V vs ${solv==="H2O"?"SHE":"Fc⁺/⁰"}</b>${deriv}`;
       renderLadder();return;
     }
   }

@@ -654,5 +654,18 @@ if (chips.length) {
     detg && /derived-E<\/b> — E°\(HQ/.test(detg.innerHTML));
 }
 
+// ---------- 6l. pKa at stored precision (review-manuscript-v1.6 B1) ----------
+{
+  const dp = newDom({ hash: "#BDFE-0139" });
+  const det = dp.window.document.getElementById("detail");
+  const txt = det ? det.textContent : "";
+  T("BDFE-0139: other-diagonal Bordwell line shows pKa 0.85 (not 0.8)",
+    /× 0\.85 \+/.test(txt) && !/× 0\.8 \+/.test(txt), txt.match(/other diagonal[^)]*\)[^=]*=[^)]*/) ? "" : "line missing");
+  const m = txt.match(/other diagonal[\s\S]*?× 0\.85 \+[\s\S]*?= ([\d.]+) kcal/);
+  T("BDFE-0139: worked line reproduces 77.5 kcal/mol", m && m[1] === "77.5", m ? m[1] : "no match");
+  const svg = dp.window.document.getElementById("sqsvg");
+  T("BDFE-0139: square scheme labels pKa 0.85", svg && /pK\u2090 = 0\.85/.test(svg.textContent), svg ? "" : "no svg");
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

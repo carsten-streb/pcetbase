@@ -2,6 +2,12 @@
 
 ## Unreleased (toward v1.7)
 
+### Header wording (PR #75)
+- Explorer header re-worded by Carsten: one line per statement; the data-source
+  sentence (Agarwal 2022, Wiedner/Morris 2016, POM primaries) removed from the
+  header (sources stay per entry, in the README and the curation statement); flag
+  hint reads "⚑, hover for details". No data change.
+
 ### Manuscript figures at v1.6 (PR #74; board H119 step 2)
 - figures/manuscript-v1.6/: fig2/3/4/6 (PNG 600 dpi + SVG) rendered from tag v1.6
   (f7c72e2) with the PR #71 label layer; watermark v1.6. Content identical to the

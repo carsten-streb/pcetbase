@@ -216,7 +216,7 @@
           {
             "name": "sigma_BDFE",
             "type": "number",
-            "description": "Uncertainty of BDFE in kcal/mol: published value where given, otherwise adopted per method class (see CONTRIBUTING)",
+            "description": "One uncertainty of the stored BDFE in kcal/mol; its kind is recorded in sigma_type: published (stated, or propagated, by the source authors), curator-estimate (estimated by the PCETbase curators for a value they composed or converted where the source states none; documented in conditions), bracket-midpoint (the stored value is the midpoint of a published bracket and σ covers the bracket). Empty = no uncertainty available; σ is never filled by default per method class.",
             "unit": "kcal/mol"
           },
           {
@@ -254,6 +254,42 @@
               ]
             },
             "description": "Provenance of the stored values (CR-2026-11-13-origin-provenance): exp = all legs measured; comp = defining value computed (DFT, simulation-only, empirical estimate); mixed = at least one leg computed or simulation-fitted, at least one measured; empty = not yet classified (classification is incremental, never guessed)."
+          },
+          {
+            "name": "E_raw_leg",
+            "type": "string",
+            "constraints": {
+              "enum": [
+                "",
+                "a",
+                "b",
+                "c",
+                "H2",
+                "OCP"
+              ]
+            },
+            "description": "Which stored quantity the raw potential E_raw becomes after reference conversion: a = E_a, b = E_b, c = E_c, H2 = E_H2, OCP = open-circuit cell potential of a buffered solution (the buffer pKa is stated in conditions). Empty exactly when E_raw is empty (EP-01)."
+          },
+          {
+            "name": "bounds",
+            "type": "string",
+            "constraints": {
+              "pattern": "^((E_a|E_b|pKa_a|pKa_b|E_H2|BDFE)[<>≤≥](;(E_a|E_b|pKa_a|pKa_b|E_H2|BDFE)[<>≤≥])*)?$"
+            },
+            "description": "Inequality bounds as printed in the source: semicolon-separated tokens <field><op>, op one of < > ≤ ≥ (e.g. 'E_a<;pKa_b>' means E_a is an upper bound, pKa_b a lower bound). Non-empty exactly when flags contain 'limit' (EP-02). A closure that combines an upper and a lower bound is not determinable."
+          },
+          {
+            "name": "sigma_type",
+            "type": "string",
+            "constraints": {
+              "enum": [
+                "",
+                "published",
+                "curator-estimate",
+                "bracket-midpoint"
+              ]
+            },
+            "description": "Kind of sigma_BDFE (see there). Non-empty exactly when sigma_BDFE is non-empty (EP-10)."
           }
         ],
         "primaryKey": "entry_id"
@@ -304,6 +340,11 @@
             "name": "source",
             "type": "string",
             "description": "Page-verified literature citation with DOI"
+          },
+          {
+            "name": "standard_state",
+            "type": "string",
+            "description": "Standard state the constant refers to: 298 K; 1 atm H2(g); 1 M solutes including H+, H• and H− (gas-phase ΔG°f(H•): 1 atm H•(g)). 'n/a' for reference-electrode offsets."
           }
         ]
       }
@@ -500,6 +541,12 @@
             "name": "summary",
             "type": "string",
             "description": "One generated plain-language line summarising source, route, checks and outcome."
+          },
+          {
+            "name": "eq10_res_other",
+            "type": "number",
+            "unit": "kcal/mol",
+            "description": "Bordwell (eq 10) residual of the second diagonal, calc minus stored BDFE, where both determinate diagonals are stored (EP-02 both-diagonal rule); eq10_res is the diagonal closer to the stored BDFE."
           }
         ],
         "primaryKey": "entry_id"

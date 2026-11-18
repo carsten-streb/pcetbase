@@ -75,6 +75,17 @@ def load_rows():
         r["_rec"] = r["recommended"] in ("1", "auto")
     return rows
 
+def bdfe_bound(r):
+    """EP-02: operator of a bounded BDFE ('<', '>', '≤', '≥') or '' (from the bounds column)."""
+    for tok in (r.get("bounds") or "").split(";"):
+        if tok[:-1] == "BDFE":
+            return tok[-1]
+    return ""
+
+def is_bounded(r):
+    """EP-02: rows with any inequality bound; excluded from window and statistics code."""
+    return bool((r.get("bounds") or "").strip())
+
 def load_analysis():
     with open(os.path.join(ROOT, "derived", "analysis.csv"), newline="", encoding="utf-8") as f:
         return list(csv.DictReader(f))

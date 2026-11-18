@@ -235,13 +235,13 @@ if (chips.length) {
     T("csv has entry_id + metadata columns (F4)",
       ["entry_id","sigma_BDFE","method","T_K","conditions","year"].every(c => csvAll.split("\n")[0].includes(c)));
     T("csv has square-scheme leg columns incl. E_c (stress F5)",
-      ["pKa_a","E_a_V","E_b_V","E_c_V","hydricity_kcal"].every(c => csvAll.split("\n")[0].includes(c)));
+      ["pKa_a","pKa_b","E_a","E_b","E_c","hydricity_kcal"].every(c => csvAll.split("\n")[0].split(",").includes(c)));
     { // stress F5 acceptance: a hyd row's exported legs re-close its hydricity (form 1)
       const hd = csvAll.split("\n")[0].split(",");
       const ix = n => hd.indexOf(n);
       const row = csvAll.split("\n").find(l => l.includes("BDFE-0453"));
       const cells = row.split(/,(?=(?:[^"]*"[^"]*")*[^"]*$)/);
-      const calc = 1.364*parseFloat(cells[ix("pKa_XH")]) + 23.06*(parseFloat(cells[ix("E_a_V")]) + parseFloat(cells[ix("E_c_V")])) + 79.6;
+      const calc = 1.364*parseFloat(cells[ix("pKa_b")]) + 23.06*(parseFloat(cells[ix("E_a")]) + parseFloat(cells[ix("E_c")])) + 79.6;
       const stored = parseFloat(cells[ix("hydricity_kcal")]);
       T("exported legs re-close hydricity on a hyd row (stress F5)", Math.abs(calc - stored) < 0.05, calc.toFixed(3) + " vs " + stored);
     }
@@ -499,7 +499,7 @@ if (chips.length) {
 
   // U8: sigma label scoped; empty sigma renders "not reported"
   const det99 = d99.getElementById("detail").textContent;
-  T("U8: sigma label no longer claims a published BDFE sigma", /σ, published/.test(det99) && !/σ\(BDFE\), published/.test(det99));
+  T("U8: sigma label no longer claims a published BDFE sigma", /σ \(published\)/.test(det99) && !/σ\(BDFE\), published/.test(det99));
   const det36 = newDom({ hash: "#BDFE-0036" }).window.document.getElementById("detail").textContent;
   T("U8: missing sigma shown as not reported", /uncertainty not reported/.test(det36));
 
@@ -515,7 +515,8 @@ if (chips.length) {
 
   // U10: export columns + constants documented in the UI
   const colsTxt = $("csvColsBody").textContent;
-  T("U10: column list names every closure leg", /E_c_V/.test(colsTxt) && /hydricity_kcal/.test(colsTxt) && /sigma_BDFE/.test(colsTxt));
+  const colCodes = [...$("csvColsBody").querySelectorAll("code")].map(c => c.textContent);
+  T("U10: column list names every closure leg", ["E_a","E_b","E_c","pKa_a","pKa_b","hydricity_kcal","sigma_BDFE"].every(c => colCodes.includes(c)));
   T("U10: C_Hyd(MeCN) = 79.6 findable from the export UI", /C/.test(colsTxt) && /79\.6/.test(colsTxt), colsTxt.slice(-200));
 
   // U4: footer stamp names the development state, not the release alone
@@ -652,6 +653,88 @@ if (chips.length) {
   const detg = dg.window.document.getElementById("detail");
   T("BDFE-0214: derived-E flag has a glossary text",
     detg && /derived-E<\/b> — E°\(HQ/.test(detg.innerHTML));
+}
+
+// ---------- 6n. v1.7 PR A: E_raw_leg, bounds, export, sigma_type (EP-01, EP-02, EP-06, EP-10, N1) ----------
+{
+  const path = require("path");
+  const dataTxt = fs.readFileSync(path.join(path.dirname(path.resolve(file)), "data", "data.csv"), "utf-8");
+  const dw0 = newDom().window;
+  const DATA = dw0.parseCSV(dataTxt);
+  const idOf = eid => DATA.findIndex(r => r.entry_id === eid);
+  const byE = Object.fromEntries(DATA.map(r => [r.entry_id, r]));
+  // EP-01
+  const rawRows = DATA.filter(r => r.E_raw !== "");
+  T("EP-01: every E_raw row carries E_raw_leg (6 rows)", rawRows.length === 6 && rawRows.every(r => r.E_raw_leg !== ""), rawRows.map(r => r.entry_id + ":" + r.E_raw_leg).join(" "));
+  T("EP-01: BDFE-0507/0521 store ref-conv in data.csv", ["BDFE-0507", "BDFE-0521"].every(e => byE[e].flags.split(";").includes("ref-conv")));
+  const p507 = newDom({ hash: "#BDFE-0507" }).window.document.getElementById("detail").textContent;
+  const p540 = newDom({ hash: "#BDFE-0540" }).window.document.getElementById("detail").textContent;
+  T("EP-01: conversion item names the leg the converted potential is stored in",
+    /stored as E°\(X\/X⁻\)/.test(p507) && /stored as E°\(XH•\+\/XH\)/.test(p540));
+  // EP-06: strict numeric export, flags as stored, recommended scope
+  const NUMC = ["n_H","E_H2","E_a","E_b","E_c","pKa_a","pKa_b","BDFE","BDFE_pub","sigma_BDFE","hydricity_kcal","E_raw","T_K","year"];
+  const STRICT = /^-?\d+(\.\d+)?$/;
+  const exportAs = (scope, sc, u) => {
+    const dd = newDom().window, doc = dd.document;
+    doc.getElementById("csvScope").value = scope; doc.getElementById("scale").value = sc; doc.getElementById("unit").value = u;
+    return dd.parseCSV(dd.csvText());
+  };
+  let badNum = [], nRows = {};
+  for (const scope of ["all", "rec"]) for (const sc of ["H2", "Fc"]) for (const u of ["kcal", "kJ"]) {
+    const rows = exportAs(scope, sc, u); nRows[scope] = rows.length;
+    const cols = NUMC.concat(["E_display_" + sc, "BDFE_" + u]);
+    rows.forEach(r => cols.forEach(c => {
+      const v = r[c];
+      if (v === undefined) badNum.push(scope + "/" + sc + "/" + u + " missing column " + c);
+      else if (v !== "" && (!STRICT.test(v) || /\.\d{7,}/.test(v))) badNum.push(`${scope}/${sc}/${u} ${r.entry_id} ${c}='${v}'`);
+    }));
+  }
+  T("EP-06: every numeric column parses strictly (ASCII minus, empty = missing, no float artefacts), both scopes, both scales",
+    badNum.length === 0, badNum.slice(0, 4).join(" | "));
+  const expAll = exportAs("all", "H2", "kcal"), expRec = exportAs("rec", "Fc", "kcal");
+  T("EP-06: scope 'all' exports 547 rows; exported flags equal data.csv flags for every row",
+    expAll.length === 547 && expAll.every(r => byE[r.entry_id] && r.flags === byE[r.entry_id].flags));
+  const panelFlags = eid => { const t = newDom({ hash: "#" + eid }).window.document.getElementById("detail");
+    const wn = [...t.querySelectorAll(".warn")].find(x => /^Flags: /.test(x.textContent));
+    return wn ? [...wn.querySelectorAll("b")].map(x => x.textContent).join(";") : ""; };
+  const pfBad = rawRows.map(r => r.entry_id).filter(e => panelFlags(e) !== byE[e].flags);
+  T("EP-06: no runtime-injected flags (panel flag list equals data.csv for the 6 E_raw rows)", pfBad.length === 0, pfBad.join(","));
+  T("EP-06: every data.csv column is in the export", Object.keys(DATA[0]).every(c => c in expAll[0]), Object.keys(DATA[0]).filter(c => !(c in expAll[0])).join(","));
+  T("EP-06: scope 'recommended only' exports 531 rows, each with recommended = 1",
+    expRec.length === 531 && expRec.every(r => r.recommended === "1"), expRec.length + " rows");
+  T("EP-06: display_group and granular class both exported", expAll.every(r => r.class && r.display_group) && expAll.some(r => r.class !== r.display_group));
+  // EP-02
+  const id142 = idOf("BDFE-0142"), id093 = idOf("BDFE-0093");
+  const pd142 = newDom({ hash: "#BDFE-0142" }).window.document;
+  const tr142 = pd142.querySelector(`#tbl tbody tr[data-id="${id142}"]`);
+  const nums142 = tr142 ? [...tr142.querySelectorAll("td.num")].map(t => t.textContent) : [];
+  T("EP-02: BDFE-0142 table pKa cell shows >13.0", nums142[1] === ">13.0", nums142.join(" | "));
+  const t142 = pd142.getElementById("detail").textContent;
+  T("EP-02: BDFE-0142 panel prints no 81.7 or 89.7 kcal/mol line and says 'not determinable'",
+    !/81\.7|89\.7/.test(t142) && /not determinable: combines an upper and a lower bound/.test(t142));
+  T("EP-02: BDFE-0142 panel shows the bound operators (<0.480 V, >13.0)", />13\.0/.test(t142) && /<0\.480 V vs SHE/.test(t142));
+  const lad = newDom().window.document;
+  const mk = lad.querySelector(`#ladder .rung-bound[data-id="${id093}"]`);
+  T("EP-02: BDFE-0093 ladder rung carries the ≥ marker", !!mk && mk.dataset.op === "≥");
+  const t458 = newDom({ hash: "#BDFE-0458" }).window.document.getElementById("detail").textContent;
+  T("EP-02: BDFE-0458 panel shows E_a and BDFE as bounds (≥)", /≥−1\.220 V vs Fc/.test(t458) && /≥55\.3 kcal/.test(t458));
+  const r142 = expAll.find(r => r.entry_id === "BDFE-0142"), r093 = expAll.find(r => r.entry_id === "BDFE-0093");
+  T("EP-02: CSV *_rel columns carry ASCII operators (0142 pKa_b_rel '>', E_a_rel '<'; 0093 BDFE_rel '>=')",
+    r142.pKa_b_rel === ">" && r142.E_a_rel === "<" && r093.BDFE_rel === ">=" && expAll.filter(r => r.BDFE_rel || r.E_a_rel || r.E_b_rel || r.pKa_a_rel || r.pKa_b_rel || r.E_H2_rel).length === 5);
+  // EP-10
+  const t521 = newDom({ hash: "#BDFE-0521" }).window.document.getElementById("detail").textContent;
+  const t538 = newDom({ hash: "#BDFE-0538" }).window.document.getElementById("detail").textContent;
+  T("EP-10: σ label follows sigma_type, with unit (0521 curator estimate, 0538 bracket midpoint)",
+    /σ \(curator estimate\)[^±]*±4\.5 kcal mol⁻¹/.test(t521) && /σ \(bracket midpoint\)[^±]*±1\.0 kcal mol⁻¹/.test(t538));
+  T("EP-10: 58 rows carry sigma_type exactly where sigma_BDFE is set",
+    DATA.filter(r => r.sigma_type).length === 58 && DATA.every(r => !!r.sigma_type === !!r.sigma_BDFE));
+  // N1: the hydricity line's printed terms reproduce its printed result
+  const h504 = newDom({ hash: "#BDFE-0504" }).window.document.getElementById("sqscheme");
+  const eqH = h504 ? [...h504.querySelectorAll(".eq")].map(e => e.textContent).find(t => /Hydricity cycle/.test(t)) : "";
+  const num = t => parseFloat(t.replace("−", "-"));
+  const m = eqH && eqH.match(/× ([−\d.]+) \+ 23\.06 kcal mol⁻¹ V⁻¹ × \(([−\d.]+) V \+ ([−\d.]+) V vs [^)]*\) \+ C\S* ?\S*\(?[^)]*\)? ([\d.]+) kcal mol⁻¹ = ([−\d.]+) kcal/);
+  T("N1: BDFE-0504 hydricity line reproduces its printed result (potentials with 3 decimals)",
+    !!m && Math.abs(1.364 * num(m[1]) + 23.06 * (num(m[2]) + num(m[3])) + num(m[4]) - num(m[5])) <= 0.05, eqH.slice(0, 220));
 }
 
 // ---------- 6l. pKa at stored precision (review-manuscript-v1.6 B1) ----------

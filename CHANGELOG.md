@@ -14,6 +14,42 @@
   no provenance footer, via `PCETBASE_FIG_FOOTER=0`); `figures/manuscript-v1.6/`
   stays as rendered for PR #74. No data change.
 
+### v1.7 PR A: schema, validation, export (CR-2026-11-18-v1.7-scope; EP-01, EP-02, EP-06, EP-10, H123, N1, N2, O1)
+- New data.csv columns (appended): `E_raw_leg` (EP-01; filled for the 6 rows with a raw
+  potential: BDFE-0387 OCP, 0413 a, 0507 a, 0521 a, 0540 b, 0541 b), `bounds` (EP-02; the 5
+  `limit` rows: BDFE-0093 `E_H2>;BDFE≥`, 0100 `E_a<;pKa_b>`, 0141 `E_b>;pKa_a<`, 0142
+  `E_a<;E_b>;pKa_a<;pKa_b>`, 0458 `E_a≥;BDFE≥`) and `sigma_type` (EP-10; 58 σ rows: 52
+  published, 4 curator-estimate BDFE-0521, 0522, 0523, 0539, 2 bracket-midpoint BDFE-0538,
+  0547). constants.csv gains `standard_state`. datapackage.json fields with enums/pattern.
+- Flags and notes: `ref-conv` stored on BDFE-0507/0521 (the app no longer adds it at
+  runtime); `check-src` + "inherited" note on BDFE-0110 to 0112 and BDFE-0214 (one Bordwell
+  diagonal of the source does not close); buffer pKa note on BDFE-0387; bound notes on the 5
+  `limit` rows. No stored value changes; 547 measurements / 531 couples unchanged.
+- validate.py: numeric parse first, so non-numeric values give per-row errors, not a
+  traceback (H123); hard checks for E_raw_leg (converted value equals the named leg within
+  0.0005 V; OCP cell potential reproduces E_H2 with the stated buffer pKa within 0.003 V),
+  `ref-conv` iff the raw reference is off the target scale, `limit` iff `bounds`, bounds
+  syntax, `sigma_type` iff `sigma_BDFE`. Both Bordwell diagonals are checked where both are
+  stored; a closure combining an upper and a lower bound is reported as indeterminate and
+  not evaluated (BDFE-0100, 0141, 0142). Flags matched by token (N2). CSV writers use LF (O1).
+- derived/analysis.csv: new column `eq10_residual_other_kcal` (second diagonal, 34 rows);
+  `eq10_residual_kcal` keeps its definition; BDFE-0142's entry is now empty (both diagonals
+  indeterminate). constants_version changes with the new constants column.
+  derived/verification.csv: new column `eq10_res_other`; outcome uses both diagonals
+  (BDFE-0090, 0111, 0112, 0214 pass → soft; BDFE-0142 soft → pass).
+- Explorer: bound operators before the value in table, panel, square scheme, ladder tooltip
+  and pair calculator; indeterminate Bordwell lines read "not determinable: combines an upper
+  and a lower bound"; a bounded BDFE carries a ≥/≤ marker on the ladder rung; σ label names
+  its type; the conversion item names the leg; hydricity-line potentials with 3 decimals (N1).
+- CSV export (EP-06; fixes the M-10 regression): every data.csv column at stored precision,
+  ASCII minus, empty for missing values, plus display_group, E_display_<scale>, BDFE_<unit>,
+  `*_rel` bound columns and check_outcome; flags as stored; recommended = 1 for single-member
+  couples too. Column names now follow data.csv (E_a, E_b, E_c, pKa_a, pKa_b, E_H2 replace
+  E_a_V, E_b_V, E_c_V, pKa_XH, E_V_vs_H2; orig_ref_in_source → refs).
+- Figure scripts: bounded rows excluded from the Fig 3 statistics and the Fig 4 window code
+  (counts printed); Fig 2 draws the bound operator at bounded rungs. Figures not re-rendered.
+- Tests: jsdom 132 → 150, mutation 15 → 32 (the M4 case now also fails on a traceback).
+
 ### SI findings (CR-2026-11-17-si-findings items 1 to 5)
 - Explorer: a raw potential whose reference already is the target scale (Fc or
   Fc+/0 in organic solvents; SHE or NHE in H2O) is no longer sent through the

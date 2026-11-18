@@ -82,7 +82,7 @@ def autorecommend(data_path=None):
         win = sorted(cand, key=lambda i: (-int(rows[i][iY] or 0), -completeness(i), i))[0]
         rows[win][iRec] = "auto"; n_auto += 1
     with open(path, "w", newline="", encoding="utf-8") as f:
-        w = _csv.writer(f); w.writerow(head); w.writerows(rows)
+        w = _csv.writer(f, lineterminator="\n"); w.writerow(head); w.writerows(rows)  # O1: LF, as committed
     print(f"auto-recommendation: {n_auto} starred, {n_conflict} conflict groups (no star), {n_manual} manual-override groups")
 
 
@@ -113,8 +113,10 @@ def write_verification():
         eid = r["entry_id"]; b = batch_of(eid); o = ov.get(eid, {})
         a = analysis.get(eid, {})
         e18, e10, ehy = a.get("eq18_residual_kcal",""), a.get("eq10_residual_kcal",""), a.get("hyd_residual_kcal","")
+        e10o = a.get("eq10_residual_other_kcal", "")  # EP-02: second diagonal, where both are stored
         checks = [n for n,v in (("eq18",e18),("eq10",e10),("hyd",ehy)) if v != ""]
-        soft = (e18 and abs(float(e18)) > 0.3) or (e10 and abs(float(e10)) > 0.5) or (ehy and abs(float(ehy)) > 0.5)
+        soft = ((e18 and abs(float(e18)) > 0.3) or (e10 and abs(float(e10)) > 0.5)
+                or (e10o and abs(float(e10o)) > 0.5) or (ehy and abs(float(ehy)) > 0.5))
         outcome = ("soft" if soft else "pass") if checks else "n/a"
         loc = b["source_locator"]
         if "Agarwal" in loc and r.get("table") and r["table"] != "EXT":
@@ -131,7 +133,7 @@ def write_verification():
         if o.get("cross_checks"): cross.append(o["cross_checks"])
         pv = o.get("primary_verified", b["primary_verified"])
         summary = (f"{b['source_type']} ({loc}), {b['extraction_route']}; primary-verified: {pv}; "
-                   + (f"closes by {', '.join(checks)} ({', '.join(f'{c} {v}' for c,v in (('eq18',e18),('eq10',e10),('hyd',ehy)) if v)}) - {outcome}"
+                   + (f"closes by {', '.join(checks)} ({', '.join(f'{c} {v}' for c,v in (('eq18',e18),('eq10',e10 + (f' / other diagonal {e10o}' if e10o else '')),('hyd',ehy)) if v)}) - {outcome}"
                       if checks else "no closure applicable")
                    + (f"; BDFE vs published: {delta}" if delta else "")
                    + (f"; {' / '.join(cross)}" if cross else "")
@@ -148,6 +150,7 @@ def write_verification():
             "check_outcome": outcome, "bdfe_pub_delta": delta,
             "cross_checks": " / ".join(cross), "spot_check": o.get("spot_check", ""),
             "open_flags": r.get("flags", ""), "summary": summary,
+            "eq10_res_other": e10o,
         })
     path = os.path.join(HERE, "derived", "verification.csv")
     with open(path, "w", newline="", encoding="utf-8") as f:

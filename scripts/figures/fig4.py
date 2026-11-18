@@ -3,7 +3,7 @@ by class, MeCN + H2O; separate strip for effective ox/base + red/acid pairs.
 Bin parameters adjustable by the 5.3 analysis MC (claude/analysis-brief-5-3.md)."""
 import matplotlib.pyplot as plt
 from figcommon import (load_rows, recommended_per_couple, CLASS_COLORS, CLASS_LABELS,
-                       provenance, save)
+                       provenance, save, is_bounded)
 
 BIN_LO, BIN_HI, BIN_W = 5, 110, 5  # BIN_LO 20 -> 5 (CR-2026-11-14-manuscript-figures F-3)
 
@@ -29,7 +29,10 @@ def main():
         # couples are bracketed, and non-well-characterized couples inside a
         # bracket appear as a hatched "estimated legs only" band.
         SOFT = ("approx", "limit", "check-src", "lowprec", "dmso-unc")
-        disc = [r for r in discrete if r["class"] != "co2"]
+        # EP-02: bounded couples are excluded from the window code (neither bracket end nor band)
+        nb = [r for r in discrete if r["class"] != "co2" and is_bounded(r)]
+        print(f"{sv}: bounded couples excluded from the window code: {len(nb)} ({', '.join(r['entry_id'] for r in nb)})")
+        disc = [r for r in discrete if r["class"] != "co2" and not is_bounded(r)]
         wc = sorted([r for r in disc if not any(f in r["flags"] for f in SOFT)],
                     key=lambda r: r["_bdfe"])
         est = [r for r in disc if any(f in r["flags"] for f in SOFT)]

@@ -667,5 +667,23 @@ if (chips.length) {
   T("BDFE-0139: square scheme labels pKa 0.85", svg && /pK\u2090 = 0\.85/.test(svg.textContent), svg ? "" : "no svg");
 }
 
+// ---------- 6m. no back-fill of E°(X/X−) from a converted raw potential (EP-00, M-01) ----------
+{
+  const ids = ["BDFE-0540", "BDFE-0541"];
+  const panels = ids.map(id => newDom({ hash: "#" + id }).window.document);
+  T("BDFE-0540/0541: panel shows no E°(X/X⁻) value line (raw potential is the E_b leg)",
+    panels.every(pd => { const t = pd.getElementById("detail").textContent; return !/E°\(X\/X⁻\)[^\d−]{0,40}[−-]?\d+\.\d+ V vs/.test(t); }));
+  T("BDFE-0540/0541: square-scheme Ea edge is not drawn as stored",
+    panels.every(pd => { const e = pd.querySelector('#sqsvg .sqedge[data-leg="Ea"]'); return e && e.dataset.state !== "stored"; }));
+  const dc = newDom(); const wc = dc.window;
+  wc.document.getElementById("csvScope").value = "all";
+  const lines = wc.csvText().split("\n"); const hd = lines[0].split(",");
+  const iEa = hd.indexOf("E_a_V");
+  const rowsC = ids.map(id => lines.find(l => l.split(",")[1] === id));
+  const longDec = lines.slice(1).some(l => /\d\.\d{7,}/.test(l));
+  T("BDFE-0540/0541: CSV E_a_V empty; no exported number with more than 6 decimals",
+    rowsC.every(l => l && l.split(",")[iEa] === "") && !longDec, longDec ? "float artefact present" : "");
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

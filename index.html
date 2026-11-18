@@ -1995,7 +1995,6 @@ D.forEach(r=>{
     const off=REFOFF[r.ErawRef+"|"+r.solvent];
     if(off){
       r.refconv={raw:r.Eraw,ref:r.ErawRef,off:off.v,unc:off.unc,src:off.src,conv:r.Eraw-off.v};
-      if(r.Ea==null)r.Ea=r.refconv.conv;
       if(!r.flags.includes("ref-conv"))r.flags=(r.flags?r.flags+";":"")+"ref-conv";
     }else{
       r.flags=(r.flags?r.flags+";":"")+"ref-conv-missing";

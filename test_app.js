@@ -727,8 +727,8 @@ if (chips.length) {
   const t538 = newDom({ hash: "#BDFE-0538" }).window.document.getElementById("detail").textContent;
   T("EP-10: σ label follows sigma_type, with unit (0521 curator estimate, 0538 bracket midpoint)",
     /σ \(curator estimate\)[^±]*±4\.5 kcal mol⁻¹/.test(t521) && /σ \(bracket midpoint\)[^±]*±1\.0 kcal mol⁻¹/.test(t538));
-  T("EP-10: 58 rows carry sigma_type exactly where sigma_BDFE is set",
-    DATA.filter(r => r.sigma_type).length === 58 && DATA.every(r => !!r.sigma_type === !!r.sigma_BDFE));
+  T("EP-10: 60 rows carry sigma_type exactly where sigma_BDFE is set",
+    DATA.filter(r => r.sigma_type).length === 60 && DATA.every(r => !!r.sigma_type === !!r.sigma_BDFE));
   // N1: the hydricity line's printed terms reproduce its printed result
   const h504 = newDom({ hash: "#BDFE-0504" }).window.document.getElementById("sqscheme");
   const eqH = h504 ? [...h504.querySelectorAll(".eq")].map(e => e.textContent).find(t => /Hydricity cycle/.test(t)) : "";
@@ -856,6 +856,9 @@ if (chips.length) {
   T("review-pr-79 O1: BDFE-0524 sigma is a curator estimate and the panel says so",
     row("BDFE-0524").sigma_type === "curator-estimate" && /σ \(curator estimate\)/.test(det("BDFE-0524")));
   T("EP-03 (page check): BDFE-0025 note names the Kütt extrapolation from DMSO", /extrapolated from DMSO to MeCN/.test(row("BDFE-0025").conditions));
+  T("H154 (Carsten 2026-11-19): published sigma stored for BDFE-0105 (1.2 kcal/mol) and BDFE-0164 (0.1 kcal/mol), shown with type and unit",
+    row("BDFE-0105").sigma_BDFE === "1.2" && row("BDFE-0164").sigma_BDFE === "0.1" && ["BDFE-0105", "BDFE-0164"].every(e => row(e).sigma_type === "published")
+    && /σ \(published\)[\s\S]{0,60}±1\.2 kcal mol⁻¹/.test(det("BDFE-0105")) && /±0\.1 kcal mol⁻¹/.test(det("BDFE-0164")));
 }
 
 // ---------- 6l. pKa at stored precision (review-manuscript-v1.6 B1) ----------

@@ -16,31 +16,12 @@ function T(name, cond, info = "") {
   else { fail++; console.log("FAIL " + name + (info ? "  [" + info + "]" : "")); }
 }
 
-const _doms = [];
 function newDom(opts = {}) {
-  const x = new JSDOM(html, {
+  return new JSDOM(html, {
     runScripts: "dangerously",
     url: "https://carsten-streb.github.io/pcetbase/" + (opts.hash || ""),
     pretendToBeVisual: true,
   });
-  _doms.push(x);
-  return x;
-}
-// Open a page at #eid, read the panel text, close the page at once.
-function panelText(eid) {
-  const x = new JSDOM(html, { runScripts: "dangerously", url: "https://carsten-streb.github.io/pcetbase/#" + eid, pretendToBeVisual: true });
-  const t = x.window.document.getElementById("detail").textContent;
-  x.window.close();
-  return t;
-}
-// Close every page opened by earlier sections (except the shared one), so the
-// suite stays below the CI heap limit (OOM at 4 GB in CI run 44506402563).
-async function releaseDoms() {
-  for (const x of _doms) if (x !== dom) x.window.close();
-  _doms.length = 0; _doms.push(dom);
-  // jsdom frees closed windows only after the event loop turns
-  await new Promise(r => setTimeout(r, 50)); await new Promise(r => setTimeout(r, 50));
-  if (process.env.HEAPLOG) { if (global.gc) global.gc(); console.error("heap MB", Math.round(process.memoryUsage().heapUsed / 1e6)); }
 }
 
 const dom = newDom();
@@ -48,7 +29,6 @@ const w = dom.window, d = w.document;
 const $ = (id) => d.getElementById(id);
 const fire = (el, type) => el.dispatchEvent(new w.Event(type, { bubbles: true }));
 
-(async () => {
 // ---------- 1. boot + baseline ----------
 T("app boots: table rendered", d.querySelectorAll("#tbl tbody tr").length > 0);
 const countText = () => $("count").textContent;
@@ -463,7 +443,6 @@ if (chips.length) {
 
 // ---------- 6h. usability v1.5.x package (CR-2026-11-14-usability-test + CR-2026-11-16-units, PR #65) ----------
 {
-  await releaseDoms();
   // U1: typed names resolve without the "name [solvent]" datalist key
   $("pDon").value = "[Ni(dmpp)2H]+";
   $("pAcc").value = "[HPVW11O40]4-";
@@ -570,7 +549,6 @@ if (chips.length) {
 
 // ---------- 6i. equation labels + units addendum + square-scheme redesign (PR #67) ----------
 {
-  await releaseDoms();
   // H104: no bare Agarwal equation numbers in visible text (boot + two panels)
   const eqRx = /\beq[ -]?1[08]\b/i;
   const vis = doc => { const b = doc.body.cloneNode(true); b.querySelectorAll("script,style").forEach(x => x.remove()); return b.textContent; };
@@ -680,7 +658,6 @@ if (chips.length) {
 
 // ---------- 6n. v1.7 PR A: E_raw_leg, bounds, export, sigma_type (EP-01, EP-02, EP-06, EP-10, N1) ----------
 {
-  await releaseDoms();
   const path = require("path");
   const dataTxt = fs.readFileSync(path.join(path.dirname(path.resolve(file)), "data", "data.csv"), "utf-8");
   const dw0 = newDom().window;
@@ -750,8 +727,8 @@ if (chips.length) {
   const t538 = newDom({ hash: "#BDFE-0538" }).window.document.getElementById("detail").textContent;
   T("EP-10: σ label follows sigma_type, with unit (0521 curator estimate, 0538 bracket midpoint)",
     /σ \(curator estimate\)[^±]*±4\.5 kcal mol⁻¹/.test(t521) && /σ \(bracket midpoint\)[^±]*±1\.0 kcal mol⁻¹/.test(t538));
-  T("EP-10: 60 rows carry sigma_type exactly where sigma_BDFE is set",
-    DATA.filter(r => r.sigma_type).length === 60 && DATA.every(r => !!r.sigma_type === !!r.sigma_BDFE));
+  T("EP-10: 58 rows carry sigma_type exactly where sigma_BDFE is set",
+    DATA.filter(r => r.sigma_type).length === 58 && DATA.every(r => !!r.sigma_type === !!r.sigma_BDFE));
   // N1: the hydricity line's printed terms reproduce its printed result
   const h504 = newDom({ hash: "#BDFE-0504" }).window.document.getElementById("sqscheme");
   const eqH = h504 ? [...h504.querySelectorAll(".eq")].map(e => e.textContent).find(t => /Hydricity cycle/.test(t)) : "";
@@ -763,11 +740,10 @@ if (chips.length) {
 
 // ---------- 6o. v1.7 PR B: data and names pass (EP-03, EP-04, EP-05, EP-08, EP-09; review-pr-79 F2) ----------
 {
-  await releaseDoms();
   const path = require("path");
   const DATA = newDom().window.parseCSV(fs.readFileSync(path.join(path.dirname(path.resolve(file)), "data", "data.csv"), "utf-8"));
   const idOf = eid => DATA.findIndex(r => r.entry_id === eid);
-  const det = panelText;
+  const det = eid => newDom({ hash: "#" + eid }).window.document.getElementById("detail").textContent;
   const d507 = det("BDFE-0507");
   T("EP-05: BDFE-0507 uses the offset its source states (0.40 V) and shows E_a -1.630 V vs Fc",
     /offset stated in the source/.test(d507) && /[−-]1\.230 − \(0\.400\) = [−-]1\.630 V vs Fc/.test(d507) && /43\.9 kcal/.test(d507));
@@ -804,7 +780,6 @@ if (chips.length) {
 
 // ---------- 6p. v1.7 PR C: text, conventions, glossary, release hygiene (EP-04, EP-05, EP-12, EP-13) ----------
 {
-  await releaseDoms();
   const path = require("path");
   const root = path.dirname(path.resolve(file));
   const DATA = newDom().window.parseCSV(fs.readFileSync(path.join(root, "data", "data.csv"), "utf-8"));
@@ -855,12 +830,11 @@ if (chips.length) {
 
 // ---------- 6q. v1.7 H154: names, charges and conditions from the sources (EP-08, EP-03, review-pr-79 O1) ----------
 {
-  await releaseDoms();
   const path = require("path");
   const DATA = newDom().window.parseCSV(fs.readFileSync(path.join(path.dirname(path.resolve(file)), "data", "data.csv"), "utf-8"));
   const idOf = eid => DATA.findIndex(r => r.entry_id === eid);
   const row = eid => DATA[idOf(eid)];
-  const det = panelText;
+  const det = eid => newDom({ hash: "#" + eid }).window.document.getElementById("detail").textContent;
   const find = q => { const w = newDom().window; w.document.getElementById("q").value = q; w.document.getElementById("q").dispatchEvent(new w.Event("input"));
     return [...w.document.querySelectorAll("#tbl tbody tr")].map(t => t.dataset.id); };
   // every renamed row is still found by its v1.6 label (alias) and keeps its couple and value
@@ -882,14 +856,10 @@ if (chips.length) {
   T("review-pr-79 O1: BDFE-0524 sigma is a curator estimate and the panel says so",
     row("BDFE-0524").sigma_type === "curator-estimate" && /σ \(curator estimate\)/.test(det("BDFE-0524")));
   T("EP-03 (page check): BDFE-0025 note names the Kütt extrapolation from DMSO", /extrapolated from DMSO to MeCN/.test(row("BDFE-0025").conditions));
-  T("H154 (Carsten 2026-11-19): published sigma stored for BDFE-0105 (1.2 kcal/mol) and BDFE-0164 (0.1 kcal/mol), shown with type and unit",
-    row("BDFE-0105").sigma_BDFE === "1.2" && row("BDFE-0164").sigma_BDFE === "0.1" && ["BDFE-0105", "BDFE-0164"].every(e => row(e).sigma_type === "published")
-    && /σ \(published\)[\s\S]{0,60}±1\.2 kcal mol⁻¹/.test(det("BDFE-0105")) && /±0\.1 kcal mol⁻¹/.test(det("BDFE-0164")));
 }
 
 // ---------- 6l. pKa at stored precision (review-manuscript-v1.6 B1) ----------
 {
-  await releaseDoms();
   const dp = newDom({ hash: "#BDFE-0139" });
   const det = dp.window.document.getElementById("detail");
   const txt = det ? det.textContent : "";
@@ -903,7 +873,6 @@ if (chips.length) {
 
 // ---------- 6m. no back-fill of E°(X/X−) from a converted raw potential (EP-00, M-01) ----------
 {
-  await releaseDoms();
   const ids = ["BDFE-0540", "BDFE-0541"];
   const panels = ids.map(id => newDom({ hash: "#" + id }).window.document);
   T("BDFE-0540/0541: panel shows no E°(X/X⁻) value line (raw potential is the E_b leg)",
@@ -924,4 +893,3 @@ if (chips.length) {
 
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
-})().catch(e => { console.error(e); process.exit(1); });

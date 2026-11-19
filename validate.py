@@ -16,7 +16,10 @@ without E_raw_leg or with a converted value that does not match the named leg,
 sigma_BDFE without sigma_type or vice versa (EP-10).
 Both Bordwell diagonals are checked where both are stored (EP-02): each
 diagonal beyond 0.5 kcal/mol needs an excusing flag. A diagonal that combines
-an upper and a lower bound is not evaluated ("indeterminate").
+an upper and a lower bound is not evaluated ("indeterminate"); bounds of the
+same direction on calc and stored BDFE are "not informative"; a bound on only
+one side is tested as an inequality (review-pr-79 F1). Only equality residuals
+go into derived/analysis.csv.
 Flags are matched by token after splitting on ";" and ":" (N2).
 """
 import csv, hashlib, os, re, sys
@@ -24,7 +27,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 BONDS = {"O-H", "N-H", "S-H", "C-H", "M-H", "X-H"}
 EXCUSING = ("limit", "approx", "lowprec", "check-src", "dmso-unc")
 NUMERIC_FIELDS = ("E_a", "E_b", "E_c", "E_H2", "pKa_a", "pKa_b", "BDFE_pub",
-                  "hydricity_kcal", "sigma_BDFE", "E_raw", "T_K")
+                  "hydricity_kcal", "sigma_BDFE", "E_raw", "T_K", "E_raw_offset")
 BOUND_FIELDS = ("E_a", "E_b", "pKa_a", "pKa_b", "E_H2", "BDFE")
 BOUND_OPS = {"<": "U", "≤": "U", ">": "L", "≥": "L"}  # U = upper bound, L = lower bound
 E_RAW_LEGS = {"a": "E_a", "b": "E_b", "c": "E_c", "H2": "E_H2", "OCP": None}
@@ -60,15 +63,28 @@ def parse_bounds(s):
         out[field] = op
     return out
 
-def diagonal_state(bounds, *fields):
-    """'free' (no bounded term), 'bound' (bounded terms all in one direction)
-    or 'indeterminate' (an upper and a lower bound combined). All terms of
-    eq 10 and eq 18 enter with a positive coefficient, so the direction of a
-    bounded term carries over to the result unchanged."""
-    dirs = {BOUND_OPS[bounds[f]] for f in fields if f in bounds}
-    if not dirs:
-        return "free"
-    return "indeterminate" if len(dirs) > 1 else "bound"
+def closure_state(bounds, legs):
+    """How a closure residual d = calc - stored BDFE can be read (review-pr-79 F1).
+    The legs (E, pKa) enter calc with positive coefficients, so a bounded leg
+    makes calc a bound in the same direction; the stored BDFE sits on the other
+    side of the residual. Returns (state, sign):
+      ('free', None)             no bound involved: d is an equality residual
+      ('indeterminate', None)    legs combine an upper and a lower bound
+      ('not-informative', None)  calc and stored BDFE are bounds in the same
+                                 direction (two lower bounds constrain nothing)
+      ('inequality', 'le'|'ge')  a real test: d <= 0 ('le') or d >= 0 ('ge')."""
+    ld = {BOUND_OPS[bounds[f]] for f in legs if f in bounds}
+    if len(ld) > 1:
+        return "indeterminate", None
+    ld = next(iter(ld), None)          # 'L': true BDFE >= calc
+    bd = BOUND_OPS[bounds["BDFE"]] if "BDFE" in bounds else None  # 'L': true BDFE >= stored
+    if ld is None and bd is None:
+        return "free", None
+    if ld and bd and ld == bd:
+        return "not-informative", None
+    if ld:                              # legs bounded (BDFE free or bounded the other way)
+        return "inequality", ("le" if ld == "L" else "ge")
+    return "inequality", ("ge" if bd == "L" else "le")   # only BDFE bounded: calc is exact
 
 def on_target_scale(ref, solvent):
     """Fc in organic solvents; SHE or NHE (NHE = SHE convention) in water."""
@@ -168,6 +184,14 @@ def schema_errors(rows, eh2, refoff):
             raw, ref, solv = float(r["E_raw"]), r["E_raw_ref"], r["solvent"]
             target = on_target_scale(ref, solv)
             off = 0.0 if target else refoff.get((ref, solv))
+            if r.get("E_raw_offset"):
+                # EP-05 / review-pr-79 O5: the offset the source itself states wins
+                if target:
+                    errors.append(f"data.csv {eid}: E_raw_offset set but E_raw_ref '{ref}' already is the target scale in {solv}")
+                    continue
+                off = float(r["E_raw_offset"])
+                if "stated" not in r.get("conditions", "").lower() and "states" not in r.get("conditions", "").lower():
+                    errors.append(f"data.csv {eid}: E_raw_offset set but conditions do not say where the source states it")
             if target:
                 for fl in ("ref-conv", "ref-conv-missing"):
                     if has_flag(r, fl):
@@ -205,6 +229,18 @@ def schema_errors(rows, eh2, refoff):
                         errors.append(f"data.csv {eid}: converted E_raw {conv:.4f} V differs from {col} {stored} V by more than 0.0005 V")
         elif leg:
             errors.append(f"data.csv {eid}: E_raw_leg '{leg}' but E_raw empty")
+        if r.get("E_raw_offset") and not r.get("E_raw"):
+            errors.append(f"data.csv {eid}: E_raw_offset set but E_raw empty")
+        # EP-03: Ep:<leg> names a stored potential leg
+        for t in (r.get("flags") or "").split(";"):
+            if t.startswith("Ep:"):
+                lg = t[3:]
+                if lg not in ("E_a", "E_b", "E_c"):
+                    errors.append(f"data.csv {eid}: flag '{t}' names no potential leg (E_a, E_b, E_c)")
+                elif not r.get(lg):
+                    errors.append(f"data.csv {eid}: flag '{t}' but {lg} is empty")
+            elif t == "Ep":
+                errors.append(f"data.csv {eid}: flag 'Ep' needs the leg it applies to (Ep:E_a, Ep:E_b or Ep:E_c)")
         # --- EP-02: bounds
         try:
             b = parse_bounds(r.get("bounds", ""))
@@ -264,10 +300,19 @@ def validate_couples(rows):
         for (s1, e1), (s2, e2) in zip(ranges, ranges[1:]):
             if s2 <= e1:
                 errors.append(f"provenance_batches.csv: ranges {s1}..{e1} and {s2}..{e2} overlap")
+        btype = {}  # Agarwal 2022 review-table batches only: their rows carry an Agarwal table (T5..T24)
+        for b in _csv.DictReader(open(bpath, encoding="utf-8")):
+            if b["source_type"] == "review-table" and "Agarwal" in b["source_locator"]:
+                btype[(int(b["range_start"].split("-")[1]), int(b["range_end"].split("-")[1]))] = "Agarwal 2022 review-table"
         for r in rows:
             n = int(r["entry_id"].split("-")[1]) if r.get("entry_id", "").startswith("BDFE-") else None
             if n is not None and not any(s <= n <= e for s, e in ranges):
                 errors.append(f"provenance_batches.csv: {r['entry_id']} not covered by any range")
+            # EP-11 (M-19): a primary-literature row may not sit in a review-table batch
+            if n is not None and r.get("table") == "EXT":
+                for (s, e), t in btype.items():
+                    if s <= n <= e:
+                        errors.append(f"provenance_batches.csv: {r['entry_id']} has table EXT but sits in the {t} batch {s}..{e}")
         vpath = os.path.join(HERE, "derived", "verification.csv")
         # build.py regenerates the ledger right after this validate run, so the
         # staleness check is skipped there (PCETBASE_BUILDING=1); standalone
@@ -355,6 +400,10 @@ def main():
     for r in rows:
         if r.get("hydricity_kcal") and r.get("E_c") and r.get("solvent") not in ch:
             print(f"SOFT WARN {r.get('entry_id','?')}: hydricity_kcal + E_c stored but no CHyd constant for solvent '{r.get('solvent')}' — diagonal not checked")
+    # EP-03 (soft): lowT without a temperature
+    for r in rows:
+        if has_flag(r, "lowT") and not r.get("T_K"):
+            print(f"SOFT WARN {r.get('entry_id','?')}: flag 'lowT' but T_K is empty")
     # F7 hardening M7 (soft): limit flag without conditions text
     for r in rows:
         if has_flag(r, "limit") and not r.get("conditions", "").strip():
@@ -362,21 +411,27 @@ def main():
     n_eq18 = n_eq10 = n_hyd = 0
     flags18, flags10, flagshyd = [], [], []
     resid18, resid10, residhyd, resid10w = {}, {}, {}, {}
-    indeterminate, boundchecks = [], []
+    indeterminate, noninf, ineq = [], [], []
     for r in rows:
         name = f'{r["compound"]}{"/"+r["partner"] if r["partner"] else ""} ({r["solvent"]}, {r["table"]})'
         soft = any(has_flag(r, k) for k in EXCUSING)
         bnd = parse_bounds(r.get("bounds", ""))
         # eq 18: BDFE = 23.06*E(V vs H2) + dGfH
         if r["E_H2"] and r["BDFE"] and r["solvent"] in dgh:
-            st = diagonal_state(bnd, "E_H2", "BDFE")
+            st, sg = closure_state(bnd, ("E_H2",))
+            calc = 23.06*float(r["E_H2"]) + dgh[r["solvent"]]
+            d = calc - float(r["BDFE"])
             if st == "indeterminate":
                 indeterminate.append(f"{r['entry_id']} eq18")
+            elif st == "not-informative":
+                noninf.append(f"{r['entry_id']} eq18")
+            elif st == "inequality":
+                ok = d <= 0.3 if sg == "le" else d >= -0.3
+                ineq.append(f"{r['entry_id']} eq18 calc - stored {'<=' if sg == 'le' else '>='} 0: {d:+.2f} kcal/mol {'ok' if ok else 'VIOLATED'}")
+                if not ok:
+                    flags18.append((name + " [bound]", float(r["BDFE"]), round(calc,2), round(d,2), "soft" if soft else "CHECK"))
             else:
-                if st == "bound": boundchecks.append(f"{r['entry_id']} eq18")
                 n_eq18 += 1
-                calc = 23.06*float(r["E_H2"]) + dgh[r["solvent"]]
-                d = calc - float(r["BDFE"])
                 resid18[r["entry_id"]] = d
                 if abs(d) > 0.3:
                     flags18.append((name, float(r["BDFE"]), round(calc,2), round(d,2), "soft" if soft else "CHECK"))
@@ -387,12 +442,21 @@ def main():
             for e, p, lab in (("E_a", "pKa_b", "E_a/pKa_b"), ("E_b", "pKa_a", "E_b/pKa_a")):
                 if not (r[e] and r[p]):
                     continue
-                st = diagonal_state(bnd, e, p, "BDFE")
+                st, sg = closure_state(bnd, (e, p))
+                d = 23.06*float(r[e]) + 1.37*float(r[p]) + cg[r["solvent"]] - float(r["BDFE"])
                 if st == "indeterminate":
                     indeterminate.append(f"{r['entry_id']} eq10 {lab}")
                     continue
-                if st == "bound": boundchecks.append(f"{r['entry_id']} eq10 {lab}")
-                devs.append((lab, 23.06*float(r[e]) + 1.37*float(r[p]) + cg[r["solvent"]] - float(r["BDFE"])))
+                if st == "not-informative":
+                    noninf.append(f"{r['entry_id']} eq10 {lab}")
+                    continue
+                if st == "inequality":
+                    ok = d <= 0.5 if sg == "le" else d >= -0.5
+                    ineq.append(f"{r['entry_id']} eq10 {lab} calc - stored {'<=' if sg == 'le' else '>='} 0: {d:+.2f} kcal/mol {'ok' if ok else 'VIOLATED'}")
+                    if not ok:
+                        flags10.append((name + f" [{lab}, bound]", float(r["BDFE"]), round(float(r["BDFE"])+d,2), round(d,2), "soft" if soft else "CHECK"))
+                    continue
+                devs.append((lab, d))
             if devs:
                 n_eq10 += 1
                 best = min(devs, key=lambda x: abs(x[1]))
@@ -430,8 +494,10 @@ def main():
     for f in flags18: print("  ", f)
     print(f"\nindeterminate closures (upper and lower bound combined, not evaluated): {len(indeterminate)}")
     for f in indeterminate: print("  ", f)
-    print(f"bound checks (bounded terms in one direction, evaluated as a bound): {len(boundchecks)}")
-    for f in boundchecks: print("  ", f)
+    print(f"not informative (calc and stored BDFE are bounds in the same direction): {len(noninf)}")
+    for f in noninf: print("  ", f)
+    print(f"inequality checks (one side bounded, tested as an inequality): {len(ineq)}")
+    for f in ineq: print("  ", f)
     print(f"\neq10 deviations > 0.5 kcal/mol (each stored diagonal): {len(flags10)}")
     for f in flags10: print("  ", f)
     print(f"\nhydricity deviations > 0.5 kcal/mol: {len(flagshyd)}")

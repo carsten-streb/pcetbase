@@ -46,6 +46,7 @@ doi:10.1021/acs.chemrev.1c00791; pre-correction (2010) constants are never used.
 | `doi` | primary-source DOI for `EXT` entries (review entries carry the review DOI implicitly) |
 | `BDFE_pub` | published BDFE where it differs from the recomputed value |
 | `E_raw`, `E_raw_ref` | potential exactly as published + its reference electrode (converted via `constants.csv` offsets) |
+| `E_raw_offset` | E°(Fc⁺/⁰) vs `E_raw_ref` in V as stated by the source itself; used instead of the generic `constants.csv` offset for this row (empty = constants); `conditions` say where the source states it |
 | `E_raw_leg` | which stored quantity `E_raw` becomes after conversion: `a` (E_a), `b` (E_b), `c` (E_c), `H2` (E_H2) or `OCP` (open-circuit cell potential of a buffered solution; the buffer pKa is stated in `conditions`); set exactly when `E_raw` is set. `validate.py` checks that the converted value equals the named leg within 0.0005 V and that `ref-conv` is set exactly when `E_raw_ref` is not the solvent's target scale |
 | `recommended` | `1` manual star, `0` manual suppress, `auto` assigned by policy (see below) |
 | `year` | publication year (review-tabulated rows: compilation year 2022) |
@@ -63,8 +64,14 @@ doi:10.1021/acs.chemrev.1c00791; pre-correction (2010) constants are never used.
 Flags: `hess:<leg>` (the named leg is not an independent measurement; obtained from the
 other legs by Hess's law, in the source compilation for review-tabulated entries or by
 PCETbase for primary-literature entries), `limit` (inequality bound; the bounded fields are in `bounds`),
-`approx`, `lowprec` (2-significant-figure printed value), `dmso-unc` (larger DMSO
-constant uncertainty), `lowT` (−80 °C), `excited` (excited-state potential),
+`approx`, `lowprec` (2-significant-figure printed value), `dmso-unc` (the source or
+the curators note a larger uncertainty for this DMSO value; set per row, not on every
+DMSO row), `lowT` (measured below room temperature; see `T_K` and `conditions`),
+`est-pKa` (pKa estimated or extrapolated in the source), `Ep:<leg>` (the named
+potential comes from an irreversible wave, as a peak potential or estimate, or is the
+mid-point of a two-electron wave; BDFEs that use it are effective values),
+`no-ladder` (BDFE withdrawn from the ladder and from statistics, the row kept for its
+other values), `excited` (excited-state potential),
 `ox-base`/`red-acid` (effective BDFE of a pair), `recomputed` (BDFE recalculated here
 from primary measurables with corrected constants), `avg` (average over n_H transfers;
 for n_H = 1 the mean of both closing square-scheme diagonals), `derived-E`
@@ -88,6 +95,12 @@ shows the record for each entry and offers the ledger as a CSV download. Do not 
 Ledger/analysis column names `eq18_residual_kcal` (H-atom-potential closure residual,
 kcal/mol) and `eq10_residual_kcal` (Bordwell closure residual, kcal/mol) keep the
 source equation numbers of Agarwal et al. 2022 for machine-readability.
+`eq10_residual_kcal` is the diagonal closer to the stored BDFE; `eq10_residual_other_kcal`
+(ledger: `eq10_res_other`) holds the second diagonal where both are stored.
+`derived/analysis.csv` holds equality residuals only: a closure that involves a bound
+from `bounds` (indeterminate, not informative or an inequality test) leaves its residual
+column empty, and consumers that build statistics should also drop rows flagged
+`no-ladder`, as the figure scripts do.
 
 ### Recommended values (★)
 

@@ -82,6 +82,10 @@ def bdfe_bound(r):
             return tok[-1]
     return ""
 
+def off_ladder(r):
+    """EP-09: rows flagged no-ladder are drawn on no ladder and enter no statistics."""
+    return "no-ladder" in (r.get("flags") or "").split(";")
+
 def is_bounded(r):
     """EP-02: rows with any inequality bound; excluded from window and statistics code."""
     return bool((r.get("bounds") or "").strip())

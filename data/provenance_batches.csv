@@ -1,5 +1,7 @@
 range_start,range_end,source_type,source_locator,extraction_route,primary_verified,introduced_in
-BDFE-0001,BDFE-0376,review-table,"Agarwal et al. Chem. Rev. 2022 (10.1021/acs.chemrev.1c00521), tables T5-T24 (per-row table in the table column)",extracted from PDF tables,no,"pre-board extraction, PR #1"
+BDFE-0001,BDFE-0159,review-table,"Agarwal et al. Chem. Rev. 2022 (10.1021/acs.chemrev.1c00521), tables T5-T24 (per-row table in the table column)",extracted from PDF tables,no,"pre-board extraction, PR #1"
+BDFE-0160,BDFE-0164,primary,"polyoxovanadate primaries (per-row DOI: 10.1021/jacs.1c13432, 10.1021/acs.inorgchem.2c02541, 10.1039/d2sc05928b); table = EXT",extracted from primary PDF,no,"pre-board extraction, PR #1; batch split in v1.7 (EP-11, M-19)"
+BDFE-0165,BDFE-0376,review-table,"Agarwal et al. Chem. Rev. 2022 (10.1021/acs.chemrev.1c00521), tables T5-T24 (per-row table in the table column)",extracted from PDF tables,no,"pre-board extraction, PR #1"
 BDFE-0377,BDFE-0409,primary,POM pilot + literature batches 1-2 (per-row DOI),extracted from primary PDF,yes,PR #1 (direct-pushed rows rebuilt)
 BDFE-0410,BDFE-0426,primary,POM batch 3a/3b + Kadereit primaries (per-row DOI),extracted from primary PDF,yes,"PRs #4, #8"
 BDFE-0427,BDFE-0473,review-SI-spreadsheet,Wiedner et al. Chem. Rev. 2016 SI xlsx (10.1021/acs.chemrev.6b00168),"extracted from SI spreadsheet (xlsx, incl. cell formulas)",no,"CR-2026-11-12-tmh-wiedner, PR #37"

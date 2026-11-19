@@ -11,6 +11,8 @@ dGfH,hexane,51.7,kcal/mol,,Agarwal2022 Table1,298 K; 1 M H• in solution
 dGfH,MeOH,51.9,kcal/mol,,Agarwal2022 Table1,298 K; 1 M H• in solution
 dGfH,toluene,52.0,kcal/mol,,Agarwal2022 Table1,298 K; 1 M H• in solution
 dGfH,acetone,51.9,kcal/mol,,Agarwal2022 Table1,298 K; 1 M H• in solution
+dGfH,chlorobenzene,52.1,kcal/mol,"added in v1.7 (EP-04, M-35)",Agarwal2022 Table1 (value as transcribed in CR-2026-11-18-expert-panel EP-04; page check at the PR B review),298 K; 1 M H• in solution
+dGfH,"1,4-dioxane",52.2,kcal/mol,"added in v1.7 (EP-04, M-35)",Agarwal2022 Table1 (value as transcribed in CR-2026-11-18-expert-panel EP-04; page check at the PR B review),298 K; 1 M H• in solution
 CG,H2O,52.8,kcal/mol,vs SHE,Agarwal2022 Table1 / Correction cr1c00791,298 K; 1 M H• in solution; electrode scale as in note
 CG,MeCN,52.6,kcal/mol,vs Fc+/0,Agarwal2022 Table1 / Correction cr1c00791,298 K; 1 M H• in solution; electrode scale as in note
 CG,DMSO,68.0,kcal/mol,vs Fc+/0,Agarwal2022 Table1 / Correction cr1c00791,298 K; 1 M H• in solution; electrode scale as in note
@@ -23,6 +25,8 @@ EH2vsFc,DMF,-0.662,V,,Agarwal2022 Table1,298 K; 1 atm H2(g); a(H+) = 1 (1 M H+)
 EH2vsFc,DMSO,-0.67,V,quasi-reversible,Agarwal2022 Table1,298 K; 1 atm H2(g); a(H+) = 1 (1 M H+)
 EH2vsFc,MeOH,-0.501,V,,Agarwal2022 Table1,298 K; 1 atm H2(g); a(H+) = 1 (1 M H+)
 EH2vsFc,THF,-0.343,V,,Agarwal2022 Table1,298 K; 1 atm H2(g); a(H+) = 1 (1 M H+)
+EH2vsFc,IPA,-0.494,V,"added in v1.7 (EP-04, M-35)",Agarwal2022 Table1 (value as transcribed in CR-2026-11-18-expert-panel EP-04; page check at the PR B review),298 K; 1 atm H2(g); a(H+) = 1 (1 M H+)
+EH2vsFc,DMA,-0.79,V,"added in v1.7 (EP-04, M-35)",Agarwal2022 Table1 (value as transcribed in CR-2026-11-18-expert-panel EP-04; page check at the PR B review),298 K; 1 atm H2(g); a(H+) = 1 (1 M H+)
 refoff:SCE,MeCN,0.380,V,0.03,"Pavlishchuk & Addison, Inorg. Chim. Acta 2000, 298, 97, Table 1 (TEAP/MeCN, 25 °C), doi:10.1016/S0020-1693(99)00407-7",n/a (reference-electrode offset; electrolyte and temperature as in source)
 refoff:SSCE,MeCN,0.384,V,0.03,"Pavlishchuk & Addison, Inorg. Chim. Acta 2000, 298, 97, Table 1 (TEAP/MeCN, 25 °C), doi:10.1016/S0020-1693(99)00407-7",n/a (reference-electrode offset; electrolyte and temperature as in source)
 refoff:NHE,MeCN,0.630,V,0.03,"Pavlishchuk & Addison, Inorg. Chim. Acta 2000, 298, 97, Table 1 (TEAP/MeCN, 25 °C), doi:10.1016/S0020-1693(99)00407-7",n/a (reference-electrode offset; electrolyte and temperature as in source)

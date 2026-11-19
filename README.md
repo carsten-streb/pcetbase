@@ -46,20 +46,23 @@ doi:10.1021/acs.chemrev.1c00791; pre-correction (2010) constants are never used.
 | `doi` | primary-source DOI for `EXT` entries (review entries carry the review DOI implicitly) |
 | `BDFE_pub` | published BDFE where it differs from the recomputed value |
 | `E_raw`, `E_raw_ref` | potential exactly as published + its reference electrode (converted via `constants.csv` offsets) |
+| `E_raw_leg` | which stored quantity `E_raw` becomes after conversion: `a` (E_a), `b` (E_b), `c` (E_c), `H2` (E_H2) or `OCP` (open-circuit cell potential of a buffered solution; the buffer pKa is stated in `conditions`); set exactly when `E_raw` is set. `validate.py` checks that the converted value equals the named leg within 0.0005 V and that `ref-conv` is set exactly when `E_raw_ref` is not the solvent's target scale |
 | `recommended` | `1` manual star, `0` manual suppress, `auto` assigned by policy (see below) |
 | `year` | publication year (review-tabulated rows: compilation year 2022) |
 | `entry_id` | stable identifier (BDFE-0001 …), never reused |
 | `couple_id` | foreign key to `couples.csv`; groups independent measurements of one couple |
-| `sigma_BDFE` | published uncertainty in kcal/mol (empty = not reported in the source) |
+| `sigma_BDFE` | one uncertainty of the stored BDFE in kcal/mol; its kind is recorded in `sigma_type`: `published` (stated, or propagated, by the source authors), `curator-estimate` (estimated by the PCETbase curators for a value they composed or converted where the source states none; documented in `conditions`), `bracket-midpoint` (the stored value is the midpoint of a published bracket and σ covers the bracket). Empty = no uncertainty available; σ is never filled by default per method class |
+| `sigma_type` | `published`, `curator-estimate` or `bracket-midpoint` (see `sigma_BDFE`); set exactly when `sigma_BDFE` is set |
 | `T_K` | temperature in K (empty = not stated) |
 | `conditions` | medium details and caveats, verbatim notes from the source |
 | `hydricity_kcal` | hydricity ΔG°(H⁻) in kcal/mol, as published (Wiedner MeCN scale) |
 | `E_c` | E°(X⁺/X•) in V on the row's reference scale (hydricity leg) |
 | `origin` | exp / comp / mixed; empty = not yet classified |
+| `bounds` | inequality bounds as printed in the source: `;`-separated tokens `<field><op>` with field ∈ E_a, E_b, pKa_a, pKa_b, E_H2, BDFE and op ∈ `<`, `>`, `≤`, `≥` (e.g. `E_a<;pKa_b>`); set exactly when the `limit` flag is set. The Explorer shows the operator before the value; the CSV export carries it in `*_rel` columns (ASCII `<`, `>`, `<=`, `>=`) |
 
 Flags: `hess:<leg>` (the named leg is not an independent measurement; obtained from the
 other legs by Hess's law, in the source compilation for review-tabulated entries or by
-PCETbase for primary-literature entries), `limit` (inequality bound),
+PCETbase for primary-literature entries), `limit` (inequality bound; the bounded fields are in `bounds`),
 `approx`, `lowprec` (2-significant-figure printed value), `dmso-unc` (larger DMSO
 constant uncertainty), `lowT` (−80 °C), `excited` (excited-state potential),
 `ox-base`/`red-acid` (effective BDFE of a pair), `recomputed` (BDFE recalculated here
@@ -120,7 +123,10 @@ edit data/data.csv  →  python build.py  →  index.html regenerated
 ```
 
 `build.py` runs, in order: the auto-recommendation policy, the full validation
-(every row checked by the H-atom-potential closure and both Bordwell diagonals against the constants), and the
+(every row checked by the H-atom-potential closure and by every stored Bordwell diagonal against the constants:
+where both diagonals are stored, each must close within 0.5 kcal/mol or the row carries an excusing flag; a
+closure that combines an upper and a lower bound from `bounds` is reported as not determinable and not
+evaluated), and the
 rebuild of the self-contained `index.html` from `template.html`. `validate.py` can be
 run alone. Pull requests are gated by the same validation via GitHub Actions: a
 contributed value that does not close thermochemically cannot be merged.

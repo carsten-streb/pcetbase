@@ -1,7 +1,7 @@
 """Fig 2 - ladder overview: H2O / MeCN / DMSO panels, recommended couples only."""
 import matplotlib.pyplot as plt
 from figcommon import (load_rows, recommended_per_couple, CLASS_COLORS, CLASS_LABELS,
-                       provenance, save, display_name)
+                       provenance, save, display_name, bdfe_bound)
 
 LANDMARK_KEYS = ["TEMPOH", "AscH- (ascorbate)", "hydroperoxyl", "toluene",
                  "[HPVW11O40]4- (1st", "{TiOH} Keggin POT, shell O-H (1st", "phenol ("]
@@ -25,6 +25,10 @@ def main():
             pairish = ("ox-base" in r["flags"]) or ("red-acid" in r["flags"]) or r["_cls"] == "pair"
             ax.hlines(r["_bdfe"], 0.15, 0.85, colors=CLASS_COLORS.get(r["_cls"], "0.3"),
                       lw=1.0, linestyles="dashed" if pairish else "solid", alpha=0.85)
+            bop = bdfe_bound(r)
+            if bop:  # EP-02: a bounded BDFE carries its operator at the left end of the rung
+                ax.text(0.13, r["_bdfe"], bop, fontsize=6, ha="right", va="center",
+                        color=CLASS_COLORS.get(r["_cls"], "0.3"))
         marked = sorted(landmarks(sub), key=lambda r: r["_bdfe"])
         ylab = None
         for r in marked:

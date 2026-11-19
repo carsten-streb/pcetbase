@@ -290,19 +290,25 @@
               ]
             },
             "description": "Kind of sigma_BDFE (see there). Non-empty exactly when sigma_BDFE is non-empty (EP-10)."
+          },
+          {
+            "name": "E_raw_offset",
+            "type": "number",
+            "unit": "V",
+            "description": "E°(Fc+/0) vs the reference electrode E_raw_ref in V as stated by the source itself (EP-05); used instead of the generic constants.csv offset for this row. Empty = constants.csv. Requires E_raw and an off-target E_raw_ref; conditions say where the source states it."
           }
         ],
-        "primaryKey": "entry_id"
-      },
-      "foreignKeys": [
-        {
-          "fields": "couple_id",
-          "reference": {
-            "resource": "couples",
-            "fields": "couple_id"
+        "primaryKey": "entry_id",
+        "foreignKeys": [
+          {
+            "fields": "couple_id",
+            "reference": {
+              "resource": "couples",
+              "fields": "couple_id"
+            }
           }
-        }
-      ]
+        ]
+      }
     },
     {
       "name": "constants",
@@ -549,17 +555,17 @@
             "description": "Bordwell (eq 10) residual of the second diagonal, calc minus stored BDFE, where both determinate diagonals are stored (EP-02 both-diagonal rule); eq10_res is the diagonal closer to the stored BDFE."
           }
         ],
-        "primaryKey": "entry_id"
-      },
-      "foreignKeys": [
-        {
-          "fields": "entry_id",
-          "reference": {
-            "resource": "data",
-            "fields": "entry_id"
+        "primaryKey": "entry_id",
+        "foreignKeys": [
+          {
+            "fields": "entry_id",
+            "reference": {
+              "resource": "data",
+              "fields": "entry_id"
+            }
           }
-        }
-      ]
+        ]
+      }
     }
   ]
 }

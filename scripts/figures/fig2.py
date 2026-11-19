@@ -1,7 +1,7 @@
 """Fig 2 - ladder overview: H2O / MeCN / DMSO panels, recommended couples only."""
 import matplotlib.pyplot as plt
 from figcommon import (load_rows, recommended_per_couple, CLASS_COLORS, CLASS_LABELS,
-                       provenance, save, display_name, bdfe_bound)
+                       provenance, save, display_name, bdfe_bound, off_ladder)
 
 LANDMARK_KEYS = ["TEMPOH", "AscH- (ascorbate)", "hydroperoxyl", "toluene",
                  "[HPVW11O40]4- (1st", "{TiOH} Keggin POT, shell O-H (1st", "phenol ("]
@@ -18,6 +18,9 @@ def landmarks(sub):
 
 def main():
     rows = recommended_per_couple(load_rows())
+    nl = [r["entry_id"] for r in rows if off_ladder(r)]
+    print(f"no-ladder rows not drawn (EP-09): {len(nl)} ({', '.join(nl)})")
+    rows = [r for r in rows if not off_ladder(r)]
     fig, axes = plt.subplots(1, 3, figsize=(7.08, 4.3), sharey=True)
     for ax, sv in zip(axes, ["H2O", "MeCN", "DMSO"]):
         sub = [r for r in rows if r["solvent"] == sv]

@@ -737,6 +737,46 @@ if (chips.length) {
     !!m && Math.abs(1.364 * num(m[1]) + 23.06 * (num(m[2]) + num(m[3])) + num(m[4]) - num(m[5])) <= 0.05, eqH.slice(0, 220));
 }
 
+// ---------- 6o. v1.7 PR B: data and names pass (EP-03, EP-04, EP-05, EP-08, EP-09; review-pr-79 F2) ----------
+{
+  const path = require("path");
+  const DATA = newDom().window.parseCSV(fs.readFileSync(path.join(path.dirname(path.resolve(file)), "data", "data.csv"), "utf-8"));
+  const idOf = eid => DATA.findIndex(r => r.entry_id === eid);
+  const det = eid => newDom({ hash: "#" + eid }).window.document.getElementById("detail").textContent;
+  const d507 = det("BDFE-0507");
+  T("EP-05: BDFE-0507 uses the offset its source states (0.40 V) and shows E_a -1.630 V vs Fc",
+    /offset stated in the source/.test(d507) && /[−-]1\.230 − \(0\.400\) = [−-]1\.630 V vs Fc/.test(d507) && /43\.9 kcal/.test(d507));
+  const exp = (() => { const w = newDom().window; w.document.getElementById("csvScope").value = "all"; return w.parseCSV(w.csvText()); })();
+  T("EP-05: CSV carries E_raw_offset 0.40 for BDFE-0507 only", exp.filter(r => r.E_raw_offset).map(r => r.entry_id + "=" + r.E_raw_offset).join() === "BDFE-0507=0.40");
+  const lad = newDom().window.document;
+  const rungIds = new Set([...lad.querySelectorAll("#ladder .rung")].map(x => x.dataset.id));
+  T("EP-09: BDFE-0508/0509 have no ladder rung; their aquo companions 0504/0505 do",
+    !rungIds.has(String(idOf("BDFE-0508"))) && !rungIds.has(String(idOf("BDFE-0509"))) && rungIds.has(String(idOf("BDFE-0504"))) && rungIds.has(String(idOf("BDFE-0505"))));
+  T("EP-09: BDFE-0508 still in the table, panel states the withdrawal",
+    !!lad.querySelector(`#tbl tbody tr[data-id="${idOf("BDFE-0508")}"]`) && /withdrawn from the ladder/.test(det("BDFE-0508")));
+  const p26 = newDom({ hash: "#BDFE-0026" }).window.document;
+  T("EP-03: BDFE-0026 stores E_a −0.674 V vs Fc with the Ep caveat; square-scheme Ea edge drawn derived",
+    /−0\.674 V vs Fc/.test(p26.getElementById("detail").textContent) && /irreversible wave/.test(p26.getElementById("detail").textContent)
+    && (p26.querySelector('#sqsvg .sqedge[data-leg="Ea"]') || {}).dataset?.state === "derived");
+  T("EP-03: the 2e-wave caveat appears on all four Pitman rows (0504, 0505, 0508, 0509)",
+    ["BDFE-0504", "BDFE-0505", "BDFE-0508", "BDFE-0509"].every(e => /two-electron wave/.test(det(e))));
+  T("EP-03: est-pKa on BDFE-0025, 0036, 0047, 0049, glossed in the panel",
+    ["BDFE-0025", "BDFE-0036", "BDFE-0047", "BDFE-0049"].every(e => /est-pKa — pKa estimated or extrapolated/.test(det(e))));
+  // every flag used in data.csv has a gloss (the panel falls back to the bare name otherwise)
+  const bases = [...new Set(DATA.flatMap(r => r.flags.split(";").filter(Boolean).map(f => f.split(":")[0])))];
+  const unglossed = bases.filter(b => { const r = DATA.find(x => x.flags.split(";").some(f => f.split(":")[0] === b));
+    const t = det(r.entry_id); const m = t.match(new RegExp(b.replace(/[-]/g, "\\-") + "(:[A-Za-z_]+)? — ([^;]{0,12})")); return !m || m[2].trim() === b; });
+  T("EP-03/EP-12: every flag in data.csv is glossed in the panel", unglossed.length === 0, unglossed.join(","));
+  const pd38 = newDom({ hash: "#BDFE-0038" }).window.document;
+  T("EP-04: TEMPOH/C6H6 E° 0.508 V vs H2", /0\.508 V vs H⁺\/H₂/.test(pd38.getElementById("detail").textContent));
+  const tr458 = lad.querySelector(`#tbl tbody tr[data-id="${idOf("BDFE-0458")}"]`);
+  T("review-pr-79 F2: BDFE-0458 table E cell carries ≥", !!tr458 && /^≥/.test(tr458.querySelectorAll("td.num")[0].textContent));
+  const ws = newDom().window; ws.document.getElementById("q").value = "LGCuOH"; ws.document.getElementById("q").dispatchEvent(new ws.Event("input"));
+  const hits = [...ws.document.querySelectorAll("#tbl tbody tr")].map(t => t.dataset.id);
+  T("EP-08: renamed BDFE-0133/0134 still found by their old label (alias)",
+    hits.includes(String(idOf("BDFE-0133"))) && hits.includes(String(idOf("BDFE-0134"))), hits.join(","));
+}
+
 // ---------- 6l. pKa at stored precision (review-manuscript-v1.6 B1) ----------
 {
   const dp = newDom({ hash: "#BDFE-0139" });

@@ -88,10 +88,10 @@ CPL-0086,Ir(ppy)2(dtbbpy),NMe3H+,MeCN,X-H,pair,,,0
 CPL-0087,(C5Me5)2Fe,pyridinium,MeCN,X-H,pair,decamethylferrocene;Fc*,,0
 CPL-0088,Cp2Fe,pyridinium,MeCN,X-H,pair,ferrocene;Fc,,0
 CPL-0089,Cp2Fe,acetic acid,MeCN,X-H,pair,ferrocene;Fc,,0
-CPL-0090,FeII(H2O)6^2+,,H2O,O-H,metal-3d,,,0
+CPL-0090,[FeII(H2O)6]2+,,H2O,O-H,metal-3d,FeII(H2O)6^2+,,0
 CPL-0091,[(TPA)CuOH2]+,,H2O,O-H,metal-3d,,,0
 CPL-0092,MnO3(OH)-,,H2O,O-H,metal-3d,,,0
-CPL-0093,(H2O)5CrOH2+,,H2O,O-H,metal-3d,,,0
+CPL-0093,[(H2O)5CrIII(OH)]2+,,H2O,O-H,metal-3d,(H2O)5CrOH2+,,0
 CPL-0094,(H2O)5CrOOH2+,,H2O,O-H,metal-3d,,,0
 CPL-0095,(Me6cyclam)Co(H2O)(OOH)2+,,H2O,O-H,metal-3d,,,0
 CPL-0096,([14]aneN4)Co(H2O)(OOH)2+,,H2O,O-H,metal-3d,,,0
@@ -100,8 +100,8 @@ CPL-0098,(Py5)FeII(OH2)2+,,DMSO,O-H,metal-3d,,,0
 CPL-0099,[(LD)FeIIOH]2-,,DMSO,O-H,metal-3d,,,0
 CPL-0100,[(LD)MnIIOH]2-,,DMSO,O-H,metal-3d,,,0
 CPL-0101,[(LD)MnIIIOH]-,,DMSO,O-H,metal-3d,,,0
-CPL-0102,[FeIICp(eta6-C6Me6)]PF6,,DMSO,C-H,metal-3d,,,0
-CPL-0103,[FeIICp*(eta6-C6Me6)]PF6,,DMSO,C-H,metal-3d,,,0
+CPL-0102,[FeIICp(eta6-C6Me6)]+,,DMSO,C-H,metal-3d,[FeIICp(eta6-C6Me6)]PF6,,0
+CPL-0103,[FeIICp*(eta6-C6Me6)]+,,DMSO,C-H,metal-3d,[FeIICp*(eta6-C6Me6)]PF6,,0
 CPL-0104,(Py5)MnII(OH2)2+,,MeCN,O-H,metal-3d,,,0
 CPL-0105,(bpy)2VV(O)(OH)+,,MeCN,O-H,metal-3d,,,0
 CPL-0106,Py2Py(piCy)2FeIIOH,,MeCN,O-H,metal-3d,,,0
@@ -131,8 +131,8 @@ CPL-0129,(dppe)V(CO)4H,,MeCN,M-H,metal-3d,,,0
 CPL-0130,[(TPP)FeIII(OOH)],,THF,O-H,metal-3d,,,0
 CPL-0131,[(PIm)FeIII(OOH)],,THF,O-H,metal-3d,,,0
 CPL-0132,[(F8TPP)FeIII(OOH)],,THF,O-H,metal-3d,,,0
-CPL-0133,pipMeLGCuOH,,THF,O-H,metal-3d,,,0
-CPL-0134,LGCuOH,,THF,O-H,metal-3d,,,0
+CPL-0133,pipMeLGCuII(OH2),,THF,O-H,metal-3d,pipMeLGCuOH,,0
+CPL-0134,LGCuII(OH2),,THF,O-H,metal-3d,LGCuOH,,0
 CPL-0135,P3SiFeCNH,,THF,N-H,metal-3d,,,0
 CPL-0136,[P3SiFeCN(Me)H]+,,THF,N-H,metal-3d,,,0
 CPL-0137,P3SiFeCN(Me)H,,THF,N-H,metal-3d,,,0

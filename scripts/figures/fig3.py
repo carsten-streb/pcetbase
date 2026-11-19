@@ -3,7 +3,7 @@ pKa-dependence panel, named case boxes (CR-2026-11-14-manuscript-figures F-2).
 Case boxes use the status-doc numbering 1, 3, 5, 6b (writer decision H96)."""
 import statistics
 import matplotlib.pyplot as plt
-from figcommon import load_rows, load_analysis, CLASS_COLORS, provenance, save, display_name, is_bounded
+from figcommon import load_rows, load_analysis, CLASS_COLORS, provenance, save, display_name, is_bounded, off_ladder
 
 CASES = [  # writer-final case boxes: status-doc cases 1, 3, 5, 6b (labels per CR-2026-11-16-figure-labels-pom)
     ("Case 1 · Hess error", "[Fe(H$_2$O)$_6$]$^{2{+}}$: printed Hess E° does not close (Δ ≈ 0.09 V)"),
@@ -16,8 +16,10 @@ def main():
     meta = {r["entry_id"]: r for r in load_rows()}
     # EP-02: rows with inequality bounds are excluded from all residual statistics
     ana_all = load_analysis()
-    ana = [a for a in ana_all if not is_bounded(meta[a["entry_id"]])]
-    print(f"bounded rows excluded from the statistics: {len(ana_all) - len(ana)} "
+    ana = [a for a in ana_all if not is_bounded(meta[a["entry_id"]]) and not off_ladder(meta[a["entry_id"]])]
+    print(f"no-ladder rows excluded from the statistics (EP-09): "
+          f"{', '.join(a['entry_id'] for a in ana_all if off_ladder(meta[a['entry_id']]))}")
+    print(f"bounded rows excluded from the statistics: {sum(1 for a in ana_all if is_bounded(meta[a['entry_id']]))} "
           f"({', '.join(a['entry_id'] for a in ana_all if is_bounded(meta[a['entry_id']]))})")
     prim, revw = [], []
     for a in ana:

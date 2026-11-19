@@ -122,6 +122,27 @@ def main():
          _set("BDFE-0389", sigma_type=""), True, r"BDFE-0389: sigma_BDFE set but sigma_type empty"),
         ("producer-estimate sigma labelled published fails (EP-10)",
          _set("BDFE-0521", sigma_type="published"), True, r"BDFE-0521: conditions call sigma a producer estimate"),
+        # v1.7 PR B
+        ("BDFE-0507 without its stated offset fails (EP-05: generic 0.380 V gives -1.61 V vs Fc, not -1.63 V)",
+         _set("BDFE-0507", E_raw_offset=""), True, r"BDFE-0507: converted E_raw -1\.6100 V differs from E_a"),
+        ("E_raw_offset without a 'stated' note in conditions fails (EP-05)",
+         _set("BDFE-0507", conditions="MeCN, potentials vs Fc+/0"), True, r"BDFE-0507: E_raw_offset set but conditions do not say"),
+        ("E_raw_offset on an on-target raw potential fails (EP-05)",
+         _set("BDFE-0413", E_raw_offset="0.1"), True, r"BDFE-0413: E_raw_offset set but E_raw_ref 'NHE' already is the target scale"),
+        ("Ep:<leg> naming an empty leg fails (EP-03)",
+         _set("BDFE-0026", flags="Ep:E_b"), True, r"BDFE-0026: flag 'Ep:E_b' but E_b is empty"),
+        ("bare Ep without a leg fails (EP-03)",
+         _set("BDFE-0026", flags="Ep"), True, r"BDFE-0026: flag 'Ep' needs the leg"),
+        ("EXT row inside an Agarwal review-table batch fails (EP-11, M-19)",
+         lambda t: edit_csv(t, "provenance_batches.csv", lambda r: (
+             r.__setitem__(0, dict(r[0], range_end="BDFE-0376")), [r.remove(x) for x in [x for x in r[1:] if x["range_start"] in ("BDFE-0160", "BDFE-0165")]])),
+         True, r"BDFE-0160 has table EXT but sits in the Agarwal 2022 review-table batch"),
+        ("same-direction bounds on calc and stored BDFE are reported as not informative (review-pr-79 F1)",
+         lambda t: None, False, r"not informative[^\n]*: 3\n\s+BDFE-0093 eq18"),
+        ("a one-sided bound is tested as an inequality and a violation is reported (review-pr-79 F1)",
+         _set("BDFE-0458", bounds="E_a≥;E_H2≥", BDFE="58.0"), False, r"BDFE-0458 eq18 calc - stored <= 0: [+]\d\.\d\d kcal/mol ok|BDFE-0458 eq10 E_a/pKa_b calc - stored <= 0: -\d\.\d\d kcal/mol ok"),
+        ("a one-sided bound violated beyond threshold is listed (soft, limit excuses) (review-pr-79 F1)",
+         _set("BDFE-0458", bounds="E_a≥;E_H2≥", BDFE="54.0"), False, r"BDFE-0458 eq10 E_a/pKa_b calc - stored <= 0: \+1\.\d\d kcal/mol VIOLATED"),
     ]
     fails = sum(0 if run_case(*c) else 1 for c in cases)
     print(f"\n{len(cases)-fails}/{len(cases)} mutation cases pass")

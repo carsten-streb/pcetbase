@@ -22,6 +22,20 @@
   no provenance footer, via `PCETBASE_FIG_FOOTER=0`); `figures/manuscript-v1.6/`
   stays as rendered for PR #74. No data change.
 
+### v1.7 PR B: data and names pass (CR-2026-11-18-v1.7-scope; EP-03, EP-04, EP-05, EP-08 part, EP-09, EP-11; review-pr-79 F1, F2, F3, F5, O5)
+- Corrections to the v1.6 archive (page-checked at H138):
+  - BDFE-0038/0039 TEMPOH (C6H6, hexane) E_H2 0.50 → 0.508 V vs H2 (Agarwal 2022 Table 5, p. 28); eq 18 residuals −0.170 → +0.014 kcal/mol.
+  - BDFE-0507 [Fe4N(CO)12H]−: Taheri 2015 states Fc+/0 at +0.40 V vs SCE in MeCN (p. 7148); E_a −1.61 → −1.63 V vs Fc+/0, BDFE 44.4 → 43.9 kcal/mol, E_H2 −0.330 → −0.350 V vs H2; check-src stays (published 47 kcal/mol implies −1.49 V vs Fc+/0).
+- constants.csv (EP-04, M-35): E°(H+/H2) vs Fc+/0 for IPA (−0.494 V) and DMA (−0.79 V), ΔG°f(H•) for chlorobenzene (52.1 kcal/mol) and 1,4-dioxane (52.2 kcal/mol), Agarwal 2022 Table 1 as transcribed in the CR (to be page-checked at the PR B review); no stored row uses them yet. The source of ΔG°f(H•, IPA) 52.0 kcal/mol stays "assumed" (open).
+- New column `E_raw_offset` (offset stated by the source, used instead of the constants.csv value; BDFE-0507 0.40 V). validate.py checks it and requires the conditions to say where the source states it.
+- EP-03 flags: `est-pKa` on BDFE-0025, 0036, 0047, 0049; `Ep:<leg>` on 38 rows (BDFE-0026 now stores E_a −0.674 V vs Fc+/0; peak potentials of irreversible waves on 0126, 0488, 0489, 0512, 0513, 0524, 0530, 0547; two-electron-wave mid-points on 29 TMH rows). BDFE-0515 checked: reversible E(M*/M−) from a DCV peak, no Ep. `approx` kept where it was. Glosses: `dmso-unc` redefined to its specific caveat (no new rows, H153 b); `lowT` = below room temperature, with T_K filled for BDFE-0130/0131 (193 K), 0517/0518 (253 K), 0528/0530 (233 K).
+- EP-09: BDFE-0508/0509 (hydroxo-referenced Pitman rows) flagged `no-ladder`: no rung, excluded from statistics and windows (figure scripts print the count); 0504/0505 labelled effective BDFEs from a two-electron potential.
+- EP-08 (notation part): [FeII(H2O)6]2+, [(H2O)5CrIII(OH)]2+, PF6− dropped from BDFE-0102/0103 names, BDFE-0133/0134 named as the X–H donors pipMeLGCuII(OH2) and LGCuII(OH2); old labels kept as aliases.
+- EP-11: provenance batch BDFE-0001 to 0376 split, BDFE-0160 to 0164 now source_type primary; validate.py rejects a table = EXT row inside an Agarwal 2022 review-table batch; datapackage foreignKeys moved into the schemas; `frictionless validate` runs in CI (0 errors).
+- review-pr-79: F1 closure states (indeterminate / not informative / inequality test / free); only equality residuals go into derived/analysis.csv (BDFE-0093 eq 18 and BDFE-0458 eq 18 and eq 10 now empty); F2 BDFE-0458 bounds `E_a≥;E_H2≥;BDFE≥`; F3 BDFE-0090 "inherited" note (source [0.43] V vs SHE fails Hess with its own legs, 0.34 V vs SHE); F5 BDFE-0387 buffer pKa cited to Kaljurand et al. 2005.
+- Explorer: Ep caveat and no-ladder note in the panel and pair calculator; Ep legs drawn in the derived style; E_raw_offset in the CSV export.
+- Tests: jsdom 153 → 164, mutation 32 → 41.
+
 ### v1.7 PR A: schema, validation, export (CR-2026-11-18-v1.7-scope; EP-01, EP-02, EP-06, EP-10, H123, N1, N2, O1)
 - New data.csv columns (appended): `E_raw_leg` (EP-01; filled for the 6 rows with a raw
   potential: BDFE-0387 OCP, 0413 a, 0507 a, 0521 a, 0540 b, 0541 b), `bounds` (EP-02; the 5

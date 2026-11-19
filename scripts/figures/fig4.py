@@ -3,12 +3,15 @@ by class, MeCN + H2O; separate strip for effective ox/base + red/acid pairs.
 Bin parameters adjustable by the 5.3 analysis MC (claude/analysis-brief-5-3.md)."""
 import matplotlib.pyplot as plt
 from figcommon import (load_rows, recommended_per_couple, CLASS_COLORS, CLASS_LABELS,
-                       provenance, save, is_bounded)
+                       provenance, save, is_bounded, off_ladder)
 
 BIN_LO, BIN_HI, BIN_W = 5, 110, 5  # BIN_LO 20 -> 5 (CR-2026-11-14-manuscript-figures F-3)
 
 def main():
     rows = recommended_per_couple(load_rows())
+    nl = [r["entry_id"] for r in rows if off_ladder(r)]
+    print(f"no-ladder rows excluded from counts and windows (EP-09): {len(nl)} ({', '.join(nl)})")
+    rows = [r for r in rows if not off_ladder(r)]
     bins = list(range(BIN_LO, BIN_HI + BIN_W, BIN_W))
     fig, axes = plt.subplots(2, 1, figsize=(7.08, 5.0), sharex=True)
     for ax, sv in zip(axes, ["MeCN", "H2O"]):

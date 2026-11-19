@@ -134,7 +134,8 @@ def write_verification():
         pv = o.get("primary_verified", b["primary_verified"])
         summary = (f"{b['source_type']} ({loc}), {b['extraction_route']}; primary-verified: {pv}; "
                    + (f"closes by {', '.join(checks)} ({', '.join(f'{c} {v}' for c,v in (('eq18',e18),('eq10',e10 + (f' / other diagonal {e10o}' if e10o else '')),('hyd',ehy)) if v)}) - {outcome}"
-                      if checks else "no closure applicable")
+                      if checks else ("closures involve bounds only (indeterminate or not informative; see the panel)"
+                                      if r.get("bounds") else "no closure applicable"))
                    + (f"; BDFE vs published: {delta}" if delta else "")
                    + (f"; {' / '.join(cross)}" if cross else "")
                    + (f"; spot-check: {o['spot_check']}" if o.get("spot_check") else "")

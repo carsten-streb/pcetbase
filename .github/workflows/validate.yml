@@ -13,6 +13,10 @@ jobs:
           python-version: "3.12"
       - name: Run thermochemical validation
         run: python validate.py
+      - name: Frictionless Data Package validation (schema, enums, primary and foreign keys; EP-11)
+        run: |
+          pip install frictionless==5.21.0
+          frictionless validate datapackage.json
       - name: Unit tests (autorecommend policy)
         run: python test_autorecommend.py
       - name: Mutation tests (validate.py hard gate)

@@ -189,8 +189,8 @@ def main():
     # EP-13 (M-58): the stamp keys on the data hash and a code hash (template.html),
     # not on version + row count; code SHAs cannot be embedded reproducibly (CI
     # rebuilds on a merge commit), so the code is identified by its content hash.
-    RELEASE = {"version": "1.6", "measurements": 547, "doi": "10.5281/zenodo.24293136",
-               "data_hash": "dedeef1b", "code_hash": "afc21127"}
+    RELEASE = {"version": "1.7", "measurements": 547, "doi": "minted on Zenodo after archiving",  # DOI-reference PR fills the DOI
+               "data_hash": "3afe3771", "code_hash": "4d4a8bfd"}
     n_rows = data.count("\n") - 1
     m = _re.search(r'version: "([^"]+)"', open(os.path.join(HERE, "CITATION.cff"), encoding="utf-8").read())
     ver = m.group(1) if m else "?"
@@ -204,11 +204,16 @@ def main():
         stamp = (f"{n_rows} measurements — development state after v{RELEASE['version']} "
                  f"(release v{RELEASE['version']}: {RELEASE['measurements']} measurements, "
                  f"doi:{RELEASE['doi']}), data {h}, code {ch}")
-    n_legless = sum(1 for line in list(__import__("csv").DictReader(data.splitlines()))
-                    if not any(line.get(k) for k in ("E_a", "E_b", "E_c", "pKa_a", "pKa_b")))
+    _legless = [line for line in __import__("csv").DictReader(data.splitlines())
+                if not any(line.get(k) for k in ("E_a", "E_b", "E_c", "pKa_a", "pKa_b"))]
+    n_legless = len(_legless)
+    # review-pr-81 N1: legless rows stored as bounds get no copy-consistency check
+    n_legless_bound = sum(1 for line in _legless if line.get("bounds"))
     out = (tpl.replace("__DATA_CSV__", esc(data)).replace("__CONST_CSV__", esc(const))
               .replace("__COUPLES_CSV__", esc(coup)).replace("__VERIF_CSV__", esc(verif)).replace("__BUILD_STAMP__", stamp)
-              .replace("__N_LEGLESS__", str(n_legless)))
+              .replace("__N_LEGLESS__", str(n_legless))
+              .replace("__N_LEGLESS_VAL__", str(n_legless - n_legless_bound))
+              .replace("__N_LEGLESS_BOUND__", str(n_legless_bound)))
     open(os.path.join(HERE, "index.html"), "w", encoding="utf-8").write(out)
     print(f"wrote index.html ({len(out)//1024} kB)")
 

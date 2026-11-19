@@ -540,12 +540,14 @@ if (chips.length) {
   T("U10: column list names every closure leg", ["E_a","E_b","E_c","pKa_a","pKa_b","hydricity_kcal","sigma_BDFE"].every(c => colCodes.includes(c)));
   T("U10: C_Hyd(MeCN) = 79.6 findable from the export UI", /C/.test(colsTxt) && /79\.6/.test(colsTxt), colsTxt.slice(-200));
 
-  // U4: footer stamp names the development state, not the release alone
+  // U4: footer stamp names the release when data and code match it (release prep v1.7, H150)
   const foot = d.querySelector("footer").textContent;
-  // v1.7 PR C (EP-13): data changed since v1.6, so the stamp names the development state with data and code hashes
-  T("U4: build stamp names the development state after v1.6 with data and code hashes",
-    /547 measurements — development state after v1\.6 \(release v1\.6: 547 measurements, doi:10\.5281\/zenodo\.24293136\), data [0-9a-f]{8}, code [0-9a-f]{8}/.test(foot) && !/release v1\.6, data/.test(foot),
+  T("U4: build stamp names release v1.7 with its data hash (data and code equal the release)",
+    /547 measurements, release v1\.7, data [0-9a-f]{8}/.test(foot) && !/development state/.test(foot),
     (foot.match(/Data version[^—]*—[^(]*/) || [""])[0]);
+  T("review-pr-81 N1/N3: curation split 202 value rows / 1 bound row; footer cites v1.6 as the previous release",
+    d.getElementById("nLeglessVal").textContent === "202" && d.getElementById("nLeglessBound").textContent === "1"
+    && /this release v1\.7: version DOI minted on Zenodo after archiving; previous release v1\.6/.test(foot));
 
   // U19: no "flag — flag" tautology in the flag legend
   const detD = newDom({ hash: "#BDFE-0406" }).window.document.getElementById("detail").textContent;

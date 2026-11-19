@@ -1,6 +1,16 @@
 # Changelog
 
-## Unreleased (toward v1.7)
+## v1.7 — 2026-11-19 (submission release; version DOI minted on Zenodo after archiving)
+
+547 measurements / 531 couples (unchanged from v1.6). Schema additions: `E_raw_leg`, `E_raw_offset`, `bounds`, `sigma_type` (data.csv), `standard_state` (constants.csv). Corrections to v1.6 values and labels are listed in "Corrections to the v1.6 archive" below. Manuscript figures: `figures/manuscript-v1.7/`.
+
+### Release prep v1.7 (board H150)
+- CITATION.cff and .zenodo.json 1.7; build.py RELEASE 1.7 / 547 measurements with data and code hashes, so the footer names "release v1.7"; footer and README name v1.7 with neutral DOI wording until Zenodo mints the version DOI (review-pr-81 N3).
+- Curation statement (README, Explorer): of the 203 entries with no stored E or pKa leg, 202 are stored as values and get the copy-consistency check; 1 (BDFE-0093) stores bounds only, which allow no closure check. build.py generates both numbers; validate.py checks the README sentence (review-pr-81 N1; +1 mutation case).
+- Published σ for BDFE-0105 (1.2 kcal/mol) and BDFE-0164 (0.1 kcal/mol) (Carsten 2026-11-19; commit from `builder/v1.7-sigma-harness`).
+- jsdom harness: pages are closed between test sections and the event loop yields, keeping the suite below the CI heap limit (a CI run had failed with "JavaScript heap out of memory" at about 4 GB); no assertion changed.
+- U4 test asserts the release stamp; release figure set (`figures/`) re-rendered with watermark v1.7; manuscript set `figures/manuscript-v1.7/` (no footer) with its README.
+- This section and the H154 section supersede the PR B notes on the constants (review-pr-80 N1).
 
 ### Expert-panel hotfix EP-00 (M-01, board H139)
 - Explorer: a converted raw potential is no longer copied into E°(X/X−) when that
@@ -61,7 +71,7 @@
 - Corrections to the v1.6 archive (page-checked at H138):
   - BDFE-0038/0039 TEMPOH (C6H6, hexane) E_H2 0.50 → 0.508 V vs H2 (Agarwal 2022 Table 5, p. 28); eq 18 residuals −0.170 → +0.014 kcal/mol.
   - BDFE-0507 [Fe4N(CO)12H]−: Taheri 2015 states Fc+/0 at +0.40 V vs SCE in MeCN (p. 7148); E_a −1.61 → −1.63 V vs Fc+/0, BDFE 44.4 → 43.9 kcal/mol, E_H2 −0.330 → −0.350 V vs H2; check-src stays (published 47 kcal/mol implies −1.49 V vs Fc+/0).
-- constants.csv (EP-04, M-35): E°(H+/H2) vs Fc+/0 for IPA (−0.494 V) and DMA (−0.79 V), ΔG°f(H•) for chlorobenzene (52.1 kcal/mol) and 1,4-dioxane (52.2 kcal/mol), Agarwal 2022 Table 1 as transcribed in the CR (to be page-checked at the PR B review); no stored row uses them yet. The source of ΔG°f(H•, IPA) 52.0 kcal/mol stays "assumed" (open).
+- constants.csv (EP-04, M-35): E°(H+/H2) vs Fc+/0 for IPA (−0.494 V) and DMA (−0.79 V), ΔG°f(H•) for chlorobenzene (52.1 kcal/mol) and 1,4-dioxane (52.2 kcal/mol), Agarwal 2022 Table 1, p. 4 (page-checked at sync 64, see the H154 section); no stored value depends on them; the IPA potential enables the Fc-scale display of BDFE-0189. ΔG°f(H•, IPA) 52.0 kcal/mol is Agarwal's estimate (Table 7 fn c), see the H154 section.
 - New column `E_raw_offset` (offset stated by the source, used instead of the constants.csv value; BDFE-0507 0.40 V). validate.py checks it and requires the conditions to say where the source states it.
 - EP-03 flags: `est-pKa` on BDFE-0025, 0036, 0047, 0049; `Ep:<leg>` on 38 rows (BDFE-0026 now stores E_a −0.674 V vs Fc+/0; peak potentials of irreversible waves on 0126, 0488, 0489, 0512, 0513, 0524, 0530, 0547; two-electron-wave mid-points on 29 TMH rows). BDFE-0515 checked: reversible E(M*/M−) from a DCV peak, no Ep. `approx` kept where it was. Glosses: `dmso-unc` redefined to its specific caveat (no new rows, H153 b); `lowT` = below room temperature, with T_K filled for BDFE-0130/0131 (193 K), 0517/0518 (253 K), 0528/0530 (233 K).
 - EP-09: BDFE-0508/0509 (hydroxo-referenced Pitman rows) flagged `no-ladder`: no rung, excluded from statistics and windows (figure scripts print the count); 0504/0505 labelled effective BDFEs from a two-electron potential.

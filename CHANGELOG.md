@@ -2,6 +2,14 @@
 
 ## Unreleased (toward v1.7)
 
+### Expert-panel hotfix EP-00 (M-01, board H139)
+- Explorer: a converted raw potential is no longer copied into E°(X/X−) when that
+  leg is empty. BDFE-0540 and BDFE-0541 store their raw potential as the E_b leg
+  (0.18 V vs Fc+/0 and 0.73 V vs Fc+/0), so the panel and square scheme had shown
+  an unmeasured E°(X/X−) as a stored leg and derived pKa(XH) from it; the CSV
+  exported E_a_V 0.18000000000000005 and 0.7300000000000001 for these rows.
+  Display bug only; no data change. jsdom tests 132 → 135.
+
 ### Manuscript-check fixes (review-manuscript-v1.6 B1 to B3, board H132)
 - Explorer: pKa values display at stored precision (verification panel, both
   Bordwell lines, square scheme, hydricity line, table column, ladder tooltip,

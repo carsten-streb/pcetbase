@@ -828,6 +828,36 @@ if (chips.length) {
   T("EP-13 (M-31): no text calls 1c00791 a correction of Agarwal 2022", !/consistent with the correction/.test(fs.readFileSync(path.join(root, "template.html"), "utf-8")) && !/Correction cr1c00791,/.test(fs.readFileSync(path.join(root, "data", "constants.csv"), "utf-8")));
 }
 
+// ---------- 6q. v1.7 H154: names, charges and conditions from the sources (EP-08, EP-03, review-pr-79 O1) ----------
+{
+  const path = require("path");
+  const DATA = newDom().window.parseCSV(fs.readFileSync(path.join(path.dirname(path.resolve(file)), "data", "data.csv"), "utf-8"));
+  const idOf = eid => DATA.findIndex(r => r.entry_id === eid);
+  const row = eid => DATA[idOf(eid)];
+  const det = eid => newDom({ hash: "#" + eid }).window.document.getElementById("detail").textContent;
+  const find = q => { const w = newDom().window; w.document.getElementById("q").value = q; w.document.getElementById("q").dispatchEvent(new w.Event("input"));
+    return [...w.document.querySelectorAll("#tbl tbody tr")].map(t => t.dataset.id); };
+  // every renamed row is still found by its v1.6 label (alias) and keeps its couple and value
+  const old = { "BDFE-0105": "(bpy)2VV(O)(OH)+", "BDFE-0143": "Rh(HO)(OOH)2+", "BDFE-0164": "V6O7(OH)2-", "BDFE-0412": "[V6O5(OH2)(OCH3)12]0",
+    "BDFE-0422": "{TiOH} Keggin POT", "BDFE-0425": "{TiOBn} Keggin POT" };
+  const miss = Object.entries(old).filter(([e, q]) => !find(q).includes(String(idOf(e)))).map(([e]) => e);
+  T("EP-08 (H154): renamed rows still found by their v1.6 label", miss.length === 0, miss.join(","));
+  T("EP-08: BDFE-0105 is the tBu2bpy VIV oxo-hydroxo complex, value 70.6 kcal/mol, primary DOI and page reference",
+    row("BDFE-0105").compound === "[VIV(O)(OH)(tBu2bpy)2]+" && row("BDFE-0105").BDFE === "70.6" && row("BDFE-0105").doi === "10.1021/ja808698x" && /abstract p\. 4729/.test(row("BDFE-0105").conditions));
+  T("EP-08: (Me6cyclam)Rh hydroxo-hydroperoxo is 1+, the aqua-hydroperoxo stays 2+",
+    row("BDFE-0143").compound === "(Me6cyclam)Rh(HO)(OOH)+" && row("BDFE-0144").compound === "(Me6cyclam)Rh(H2O)(OOH)2+" && /p\. 10907/.test(row("BDFE-0143").conditions));
+  T("EP-08 (H136 nit f): BDFE-0164 name carries the alkoxide ligands", /^\[V6O7\(OH\)\(OMe\)11\]2-/.test(row("BDFE-0164").compound) && /p\. 1390/.test(row("BDFE-0164").conditions));
+  T("EP-08: BDFE-0412 names the MeCN ligand and hydrazobenzene; BDFE-0388 names UV-vis at 900 nm, not 1H NMR",
+    /\(MeCN\)/.test(row("BDFE-0412").compound) && /hydrazobenzene/.test(row("BDFE-0412").conditions) && !/H2NQ/.test(row("BDFE-0412").conditions.split("; v1.6")[0])
+    && /900 nm/.test(row("BDFE-0388").conditions) && !/^THF-d8/.test(row("BDFE-0388").conditions));
+  T("EP-08: Keggin rows BDFE-0422 to 0426 carry formula, heteroatom P and charge 4-",
+    ["BDFE-0422", "BDFE-0423", "BDFE-0424", "BDFE-0425", "BDFE-0426"].every(e => /PW11O39\]4- \(\{Ti(OH|OBn)\} Keggin, P-centred/.test(row(e).compound)));
+  T("EP-03 (M-51): BDFE-0546 conditions give the OCP slope range in V per decade", /-0\.0274 V to -0\.0502 V per decade/.test(row("BDFE-0546").conditions));
+  T("review-pr-79 O1: BDFE-0524 sigma is a curator estimate and the panel says so",
+    row("BDFE-0524").sigma_type === "curator-estimate" && /σ \(curator estimate\)/.test(det("BDFE-0524")));
+  T("EP-03 (page check): BDFE-0025 note names the Kütt extrapolation from DMSO", /extrapolated from DMSO to MeCN/.test(row("BDFE-0025").conditions));
+}
+
 // ---------- 6l. pKa at stored precision (review-manuscript-v1.6 B1) ----------
 {
   const dp = newDom({ hash: "#BDFE-0139" });

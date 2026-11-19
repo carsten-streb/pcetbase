@@ -103,7 +103,7 @@ CPL-0101,[(LD)MnIIIOH]-,,DMSO,O-H,metal-3d,,,0
 CPL-0102,[FeIICp(eta6-C6Me6)]+,,DMSO,C-H,metal-3d,[FeIICp(eta6-C6Me6)]PF6,,0
 CPL-0103,[FeIICp*(eta6-C6Me6)]+,,DMSO,C-H,metal-3d,[FeIICp*(eta6-C6Me6)]PF6,,0
 CPL-0104,(Py5)MnII(OH2)2+,,MeCN,O-H,metal-3d,,,0
-CPL-0105,(bpy)2VV(O)(OH)+,,MeCN,O-H,metal-3d,,,0
+CPL-0105,[VIV(O)(OH)(tBu2bpy)2]+,,MeCN,O-H,metal-3d,(bpy)2VV(O)(OH)+,,0
 CPL-0106,Py2Py(piCy)2FeIIOH,,MeCN,O-H,metal-3d,,,0
 CPL-0107,PhB(tBuIm)3CoIIOH,,MeCN,O-H,metal-3d,,,0
 CPL-0108,[Mn2(OH)2(phen)4]3+,,MeCN,O-H,metal-3d,,,0
@@ -141,7 +141,7 @@ CPL-0139,[(bpy)2pyRuIIOH2]2+,,H2O,O-H,metal-4d5d,,,0
 CPL-0140,trans-[RuIV(tmc)(O)(OH2)]2+,,H2O,O-H,metal-4d5d,,,0
 CPL-0141,trans-[RuV(tmc)(O)(OH)]2+,,H2O,O-H,metal-4d5d,,,0
 CPL-0142,[(bpy)2pyRuIIIOH]2+,,H2O,O-H,metal-4d5d,,,0
-CPL-0143,(Me6cyclam)Rh(HO)(OOH)2+,,H2O,O-H,metal-4d5d,,,0
+CPL-0143,(Me6cyclam)Rh(HO)(OOH)+,,H2O,O-H,metal-4d5d,(Me6cyclam)Rh(HO)(OOH)2+,,0
 CPL-0144,(Me6cyclam)Rh(H2O)(OOH)2+,,H2O,O-H,metal-4d5d,,,0
 CPL-0145,(dipic)RuII(tpyCO2H),,MeCN,O-H,metal-4d5d,,,0
 CPL-0146,(dipic)RuII(tpyPhCO2H),,MeCN,O-H,metal-4d5d,,,0
@@ -162,7 +162,7 @@ CPL-0160,[V6O6(OH)(OCH3)12]1-,,MeCN,O-H,pom,Matson V6 methoxide;hexavanadate alk
 CPL-0161,[V6O6(OH)(OCH3)12]0,,MeCN,O-H,pom,Matson V6 methoxide;hexavanadate alkoxide,,0
 CPL-0162,[V6O6(OH)(OCH3)12]1+,,MeCN,O-H,pom,Matson V6 methoxide;hexavanadate alkoxide,,0
 CPL-0163,[V6O11(OH)2(TRIOLNO2)2]2-,,MeCN,O-H,pom,,,0
-CPL-0164,"V6O7(OH)2- (mu2-OH, Lindqvist)",,MeCN,O-H,pom,Lindqvist hexavanadate;V6 Lindqvist,,0
+CPL-0164,"[V6O7(OH)(OMe)11]2- (mu2-OH, Lindqvist)",,MeCN,O-H,pom,"Lindqvist hexavanadate;V6 Lindqvist;V6O7(OH)2- (mu2-OH, Lindqvist)",,0
 CPL-0165,"1,2-H2Q",,H2O,O-H,quinone,"catechol;benzene-1,2-diol;pyrocatechol",,0
 CPL-0166,"tetrachloro-1,2-H2Q",,H2O,O-H,quinone,tetrachlorocatechol,,0
 CPL-0167,"4-tBu-1,2-H2Q",,H2O,O-H,quinone,4-tert-butylcatechol;TBC,,0
@@ -405,7 +405,7 @@ CPL-0404,[PVW11O40] W-sites 1st 2e-/2H+ event (avg 2 O-H),,MeCN,O-H,pom,,,0
 CPL-0405,[PVW11O40] W-sites 2nd 2e-/2H+ event (avg 2 O-H),,MeCN,O-H,pom,,,0
 CPL-0406,TiV5O5(OH2)(OCH3)12 (aquo avg 2 O-H),,THF,O-H,pom,titanium-substituted hexavanadate;TiV5 alkoxide;Matson TiV5,,0
 CPL-0407,[V6O6(OH2)(OCH3)12]0 (aquo avg 2 O-H),,THF,O-H,pom,Matson V6 aquo methoxide (neutral),,0
-CPL-0408,[V6O5(OH2)(OCH3)12]0 (O-deficient aquo avg 2 O-H),,THF,O-H,pom,oxygen-deficient hexavanadate;Matson V6 defect cluster,,0
+CPL-0408,[V6O5(MeCN)(OH2)(OCH3)12]0 (O-deficient aquo avg 2 O-H),,THF,O-H,pom,oxygen-deficient hexavanadate;Matson V6 defect cluster;[V6O5(OH2)(OCH3)12]0 (O-deficient aquo avg 2 O-H),,0
 CPL-0409,[HPV2W10O40]5- (1st H on PVIVVVW10),,H2O,O-H,pom,Keggin PV2W10;divanado-decatungstophosphate,,0
 CPL-0410,[PW12O38(OH)2]3- (avg 2 O-H; 1st 2e-/2H+ event),,MeCN,O-H,pom,Keggin phosphotungstate;PW12;reduced phosphotungstic acid,,0
 CPL-0411,[PW12O36(OH)4]3- (avg 2 O-H; 2nd 2e-/2H+ event),,MeCN,O-H,pom,Keggin phosphotungstate;PW12;reduced phosphotungstic acid,,0
@@ -415,11 +415,11 @@ CPL-0414,[SVW11O39(OH)]3- (1st H on SVIVW11),,MeCN,O-H,pom,Keggin SVW11,,0
 CPL-0415,[VW12O40]3- (VinW12),4-MeOPyr,MeCN,O-H,pom,Keggin vanadotungstate;VW12,,0
 CPL-0416,[VW12O40]3- (VinW12),TMG,MeCN,O-H,pom,Keggin vanadotungstate;VW12,,0
 CPL-0417,[VW12O40]4- (1e-red VinW12),4-MeOPyrH+,MeCN,O-H,pom,Keggin vanadotungstate;VW12 (reduced),,0
-CPL-0418,"{TiOH} Keggin POT, shell O-H (1st 1e-/1H+ event)",,MeCN,O-H,pom,,,0
-CPL-0419,"{TiOH} Keggin POT, shell O-H (2nd 1e-/1H+ event)",,MeCN,O-H,pom,,,0
-CPL-0420,"{TiOH} Keggin POT, shell O-H (3rd 1e-/1H+ event)",,MeCN,O-H,pom,,,0
-CPL-0421,"{TiOBn} Keggin POT, shell O-H (1st 1e-/1H+ event)",,MeCN,O-H,pom,,,0
-CPL-0422,"{TiOBn} Keggin POT, shell O-H (2nd 1e-/1H+ event)",,MeCN,O-H,pom,,,0
+CPL-0418,"H[(TiOH)PW11O39]4- ({TiOH} Keggin, P-centred; shell O-H, 1st 1e-/1H+ event)",,MeCN,O-H,pom,"{TiOH} Keggin POT, shell O-H (1st 1e-/1H+ event)",,0
+CPL-0419,"H2[(TiOH)PW11O39]4- ({TiOH} Keggin, P-centred; shell O-H, 2nd 1e-/1H+ event)",,MeCN,O-H,pom,"{TiOH} Keggin POT, shell O-H (2nd 1e-/1H+ event)",,0
+CPL-0420,"H3[(TiOH)PW11O39]4- ({TiOH} Keggin, P-centred; shell O-H, 3rd 1e-/1H+ event)",,MeCN,O-H,pom,"{TiOH} Keggin POT, shell O-H (3rd 1e-/1H+ event)",,0
+CPL-0421,"H[(TiOBn)PW11O39]4- ({TiOBn} Keggin, P-centred; shell O-H, 1st 1e-/1H+ event)",,MeCN,O-H,pom,"{TiOBn} Keggin POT, shell O-H (1st 1e-/1H+ event)",,0
+CPL-0422,"H2[(TiOBn)PW11O39]4- ({TiOBn} Keggin, P-centred; shell O-H, 2nd 1e-/1H+ event)",,MeCN,O-H,pom,"{TiOBn} Keggin POT, shell O-H (2nd 1e-/1H+ event)",,0
 CPL-0423,[Pt(EtXantphos)2H]+,,MeCN,M-H,tmh,,,0
 CPL-0424,"[Co(CpC5F4N)(PR2NR'2)H]+ ; R = tBu, R' = Ph",,MeCN,M-H,tmh,,,0
 CPL-0425,[Pd(EtXantphos)2H]+,,MeCN,M-H,tmh,,,0

@@ -13,11 +13,11 @@ dGfH,toluene,52.0,kcal/mol,,Agarwal2022 Table1,298 K; 1 M H• in solution
 dGfH,acetone,51.9,kcal/mol,,Agarwal2022 Table1,298 K; 1 M H• in solution
 dGfH,chlorobenzene,52.1,kcal/mol,"added in v1.7 (EP-04, M-35)",Agarwal2022 Table1 (value as transcribed in CR-2026-11-18-expert-panel EP-04; page check at the PR B review),298 K; 1 M H• in solution
 dGfH,"1,4-dioxane",52.2,kcal/mol,"added in v1.7 (EP-04, M-35)",Agarwal2022 Table1 (value as transcribed in CR-2026-11-18-expert-panel EP-04; page check at the PR B review),298 K; 1 M H• in solution
-CG,H2O,52.8,kcal/mol,vs SHE,Agarwal2022 Table1 / Correction cr1c00791,298 K; 1 M H• in solution; electrode scale as in note
-CG,MeCN,52.6,kcal/mol,vs Fc+/0,Agarwal2022 Table1 / Correction cr1c00791,298 K; 1 M H• in solution; electrode scale as in note
-CG,DMSO,68.0,kcal/mol,vs Fc+/0,Agarwal2022 Table1 / Correction cr1c00791,298 K; 1 M H• in solution; electrode scale as in note
-CG,DMF,67.6,kcal/mol,vs Fc+/0,Agarwal2022 Table1 / Correction cr1c00791,298 K; 1 M H• in solution; electrode scale as in note
-CG,MeOH,63.4,kcal/mol,vs Fc+/0,Agarwal2022 Table1 / Correction cr1c00791,298 K; 1 M H• in solution; electrode scale as in note
+CG,H2O,52.8,kcal/mol,vs SHE,Agarwal2022 Table1 (replaces the 2010 values corrected in cr1c00791),298 K; 1 M H• in solution; electrode scale as in note
+CG,MeCN,52.6,kcal/mol,vs Fc+/0,Agarwal2022 Table1 (replaces the 2010 values corrected in cr1c00791),298 K; 1 M H• in solution; electrode scale as in note
+CG,DMSO,68.0,kcal/mol,vs Fc+/0,Agarwal2022 Table1 (replaces the 2010 values corrected in cr1c00791),298 K; 1 M H• in solution; electrode scale as in note
+CG,DMF,67.6,kcal/mol,vs Fc+/0,Agarwal2022 Table1 (replaces the 2010 values corrected in cr1c00791),298 K; 1 M H• in solution; electrode scale as in note
+CG,MeOH,63.4,kcal/mol,vs Fc+/0,Agarwal2022 Table1 (replaces the 2010 values corrected in cr1c00791),298 K; 1 M H• in solution; electrode scale as in note
 CG,THF,59.9,kcal/mol,vs Fc+/0,Agarwal2022 Table1,298 K; 1 M H• in solution; electrode scale as in note
 EH2vsFc,H2O,0.000,V,SHE scale,Agarwal2022 Table1,298 K; 1 atm H2(g); a(H+) = 1 (1 M H+)
 EH2vsFc,MeCN,-0.028,V,,Agarwal2022 Table1,298 K; 1 atm H2(g); a(H+) = 1 (1 M H+)

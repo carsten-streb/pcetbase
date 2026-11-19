@@ -35,15 +35,17 @@ def autorecommend(data_path=None):
       a) a concordance-mean row (flag 'avg' AND refs citing BDFE- entry_ids of
          its constituents) gets the star;
       b) else: candidates = rows of the highest method rank present
-         (equil > sq > OCP > hess > computed/tabulated);
+         (equil > sq > hyd > OCP > hess > computed/tabulated; see method_rank);
          BDFE spread among candidates > 0.5 kcal/mol -> no star (conflict,
          reported by validate.py, resolve manually);
          else newest year wins (tie -> most complete square scheme, then first).
     Winner gets recommended='auto'. Idempotent: all 'auto' cleared first.
     Supersession and discord stay manual (recommended=1/0 + recommended_reason
-    in couples.csv). Cross-closure (sq vs hyd) disagreement >= ~1 kcal/mol is set
-    discordant = 1 by the builder with a recorded reason, star stays auto
-    (CONTRIBUTING rule 4); other discord stays manual."""
+    in couples.csv). discordant = 1 is never written by this code: a curator sets
+    it in couples.csv with a recorded reason (cross-closure sq vs hyd disagreement
+    of ~1 kcal/mol or more, or independent values ~2 kcal/mol or more apart;
+    CONTRIBUTING rule 4); the star then stays with the automatic hierarchy unless
+    the curator freezes it manually."""
     import csv as _csv
     from collections import defaultdict
     path = data_path or os.path.join(HERE, "data", "data.csv")
@@ -115,6 +117,11 @@ def write_verification():
         e18, e10, ehy = a.get("eq18_residual_kcal",""), a.get("eq10_residual_kcal",""), a.get("hyd_residual_kcal","")
         e10o = a.get("eq10_residual_other_kcal", "")  # EP-02: second diagonal, where both are stored
         checks = [n for n,v in (("eq18",e18),("eq10",e10),("hyd",ehy)) if v != ""]
+        # EP-04 (M-07): a row that stores no E or pKa leg can only be checked for the
+        # consistency of its copied E(V vs H2) and BDFE ("copy-consistency")
+        legless = not any(r.get(k) for k in ("E_a", "E_b", "E_c", "pKa_a", "pKa_b"))
+        if legless and checks == ["eq18"]:
+            checks = ["eq18 copy-consistency"]
         soft = ((e18 and abs(float(e18)) > 0.3) or (e10 and abs(float(e10)) > 0.5)
                 or (e10o and abs(float(e10o)) > 0.5) or (ehy and abs(float(ehy)) > 0.5))
         outcome = ("soft" if soft else "pass") if checks else "n/a"
@@ -179,19 +186,29 @@ def main():
     # U4 (CR-2026-11-14-usability-test): name the release only when the data match it;
     # otherwise say "development state after vX". RELEASE is updated by each release-prep PR.
     import hashlib, re as _re
-    RELEASE = {"version": "1.6", "measurements": 547, "doi": "10.5281/zenodo.24293136"}
+    # EP-13 (M-58): the stamp keys on the data hash and a code hash (template.html),
+    # not on version + row count; code SHAs cannot be embedded reproducibly (CI
+    # rebuilds on a merge commit), so the code is identified by its content hash.
+    RELEASE = {"version": "1.6", "measurements": 547, "doi": "10.5281/zenodo.24293136",
+               "data_hash": "dedeef1b", "code_hash": "afc21127"}
     n_rows = data.count("\n") - 1
     m = _re.search(r'version: "([^"]+)"', open(os.path.join(HERE, "CITATION.cff"), encoding="utf-8").read())
     ver = m.group(1) if m else "?"
     h = hashlib.sha256(data.encode()).hexdigest()[:8]
-    if ver == RELEASE["version"] and n_rows == RELEASE["measurements"]:
-        stamp = f"{n_rows} measurements, release v{ver}, data {h}"
+    ch = hashlib.sha256(tpl.encode()).hexdigest()[:8]
+    if h == RELEASE["data_hash"] and ch == RELEASE["code_hash"]:
+        stamp = f"{n_rows} measurements, release v{RELEASE['version']}, data {h}"
+    elif h == RELEASE["data_hash"]:
+        stamp = f"{n_rows} measurements, release v{RELEASE['version']} data {h}, code changed since the release (code {ch})"
     else:
         stamp = (f"{n_rows} measurements — development state after v{RELEASE['version']} "
                  f"(release v{RELEASE['version']}: {RELEASE['measurements']} measurements, "
-                 f"doi:{RELEASE['doi']}), data {h}")
+                 f"doi:{RELEASE['doi']}), data {h}, code {ch}")
+    n_legless = sum(1 for line in list(__import__("csv").DictReader(data.splitlines()))
+                    if not any(line.get(k) for k in ("E_a", "E_b", "E_c", "pKa_a", "pKa_b")))
     out = (tpl.replace("__DATA_CSV__", esc(data)).replace("__CONST_CSV__", esc(const))
-              .replace("__COUPLES_CSV__", esc(coup)).replace("__VERIF_CSV__", esc(verif)).replace("__BUILD_STAMP__", stamp))
+              .replace("__COUPLES_CSV__", esc(coup)).replace("__VERIF_CSV__", esc(verif)).replace("__BUILD_STAMP__", stamp)
+              .replace("__N_LEGLESS__", str(n_legless)))
     open(os.path.join(HERE, "index.html"), "w", encoding="utf-8").write(out)
     print(f"wrote index.html ({len(out)//1024} kB)")
 

@@ -95,6 +95,8 @@
   .detail .close{float:right;cursor:pointer;color:var(--ink-muted);border:none;background:none;font-size:15px}
   .detail details{margin:6px 0;border:1px dashed var(--axis);border-radius:5px;padding:4px 8px}
   .detail summary{cursor:pointer;font-size:13.5px;color:var(--ink-2)}
+.sc-tag{font-size:.72em;color:var(--ink-muted);border:1px solid currentColor;border-radius:3px;padding:0 2px;margin-left:2px}
+.caution{color:#b45309;cursor:help}
 </style>
 </head>
 <body>
@@ -136,7 +138,7 @@
           <select id="scale">
             <option value="H2">V vs H₂ (per solvent)</option>
             <option value="Fc">V vs Fc⁺/⁰ (SHE in water)</option>
-          </select></div>
+          </select> <a href="#conventions" class="src" onclick="document.getElementById('conventions').open=true">conventions</a></div>
         <div><label>CSV export</label>
           <select id="csvScope">
             <option value="all">all measurements (filtered)</option>
@@ -156,7 +158,7 @@
           <th data-k="partner">Partner <span class="arr"></span></th>
           <th data-k="bond">Bond <span class="arr"></span></th>
           <th data-k="solvent">Solvent <span class="arr"></span></th>
-          <th data-k="E" class="num" title="E°(X/XH): the H-atom (PCET) potential on the selected scale — not the pure electron-transfer leg shown in the panel"><span id="eHead">E° (V vs H₂)</span> <span class="arr"></span></th>
+          <th data-k="E" class="num" title="E°(X/XH): the potential of hydrogenation of the couple (Agarwal eq 18) on the selected scale; not the pure electron-transfer leg shown in the panel"><span id="eHead">E° (V vs H₂)</span> <span class="arr"></span></th>
           <th data-k="pkab" class="num" title="measured values upright; italic = back-calculated in the source or via Hess's law">pK<sub>a</sub>(XH) <span class="arr"></span></th>
           <th data-k="bdfe" class="num"><span id="bHead">BDFE</span> <span class="arr"></span></th>
           <th data-k="src">Source (DOI) <span class="arr"></span></th>
@@ -225,16 +227,15 @@
   <b>Data &amp; constants.</b> Values (E°(V vs H₂), BDFE, pK<sub>a</sub>, component potentials) from
   Agarwal, Coste, Groff, Heuer, Noh, Parada, Wise, Nichols, Warren, Mayer,
   <i>Chem. Rev.</i> 2022, 122, 1–49, <a href="https://doi.org/10.1021/acs.chemrev.1c00521">doi:10.1021/acs.chemrev.1c00521</a>;
-  for review-derived entries the Source column links the review DOI, and [ref N] gives the original citation reference number within that review. External entries link their own primary DOI. See also the correction to the 2010 review,
-  <a href="https://doi.org/10.1021/acs.chemrev.1c00791">doi:10.1021/acs.chemrev.1c00791</a>.
-  Flags: <i>hess</i> = value in source derived by Hess's law; <i>limit</i> = inequality bound; <i>approx</i> = approximate;
-  <i>lowprec</i> = low-precision printed value; <i>dmso-unc</i> = larger uncertainty in DMSO constants;
-  <i>lowT</i> = measured at −80 °C; <i>excited</i> = excited-state potential; <i>check-src</i> = internal inconsistency in source, under review;
-  <i>recomputed</i> = BDFE recalculated here from the primary E°/pK<sub>a</sub> with corrected constants; <i>sim-pKa</i> = pK<sub>a</sub> from CV digital-simulation fitting, not direct measurement; <i>avg</i> = average over n sequential H-atom transfers. ★ marks the recommended value where several independent measurements of the same couple/solvent exist; all values are kept with their sources.
+  for review-derived entries the Source column links the review DOI, and [ref N] gives the original citation reference number within that review. External entries link their own primary DOI. The 2010 review (Warren, Tronic, Mayer, <i>Chem. Rev.</i> 2010) was corrected in
+  <a href="https://doi.org/10.1021/acs.chemrev.1c00791">doi:10.1021/acs.chemrev.1c00791</a>; its pre-correction constants are never used.
+  Flags (one list, generated from the panel glossary): <span id="flagLegend"></span>. ★ marks the recommended value where several independent measurements of the same couple/solvent exist; all values are kept with their sources.
   External entries (Src = DOI) are extracted from the primary literature; POM-cluster data include work of the Matson group (polyoxovanadate-alkoxides).
   BDFEs of pairs are <i>effective</i> BDFEs (BDFE<sub>eff</sub>). Always consult the primary source before quantitative use.<br>
+  <details id="conventions" style="margin:6px 0"><summary><b>Conventions</b> (standard states, scales)</summary>
+  <div style="margin-top:4px">All values refer to 298 K and to standard states of 1 atm H₂(g) and 1 M for solutes, including H⁺ and H• (ΔG°f(H•) per solvent from Agarwal 2022, Table 1). Gas-phase BDFEs refer to 1 atm H•(g) and are on a different standard state from solution BDFEs. Aqueous potentials vs SHE are pH 0 values; for a 1e⁻/1H⁺ couple E shifts by −0.0592 V per pH unit, and E vs RHE equals E(pH 0) vs SHE. Organic-solvent potentials are vs Fc⁺/⁰; E°(V vs H₂) is the potential of hydrogenation of the couple in that solvent. On the Fc⁺/⁰ display scale, aqueous values stay vs SHE (tagged "SHE"); solvents without a tabulated E°(H⁺/H₂) vs Fc⁺/⁰ show "n/a". NHE and SHE are taken as equal in water; in MeCN the conversion constants on file place Fc⁺/⁰ at +0.630 V vs NHE and +0.624 V vs SHE, 6 mV apart (Pavlishchuk &amp; Addison 2000). THF pK<sub>a</sub> values are on the absolute scale.</div></details>
   <details id="curation" style="margin:6px 0"><summary><b>How the data were curated</b></summary>
-  <div style="margin-top:4px">PCETbase entries are extracted from the published literature (critical reviews and primary papers), working from the papers’ tables, text and supporting information. Each entry stores the primary measurables (potentials with their reference electrode, pK<sub>a</sub> values); BDFEs are recomputed from these with one consistent constant set rather than copied. Every stored value is run through automatic thermochemical closure checks (Bordwell equation, H-atom potential, hydricity cycle where applicable) and a structural validation suite; the same checks gate every change through continuous integration, so a value that does not close thermochemically cannot enter the database unless a flag documents the deviation. Each entry carries a public verification record — source, extraction route, whether the primary literature was page-verified, checks run — shown in its Curation trail and downloadable as the full verification ledger. All changes enter through reviewed pull requests on <a href="https://github.com/carsten-streb/pcetbase">GitHub</a>, and every addition and release is reviewed and approved by a human curator (C. Streb). Values that could not be fully verified carry explicit flags rather than silent corrections.</div></details>
+  <div style="margin-top:4px">PCETbase entries are extracted from the published literature (critical reviews and primary papers), working from the papers’ tables, text and supporting information. Where the source gives potentials and pK<sub>a</sub> values, they are stored (potentials with their reference electrode) and the BDFE is recomputed from them with one consistent constant set; for <span id="nLegless">__N_LEGLESS__</span> entries the source tabulates only E°(V vs H₂) and the BDFE, and their check is a consistency check of the copied values ("copy-consistency" in the verification record). Every stored value is run through automatic thermochemical closure checks (Bordwell equation, H-atom potential, hydricity cycle where applicable) and a structural validation suite; the same checks gate every change through continuous integration, so a value that does not close thermochemically cannot enter the database unless a flag documents the deviation. Each entry carries a public verification record — source, extraction route, whether the primary literature was page-verified, checks run — shown in its Curation trail and downloadable as the full verification ledger. All changes enter through reviewed pull requests on <a href="https://github.com/carsten-streb/pcetbase">GitHub</a>, and every addition and release is reviewed and approved by a human curator (C. Streb). Values that could not be fully verified carry explicit flags rather than silent corrections.</div></details>
   <span class="src">Data version: __BUILD_STAMP__ — if these numbers look outdated, hard-reload (Ctrl+F5).</span><br>
   <b>Cite PCETbase:</b> C. Streb, PCETbase: an open database of solution-phase PCET thermochemistry, <a href="https://doi.org/10.5281/zenodo.24121910">doi:10.5281/zenodo.24121910</a> (all versions; this release v1.6: <a href="https://doi.org/10.5281/zenodo.24293136">doi:10.5281/zenodo.24293136</a>) · code &amp; data: <a href="https://github.com/carsten-streb/pcetbase">github.com/carsten-streb/pcetbase</a> (CC BY 4.0)
 </footer>
@@ -275,6 +276,10 @@ parseCSV(CONST_CSV).forEach(r=>{
      note = uncertainty in V; source = citation. Filled only from verified sources. */
   if(r.key.startsWith("refoff:"))REFOFF[r.key.slice(7)+"|"+r.solvent]={v,unc:r.note,src:r.source};
 });
+const escHTML=t=>String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+/* EP-12 (M-50): a check-src row whose stored BDFE differs from the published one by 3 kcal/mol or more */
+const caution=r=>r.flags.split(";").includes("check-src")&&r.raw.BDFE_pub!==""&&Math.abs(r.bdfe-parseFloat(r.raw.BDFE_pub))>=3;
+const cautionTxt=r=>`check-src: stored BDFE ${fx(r.bdfe,1)} kcal mol⁻¹ differs from the published ${fx(parseFloat(r.raw.BDFE_pub),1)} kcal mol⁻¹; not an established value (see panel)`;
 /* EP-02: inequality bounds as stored in the bounds column ("E_a<;pKa_b>"); field -> operator */
 function parseBounds(s){const o={};(s||"").split(";").forEach(t=>{t=t.trim();if(t)o[t.slice(0,-1)]=t.slice(-1);});return o;}
 const BOUND_DIR={"<":"U","≤":"U",">":"L","≥":"L"};
@@ -398,7 +403,14 @@ function eDisplay(row,scale){
   if(isNaN(row.E))return "–";
   if(scale==="H2")return fx(row.E,3);
   const off=EH2_VS_FC[row.solvent];
-  return off===undefined?"–":fx(row.E+off,3);
+  return off===undefined?"n/a":fx(row.E+off,3);
+}
+/* EP-05 (M-08): table cell on the Fc scale names the aqueous SHE scale and explains n/a */
+function eCell(row,scale){
+  const v=eDisplay(row,scale);
+  if(scale!=="Fc"||isNaN(row.E))return v;
+  if(v==="n/a")return `<span title="no E°(H⁺/H₂) vs Fc⁺/⁰ tabulated for ${row.solvent} (Agarwal 2022, Table 1); switch to the H₂ scale">n/a</span>`;
+  return row.solvent==="H2O"?v+` <span class="sc-tag" title="aqueous values stay vs SHE on this scale">SHE</span>`:v;
 }
 
 function filtered(){
@@ -454,7 +466,7 @@ function renderTable(){
   const u=document.getElementById("unit").value;
   const sc=document.getElementById("scale").value;
   document.getElementById("bHead").textContent="BDFE ("+unitLbl[u]+")";
-  document.getElementById("eHead").textContent=sc==="H2"?"E° (V vs H₂)":"E° (V vs Fc⁺/⁰)";
+  document.getElementById("eHead").textContent=sc==="H2"?"E° (V vs H₂)":"E° (V vs Fc⁺/⁰; vs SHE for H₂O)";
   const key={name:"name",partner:"partner",bond:"bond",solvent:"solvent",E:"E",pkab:"pka",bdfe:"bdfe",src:"srcText"}[sortK]||"bdfe";
   const cmp=(a,b)=>{
     let va=a[key],vb=b[key];
@@ -465,10 +477,10 @@ function renderTable(){
   const flt=filtered();
   const couples=coupleView(flt).sort((a,b)=>cmp(a.rep,b.rep));
   const rowHtml=(r,sub)=>
-   `<tr data-id="${r.id}"${sub?' class="sub"':''}><td><input type="checkbox" class="tick" data-cid="${r.cid}" ${ticked.has(r.cid)?"checked":""} title="show this couple on the ladder (selection mode)" style="width:auto;margin-right:6px">${sub?'<span class="src" style="margin-left:18px">↳</span> ':`<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${clsColor(r.cls)};margin-right:6px"></span>`}${fmtName(r.name)}${r.rec?` <span title="recommended value${r.recManual?" (manual, see reason in the verification panel)":" (auto, policy rules 1-2)"}">★</span>`:""}${COUPLES[r.cid]&&COUPLES[r.cid].discordant==="1"?` <span title="discordant couple: independent measurements disagree beyond combined uncertainty — see verification panel">⚠</span>`:""}${r.flags?` <span class="flagmark" title="${r.flags}">⚑</span>`:""}${r.origin==="comp"?` <sup class="src" title="computational: defining value computed (DFT, simulation-only, empirical estimate)">c</sup>`:r.origin==="mixed"?` <sup class="src" title="mixed origin: at least one leg computed or simulation-fitted, at least one measured">m</sup>`:""}${!sub&&!r.rec&&RECBY[r.cid]?` <button class="starhid src" data-rid="${RECBY[r.cid].id}" title="the couple's recommended (★) value is hidden by the current filters — click to open it" style="font-size:.75em;padding:0 5px">★ ${toUnit(RECBY[r.cid].bdfe,u).toFixed(1)} hidden by filter</button>`:""}${!sub&&r.nDup>1?` <button class="badge" data-cid="${r.cid}" title="independent measurements of this couple — click to ${expanded.has(r.cid)?"collapse":"expand"}">${r.nDup} values ${expanded.has(r.cid)?"▾":"▸"}</button>`:""}${sub?` <span class="src">${r.method||"tabulated"}${r.sigma?`, σ ${r.sigma}`:""}, ${r.year}</span>`:""}</td>`+
+   `<tr data-id="${r.id}"${sub?' class="sub"':''}><td><input type="checkbox" class="tick" data-cid="${r.cid}" ${ticked.has(r.cid)?"checked":""} title="show this couple on the ladder (selection mode)" style="width:auto;margin-right:6px">${sub?'<span class="src" style="margin-left:18px">↳</span> ':`<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${clsColor(r.cls)};margin-right:6px"></span>`}${fmtName(r.name)}${caution(r)?` <span class="caution" title="${cautionTxt(r)}">⚠</span>`:""}${r.rec?` <span title="recommended value${r.recManual?" (manual, see reason in the verification panel)":" (auto, policy rules 1-2)"}">★</span>`:""}${COUPLES[r.cid]&&COUPLES[r.cid].discordant==="1"?` <span title="discordant couple: independent measurements disagree beyond combined uncertainty — see verification panel">⚠</span>`:""}${r.flags?` <span class="flagmark" title="${r.flags}">⚑</span>`:""}${r.origin==="comp"?` <sup class="src" title="computational: defining value computed (DFT, simulation-only, empirical estimate)">c</sup>`:r.origin==="mixed"?` <sup class="src" title="mixed origin: at least one leg computed or simulation-fitted, at least one measured">m</sup>`:""}${!sub&&!r.rec&&RECBY[r.cid]?` <button class="starhid src" data-rid="${RECBY[r.cid].id}" title="the couple's recommended (★) value is hidden by the current filters — click to open it" style="font-size:.75em;padding:0 5px">★ ${toUnit(RECBY[r.cid].bdfe,u).toFixed(1)} hidden by filter</button>`:""}${!sub&&r.nDup>1?` <button class="badge" data-cid="${r.cid}" title="independent measurements of this couple — click to ${expanded.has(r.cid)?"collapse":"expand"}">${r.nDup} values ${expanded.has(r.cid)?"▾":"▸"}</button>`:""}${sub?` <span class="src">${r.method||"tabulated"}${r.sigma?`, σ ${r.sigma}`:""}, ${r.year}</span>`:""}</td>`+
    `<td>${r.partner?fmtName(r.partner):"–"}</td><td>${r.bond}</td><td>${r.solvent}</td>`+
-   `<td class="num">${isNaN(r.E)?"":bop(r,"E_H2")}${eDisplay(r,sc)}</td>`+
-   `<td class="num">${r.pka==null||r.pka!==r.pka?"–":bop(r,"pKa_b")+(/hess:pKa|derived/.test(r.flags)?`<i title="back-calculated, not directly measured (see panel)">${fpk(r.pka)}</i>`:fpk(r.pka))}</td>`+
+   `<td class="num">${isNaN(r.E)?"":bop(r,"E_H2")}${eCell(r,sc)}</td>`+
+   `<td class="num">${r.pka==null||r.pka!==r.pka?"–":bop(r,"pKa_b")+(/hess:pKa|derived/.test(r.flags)?`<i title="back-calculated, not directly measured (see panel)">${fpk(r.pka)}</i>`:fpk(r.pka))+(r.nH&&+r.nH>1?` <span class="src" title="mean of ${r.nH} pKa values (${r.nH}e⁻/${r.nH}H⁺ couple; see conditions)">(mean of ${r.nH})</span>`:"")}</td>`+
    `<td class="num">${bop(r,"BDFE")}${fx(toUnit(r.bdfe,u),u==="eV"?2:1)}</td>`+
    `<td class="src">${r.src}</td></tr>`;
   const tb=document.querySelector("#tbl tbody");
@@ -509,9 +521,9 @@ function renderTable(){
 const FLAG_GLOSS={hess:"hess:<leg> — the named leg is not an independent measurement; obtained from the other legs by Hess's law, in the source compilation for review-tabulated entries or by PCETbase for primary-literature entries",
  limit:"inequality bound (<, >, ≤, ≥) in the source; the bounded fields and their direction are stored in the bounds column and shown before the value",approx:"approximate value (~) in the source",
  lowprec:"low-precision printed value (2 significant figures) in the source",
- "dmso-unc":"the source or the curators note a larger uncertainty for this DMSO value (DMSO constants and pKa anchors are less certain); set per row where that caveat applies, not on every DMSO row",
+ "dmso-unc":"the source or the curators note a larger uncertainty for this DMSO value (DMSO constants and pKₐ anchors are less certain); set per row where that caveat applies, not on every DMSO row",
  lowT:"measured below room temperature; see T_K and conditions",
- "est-pKa":"pKa estimated or extrapolated in the source (see conditions), not measured in this solvent",
+ "est-pKa":"pKₐ estimated or extrapolated in the source (see conditions), not measured in this solvent",
  Ep:"Ep:<leg> — the named potential comes from an irreversible wave (peak potential or estimate) or is the mid-point of a two-electron wave, not a one-electron equilibrium E°; BDFEs that use it are effective values",
  "no-ladder":"BDFE withdrawn from the ladder and from statistics (kept for its other values, e.g. a hydricity; see conditions)","ox-base":"effective BDFE of an oxidant + base combination",
  "red-acid":"effective BDFE of a reductant + acid combination",excited:"excited-state redox potential",
@@ -559,7 +571,9 @@ function showDetail(id){
   if(r.Ec!=null)h+=`<tr><td>E°(X⁺/X•) [hydricity leg]</td><td><b>${fx(r.Ec,3)} V vs ${refSc}</b></td></tr>`;
   if(r.pkaA!=null)h+=`<tr><td>pK<sub>a</sub>(XH⁺ / M<sup>n+1</sup>LH)</td><td><b>${bop(r,"pKa_a")}${fpk(r.pkaA)}</b></td></tr>`;
   if(r.pka!=null&&r.pka===r.pka)h+=`<tr><td>pK<sub>a</sub>(XH) [pK<sub>a</sub>(baseH⁺/acid) for pairs]</td><td><b>${bop(r,"pKa_b")}${fpk(r.pka)}</b></td></tr>`;
-  h+=`<tr><td>E°(V vs H₂)</td><td><b>${isNaN(r.E)?"–":bop(r,"E_H2")+fx(r.E,3)+" V vs H⁺/H₂"}</b></td></tr>`;
+  h+=`<tr><td>E°(V vs H₂) (potential of hydrogenation)</td><td><b>${isNaN(r.E)?"–":bop(r,"E_H2")+fx(r.E,3)+" V vs H⁺/H₂"}</b></td></tr>`;
+  if(!isNaN(r.E)&&r.solvent!=="H2O"&&EH2_VS_FC[r.solvent]!==undefined)
+    h+=`<tr><td>on the Fc⁺/⁰ scale</td><td>${bop(r,"E_H2")}${fx(r.E+EH2_VS_FC[r.solvent],3)} V vs Fc⁺/⁰ <span class="src">(offset E°(H⁺/H₂) in ${r.solvent} = ${fx(EH2_VS_FC[r.solvent],3)} V vs Fc⁺/⁰, Agarwal 2022, Table 1)</span></td></tr>`;
   h+=`<tr><td>BDFE${r.nH&&r.nH!=="1"?" (avg over "+r.nH+" H)":""}</td><td><b>${bop(r,"BDFE")}${r.bdfe.toFixed(1)} kcal mol⁻¹</b>${r.bdfePub&&parseFloat(r.bdfePub).toFixed(1)!==r.bdfe.toFixed(1)?` (published: ${r.bdfePub} kcal mol⁻¹)`:""}</td></tr>`;
   if(r.hyd!=null)h+=`<tr><td>Hydricity ΔG°(H⁻)</td><td><b>${r.hyd.toFixed(1)} kcal mol⁻¹</b> (as published; the hydricity reference constant C<sub>Hyd</sub> is per solvent — see the constants list under "CSV export")</td></tr>`;
   if(r.method)h+=`<tr><td>Method</td><td>${r.method==="sq"?"square scheme (Bordwell equation)":r.method==="OCP"?"open-circuit potential":r.method==="equil"?"equilibration vs reference H-atom donor":r.method}</td></tr>`;
@@ -645,7 +659,7 @@ function showDetail(id){
   }else if(trailReason||condTrail){
     h+=`<details><summary>Curation trail</summary>${trailReason?`<div class="warn">Recommendation reason (curators' record): ${trailReason}</div>`:""}${condTrail?`<div class="warn">Conditions, verbatim curators' note: ${condTrail}</div>`:""}</details>`;
   }
-  h+=`<div class="warn">Constants C<sub>G</sub> and ΔG°f(H•): Agarwal et al. 2022, Table 1 (<a href="https://doi.org/10.1021/acs.chemrev.1c00521">10.1021/acs.chemrev.1c00521</a>), consistent with the correction <a href="https://doi.org/10.1021/acs.chemrev.1c00791">10.1021/acs.chemrev.1c00791</a>. Primary source: <a href="https://doi.org/${r.srcDoi}">${r.srcDoi}</a>${r.srcRef?" — original citation"+r.srcRef+" therein":""}.</div>`;
+  h+=`<div class="warn">Constants C<sub>G</sub> and ΔG°f(H•): Agarwal et al. 2022, Table 1 (<a href="https://doi.org/10.1021/acs.chemrev.1c00521">10.1021/acs.chemrev.1c00521</a>), which supersede the 2010 values (corrected in <a href="https://doi.org/10.1021/acs.chemrev.1c00791">10.1021/acs.chemrev.1c00791</a>). Primary source: <a href="https://doi.org/${r.srcDoi}">${r.srcDoi}</a>${r.srcRef?" — original citation"+r.srcRef+" therein":""}.</div>`;
   {/* EP-03 / EP-09 caveats in words */
     const epl=r.flags.split(";").filter(t=>t.startsWith("Ep:")).map(t=>({E_a:"E°(X/X⁻)",E_b:"E°(XH•⁺/XH)",E_c:"E°(X⁺/X•)"})[t.slice(3)]);
     if(epl.length)h+=`<div class="warn">⚠ ${epl.join(" and ")} ${epl.length>1?"come":"comes"} from an irreversible wave (peak potential or estimate) or a two-electron wave, not a one-electron equilibrium E°; the BDFE is an effective value.</div>`;
@@ -654,7 +668,7 @@ function showDetail(id){
   if(r.flags){
     h+=`<div class="warn">Flags: `+r.flags.split(";").map(f=>{
       const base=f.split(":")[0];
-      return `<b>${f}</b> — ${FLAG_GLOSS[base]||base}`;
+      return `<b>${escHTML(f)}</b> — ${escHTML(FLAG_GLOSS[base]||base)}`;
     }).join("; ")+`</div>`;
   }
   box.innerHTML=h;
@@ -757,7 +771,7 @@ function squareSchemeHTML(r,refSc){
   /* diagonal -H*: BL -> TR, label horizontal on a filled box */
   s+=`<line class="sqdiag" data-state="stored" x1="${x1+Math.min(bw/2,110)*0.55+30}" y1="${yB-24}" x2="${x2-40}" y2="${yT+22}" stroke="var(--c-user)" stroke-width="2.1" marker-end="url(#sqarrow)"/>`;
   const dcx=(x1+x2)/2+6, dcy=(yT+yB)/2+10;
-  const dlines=["−H•","BDFE(X–H)"+eqop("BDFE")+fx(r.bdfe,1)+" kcal mol⁻¹"].concat(isNaN(r.E)?[]:["E°(H•)"+eqop("E_H2")+fx(r.E,3)+" V vs H⁺/H₂"]);
+  const dlines=["−H•","BDFE(X–H)"+eqop("BDFE")+fx(r.bdfe,1)+" kcal mol⁻¹"].concat(isNaN(r.E)?[]:["E°(V vs H₂)"+eqop("E_H2")+fx(r.E,3)+" V (hydrogenation)"]);
   const dw=180, dh=14*dlines.length+10;
   s+=`<rect x="${dcx-dw/2}" y="${dcy-dh/2}" width="${dw}" height="${dh}" rx="4" fill="var(--surface-1, #fff)" opacity="0.93"/>`;
   s+=`<text x="${dcx}" y="${dcy-dh/2+14}" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--c-user)">`+
@@ -776,7 +790,7 @@ function squareSchemeHTML(r,refSc){
     s+=`</g>`;
   }
   s+=`</svg>`;
-  const hydEq=hydOK?`<div class="eq"><b>Hydricity cycle</b> <span class="src" title="hydricity scale: Wiedner et al., Chem. Rev. 2016 (doi:10.1021/acs.chemrev.6b00168)" style="cursor:help">ⓘ</span>: 1.364 kcal mol⁻¹ × ${pkb!=null?fpk(pkb):"pK\u2090"} + 23.06 kcal mol⁻¹ V⁻¹ × (${fx((r.Ea||0),3)} V + ${fx(r.Ec,3)} V vs ${refSc}) + C<sub>Hyd</sub>(${r.solvent}) ${CHYD[r.solvent].toFixed(1)} kcal mol⁻¹ = <b>${fx(1.364*(pkb!=null?pkb:0)+23.06*((r.Ea||0)+r.Ec)+CHYD[r.solvent],1)} kcal mol⁻¹</b> (published ΔG°(H⁻): ${fx(r.hyd,1)} kcal mol⁻¹)</div>`:"";
+  const hydEq=hydOK?`<div class="eq"><b>Hydricity cycle</b> <span class="src" title="hydricity scale: Wiedner et al., Chem. Rev. 2016 (doi:10.1021/acs.chemrev.6b00168)" style="cursor:help">ⓘ</span>: 1.364 kcal mol⁻¹ × ${pkb!=null?fpk(pkb):"pK\u2090"} + 23.06 kcal mol⁻¹ V⁻¹ × (${fx((r.Ea||0),3)} V + ${fx(r.Ec,3)} V vs ${refSc}) + C<sub>Hyd</sub>(${r.solvent}) ${CHYD[r.solvent].toFixed(1)} kcal mol⁻¹ = <b>${fx(1.364*(pkb!=null?pkb:0)+23.06*((r.Ea||0)+r.Ec)+CHYD[r.solvent],1)} kcal mol⁻¹</b> (published ΔG°(H⁻): ${fx(r.hyd,1)} kcal mol⁻¹)${r.method==="hyd"&&CHYD[r.solvent]!==undefined?`<br>BDFE of this hydricity row = ΔG°(H⁻) − 23.06 kcal mol⁻¹ V⁻¹ × E_c − ${(CHYD[r.solvent]-cg).toFixed(1)} kcal mol⁻¹; the link constant ${(CHYD[r.solvent]-cg).toFixed(1)} kcal mol⁻¹ = C<sub>Hyd</sub> ${CHYD[r.solvent].toFixed(1)} kcal mol⁻¹ − C<sub>G</sub> ${cg.toFixed(1)} kcal mol⁻¹. Wiedner et al. 2016 use C<sub>G</sub> 53.6 kcal mol⁻¹ (link ${(CHYD[r.solvent]-53.6).toFixed(1)} kcal mol⁻¹), so a BDFE published with that set is about 1.0 kcal mol⁻¹ higher than the value stored here.`:""}</div>`:"";
   return `<details open id="sqscheme"><summary>Square scheme${hydOK?" + hydricity cycle":""}</summary>${s}${hydEq}<div class="src">Solid arrow: measured. Dashed arrow: derived from the other legs with the Bordwell equation (Hess-composed stored values count as derived). Potentials in V on the stated reference scale; BDFE and ΔG°(H⁻) in kcal mol⁻¹; C<sub>G</sub>(${r.solvent}) = ${cg.toFixed(1)} kcal mol⁻¹.</div></details>`;
 }
 
@@ -784,7 +798,7 @@ function renderLadder(){
   const svg=document.getElementById("ladder");
   const u=document.getElementById("unit").value;
   const sc0=document.getElementById("scale").value;
-  document.getElementById("ladderHead").innerHTML="Ladder — BDFE ("+unitLbl[u]+") / <i>E</i>°("+(sc0==="H2"?"V vs H₂":"V vs Fc⁺/⁰")+")";
+  document.getElementById("ladderHead").innerHTML="Ladder — BDFE ("+unitLbl[u]+") / <i>E</i>°("+(sc0==="H2"?"V vs H₂":"V vs Fc⁺/⁰; vs SHE for H₂O")+")";
   /* selection mode (>=1 tick): the ladder shows the ticked couples only,
      independent of filters/search; otherwise exactly the filtered view */
   const selMode=ticked.size>0&&!selOff;
@@ -829,6 +843,7 @@ function renderLadder(){
         stroke="${clsColor(r.cls)}" stroke-width="2.5" stroke-linecap="round" opacity="0.8"/>`;
     s+=`<rect class="rung" data-id="${r.id}" x="${mL}" width="${W-mR-mL}" y="${yy-4}" height="8" fill="transparent"/>`;
     /* EP-02: a bounded BDFE carries its operator at the left end of the rung */
+    if(caution(r))s+=`<text class="rung-caution caution" data-id="${r.id}" x="${W-mR-12}" y="${yy-4}" font-size="11"><title>${cautionTxt(r)}</title>⚠</text>`;
     if(bop(r,"BDFE"))s+=`<text class="rung-bound" data-id="${r.id}" data-op="${bop(r,"BDFE")}" x="${mL+1}" y="${yy-4}" font-size="11" font-weight="700" fill="${clsColor(r.cls)}"><title>bounded value: BDFE ${bop(r,"BDFE")} ${fx(r.bdfe,1)} kcal mol⁻¹ (inequality in the source)</title>${bop(r,"BDFE")}</text>`;
   });
   const anchors=["[Ru(tpy)(bpy)H]2+","*Ir(ppy)3","N2/N2H2 (N2+H2\u2192N2H2)","[Co(bpy)2(H2O)H]2+","CO2/CO (CO2+H2\u2192CO+H2O)","[Ni(PR2NR'2)2H]+ ; R = Me, R' = Ph","CpCr(CO)3H","HCo(CO)4","TEMPOH","[VW12O40]3- (VinW12)","O2/H2O (O2+2H2\u21922H2O)","PhOH","tryptophan","NHPI","CH4","thymidine","H2O (HO\u2013H)","HC\u2261C-H (acetylene)"];
@@ -941,7 +956,7 @@ const csvCell=v=>{v=v==null?"":String(v);return /[",\n\r]/.test(v)?'"'+v.replace
 const decOf=v=>{const t=String(v);return t.includes(".")?t.split(".")[1].length:0;};
 function csvHead(u,sc){
   return ["couple_id","entry_id","table","compound","partner","class","display_group","bond","solvent","n_H",
-    "E_H2","E_H2_rel","E_display_"+sc,"E_a","E_a_rel","E_b","E_b_rel","E_c",
+    "E_H2","E_H2_rel","E_display","E_display_scale","E_a","E_a_rel","E_b","E_b_rel","E_c",
     "pKa_a","pKa_a_rel","pKa_b","pKa_b_rel","BDFE","BDFE_rel","BDFE_"+u,"BDFE_pub",
     "sigma_BDFE","sigma_type","hydricity_kcal","E_raw","E_raw_ref","E_raw_leg","E_raw_offset","bounds",
     "method","origin","T_K","conditions","year","flags","recommended","check_outcome","doi","source_doi","refs"];
@@ -949,14 +964,16 @@ function csvHead(u,sc){
 function csvRow(r,u,sc){
   const w=r.raw, rel=f=>REL_ASCII[r.bounds[f]]||"";
   let eDisp="";
+  const off=EH2_VS_FC[r.solvent];
+  const eScale=sc==="H2"?"H2":(r.solvent==="H2O"?"SHE":(off!==undefined?"Fc+/0":"n/a"));  /* EP-05: per-row scale */
   if(w.E_H2!==""){
     if(sc==="H2")eDisp=w.E_H2;
-    else{const off=EH2_VS_FC[r.solvent];if(off!==undefined)eDisp=(r.E+off).toFixed(Math.max(decOf(w.E_H2),decOf(off)));}
+    else if(off!==undefined)eDisp=(r.E+off).toFixed(Math.max(decOf(w.E_H2),decOf(off)));
   }
   const bU=w.BDFE===""?"":(u==="kcal"?w.BDFE:(u==="kJ"?(r.bdfe*4.184).toFixed(2):(r.bdfe/23.06).toFixed(3)));
   const vr=VERIF[r.entryId];
   return [w.couple_id,w.entry_id,w.table,w.compound,w.partner,w.class,r.cls,w.bond,w.solvent,w.n_H,
-    w.E_H2,rel("E_H2"),eDisp,w.E_a,rel("E_a"),w.E_b,rel("E_b"),w.E_c,
+    w.E_H2,rel("E_H2"),eDisp,eScale,w.E_a,rel("E_a"),w.E_b,rel("E_b"),w.E_c,
     w.pKa_a,rel("pKa_a"),w.pKa_b,rel("pKa_b"),w.BDFE,rel("BDFE"),bU,w.BDFE_pub,
     w.sigma_BDFE,w.sigma_type,w.hydricity_kcal,w.E_raw,w.E_raw_ref,w.E_raw_leg,w.E_raw_offset,w.bounds,
     w.method,w.origin,w.T_K,w.conditions,w.year,w.flags,(r.rec||r.nDup===1)?"1":"",vr?vr.check_outcome:"",
@@ -1014,6 +1031,9 @@ async function downloadCSV(){
 }
 
 function init(){
+  /* EP-12: the footer flag legend is generated from FLAG_GLOSS, the single source of the flag list */
+  const fl=document.getElementById("flagLegend");
+  if(fl)fl.innerHTML=Object.keys(FLAG_GLOSS).map(k=>`<i data-flag="${escHTML(k)}">${escHTML(k==="hess"?"hess:<leg>":k==="Ep"?"Ep:<leg>":k)}</i> = ${escHTML(FLAG_GLOSS[k].replace(/^(hess|Ep):<leg> — /,""))}`).join("; ");
   const cc=document.getElementById("classChips");
   cc.innerHTML=CLASSES.map(c=>
     `<span class="chip" data-k="${c.k}"><span class="dot" style="background:${c.color}"></span>${c.label}</span>`).join("");
@@ -1065,7 +1085,7 @@ function init(){
     const COLGLOSS={couple_id:"couple identifier (one per compound/partner/solvent)",entry_id:"stable entry identifier (permalink target)",
       table:"source table in Agarwal 2022 (T5 to T24) or EXT for primary-literature entries",compound:"compound name as in the source",partner:"second reagent for effective pairs",
       class:"granular compound class as stored",display_group:"class chip shown in the Explorer",bond:"bond type (O-H, N-H, C-H, M-H, …)",solvent:"solvent of the stored values",
-      n_H:"number of H atoms transferred (empty = 1)",E_H2:"E°(X/XH) in V vs H₂ in that solvent",E_H2_rel:"bound operator for E_H2 (<, >, <=, >=; empty = value)",
+      n_H:"number of H atoms transferred (empty = 1)",E_display_scale:"scale of E_display for this row: H2 (V vs H₂), Fc+/0, SHE (aqueous rows on the Fc scale) or n/a (no E°(H⁺/H₂) vs Fc⁺⁄⁰ tabulated)",E_H2:"E°(X/XH) in V vs H₂ in that solvent",E_H2_rel:"bound operator for E_H2 (<, >, <=, >=; empty = value)",
       E_a:"E°(X/X⁻) in V (vs Fc⁺⁄⁰; vs SHE in water)",E_b:"E°(XH•⁺/XH) in V (same reference)",E_c:"E°(X⁺/X•) in V (same reference; hydricity leg)",
       pKa_a:"pKa of the oxidized species XH•⁺ (unitless)",pKa_b:"pKa of XH (unitless)",BDFE:"BDFE in kcal/mol as stored",BDFE_pub:"BDFE as published, in kcal/mol",
       sigma_BDFE:"uncertainty of the BDFE in kcal/mol (empty = none available)",sigma_type:"kind of sigma_BDFE: published, curator-estimate or bracket-midpoint",
@@ -1077,7 +1097,7 @@ function init(){
       doi:"DOI of a primary source (empty for review-tabulated rows)",source_doi:"DOI of the cited source (the review for review-tabulated rows)",refs:"citation number(s) inside a review source"};
     const head=csvHead("(unit)","(scale)");
     let g="<table style='font-size:.92em'>"+head.map(c=>{
-      const gl=COLGLOSS[c]||(c==="E_display_(scale)"?"E°(X/XH) in V on the selected display scale (H2: vs H₂; Fc: vs Fc⁺⁄⁰, SHE in water); carries the bound of E_H2":
+      const gl=COLGLOSS[c]||(c==="E_display"?"E°(X/XH) in V on the selected display scale (H2: vs H₂; Fc: vs Fc⁺⁄⁰, SHE in water); carries the bound of E_H2":
         c==="BDFE_(unit)"?"BDFE in the selected energy unit (kcal: as stored; kJ: 2 decimals; eV: 3 decimals); carries the bound of BDFE":
         /_rel$/.test(c)?"bound operator for "+c.slice(0,-4)+" (<, >, <=, >=; empty = value)":"");
       return `<tr><td><code>${c}</code></td><td>${gl}</td></tr>`;}).join("")+"</table>";
@@ -1085,7 +1105,7 @@ function init(){
       Object.entries(CG).map(([s,v])=>`${s} ${v.toFixed(1)}`).join(", ")+
       `; ΔG°f(H•) — `+Object.entries(DGH).map(([s,v])=>`${s} ${v.toFixed(1)}`).join(", ")+
       `; C<sub>Hyd</sub> — `+Object.entries(CHYD).map(([s,v])=>`${s} ${v.toFixed(1)}`).join(", ")+
-      `. Constants: Agarwal et al. 2022, Table 1 (+ correction); hydricity scale: Wiedner et al. 2016.</div>`;
+      `. Constants: Agarwal et al. 2022, Table 1 (supersedes the 2010 values corrected in 10.1021/acs.chemrev.1c00791); hydricity scale: Wiedner et al. 2016.</div>`;
     document.getElementById("csvColsBody").innerHTML=g;
   }
   ["q","solv","bond","orig","unit","scale"].forEach(id=>document.getElementById(id).addEventListener("input",()=>{renderTable();renderLadder();

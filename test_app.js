@@ -521,8 +521,9 @@ if (chips.length) {
 
   // U4: footer stamp names the development state, not the release alone
   const foot = d.querySelector("footer").textContent;
-  T("U4: release build stamp says 'release v1.6' with 547 measurements, no development-state wording",
-    /547 measurements, release v1\.6, data [0-9a-f]{8}/.test(foot) && !/development state/.test(foot),
+  // v1.7 PR C (EP-13): data changed since v1.6, so the stamp names the development state with data and code hashes
+  T("U4: build stamp names the development state after v1.6 with data and code hashes",
+    /547 measurements — development state after v1\.6 \(release v1\.6: 547 measurements, doi:10\.5281\/zenodo\.24293136\), data [0-9a-f]{8}, code [0-9a-f]{8}/.test(foot) && !/release v1\.6, data/.test(foot),
     (foot.match(/Data version[^—]*—[^(]*/) || [""])[0]);
 
   // U19: no "flag — flag" tautology in the flag legend
@@ -611,7 +612,7 @@ if (chips.length) {
   const plainPka = [];
   while (walker.nextNode()) {
     const v = walker.currentNode.nodeValue;
-    if (/pKa/.test(v) && !/sim-pKa|hess:pKa/.test(v)) {
+    if (/pKa/.test(v) && !/sim-pKa|hess:pKa|est-pKa|avg-pKa/.test(v)) {
       const el = walker.currentNode.parentElement;
       if (el && !el.closest("#csvColsBody") && !el.closest("script,style")) plainPka.push(v.trim().slice(0, 40));
     }
@@ -682,7 +683,7 @@ if (chips.length) {
   let badNum = [], nRows = {};
   for (const scope of ["all", "rec"]) for (const sc of ["H2", "Fc"]) for (const u of ["kcal", "kJ"]) {
     const rows = exportAs(scope, sc, u); nRows[scope] = rows.length;
-    const cols = NUMC.concat(["E_display_" + sc, "BDFE_" + u]);
+    const cols = NUMC.concat(["E_display", "BDFE_" + u]);
     rows.forEach(r => cols.forEach(c => {
       const v = r[c];
       if (v === undefined) badNum.push(scope + "/" + sc + "/" + u + " missing column " + c);
@@ -761,7 +762,7 @@ if (chips.length) {
   T("EP-03: the 2e-wave caveat appears on all four Pitman rows (0504, 0505, 0508, 0509)",
     ["BDFE-0504", "BDFE-0505", "BDFE-0508", "BDFE-0509"].every(e => /two-electron wave/.test(det(e))));
   T("EP-03: est-pKa on BDFE-0025, 0036, 0047, 0049, glossed in the panel",
-    ["BDFE-0025", "BDFE-0036", "BDFE-0047", "BDFE-0049"].every(e => /est-pKa — pKa estimated or extrapolated/.test(det(e))));
+    ["BDFE-0025", "BDFE-0036", "BDFE-0047", "BDFE-0049"].every(e => /est-pKa — pKₐ estimated or extrapolated/.test(det(e))));
   // every flag used in data.csv has a gloss (the panel falls back to the bare name otherwise)
   const bases = [...new Set(DATA.flatMap(r => r.flags.split(";").filter(Boolean).map(f => f.split(":")[0])))];
   const unglossed = bases.filter(b => { const r = DATA.find(x => x.flags.split(";").some(f => f.split(":")[0] === b));
@@ -775,6 +776,56 @@ if (chips.length) {
   const hits = [...ws.document.querySelectorAll("#tbl tbody tr")].map(t => t.dataset.id);
   T("EP-08: renamed BDFE-0133/0134 still found by their old label (alias)",
     hits.includes(String(idOf("BDFE-0133"))) && hits.includes(String(idOf("BDFE-0134"))), hits.join(","));
+}
+
+// ---------- 6p. v1.7 PR C: text, conventions, glossary, release hygiene (EP-04, EP-05, EP-12, EP-13) ----------
+{
+  const path = require("path");
+  const root = path.dirname(path.resolve(file));
+  const DATA = newDom().window.parseCSV(fs.readFileSync(path.join(root, "data", "data.csv"), "utf-8"));
+  const idOf = eid => DATA.findIndex(r => r.entry_id === eid);
+  const d0 = newDom().window.document;
+  // M-55: hess:<leg> renders literally
+  const p90 = newDom({ hash: "#BDFE-0090" }).window.document.getElementById("detail").textContent;
+  T("EP-12 (M-55): flag gloss renders 'hess:<leg>' literally in panel and footer legend",
+    /hess:<leg>/.test(p90) && /hess:<leg>/.test((d0.getElementById("flagLegend") || {}).textContent));
+  // single flag list: footer legend (from FLAG_GLOSS) = README flag list
+  const legend = new Set([...d0.querySelectorAll("#flagLegend i[data-flag]")].map(x => x.dataset.flag));
+  const readme = fs.readFileSync(path.join(root, "README.md"), "utf-8");
+  const para = readme.slice(readme.indexOf("\nFlags: "), readme.indexOf("### Verification ledger"));
+  const rset = new Set([...para.matchAll(/`([^`]+)`/g)].flatMap(m => m[1].split("/")).map(t => t.replace(/:<leg>$/, ""))
+    .filter(t => !["bounds", "T_K", "conditions"].includes(t)));
+  const diff = [...legend].filter(k => !rset.has(k)).concat([...rset].filter(k => !legend.has(k)));
+  T("EP-12: footer flag legend (= FLAG_GLOSS keys) equals the README flag list", legend.size > 20 && diff.length === 0, diff.join(","));
+  // conventions box
+  const conv = d0.getElementById("conventions");
+  T("EP-05 (M-09): Conventions box names pH 0, 1 atm and 1 M", !!conv && ["pH 0", "1 atm", "1 M"].every(w => conv.textContent.includes(w)));
+  // Fc display
+  const wf = newDom().window, df = wf.document;
+  df.getElementById("scale").value = "Fc"; df.getElementById("scale").dispatchEvent(new wf.Event("input"));
+  df.getElementById("q").value = "NADH"; df.getElementById("q").dispatchEvent(new wf.Event("input"));
+  const trN = df.querySelector(`#tbl tbody tr[data-id="${idOf("BDFE-0368")}"]`);
+  T("EP-05 (M-08): on the Fc scale the NADH•+ (H2O) cell carries a SHE tag and the header names both scales",
+    !!trN && /−1\.130\s*SHE/.test(trN.querySelectorAll("td.num")[0].textContent) && /vs Fc⁺\/⁰; vs SHE for H₂O/.test(df.getElementById("eHead").textContent),
+    trN ? trN.querySelectorAll("td.num")[0].textContent : "row not shown");
+  const scal = (() => { const w = newDom().window; w.document.getElementById("csvScope").value = "all"; w.document.getElementById("scale").value = "Fc"; return w.parseCSV(w.csvText()); })();
+  T("EP-05: CSV E_display_scale filled on 547 of 547 rows (Fc scale; SHE for H2O, n/a without offset)",
+    scal.length === 547 && scal.every(r => ["Fc+/0", "SHE", "n/a"].includes(r.E_display_scale)) && scal.find(r => r.entry_id === "BDFE-0368").E_display_scale === "SHE");
+  // curation statement number = data
+  const nLegless = DATA.filter(r => !["E_a", "E_b", "E_c", "pKa_a", "pKa_b"].some(k => r[k])).length;
+  T("EP-04 (M-07): footer curation statement names the legless count from the data", (d0.getElementById("nLegless") || {}).textContent === String(nLegless) && /copy-consistency/.test(d0.getElementById("curation").textContent), nLegless + " vs " + (d0.getElementById("nLegless") || {}).textContent);
+  // caution glyph on BDFE-0492
+  const tr92 = d0.querySelector(`#tbl tbody tr[data-id="${idOf("BDFE-0492")}"]`);
+  T("EP-12 (M-50): BDFE-0492 carries the caution glyph in the table and on the ladder",
+    !!tr92 && !!tr92.querySelector(".caution") && !!d0.querySelector(`#ladder .rung-caution[data-id="${idOf("BDFE-0492")}"]`));
+  // mean-of-2 pKa marker
+  const tr414 = d0.querySelector(`#tbl tbody tr[data-id="${idOf("BDFE-0414")}"]`);
+  T("EP-12 (M-49): PW12 2e/2H+ row pKa cell says 'mean of 2'", !!tr414 && /mean of 2/.test(tr414.querySelectorAll("td.num")[1].textContent));
+  // hydricity link constant
+  const h434 = newDom({ hash: "#BDFE-0434" }).window.document.getElementById("detail").textContent;
+  T("EP-12 (M-34): hydricity row names the link constant 27.0 kcal/mol = C_Hyd 79.6 − C_G 52.6", /link constant 27\.0 kcal mol⁻¹ = CHyd 79\.6 kcal mol⁻¹ − CG 52\.6/.test(h434));
+  // correction citation (M-31)
+  T("EP-13 (M-31): no text calls 1c00791 a correction of Agarwal 2022", !/consistent with the correction/.test(fs.readFileSync(path.join(root, "template.html"), "utf-8")) && !/Correction cr1c00791,/.test(fs.readFileSync(path.join(root, "data", "constants.csv"), "utf-8")));
 }
 
 // ---------- 6l. pKa at stored precision (review-manuscript-v1.6 B1) ----------

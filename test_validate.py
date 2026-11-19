@@ -12,6 +12,7 @@ def run_case(name, mutate, expect_fail, msg=None, nomsg=None):
     for f in ("data.csv", "couples.csv", "constants.csv", "provenance_batches.csv", "provenance_overrides.csv"):
         shutil.copy(os.path.join(HERE, "data", f), os.path.join(tmp, "data", f))
     shutil.copy(os.path.join(HERE, "validate.py"), tmp)
+    shutil.copy(os.path.join(HERE, "README.md"), tmp)
     mutate(tmp)
     pr = subprocess.run([sys.executable, os.path.join(tmp, "validate.py")],
                         capture_output=True, text=True)
@@ -141,6 +142,10 @@ def main():
          lambda t: None, False, r"not informative[^\n]*: 3\n\s+BDFE-0093 eq18"),
         ("a one-sided bound is tested as an inequality and a violation is reported (review-pr-79 F1)",
          _set("BDFE-0458", bounds="E_a≥;E_H2≥", BDFE="58.0"), False, r"BDFE-0458 eq18 calc - stored <= 0: [+]\d\.\d\d kcal/mol ok|BDFE-0458 eq10 E_a/pKa_b calc - stored <= 0: -\d\.\d\d kcal/mol ok"),
+        ("README curation number that does not match the data fails (EP-04, M-07)",
+         lambda t: open(os.path.join(t, "README.md"), "w", encoding="utf-8").write(
+             open(os.path.join(HERE, "README.md"), encoding="utf-8").read().replace("for 203 entries", "for 202 entries")),
+         True, r"README.md: curation statement says 202 entries without stored legs; data.csv has 203"),
         ("a one-sided bound violated beyond threshold is listed (soft, limit excuses) (review-pr-79 F1)",
          _set("BDFE-0458", bounds="E_a≥;E_H2≥", BDFE="54.0"), False, r"BDFE-0458 eq10 E_a/pKa_b calc - stored <= 0: \+1\.\d\d kcal/mol VIOLATED"),
     ]

@@ -163,6 +163,21 @@ def numeric_errors(rows):
             errors.append(f"data.csv {r.get('entry_id','?')}: BDFE empty or non-numeric ('{r.get('BDFE','')}') and not flagged ref-conv-missing")
     return errors
 
+def readme_errors(rows):
+    """EP-04 (M-07): the README curation statement names the number of entries that
+    store no E or pKa leg; it must match the data."""
+    n = sum(1 for r in rows if not any(r.get(k) for k in ("E_a", "E_b", "E_c", "pKa_a", "pKa_b")))
+    try:
+        txt = open(os.path.join(HERE, "README.md"), encoding="utf-8").read()
+    except OSError:
+        return []
+    m = re.search(r"for (\d+) entries the source tabulates only", txt)
+    if not m:
+        return ["README.md: curation statement ('for N entries the source tabulates only ...') not found"]
+    if int(m.group(1)) != n:
+        return [f"README.md: curation statement says {m.group(1)} entries without stored legs; data.csv has {n}"]
+    return []
+
 def schema_errors(rows, eh2, refoff):
     """EP-01 (E_raw_leg, ref-conv), EP-02 (bounds), EP-10 (sigma_type).
     Assumes numeric_errors() passed."""
@@ -390,7 +405,7 @@ def main():
     # H123: numeric parse and schema checks run before any closure arithmetic
     pre = numeric_errors(rows)
     if not pre:
-        pre = schema_errors(rows, eh2, refoff)
+        pre = schema_errors(rows, eh2, refoff) + readme_errors(rows)
     if pre:
         print("--- structural checks (hard) ---")
         print(f"HARD ERRORS: {len(pre)}")

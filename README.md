@@ -21,8 +21,12 @@ hydrogenation. Everything else is computed:
 
 Constants (ΔG°f(H•), CG, reference-electrode offsets) live in `data/constants.csv`,
 each with its literature citation and uncertainty. Values follow Agarwal et al.,
-*Chem. Rev.* 2022, 122, 1 (doi:10.1021/acs.chemrev.1c00521) and the correction
+*Chem. Rev.* 2022, 122, 1 (doi:10.1021/acs.chemrev.1c00521), which supersede the
+constants of the 2010 review (Warren, Tronic, Mayer, *Chem. Rev.* 2010) corrected in
 doi:10.1021/acs.chemrev.1c00791; pre-correction (2010) constants are never used.
+Standard states and scales (298 K; 1 atm H2(g); 1 M solutes incl. H+ and H•; aqueous
+potentials vs SHE at pH 0; organic potentials vs Fc+/0) are summarised in the
+Explorer's "Conventions" box and in the `standard_state` column of `constants.csv`.
 
 ### `data/data.csv` — one row per entry
 
@@ -79,7 +83,10 @@ for n_H = 1 the mean of both closing square-scheme diagonals), `derived-E`
 `avg-pKa` (pKa averaged over two determinations, Agarwal 2022 Table 18 fn b, c),
 `mixed-CH-NH`, `derived`, `assumed-dGfH`, `ref-conv` (reference-electrode conversion
 applied), `ref-conv-missing` (no verified offset on file; no BDFE computed),
-`check-src` (internal inconsistency in the source, detected by validation).
+`check-src` (internal inconsistency in the source, detected by validation), `sim-pKa`
+(pKa from digital CV simulation), `mixed-solvent` (measured in a mixed solvent,
+assigned to the principal solvent). This list equals the Explorer's flag glossary
+(the footer legend is generated from it; a test checks that the sets agree).
 
 ### Verification ledger
 
@@ -115,9 +122,12 @@ restate it.
 
 PCETbase entries are extracted from the published literature (critical reviews and
 primary papers), working from the papers’ tables, text and supporting information.
-Each entry stores the primary measurables (potentials with their reference
-electrode, pKa values); BDFEs are recomputed from these with one consistent
-constant set rather than copied. Every stored value is run through automatic
+Where the source gives potentials and pKa values, they are stored (potentials with
+their reference electrode) and the BDFE is recomputed from them with one consistent
+constant set; for 203 entries the source tabulates only E°(V vs H2) and the BDFE,
+and their check is a consistency check of the copied values ("copy-consistency" in
+the verification record). (The number is the count of rows with no stored E or pKa
+leg; validate.py checks that this sentence matches the data.) Every stored value is run through automatic
 thermochemical closure checks (Bordwell equation, H-atom potential, hydricity
 cycle where applicable) and a structural validation suite; the same checks gate
 every change through continuous integration, so a value that does not close

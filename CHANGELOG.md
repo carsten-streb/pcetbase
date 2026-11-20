@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.7 — 2026-11-19 (submission release; version DOI minted on Zenodo after archiving)
+## v1.7 — 2026-11-20 (submission release; version DOI minted on Zenodo after archiving)
 
 547 measurements / 531 couples (unchanged from v1.6). Schema additions: `E_raw_leg`, `E_raw_offset`, `bounds`, `sigma_type` (data.csv), `standard_state` (constants.csv). Corrections to v1.6 values and labels are listed in "Corrections to the v1.6 archive" below. Manuscript figures: `figures/manuscript-v1.7/`.
 
@@ -11,6 +11,8 @@
 - jsdom harness: pages are closed between test sections and the event loop yields, keeping the suite below the CI heap limit (a CI run had failed with "JavaScript heap out of memory" at about 4 GB); no assertion changed.
 - U4 test asserts the release stamp; release figure set (`figures/`) re-rendered with watermark v1.7; manuscript set `figures/manuscript-v1.7/` (no footer) with its README.
 - This section and the H154 section supersede the PR B notes on the constants (review-pr-80 N1).
+- Release metadata fixed after review (review-pr-83 B1/B2): `.zenodo.json` parses again (typographic quotes in the description); CITATION.cff carries the concept DOI 10.5281/zenodo.24121910 until the v1.7 version DOI exists; date-released 2026-11-20.
+- New CI step `check_release.py --strict` (board H159): `.zenodo.json` must parse; CITATION.cff must pass `cffconvert --validate`; its top-level doi may be only the concept DOI or the DOI in build.py RELEASE, never an earlier version DOI; the version string must agree across CITATION.cff, `.zenodo.json`, RELEASE, the footer stamp and the newest CHANGELOG version heading; a row with a primary DOI inside a review batch of the verification ledger fails unless listed (eight rows whose doi attributes a review-table value). `test_release.py`: 15 mutation cases, five of them the historical review blockers. build.py runs the same check without the cffconvert step.
 - Explorer footer: removed the sentence "POM-cluster data include work of the Matson group (polyoxovanadate-alkoxides)" (Carsten 2026-11-20); release code hash updated accordingly.
 
 ### Expert-panel hotfix EP-00 (M-01, board H139)
@@ -44,10 +46,11 @@
 - **EP-08** (H154): wrong or incomplete compound labels in v1.6: BDFE-0105 is [VIV(O)(OH)(tBu2bpy)2]+ (listed by Agarwal 2022 as (bpy)2VV(O)(OH)+); BDFE-0143 (Me6cyclam)Rh(HO)(OOH) is 1+, not 2+; BDFE-0164 is [V6O7(OH)(OMe)11]2−; BDFE-0412 carries a MeCN ligand. Stored values unchanged.
 - **EP-08** (H154, conditions): the v1.6 conditions of BDFE-0388 ("THF-d8, 1H NMR") and BDFE-0412 ("equilibration vs H2NQ") named the wrong solvent, method or reagent; corrected from the primaries.
 - **review-pr-79 O1** (H154): the σ of BDFE-0524 (2 kcal/mol) is a curator estimate; no source states it.
+- **M-05** (PR B, addition, not a corrected value): BDFE-0026 now stores its E_a leg (−0.674 V vs Fc+/0, flagged `Ep:E_a` as a peak potential), which v1.6 left empty (review-pr-83 N2).
 
 ### v1.7 H154: names, charges and conditions from the sources (CR-2026-11-18-expert-panel EP-08, EP-03, EP-04; review-pr-79 O1)
 - Page-checked against the primaries (Lit folder; two by abstract), old labels kept as aliases, couple IDs and stored values unchanged:
-  - BDFE-0105 → [VIV(O)(OH)(tBu2bpy)2]+ with the primary DOI 10.1021/ja808698x (Waidmann 2009, abstract p. 4729: VO–H BDFE 70.6 ± 1.2 kcal/mol).
+  - BDFE-0105 → [VIV(O)(OH)(tBu2bpy)2]+ with the primary DOI 10.1021/ja808698x (Waidmann et al., J. Am. Chem. Soc. 2009, 131, 4729; full text checked at review sync 65 (PMC2735118): VO–H BDFE 70.6 ± 1.2 kcal/mol).
   - BDFE-0143 → (Me6cyclam)Rh(HO)(OOH)+ (Szajna-Fuller and Bakac 2007, abstract p. 10907); BDFE-0144 keeps 2+ (note added).
   - BDFE-0164 → [V6O7(OH)(OMe)11]2− (Chem. Sci. 2023, 14, 1386, p. 1390; H136 nit f).
   - BDFE-0412 → [V6O5(MeCN)(OH2)(OCH3)12]0; conditions: hydrazobenzene (60.4 kcal/mol), THF-d8, 15 days (Inorg. Chem. Front. 2023, 10, 2754, p. 2757).

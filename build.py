@@ -216,6 +216,10 @@ def main():
               .replace("__N_LEGLESS_BOUND__", str(n_legless_bound)))
     open(os.path.join(HERE, "index.html"), "w", encoding="utf-8").write(out)
     print(f"wrote index.html ({len(out)//1024} kB)")
+    # H159 (CR-2026-11-20-automated-review-loop): release metadata + ledger check on the
+    # written page; CI runs the same script with --strict (adds the cffconvert schema check)
+    if subprocess.run([sys.executable, os.path.join(HERE, "check_release.py")]).returncode:
+        sys.exit("build aborted: release metadata / ledger check failed (see above)")
 
 if __name__ == "__main__":
     main()

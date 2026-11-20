@@ -176,6 +176,13 @@ def readme_errors(rows):
         return ["README.md: curation statement ('for N entries the source tabulates only ...') not found"]
     if int(m.group(1)) != n:
         return [f"README.md: curation statement says {m.group(1)} entries without stored legs; data.csv has {n}"]
+    # review-pr-81 N1: the split into value rows (copy-consistency) and bound-only rows
+    nb = sum(1 for r in rows if not any(r.get(k) for k in ("E_a", "E_b", "E_c", "pKa_a", "pKa_b")) and r.get("bounds"))
+    m2 = re.search(r"for the (\d+) of them stored as values.*?and (\d+) entr(?:y|ies) stores? bounds", txt, re.S)
+    if not m2:
+        return ["README.md: curation statement split ('for the N of them stored as values ... and M entries store bounds') not found"]
+    if (int(m2.group(1)), int(m2.group(2))) != (n - nb, nb):
+        return [f"README.md: curation statement split says {m2.group(1)} value rows / {m2.group(2)} bound rows; data.csv has {n - nb} / {nb}"]
     return []
 
 def schema_errors(rows, eh2, refoff):

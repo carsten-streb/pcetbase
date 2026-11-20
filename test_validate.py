@@ -146,6 +146,10 @@ def main():
          lambda t: open(os.path.join(t, "README.md"), "w", encoding="utf-8").write(
              open(os.path.join(HERE, "README.md"), encoding="utf-8").read().replace("for 203 entries", "for 202 entries")),
          True, r"README.md: curation statement says 202 entries without stored legs; data.csv has 203"),
+        ("README value/bound split that does not match the data fails (review-pr-81 N1)",
+         lambda t: open(os.path.join(t, "README.md"), "w", encoding="utf-8").write(
+             open(os.path.join(HERE, "README.md"), encoding="utf-8").read().replace("for the 202 of them", "for the 203 of them")),
+         True, r"README.md: curation statement split says 203 value rows / 1 bound rows; data.csv has 202 / 1"),
         ("a one-sided bound violated beyond threshold is listed (soft, limit excuses) (review-pr-79 F1)",
          _set("BDFE-0458", bounds="E_a≥;E_H2≥", BDFE="54.0"), False, r"BDFE-0458 eq10 E_a/pKa_b calc - stored <= 0: \+1\.\d\d kcal/mol VIOLATED"),
     ]

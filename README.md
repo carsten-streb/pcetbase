@@ -124,10 +124,12 @@ PCETbase entries are extracted from the published literature (critical reviews a
 primary papers), working from the papers’ tables, text and supporting information.
 Where the source gives potentials and pKa values, they are stored (potentials with
 their reference electrode) and the BDFE is recomputed from them with one consistent
-constant set; for 203 entries the source tabulates only E°(V vs H2) and the BDFE,
-and their check is a consistency check of the copied values ("copy-consistency" in
-the verification record). (The number is the count of rows with no stored E or pKa
-leg; validate.py checks that this sentence matches the data.) Every stored value is run through automatic
+constant set; for 203 entries the source tabulates only E°(V vs H2) and the BDFE;
+for the 202 of them stored as values their check is a consistency check of the copied
+values ("copy-consistency" in the verification record), and 1 entry stores bounds
+only, which allow no closure check. (The numbers count rows with no stored E or pKa
+leg, and those among them with bounds; validate.py checks that this sentence matches
+the data.) Every stored value is run through automatic
 thermochemical closure checks (Bordwell equation, H-atom potential, hydricity
 cycle where applicable) and a structural validation suite; the same checks gate
 every change through continuous integration, so a value that does not close
@@ -165,7 +167,7 @@ will be asked for sources.
 ## License and citation
 
 Data and code: **CC BY 4.0** (see `LICENSE`). Cite via `CITATION.cff`; archived releases receive DOIs via Zenodo
-(this release v1.6: [doi:10.5281/zenodo.24293136](https://doi.org/10.5281/zenodo.24293136); all versions: [doi:10.5281/zenodo.24121910](https://doi.org/10.5281/zenodo.24121910)). If you use individual values, please also cite the
+(this release: v1.7, version DOI minted on Zenodo after archiving; previous release v1.6: [doi:10.5281/zenodo.24293136](https://doi.org/10.5281/zenodo.24293136); all versions: [doi:10.5281/zenodo.24121910](https://doi.org/10.5281/zenodo.24121910)). If you use individual values, please also cite the
 primary source given in the entry (`doi` column or the review reference number).
 
 ## Funding

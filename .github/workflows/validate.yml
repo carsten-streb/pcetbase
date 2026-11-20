@@ -21,6 +21,11 @@ jobs:
         run: python test_autorecommend.py
       - name: Mutation tests (validate.py hard gate)
         run: python test_validate.py
+      - name: Release metadata + ledger check (H159; .zenodo.json, CITATION.cff, version strings, review batches)
+        run: |
+          pip install cffconvert==2.0.0
+          python check_release.py --strict
+          python test_release.py
       - name: Rebuild and check committed artifacts are current
         run: |
           python build.py

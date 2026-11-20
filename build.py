@@ -190,7 +190,7 @@ def main():
     # not on version + row count; code SHAs cannot be embedded reproducibly (CI
     # rebuilds on a merge commit), so the code is identified by its content hash.
     RELEASE = {"version": "1.7", "measurements": 547, "doi": "minted on Zenodo after archiving",  # DOI-reference PR fills the DOI
-               "data_hash": "3afe3771", "code_hash": "4d4a8bfd"}
+               "data_hash": "3afe3771", "code_hash": "79fa3ea6"}
     n_rows = data.count("\n") - 1
     m = _re.search(r'version: "([^"]+)"', open(os.path.join(HERE, "CITATION.cff"), encoding="utf-8").read())
     ver = m.group(1) if m else "?"

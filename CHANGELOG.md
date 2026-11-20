@@ -11,6 +11,7 @@
 - jsdom harness: pages are closed between test sections and the event loop yields, keeping the suite below the CI heap limit (a CI run had failed with "JavaScript heap out of memory" at about 4 GB); no assertion changed.
 - U4 test asserts the release stamp; release figure set (`figures/`) re-rendered with watermark v1.7; manuscript set `figures/manuscript-v1.7/` (no footer) with its README.
 - This section and the H154 section supersede the PR B notes on the constants (review-pr-80 N1).
+- Explorer footer: removed the sentence "POM-cluster data include work of the Matson group (polyoxovanadate-alkoxides)" (Carsten 2026-11-20); release code hash updated accordingly.
 
 ### Expert-panel hotfix EP-00 (M-01, board H139)
 - Explorer: a converted raw potential is no longer copied into E°(X/X−) when that

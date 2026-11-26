@@ -20,6 +20,16 @@ def sub(rel, old, new, count=1):
     return f
 
 
+def sub_re(rel, pattern, new):
+    def f(t):
+        p = os.path.join(t, rel)
+        s = open(p, encoding="utf-8").read()
+        s2, n = re.subn(pattern, new, s, count=1, flags=re.M)
+        assert n == 1, f"mutation pattern not found in {rel}: {pattern}"
+        open(p, "w", encoding="utf-8").write(s2)
+    return f
+
+
 def set_doi(eid, doi):
     def f(t):
         import csv
@@ -79,7 +89,7 @@ def main():
          set_doi("BDFE-0001", "10.1021/ja1047818"),
          True, r"ledger: BDFE-0001 has primary doi"),
         ("CITATION.cff that fails the CFF schema fails (cffconvert)",
-         sub("CITATION.cff", 'date-released: "2026-11-20"', 'date-released: "20 November 2026"'),
+         sub_re("CITATION.cff", r'^date-released: "[^"]*"', 'date-released: "20 November 2026"'),
          True, r"CITATION\.cff fails cffconvert --validate"),
         ("version mismatch .zenodo.json 1.6 vs 1.7 fails",
          sub(".zenodo.json", '"version": "1.7"', '"version": "1.6"'),

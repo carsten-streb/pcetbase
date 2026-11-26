@@ -189,8 +189,8 @@ def main():
     # EP-13 (M-58): the stamp keys on the data hash and a code hash (template.html),
     # not on version + row count; code SHAs cannot be embedded reproducibly (CI
     # rebuilds on a merge commit), so the code is identified by its content hash.
-    RELEASE = {"version": "1.7", "measurements": 547, "doi": "minted on Zenodo after archiving",  # DOI-reference PR fills the DOI
-               "data_hash": "3afe3771", "code_hash": "79fa3ea6"}
+    RELEASE = {"version": "1.7", "measurements": 547, "doi": "10.5281/zenodo.24563718",
+               "data_hash": "3afe3771", "code_hash": "3cd79c36"}
     n_rows = data.count("\n") - 1
     m = _re.search(r'version: "([^"]+)"', open(os.path.join(HERE, "CITATION.cff"), encoding="utf-8").read())
     ver = m.group(1) if m else "?"

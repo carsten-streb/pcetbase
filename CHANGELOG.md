@@ -1,6 +1,12 @@
 # Changelog
 
-## v1.7 — 2026-11-26 (submission release; version DOI minted on Zenodo after archiving)
+## Unreleased (toward v1.8)
+
+### v1.7 DOI references (board H150 step C)
+- Version DOI 10.5281/zenodo.24563718 (Zenodo, 2026-11-26) in the footer citation line, README, CITATION.cff (top-level doi; `identifiers` lists the concept and the version DOI), `figures/manuscript-v1.7/README.md` and the build.py RELEASE stamp; release code hash updated for the footer change; tag v1.7 @ 9da7637. No data change; figures unchanged (they carry no DOI).
+- `check_release.py` check 3 (review-pr-83 N7, board H162 a): a version DOI from the DOI chain is accepted only for its own version, also when it sits in build.py RELEASE; RELEASE doi itself is checked the same way. The v1.7 DOI joins the chain. `test_release.py`: 18 cases.
+
+## v1.7 — 2026-11-26 (submission release; doi:10.5281/zenodo.24563718)
 
 547 measurements / 531 couples (unchanged from v1.6). Schema additions: `E_raw_leg`, `E_raw_offset`, `bounds`, `sigma_type` (data.csv), `standard_state` (constants.csv). Corrections to v1.6 values and labels are listed in "Corrections to the v1.6 archive" below. Manuscript figures: `figures/manuscript-v1.7/`.
 

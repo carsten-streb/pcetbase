@@ -10,11 +10,14 @@ authors:
 repository-code: "https://github.com/carsten-streb/pcetbase"
 url: "https://carsten-streb.github.io/pcetbase/"
 license: CC-BY-4.0
-doi: 10.5281/zenodo.24121910
+doi: 10.5281/zenodo.24563718
 identifiers:
   - type: doi
     value: 10.5281/zenodo.24121910
     description: "Concept DOI - resolves to the latest version"
+  - type: doi
+    value: 10.5281/zenodo.24563718
+    description: "Version DOI of release v1.7"
 version: "1.7"
 date-released: "2026-11-26"
 keywords:

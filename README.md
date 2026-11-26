@@ -167,7 +167,7 @@ will be asked for sources.
 ## License and citation
 
 Data and code: **CC BY 4.0** (see `LICENSE`). Cite via `CITATION.cff`; archived releases receive DOIs via Zenodo
-(this release: v1.7, version DOI minted on Zenodo after archiving; previous release v1.6: [doi:10.5281/zenodo.24293136](https://doi.org/10.5281/zenodo.24293136); all versions: [doi:10.5281/zenodo.24121910](https://doi.org/10.5281/zenodo.24121910)). If you use individual values, please also cite the
+(this release v1.7: [doi:10.5281/zenodo.24563718](https://doi.org/10.5281/zenodo.24563718); previous release v1.6: [doi:10.5281/zenodo.24293136](https://doi.org/10.5281/zenodo.24293136); all versions: [doi:10.5281/zenodo.24121910](https://doi.org/10.5281/zenodo.24121910)). If you use individual values, please also cite the
 primary source given in the entry (`doi` column or the review reference number).
 
 ## Funding

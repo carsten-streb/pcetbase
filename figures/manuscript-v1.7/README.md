@@ -1,7 +1,7 @@
 # Manuscript figures (data: release v1.7)
 
-Data basis: release v1.7 (547 measurements / 531 couples; version DOI minted on Zenodo
-after archiving; the DOI-reference PR adds it here). Rendered in the release prep PR
+Data basis: release v1.7 (tag v1.7 @ 9da7637, doi:10.5281/zenodo.24563718;
+547 measurements / 531 couples). Rendered in the release prep PR
 (board H150) from the release content with
 `PCETBASE_FIG_FOOTER=0 python scripts/figures/render_all.py`; the release figure set in
 `figures/` is the same render with the provenance footer (watermark v1.7).

@@ -545,9 +545,9 @@ if (chips.length) {
   T("U4: build stamp names release v1.7 with its data hash (data and code equal the release)",
     /547 measurements, release v1\.7, data [0-9a-f]{8}/.test(foot) && !/development state/.test(foot),
     (foot.match(/Data version[^—]*—[^(]*/) || [""])[0]);
-  T("review-pr-81 N1/N3: curation split 202 value rows / 1 bound row; footer cites v1.6 as the previous release",
+  T("review-pr-81 N1/N3: curation split 202 value rows / 1 bound row; footer cites the v1.7 version DOI and v1.6 as the previous release",
     d.getElementById("nLeglessVal").textContent === "202" && d.getElementById("nLeglessBound").textContent === "1"
-    && /this release v1\.7: version DOI minted on Zenodo after archiving; previous release v1\.6/.test(foot));
+    && /this release v1\.7: doi:10\.5281\/zenodo\.24563718; previous release v1\.6/.test(foot));
 
   // U19: no "flag — flag" tautology in the flag legend
   const detD = newDom({ hash: "#BDFE-0406" }).window.document.getElementById("detail").textContent;

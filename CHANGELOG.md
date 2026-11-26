@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.7 — 2026-11-20 (submission release; version DOI minted on Zenodo after archiving)
+## v1.7 — 2026-11-26 (submission release; version DOI minted on Zenodo after archiving)
 
 547 measurements / 531 couples (unchanged from v1.6). Schema additions: `E_raw_leg`, `E_raw_offset`, `bounds`, `sigma_type` (data.csv), `standard_state` (constants.csv). Corrections to v1.6 values and labels are listed in "Corrections to the v1.6 archive" below. Manuscript figures: `figures/manuscript-v1.7/`.
 
@@ -11,8 +11,9 @@
 - jsdom harness: pages are closed between test sections and the event loop yields, keeping the suite below the CI heap limit (a CI run had failed with "JavaScript heap out of memory" at about 4 GB); no assertion changed.
 - U4 test asserts the release stamp; release figure set (`figures/`) re-rendered with watermark v1.7; manuscript set `figures/manuscript-v1.7/` (no footer) with its README.
 - This section and the H154 section supersede the PR B notes on the constants (review-pr-80 N1).
-- Release metadata fixed after review (review-pr-83 B1/B2): `.zenodo.json` parses again (typographic quotes in the description); CITATION.cff carries the concept DOI 10.5281/zenodo.24121910 until the v1.7 version DOI exists; date-released 2026-11-20.
+- Release metadata fixed after review (review-pr-83 B1/B2): `.zenodo.json` parses again (typographic quotes in the description); CITATION.cff carries the concept DOI 10.5281/zenodo.24121910 until the v1.7 version DOI exists; date-released set to the tag date.
 - New CI step `check_release.py --strict` (board H159): `.zenodo.json` must parse; CITATION.cff must pass `cffconvert --validate`; its top-level doi may be only the concept DOI or the DOI in build.py RELEASE, never an earlier version DOI; the version string must agree across CITATION.cff, `.zenodo.json`, RELEASE, the footer stamp and the newest CHANGELOG version heading; a row with a primary DOI inside a review batch of the verification ledger fails unless listed (eight rows whose doi attributes a review-table value). `test_release.py`: 15 mutation cases, five of them the historical review blockers. build.py runs the same check without the cffconvert step.
+- Release date 2026-11-26 (tag date; CITATION.cff date-released and this heading moved from 2026-11-20, board H150 step A).
 - Explorer footer: removed the sentence "POM-cluster data include work of the Matson group (polyoxovanadate-alkoxides)" (Carsten 2026-11-20); release code hash updated accordingly.
 
 ### Expert-panel hotfix EP-00 (M-01, board H139)
